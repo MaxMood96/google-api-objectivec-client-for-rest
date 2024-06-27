@@ -73,6 +73,7 @@ NSString * const kGTLRChecksService_GoogleChecksReportV1alphaCheck_Type_PrivacyP
 NSString * const kGTLRChecksService_GoogleChecksReportV1alphaCheck_Type_PrivacyPolicyDataTypePii = @"PRIVACY_POLICY_DATA_TYPE_PII";
 NSString * const kGTLRChecksService_GoogleChecksReportV1alphaCheck_Type_PrivacyPolicyDataTypePiiCategories = @"PRIVACY_POLICY_DATA_TYPE_PII_CATEGORIES";
 NSString * const kGTLRChecksService_GoogleChecksReportV1alphaCheck_Type_PrivacyPolicyDataTypePreciseLocation = @"PRIVACY_POLICY_DATA_TYPE_PRECISE_LOCATION";
+NSString * const kGTLRChecksService_GoogleChecksReportV1alphaCheck_Type_PrivacyPolicyDataTypeSensitiveInfo = @"PRIVACY_POLICY_DATA_TYPE_SENSITIVE_INFO";
 NSString * const kGTLRChecksService_GoogleChecksReportV1alphaCheck_Type_PrivacyPolicyDataTypeTextMessages = @"PRIVACY_POLICY_DATA_TYPE_TEXT_MESSAGES";
 NSString * const kGTLRChecksService_GoogleChecksReportV1alphaCheck_Type_PrivacyPolicyDataTypeUserAccountInfo = @"PRIVACY_POLICY_DATA_TYPE_USER_ACCOUNT_INFO";
 NSString * const kGTLRChecksService_GoogleChecksReportV1alphaCheck_Type_PrivacyPolicyDpoContactDetails = @"PRIVACY_POLICY_DPO_CONTACT_DETAILS";
@@ -140,11 +141,18 @@ NSString * const kGTLRChecksService_GoogleChecksReportV1alphaCheckCitation_Type_
 NSString * const kGTLRChecksService_GoogleChecksReportV1alphaCheckCitation_Type_Ferpa = @"FERPA";
 NSString * const kGTLRChecksService_GoogleChecksReportV1alphaCheckCitation_Type_Gdpr = @"GDPR";
 NSString * const kGTLRChecksService_GoogleChecksReportV1alphaCheckCitation_Type_GooglePlayPolicy = @"GOOGLE_PLAY_POLICY";
+NSString * const kGTLRChecksService_GoogleChecksReportV1alphaCheckCitation_Type_IndiaDpdpa = @"INDIA_DPDPA";
+NSString * const kGTLRChecksService_GoogleChecksReportV1alphaCheckCitation_Type_JapanAppi = @"JAPAN_APPI";
 NSString * const kGTLRChecksService_GoogleChecksReportV1alphaCheckCitation_Type_Lgpd = @"LGPD";
+NSString * const kGTLRChecksService_GoogleChecksReportV1alphaCheckCitation_Type_Mcdpa = @"MCDPA";
+NSString * const kGTLRChecksService_GoogleChecksReportV1alphaCheckCitation_Type_Ocpa = @"OCPA";
 NSString * const kGTLRChecksService_GoogleChecksReportV1alphaCheckCitation_Type_Pipeda = @"PIPEDA";
 NSString * const kGTLRChecksService_GoogleChecksReportV1alphaCheckCitation_Type_QuebecAct = @"QUEBEC_ACT";
 NSString * const kGTLRChecksService_GoogleChecksReportV1alphaCheckCitation_Type_QuebecBill64 = @"QUEBEC_BILL_64";
 NSString * const kGTLRChecksService_GoogleChecksReportV1alphaCheckCitation_Type_Sopipa = @"SOPIPA";
+NSString * const kGTLRChecksService_GoogleChecksReportV1alphaCheckCitation_Type_SouthAfricaPopia = @"SOUTH_AFRICA_POPIA";
+NSString * const kGTLRChecksService_GoogleChecksReportV1alphaCheckCitation_Type_SouthKoreaPipa = @"SOUTH_KOREA_PIPA";
+NSString * const kGTLRChecksService_GoogleChecksReportV1alphaCheckCitation_Type_Tdpsa = @"TDPSA";
 NSString * const kGTLRChecksService_GoogleChecksReportV1alphaCheckCitation_Type_Ucpa = @"UCPA";
 NSString * const kGTLRChecksService_GoogleChecksReportV1alphaCheckCitation_Type_Vcdpa = @"VCDPA";
 

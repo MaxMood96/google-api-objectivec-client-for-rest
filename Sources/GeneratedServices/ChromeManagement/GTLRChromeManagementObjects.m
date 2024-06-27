@@ -21,6 +21,24 @@ NSString * const kGTLRChromeManagement_GoogleChromeManagementV1AppDetails_Type_A
 NSString * const kGTLRChromeManagement_GoogleChromeManagementV1AppDetails_Type_Chrome = @"CHROME";
 NSString * const kGTLRChromeManagement_GoogleChromeManagementV1AppDetails_Type_Web = @"WEB";
 
+// GTLRChromeManagement_GoogleChromeManagementV1AppUsageData.appType
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1AppUsageData_AppType_ApplicationTypeArc = @"APPLICATION_TYPE_ARC";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1AppUsageData_AppType_ApplicationTypeBorealis = @"APPLICATION_TYPE_BOREALIS";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1AppUsageData_AppType_ApplicationTypeBruschetta = @"APPLICATION_TYPE_BRUSCHETTA";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1AppUsageData_AppType_ApplicationTypeBuiltIn = @"APPLICATION_TYPE_BUILT_IN";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1AppUsageData_AppType_ApplicationTypeChromeApp = @"APPLICATION_TYPE_CHROME_APP";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1AppUsageData_AppType_ApplicationTypeCrostini = @"APPLICATION_TYPE_CROSTINI";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1AppUsageData_AppType_ApplicationTypeExtension = @"APPLICATION_TYPE_EXTENSION";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1AppUsageData_AppType_ApplicationTypeMacOs = @"APPLICATION_TYPE_MAC_OS";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1AppUsageData_AppType_ApplicationTypePluginVm = @"APPLICATION_TYPE_PLUGIN_VM";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1AppUsageData_AppType_ApplicationTypeRemote = @"APPLICATION_TYPE_REMOTE";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1AppUsageData_AppType_ApplicationTypeStandaloneBrowser = @"APPLICATION_TYPE_STANDALONE_BROWSER";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1AppUsageData_AppType_ApplicationTypeStandaloneBrowserChromeApp = @"APPLICATION_TYPE_STANDALONE_BROWSER_CHROME_APP";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1AppUsageData_AppType_ApplicationTypeStandaloneBrowserExtension = @"APPLICATION_TYPE_STANDALONE_BROWSER_EXTENSION";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1AppUsageData_AppType_ApplicationTypeSystemWeb = @"APPLICATION_TYPE_SYSTEM_WEB";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1AppUsageData_AppType_ApplicationTypeWeb = @"APPLICATION_TYPE_WEB";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1AppUsageData_AppType_TelemetryApplicationTypeUnspecified = @"TELEMETRY_APPLICATION_TYPE_UNSPECIFIED";
+
 // GTLRChromeManagement_GoogleChromeManagementV1BatteryStatusReport.batteryHealth
 NSString * const kGTLRChromeManagement_GoogleChromeManagementV1BatteryStatusReport_BatteryHealth_BatteryHealthNormal = @"BATTERY_HEALTH_NORMAL";
 NSString * const kGTLRChromeManagement_GoogleChromeManagementV1BatteryStatusReport_BatteryHealth_BatteryHealthUnspecified = @"BATTERY_HEALTH_UNSPECIFIED";
@@ -161,7 +179,139 @@ NSString * const kGTLRChromeManagement_GoogleChromeManagementV1PrintJob_State_Fa
 NSString * const kGTLRChromeManagement_GoogleChromeManagementV1PrintJob_State_Printed = @"PRINTED";
 NSString * const kGTLRChromeManagement_GoogleChromeManagementV1PrintJob_State_StateUnspecified = @"STATE_UNSPECIFIED";
 
+// GTLRChromeManagement_GoogleChromeManagementV1TelemetryAppInstallEvent.appInstallReason
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppInstallEvent_AppInstallReason_ApplicationInstallReasonCommandLine = @"APPLICATION_INSTALL_REASON_COMMAND_LINE";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppInstallEvent_AppInstallReason_ApplicationInstallReasonDefault = @"APPLICATION_INSTALL_REASON_DEFAULT";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppInstallEvent_AppInstallReason_ApplicationInstallReasonKiosk = @"APPLICATION_INSTALL_REASON_KIOSK";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppInstallEvent_AppInstallReason_ApplicationInstallReasonOem = @"APPLICATION_INSTALL_REASON_OEM";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppInstallEvent_AppInstallReason_ApplicationInstallReasonPolicy = @"APPLICATION_INSTALL_REASON_POLICY";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppInstallEvent_AppInstallReason_ApplicationInstallReasonSubApp = @"APPLICATION_INSTALL_REASON_SUB_APP";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppInstallEvent_AppInstallReason_ApplicationInstallReasonSync = @"APPLICATION_INSTALL_REASON_SYNC";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppInstallEvent_AppInstallReason_ApplicationInstallReasonSystem = @"APPLICATION_INSTALL_REASON_SYSTEM";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppInstallEvent_AppInstallReason_ApplicationInstallReasonUnspecified = @"APPLICATION_INSTALL_REASON_UNSPECIFIED";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppInstallEvent_AppInstallReason_ApplicationInstallReasonUser = @"APPLICATION_INSTALL_REASON_USER";
+
+// GTLRChromeManagement_GoogleChromeManagementV1TelemetryAppInstallEvent.appInstallSource
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppInstallEvent_AppInstallSource_ApplicationInstallSourceBrowser = @"APPLICATION_INSTALL_SOURCE_BROWSER";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppInstallEvent_AppInstallSource_ApplicationInstallSourceChromeWebStore = @"APPLICATION_INSTALL_SOURCE_CHROME_WEB_STORE";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppInstallEvent_AppInstallSource_ApplicationInstallSourcePlayStore = @"APPLICATION_INSTALL_SOURCE_PLAY_STORE";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppInstallEvent_AppInstallSource_ApplicationInstallSourceSync = @"APPLICATION_INSTALL_SOURCE_SYNC";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppInstallEvent_AppInstallSource_ApplicationInstallSourceSystem = @"APPLICATION_INSTALL_SOURCE_SYSTEM";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppInstallEvent_AppInstallSource_ApplicationInstallSourceUnspecified = @"APPLICATION_INSTALL_SOURCE_UNSPECIFIED";
+
+// GTLRChromeManagement_GoogleChromeManagementV1TelemetryAppInstallEvent.appInstallTime
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppInstallEvent_AppInstallTime_ApplicationInstallTimeInit = @"APPLICATION_INSTALL_TIME_INIT";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppInstallEvent_AppInstallTime_ApplicationInstallTimeRunning = @"APPLICATION_INSTALL_TIME_RUNNING";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppInstallEvent_AppInstallTime_ApplicationInstallTimeUnspecified = @"APPLICATION_INSTALL_TIME_UNSPECIFIED";
+
+// GTLRChromeManagement_GoogleChromeManagementV1TelemetryAppInstallEvent.appType
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppInstallEvent_AppType_ApplicationTypeArc = @"APPLICATION_TYPE_ARC";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppInstallEvent_AppType_ApplicationTypeBorealis = @"APPLICATION_TYPE_BOREALIS";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppInstallEvent_AppType_ApplicationTypeBruschetta = @"APPLICATION_TYPE_BRUSCHETTA";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppInstallEvent_AppType_ApplicationTypeBuiltIn = @"APPLICATION_TYPE_BUILT_IN";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppInstallEvent_AppType_ApplicationTypeChromeApp = @"APPLICATION_TYPE_CHROME_APP";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppInstallEvent_AppType_ApplicationTypeCrostini = @"APPLICATION_TYPE_CROSTINI";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppInstallEvent_AppType_ApplicationTypeExtension = @"APPLICATION_TYPE_EXTENSION";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppInstallEvent_AppType_ApplicationTypeMacOs = @"APPLICATION_TYPE_MAC_OS";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppInstallEvent_AppType_ApplicationTypePluginVm = @"APPLICATION_TYPE_PLUGIN_VM";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppInstallEvent_AppType_ApplicationTypeRemote = @"APPLICATION_TYPE_REMOTE";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppInstallEvent_AppType_ApplicationTypeStandaloneBrowser = @"APPLICATION_TYPE_STANDALONE_BROWSER";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppInstallEvent_AppType_ApplicationTypeStandaloneBrowserChromeApp = @"APPLICATION_TYPE_STANDALONE_BROWSER_CHROME_APP";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppInstallEvent_AppType_ApplicationTypeStandaloneBrowserExtension = @"APPLICATION_TYPE_STANDALONE_BROWSER_EXTENSION";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppInstallEvent_AppType_ApplicationTypeSystemWeb = @"APPLICATION_TYPE_SYSTEM_WEB";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppInstallEvent_AppType_ApplicationTypeWeb = @"APPLICATION_TYPE_WEB";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppInstallEvent_AppType_TelemetryApplicationTypeUnspecified = @"TELEMETRY_APPLICATION_TYPE_UNSPECIFIED";
+
+// GTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent.appLaunchSource
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppLaunchSource_ApplicationLaunchSourceAppHomePage = @"APPLICATION_LAUNCH_SOURCE_APP_HOME_PAGE";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppLaunchSource_ApplicationLaunchSourceAppListGrid = @"APPLICATION_LAUNCH_SOURCE_APP_LIST_GRID";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppLaunchSource_ApplicationLaunchSourceAppListGridContextMenu = @"APPLICATION_LAUNCH_SOURCE_APP_LIST_GRID_CONTEXT_MENU";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppLaunchSource_ApplicationLaunchSourceAppListQuery = @"APPLICATION_LAUNCH_SOURCE_APP_LIST_QUERY";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppLaunchSource_ApplicationLaunchSourceAppListQueryContextMenu = @"APPLICATION_LAUNCH_SOURCE_APP_LIST_QUERY_CONTEXT_MENU";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppLaunchSource_ApplicationLaunchSourceAppListRecommendation = @"APPLICATION_LAUNCH_SOURCE_APP_LIST_RECOMMENDATION";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppLaunchSource_ApplicationLaunchSourceArc = @"APPLICATION_LAUNCH_SOURCE_ARC";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppLaunchSource_ApplicationLaunchSourceBackgroundMode = @"APPLICATION_LAUNCH_SOURCE_BACKGROUND_MODE";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppLaunchSource_ApplicationLaunchSourceChromeInternal = @"APPLICATION_LAUNCH_SOURCE_CHROME_INTERNAL";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppLaunchSource_ApplicationLaunchSourceCommandLine = @"APPLICATION_LAUNCH_SOURCE_COMMAND_LINE";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppLaunchSource_ApplicationLaunchSourceDiscoverTabNotification = @"APPLICATION_LAUNCH_SOURCE_DISCOVER_TAB_NOTIFICATION";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppLaunchSource_ApplicationLaunchSourceFileManager = @"APPLICATION_LAUNCH_SOURCE_FILE_MANAGER";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppLaunchSource_ApplicationLaunchSourceFirstRun = @"APPLICATION_LAUNCH_SOURCE_FIRST_RUN";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppLaunchSource_ApplicationLaunchSourceFocusMode = @"APPLICATION_LAUNCH_SOURCE_FOCUS_MODE";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppLaunchSource_ApplicationLaunchSourceFullRestore = @"APPLICATION_LAUNCH_SOURCE_FULL_RESTORE";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppLaunchSource_ApplicationLaunchSourceInstalledNotification = @"APPLICATION_LAUNCH_SOURCE_INSTALLED_NOTIFICATION";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppLaunchSource_ApplicationLaunchSourceInstaller = @"APPLICATION_LAUNCH_SOURCE_INSTALLER";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppLaunchSource_ApplicationLaunchSourceIntentUrl = @"APPLICATION_LAUNCH_SOURCE_INTENT_URL";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppLaunchSource_ApplicationLaunchSourceKeyboard = @"APPLICATION_LAUNCH_SOURCE_KEYBOARD";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppLaunchSource_ApplicationLaunchSourceKiosk = @"APPLICATION_LAUNCH_SOURCE_KIOSK";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppLaunchSource_ApplicationLaunchSourceLink = @"APPLICATION_LAUNCH_SOURCE_LINK";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppLaunchSource_ApplicationLaunchSourceLockScreen = @"APPLICATION_LAUNCH_SOURCE_LOCK_SCREEN";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppLaunchSource_ApplicationLaunchSourceManagementApi = @"APPLICATION_LAUNCH_SOURCE_MANAGEMENT_API";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppLaunchSource_ApplicationLaunchSourceMenu = @"APPLICATION_LAUNCH_SOURCE_MENU";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppLaunchSource_ApplicationLaunchSourceNewTabPage = @"APPLICATION_LAUNCH_SOURCE_NEW_TAB_PAGE";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppLaunchSource_ApplicationLaunchSourceOmnibox = @"APPLICATION_LAUNCH_SOURCE_OMNIBOX";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppLaunchSource_ApplicationLaunchSourceOsLogin = @"APPLICATION_LAUNCH_SOURCE_OS_LOGIN";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppLaunchSource_ApplicationLaunchSourceOtherApp = @"APPLICATION_LAUNCH_SOURCE_OTHER_APP";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppLaunchSource_ApplicationLaunchSourceParentalControls = @"APPLICATION_LAUNCH_SOURCE_PARENTAL_CONTROLS";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppLaunchSource_ApplicationLaunchSourceProfileMenu = @"APPLICATION_LAUNCH_SOURCE_PROFILE_MENU";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppLaunchSource_ApplicationLaunchSourceProtocolHandler = @"APPLICATION_LAUNCH_SOURCE_PROTOCOL_HANDLER";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppLaunchSource_ApplicationLaunchSourceReleaseNotesNotification = @"APPLICATION_LAUNCH_SOURCE_RELEASE_NOTES_NOTIFICATION";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppLaunchSource_ApplicationLaunchSourceReparenting = @"APPLICATION_LAUNCH_SOURCE_REPARENTING";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppLaunchSource_ApplicationLaunchSourceSharesheet = @"APPLICATION_LAUNCH_SOURCE_SHARESHEET";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppLaunchSource_ApplicationLaunchSourceShelf = @"APPLICATION_LAUNCH_SOURCE_SHELF";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppLaunchSource_ApplicationLaunchSourceSmartTextContextMenu = @"APPLICATION_LAUNCH_SOURCE_SMART_TEXT_CONTEXT_MENU";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppLaunchSource_ApplicationLaunchSourceSystemTrayCalendar = @"APPLICATION_LAUNCH_SOURCE_SYSTEM_TRAY_CALENDAR";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppLaunchSource_ApplicationLaunchSourceTest = @"APPLICATION_LAUNCH_SOURCE_TEST";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppLaunchSource_ApplicationLaunchSourceUnspecified = @"APPLICATION_LAUNCH_SOURCE_UNSPECIFIED";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppLaunchSource_ApplicationLaunchSourceUrlHandler = @"APPLICATION_LAUNCH_SOURCE_URL_HANDLER";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppLaunchSource_ApplicationLaunchSourceWelcomeTour = @"APPLICATION_LAUNCH_SOURCE_WELCOME_TOUR";
+
+// GTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent.appType
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppType_ApplicationTypeArc = @"APPLICATION_TYPE_ARC";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppType_ApplicationTypeBorealis = @"APPLICATION_TYPE_BOREALIS";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppType_ApplicationTypeBruschetta = @"APPLICATION_TYPE_BRUSCHETTA";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppType_ApplicationTypeBuiltIn = @"APPLICATION_TYPE_BUILT_IN";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppType_ApplicationTypeChromeApp = @"APPLICATION_TYPE_CHROME_APP";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppType_ApplicationTypeCrostini = @"APPLICATION_TYPE_CROSTINI";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppType_ApplicationTypeExtension = @"APPLICATION_TYPE_EXTENSION";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppType_ApplicationTypeMacOs = @"APPLICATION_TYPE_MAC_OS";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppType_ApplicationTypePluginVm = @"APPLICATION_TYPE_PLUGIN_VM";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppType_ApplicationTypeRemote = @"APPLICATION_TYPE_REMOTE";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppType_ApplicationTypeStandaloneBrowser = @"APPLICATION_TYPE_STANDALONE_BROWSER";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppType_ApplicationTypeStandaloneBrowserChromeApp = @"APPLICATION_TYPE_STANDALONE_BROWSER_CHROME_APP";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppType_ApplicationTypeStandaloneBrowserExtension = @"APPLICATION_TYPE_STANDALONE_BROWSER_EXTENSION";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppType_ApplicationTypeSystemWeb = @"APPLICATION_TYPE_SYSTEM_WEB";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppType_ApplicationTypeWeb = @"APPLICATION_TYPE_WEB";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent_AppType_TelemetryApplicationTypeUnspecified = @"TELEMETRY_APPLICATION_TYPE_UNSPECIFIED";
+
+// GTLRChromeManagement_GoogleChromeManagementV1TelemetryAppUninstallEvent.appType
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppUninstallEvent_AppType_ApplicationTypeArc = @"APPLICATION_TYPE_ARC";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppUninstallEvent_AppType_ApplicationTypeBorealis = @"APPLICATION_TYPE_BOREALIS";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppUninstallEvent_AppType_ApplicationTypeBruschetta = @"APPLICATION_TYPE_BRUSCHETTA";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppUninstallEvent_AppType_ApplicationTypeBuiltIn = @"APPLICATION_TYPE_BUILT_IN";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppUninstallEvent_AppType_ApplicationTypeChromeApp = @"APPLICATION_TYPE_CHROME_APP";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppUninstallEvent_AppType_ApplicationTypeCrostini = @"APPLICATION_TYPE_CROSTINI";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppUninstallEvent_AppType_ApplicationTypeExtension = @"APPLICATION_TYPE_EXTENSION";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppUninstallEvent_AppType_ApplicationTypeMacOs = @"APPLICATION_TYPE_MAC_OS";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppUninstallEvent_AppType_ApplicationTypePluginVm = @"APPLICATION_TYPE_PLUGIN_VM";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppUninstallEvent_AppType_ApplicationTypeRemote = @"APPLICATION_TYPE_REMOTE";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppUninstallEvent_AppType_ApplicationTypeStandaloneBrowser = @"APPLICATION_TYPE_STANDALONE_BROWSER";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppUninstallEvent_AppType_ApplicationTypeStandaloneBrowserChromeApp = @"APPLICATION_TYPE_STANDALONE_BROWSER_CHROME_APP";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppUninstallEvent_AppType_ApplicationTypeStandaloneBrowserExtension = @"APPLICATION_TYPE_STANDALONE_BROWSER_EXTENSION";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppUninstallEvent_AppType_ApplicationTypeSystemWeb = @"APPLICATION_TYPE_SYSTEM_WEB";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppUninstallEvent_AppType_ApplicationTypeWeb = @"APPLICATION_TYPE_WEB";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppUninstallEvent_AppType_TelemetryApplicationTypeUnspecified = @"TELEMETRY_APPLICATION_TYPE_UNSPECIFIED";
+
+// GTLRChromeManagement_GoogleChromeManagementV1TelemetryAppUninstallEvent.appUninstallSource
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppUninstallEvent_AppUninstallSource_ApplicationUninstallSourceAppList = @"APPLICATION_UNINSTALL_SOURCE_APP_LIST";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppUninstallEvent_AppUninstallSource_ApplicationUninstallSourceAppManagement = @"APPLICATION_UNINSTALL_SOURCE_APP_MANAGEMENT";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppUninstallEvent_AppUninstallSource_ApplicationUninstallSourceMigration = @"APPLICATION_UNINSTALL_SOURCE_MIGRATION";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppUninstallEvent_AppUninstallSource_ApplicationUninstallSourceShelf = @"APPLICATION_UNINSTALL_SOURCE_SHELF";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryAppUninstallEvent_AppUninstallSource_ApplicationUninstallSourceUnspecified = @"APPLICATION_UNINSTALL_SOURCE_UNSPECIFIED";
+
 // GTLRChromeManagement_GoogleChromeManagementV1TelemetryEvent.eventType
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryEvent_EventType_AppInstalled = @"APP_INSTALLED";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryEvent_EventType_AppLaunched = @"APP_LAUNCHED";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryEvent_EventType_AppUninstalled = @"APP_UNINSTALLED";
 NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryEvent_EventType_AudioSevereUnderrun = @"AUDIO_SEVERE_UNDERRUN";
 NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryEvent_EventType_EventTypeUnspecified = @"EVENT_TYPE_UNSPECIFIED";
 NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryEvent_EventType_NetworkHttpsLatencyChange = @"NETWORK_HTTPS_LATENCY_CHANGE";
@@ -173,6 +323,9 @@ NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryEvent_Ev
 NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryEvent_EventType_WifiSignalStrengthRecovered = @"WIFI_SIGNAL_STRENGTH_RECOVERED";
 
 // GTLRChromeManagement_GoogleChromeManagementV1TelemetryEventNotificationFilter.eventTypes
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryEventNotificationFilter_EventTypes_AppInstalled = @"APP_INSTALLED";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryEventNotificationFilter_EventTypes_AppLaunched = @"APP_LAUNCHED";
+NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryEventNotificationFilter_EventTypes_AppUninstalled = @"APP_UNINSTALLED";
 NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryEventNotificationFilter_EventTypes_AudioSevereUnderrun = @"AUDIO_SEVERE_UNDERRUN";
 NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryEventNotificationFilter_EventTypes_EventTypeUnspecified = @"EVENT_TYPE_UNSPECIFIED";
 NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TelemetryEventNotificationFilter_EventTypes_NetworkHttpsLatencyChange = @"NETWORK_HTTPS_LATENCY_CHANGE";
@@ -261,6 +414,34 @@ NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TotalMemoryEncryp
   return @{ @"descriptionProperty" : @"description" };
 }
 
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRChromeManagement_GoogleChromeManagementV1AppReport
+//
+
+@implementation GTLRChromeManagement_GoogleChromeManagementV1AppReport
+@dynamic reportTime, usageData;
+
++ (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
+  NSDictionary<NSString *, Class> *map = @{
+    @"usageData" : [GTLRChromeManagement_GoogleChromeManagementV1AppUsageData class]
+  };
+  return map;
+}
+
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRChromeManagement_GoogleChromeManagementV1AppUsageData
+//
+
+@implementation GTLRChromeManagement_GoogleChromeManagementV1AppUsageData
+@dynamic appId, appInstanceId, appType, runningDuration;
 @end
 
 
@@ -419,6 +600,34 @@ NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TotalMemoryEncryp
 @implementation GTLRChromeManagement_GoogleChromeManagementV1CountChromeBrowsersNeedingAttentionResponse
 @dynamic noRecentActivityCount, pendingBrowserUpdateCount,
          recentlyEnrolledCount;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRChromeManagement_GoogleChromeManagementV1CountChromeCrashEventsResponse
+//
+
+@implementation GTLRChromeManagement_GoogleChromeManagementV1CountChromeCrashEventsResponse
+@dynamic crashEventCounts;
+
++ (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
+  NSDictionary<NSString *, Class> *map = @{
+    @"crashEventCounts" : [GTLRChromeManagement_GoogleChromeManagementV1CountChromeCrashEventsResponseCrashEventCount class]
+  };
+  return map;
+}
+
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRChromeManagement_GoogleChromeManagementV1CountChromeCrashEventsResponseCrashEventCount
+//
+
+@implementation GTLRChromeManagement_GoogleChromeManagementV1CountChromeCrashEventsResponseCrashEventCount
+@dynamic browserVersion, count, date;
 @end
 
 
@@ -641,6 +850,16 @@ NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TotalMemoryEncryp
 
 // ----------------------------------------------------------------------------
 //
+//   GTLRChromeManagement_GoogleChromeManagementV1DeviceRequestingExtensionDetails
+//
+
+@implementation GTLRChromeManagement_GoogleChromeManagementV1DeviceRequestingExtensionDetails
+@dynamic deviceName, justification;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
 //   GTLRChromeManagement_GoogleChromeManagementV1DiskInfo
 //
 
@@ -698,6 +917,50 @@ NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TotalMemoryEncryp
 
 + (NSString *)collectionItemsKey {
   return @"printJobs";
+}
+
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRChromeManagement_GoogleChromeManagementV1FetchDevicesRequestingExtensionResponse
+//
+
+@implementation GTLRChromeManagement_GoogleChromeManagementV1FetchDevicesRequestingExtensionResponse
+@dynamic deviceDetails, nextPageToken, totalSize;
+
++ (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
+  NSDictionary<NSString *, Class> *map = @{
+    @"deviceDetails" : [GTLRChromeManagement_GoogleChromeManagementV1DeviceRequestingExtensionDetails class]
+  };
+  return map;
+}
+
++ (NSString *)collectionItemsKey {
+  return @"deviceDetails";
+}
+
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRChromeManagement_GoogleChromeManagementV1FetchUsersRequestingExtensionResponse
+//
+
+@implementation GTLRChromeManagement_GoogleChromeManagementV1FetchUsersRequestingExtensionResponse
+@dynamic nextPageToken, totalSize, userDetails;
+
++ (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
+  NSDictionary<NSString *, Class> *map = @{
+    @"userDetails" : [GTLRChromeManagement_GoogleChromeManagementV1UserRequestingExtensionDetails class]
+  };
+  return map;
+}
+
++ (NSString *)collectionItemsKey {
+  return @"userDetails";
 }
 
 @end
@@ -1052,6 +1315,17 @@ NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TotalMemoryEncryp
 
 // ----------------------------------------------------------------------------
 //
+//   GTLRChromeManagement_GoogleChromeManagementV1RuntimeCountersReport
+//
+
+@implementation GTLRChromeManagement_GoogleChromeManagementV1RuntimeCountersReport
+@dynamic enterHibernationCount, enterPoweroffCount, enterSleepCount, reportTime,
+         uptimeRuntimeDuration;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
 //   GTLRChromeManagement_GoogleChromeManagementV1StorageInfo
 //
 
@@ -1098,6 +1372,36 @@ NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TotalMemoryEncryp
 
 // ----------------------------------------------------------------------------
 //
+//   GTLRChromeManagement_GoogleChromeManagementV1TelemetryAppInstallEvent
+//
+
+@implementation GTLRChromeManagement_GoogleChromeManagementV1TelemetryAppInstallEvent
+@dynamic appId, appInstallReason, appInstallSource, appInstallTime, appType;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent
+//
+
+@implementation GTLRChromeManagement_GoogleChromeManagementV1TelemetryAppLaunchEvent
+@dynamic appId, appLaunchSource, appType;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRChromeManagement_GoogleChromeManagementV1TelemetryAppUninstallEvent
+//
+
+@implementation GTLRChromeManagement_GoogleChromeManagementV1TelemetryAppUninstallEvent
+@dynamic appId, appType, appUninstallSource;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
 //   GTLRChromeManagement_GoogleChromeManagementV1TelemetryAudioSevereUnderrunEvent
 //
 
@@ -1111,16 +1415,18 @@ NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TotalMemoryEncryp
 //
 
 @implementation GTLRChromeManagement_GoogleChromeManagementV1TelemetryDevice
-@dynamic audioStatusReport, batteryInfo, batteryStatusReport,
+@dynamic appReport, audioStatusReport, batteryInfo, batteryStatusReport,
          bootPerformanceReport, cpuInfo, cpuStatusReport, customer, deviceId,
          graphicsInfo, graphicsStatusReport, heartbeatStatusReport,
          kioskAppStatusReport, memoryInfo, memoryStatusReport, name,
          networkBandwidthReport, networkDiagnosticsReport, networkInfo,
          networkStatusReport, orgUnitId, osUpdateStatus, peripheralsReport,
-         serialNumber, storageInfo, storageStatusReport, thunderboltInfo;
+         runtimeCountersReport, serialNumber, storageInfo, storageStatusReport,
+         thunderboltInfo;
 
 + (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
   NSDictionary<NSString *, Class> *map = @{
+    @"appReport" : [GTLRChromeManagement_GoogleChromeManagementV1AppReport class],
     @"audioStatusReport" : [GTLRChromeManagement_GoogleChromeManagementV1AudioStatusReport class],
     @"batteryInfo" : [GTLRChromeManagement_GoogleChromeManagementV1BatteryInfo class],
     @"batteryStatusReport" : [GTLRChromeManagement_GoogleChromeManagementV1BatteryStatusReport class],
@@ -1136,6 +1442,7 @@ NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TotalMemoryEncryp
     @"networkStatusReport" : [GTLRChromeManagement_GoogleChromeManagementV1NetworkStatusReport class],
     @"osUpdateStatus" : [GTLRChromeManagement_GoogleChromeManagementV1OsUpdateStatus class],
     @"peripheralsReport" : [GTLRChromeManagement_GoogleChromeManagementV1PeripheralsReport class],
+    @"runtimeCountersReport" : [GTLRChromeManagement_GoogleChromeManagementV1RuntimeCountersReport class],
     @"storageStatusReport" : [GTLRChromeManagement_GoogleChromeManagementV1StorageStatusReport class],
     @"thunderboltInfo" : [GTLRChromeManagement_GoogleChromeManagementV1ThunderboltInfo class]
   };
@@ -1161,7 +1468,8 @@ NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TotalMemoryEncryp
 //
 
 @implementation GTLRChromeManagement_GoogleChromeManagementV1TelemetryEvent
-@dynamic audioSevereUnderrunEvent, device, eventType, httpsLatencyChangeEvent,
+@dynamic appInstallEvent, appLaunchEvent, appUninstallEvent,
+         audioSevereUnderrunEvent, device, eventType, httpsLatencyChangeEvent,
          name, networkStateChangeEvent, reportTime, usbPeripheralsEvent, user,
          vpnConnectionStateChangeEvent, wifiSignalStrengthEvent;
 @end
@@ -1278,11 +1586,12 @@ NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TotalMemoryEncryp
 //
 
 @implementation GTLRChromeManagement_GoogleChromeManagementV1TelemetryUserDevice
-@dynamic audioStatusReport, deviceActivityReport, deviceId,
+@dynamic appReport, audioStatusReport, deviceActivityReport, deviceId,
          networkBandwidthReport, peripheralsReport;
 
 + (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
   NSDictionary<NSString *, Class> *map = @{
+    @"appReport" : [GTLRChromeManagement_GoogleChromeManagementV1AppReport class],
     @"audioStatusReport" : [GTLRChromeManagement_GoogleChromeManagementV1AudioStatusReport class],
     @"deviceActivityReport" : [GTLRChromeManagement_GoogleChromeManagementV1DeviceActivityReport class],
     @"networkBandwidthReport" : [GTLRChromeManagement_GoogleChromeManagementV1NetworkBandwidthReport class],
@@ -1378,6 +1687,16 @@ NSString * const kGTLRChromeManagement_GoogleChromeManagementV1TotalMemoryEncryp
 
 @implementation GTLRChromeManagement_GoogleChromeManagementV1UserPrintReport
 @dynamic deviceCount, jobCount, printerCount, userEmail, userId;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRChromeManagement_GoogleChromeManagementV1UserRequestingExtensionDetails
+//
+
+@implementation GTLRChromeManagement_GoogleChromeManagementV1UserRequestingExtensionDetails
+@dynamic email, justification;
 @end
 
 

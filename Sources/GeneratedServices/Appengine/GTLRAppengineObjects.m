@@ -102,7 +102,7 @@ NSString * const kGTLRAppengine_NetworkSettings_IngressTrafficAllowed_IngressTra
 // GTLRAppengine_ProjectEvent.phase
 NSString * const kGTLRAppengine_ProjectEvent_Phase_AfterResourceHandling = @"AFTER_RESOURCE_HANDLING";
 NSString * const kGTLRAppengine_ProjectEvent_Phase_BeforeResourceHandling = @"BEFORE_RESOURCE_HANDLING";
-NSString * const kGTLRAppengine_ProjectEvent_Phase_Unknown     = @"UNKNOWN";
+NSString * const kGTLRAppengine_ProjectEvent_Phase_ContainerEventPhaseUnspecified = @"CONTAINER_EVENT_PHASE_UNSPECIFIED";
 
 // GTLRAppengine_ProjectsMetadata.consumerProjectState
 NSString * const kGTLRAppengine_ProjectsMetadata_ConsumerProjectState_Deleted = @"DELETED";
@@ -129,6 +129,13 @@ NSString * const kGTLRAppengine_Reasons_DataGovernance_DataGovernanceUnknownReas
 NSString * const kGTLRAppengine_Reasons_DataGovernance_Hide    = @"HIDE";
 NSString * const kGTLRAppengine_Reasons_DataGovernance_Purge   = @"PURGE";
 NSString * const kGTLRAppengine_Reasons_DataGovernance_Unhide  = @"UNHIDE";
+
+// GTLRAppengine_Reasons.serviceActivation
+NSString * const kGTLRAppengine_Reasons_ServiceActivation_ServiceActivationDisabled = @"SERVICE_ACTIVATION_DISABLED";
+NSString * const kGTLRAppengine_Reasons_ServiceActivation_ServiceActivationDisabledFull = @"SERVICE_ACTIVATION_DISABLED_FULL";
+NSString * const kGTLRAppengine_Reasons_ServiceActivation_ServiceActivationEnabled = @"SERVICE_ACTIVATION_ENABLED";
+NSString * const kGTLRAppengine_Reasons_ServiceActivation_ServiceActivationStatusUnspecified = @"SERVICE_ACTIVATION_STATUS_UNSPECIFIED";
+NSString * const kGTLRAppengine_Reasons_ServiceActivation_ServiceActivationUnknownReason = @"SERVICE_ACTIVATION_UNKNOWN_REASON";
 
 // GTLRAppengine_Reasons.serviceManagement
 NSString * const kGTLRAppengine_Reasons_ServiceManagement_AbortDeactivation = @"ABORT_DEACTIVATION";
@@ -1148,7 +1155,7 @@ NSString * const kGTLRAppengine_VpcAccessConnector_EgressSetting_PrivateIpRanges
 //
 
 @implementation GTLRAppengine_Reasons
-@dynamic abuse, billing, dataGovernance, serviceManagement;
+@dynamic abuse, billing, dataGovernance, serviceActivation, serviceManagement;
 @end
 
 
@@ -1205,8 +1212,8 @@ NSString * const kGTLRAppengine_VpcAccessConnector_EgressSetting_PrivateIpRanges
 //
 
 @implementation GTLRAppengine_Runtime
-@dynamic decommissionedDate, deprecationDate, endOfSupportDate, environment,
-         name, stage, supportedOperatingSystems, warnings;
+@dynamic decommissionedDate, deprecationDate, displayName, endOfSupportDate,
+         environment, name, stage, supportedOperatingSystems, warnings;
 
 + (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
   NSDictionary<NSString *, Class> *map = @{

@@ -400,6 +400,66 @@ FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivityViewSpokeViewUnspecif
 @end
 
 /**
+ *  Updates the parameters of a Network Connectivity Center group.
+ *
+ *  Method: networkconnectivity.projects.locations.global.hubs.groups.patch
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeNetworkconnectivityCloudPlatform
+ */
+@interface GTLRNetworkconnectivityQuery_ProjectsLocationsGlobalHubsGroupsPatch : GTLRNetworkconnectivityQuery
+
+/**
+ *  Immutable. The name of the group. Group names must be unique. They use the
+ *  following form:
+ *  `projects/{project_number}/locations/global/hubs/{hub}/groups/{group_id}`
+ */
+@property(nonatomic, copy, nullable) NSString *name;
+
+/**
+ *  Optional. A request ID to identify requests. Specify a unique request ID so
+ *  that if you must retry your request, the server knows to ignore the request
+ *  if it has already been completed. The server guarantees that a request
+ *  doesn't result in creation of duplicate commitments for at least 60 minutes.
+ *  For example, consider a situation where you make an initial request and the
+ *  request times out. If you make the request again with the same request ID,
+ *  the server can check to see whether the original operation was received. If
+ *  it was, the server ignores the second request. This behavior prevents
+ *  clients from mistakenly creating duplicate commitments. The request ID must
+ *  be a valid UUID, with the exception that zero UUID is not supported
+ *  (00000000-0000-0000-0000-000000000000).
+ */
+@property(nonatomic, copy, nullable) NSString *requestId;
+
+/**
+ *  Optional. In the case of an update to an existing group, field mask is used
+ *  to specify the fields to be overwritten. The fields specified in the
+ *  update_mask are relative to the resource, not the full request. A field is
+ *  overwritten if it is in the mask. If the user does not provide a mask, then
+ *  all fields are overwritten.
+ *
+ *  String format is a comma-separated list of fields.
+ */
+@property(nonatomic, copy, nullable) NSString *updateMask;
+
+/**
+ *  Fetches a @c GTLRNetworkconnectivity_GoogleLongrunningOperation.
+ *
+ *  Updates the parameters of a Network Connectivity Center group.
+ *
+ *  @param object The @c GTLRNetworkconnectivity_Group to include in the query.
+ *  @param name Immutable. The name of the group. Group names must be unique.
+ *    They use the following form:
+ *    `projects/{project_number}/locations/global/hubs/{hub}/groups/{group_id}`
+ *
+ *  @return GTLRNetworkconnectivityQuery_ProjectsLocationsGlobalHubsGroupsPatch
+ */
++ (instancetype)queryWithObject:(GTLRNetworkconnectivity_Group *)object
+                           name:(NSString *)name;
+
+@end
+
+/**
  *  Sets the access control policy on the specified resource. Replaces any
  *  existing policy. Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and
  *  `PERMISSION_DENIED` errors.
@@ -930,14 +990,14 @@ FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivityViewSpokeViewUnspecif
 
 /**
  *  Optional. An optional request ID to identify requests. Specify a unique
- *  request ID so that if you must retry your request, the server will know to
- *  ignore the request if it has already been completed. The server will
- *  guarantee that for at least 60 minutes since the first request. For example,
- *  consider a situation where you make an initial request and the request times
- *  out. If you make the request again with the same request ID, the server can
- *  check if original operation with the same request ID was received, and if
- *  so, will ignore the second request. This prevents clients from accidentally
- *  creating duplicate commitments. The request ID must be a valid UUID with the
+ *  request ID so that if you must retry your request, the server knows to
+ *  ignore the request if it has already been completed. The server guarantees
+ *  that for at least 60 minutes since the first request. For example, consider
+ *  a situation where you make an initial request and the request times out. If
+ *  you make the request again with the same request ID, the server can check if
+ *  original operation with the same request ID was received, and if so, ignores
+ *  the second request. This prevents clients from accidentally creating
+ *  duplicate commitments. The request ID must be a valid UUID with the
  *  exception that zero UUID is not supported
  *  (00000000-0000-0000-0000-000000000000).
  */
@@ -974,14 +1034,14 @@ FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivityViewSpokeViewUnspecif
 
 /**
  *  Optional. An optional request ID to identify requests. Specify a unique
- *  request ID so that if you must retry your request, the server will know to
- *  ignore the request if it has already been completed. The server will
- *  guarantee that for at least 60 minutes after the first request. For example,
- *  consider a situation where you make an initial request and the request times
- *  out. If you make the request again with the same request ID, the server can
- *  check if original operation with the same request ID was received, and if
- *  so, will ignore the second request. This prevents clients from accidentally
- *  creating duplicate commitments. The request ID must be a valid UUID with the
+ *  request ID so that if you must retry your request, the server knows to
+ *  ignore the request if it has already been completed. The server guarantees
+ *  that for at least 60 minutes after the first request. For example, consider
+ *  a situation where you make an initial request and the request times out. If
+ *  you make the request again with the same request ID, the server can check if
+ *  original operation with the same request ID was received, and if so, ignores
+ *  the second request. This prevents clients from accidentally creating
+ *  duplicate commitments. The request ID must be a valid UUID with the
  *  exception that zero UUID is not supported
  *  (00000000-0000-0000-0000-000000000000).
  */
@@ -1618,6 +1678,169 @@ FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivityViewSpokeViewUnspecif
  *        information.
  */
 + (instancetype)queryWithName:(NSString *)name;
+
+@end
+
+/**
+ *  Creates a new RegionalEndpoint in a given project and location.
+ *
+ *  Method: networkconnectivity.projects.locations.regionalEndpoints.create
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeNetworkconnectivityCloudPlatform
+ */
+@interface GTLRNetworkconnectivityQuery_ProjectsLocationsRegionalEndpointsCreate : GTLRNetworkconnectivityQuery
+
+/** Required. The parent resource's name of the RegionalEndpoint. */
+@property(nonatomic, copy, nullable) NSString *parent;
+
+/** Required. Unique id of the Regional Endpoint to be created. */
+@property(nonatomic, copy, nullable) NSString *regionalEndpointId;
+
+/**
+ *  Optional. An optional request ID to identify requests. Specify a unique
+ *  request ID so that if you must retry your request, the server knows to
+ *  ignore the request if it has already been completed. The server guarantees
+ *  that for at least 60 minutes since the first request. For example, consider
+ *  a situation where you make an initial request and the request times out. If
+ *  you make the request again with the same request ID, the server can check if
+ *  the original operation with the same request ID was received, and if so,
+ *  ignores the second request. This prevents clients from accidentally creating
+ *  duplicate commitments. The request ID must be a valid UUID with the
+ *  exception that zero UUID is not supported
+ *  (00000000-0000-0000-0000-000000000000).
+ */
+@property(nonatomic, copy, nullable) NSString *requestId;
+
+/**
+ *  Fetches a @c GTLRNetworkconnectivity_GoogleLongrunningOperation.
+ *
+ *  Creates a new RegionalEndpoint in a given project and location.
+ *
+ *  @param object The @c GTLRNetworkconnectivity_RegionalEndpoint to include in
+ *    the query.
+ *  @param parent Required. The parent resource's name of the RegionalEndpoint.
+ *
+ *  @return GTLRNetworkconnectivityQuery_ProjectsLocationsRegionalEndpointsCreate
+ */
++ (instancetype)queryWithObject:(GTLRNetworkconnectivity_RegionalEndpoint *)object
+                         parent:(NSString *)parent;
+
+@end
+
+/**
+ *  Deletes a single RegionalEndpoint.
+ *
+ *  Method: networkconnectivity.projects.locations.regionalEndpoints.delete
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeNetworkconnectivityCloudPlatform
+ */
+@interface GTLRNetworkconnectivityQuery_ProjectsLocationsRegionalEndpointsDelete : GTLRNetworkconnectivityQuery
+
+/** Required. The name of the RegionalEndpoint to delete. */
+@property(nonatomic, copy, nullable) NSString *name;
+
+/**
+ *  Optional. An optional request ID to identify requests. Specify a unique
+ *  request ID so that if you must retry your request, the server knows to
+ *  ignore the request if it has already been completed. The server guarantees
+ *  that for at least 60 minutes since the first request. For example, consider
+ *  a situation where you make an initial request and the request times out. If
+ *  you make the request again with the same request ID, the server can check if
+ *  the original operation with the same request ID was received, and if so,
+ *  ignores the second request. This prevents clients from accidentally creating
+ *  duplicate commitments. The request ID must be a valid UUID with the
+ *  exception that zero UUID is not supported
+ *  (00000000-0000-0000-0000-000000000000).
+ */
+@property(nonatomic, copy, nullable) NSString *requestId;
+
+/**
+ *  Fetches a @c GTLRNetworkconnectivity_GoogleLongrunningOperation.
+ *
+ *  Deletes a single RegionalEndpoint.
+ *
+ *  @param name Required. The name of the RegionalEndpoint to delete.
+ *
+ *  @return GTLRNetworkconnectivityQuery_ProjectsLocationsRegionalEndpointsDelete
+ */
++ (instancetype)queryWithName:(NSString *)name;
+
+@end
+
+/**
+ *  Gets details of a single RegionalEndpoint.
+ *
+ *  Method: networkconnectivity.projects.locations.regionalEndpoints.get
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeNetworkconnectivityCloudPlatform
+ */
+@interface GTLRNetworkconnectivityQuery_ProjectsLocationsRegionalEndpointsGet : GTLRNetworkconnectivityQuery
+
+/**
+ *  Required. Name of the RegionalEndpoint resource to get. Format:
+ *  `projects/{project}/locations/{location}/regionalEndpoints/{regional_endpoint}`
+ */
+@property(nonatomic, copy, nullable) NSString *name;
+
+/**
+ *  Fetches a @c GTLRNetworkconnectivity_RegionalEndpoint.
+ *
+ *  Gets details of a single RegionalEndpoint.
+ *
+ *  @param name Required. Name of the RegionalEndpoint resource to get. Format:
+ *    `projects/{project}/locations/{location}/regionalEndpoints/{regional_endpoint}`
+ *
+ *  @return GTLRNetworkconnectivityQuery_ProjectsLocationsRegionalEndpointsGet
+ */
++ (instancetype)queryWithName:(NSString *)name;
+
+@end
+
+/**
+ *  Lists RegionalEndpoints in a given project and location.
+ *
+ *  Method: networkconnectivity.projects.locations.regionalEndpoints.list
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeNetworkconnectivityCloudPlatform
+ */
+@interface GTLRNetworkconnectivityQuery_ProjectsLocationsRegionalEndpointsList : GTLRNetworkconnectivityQuery
+
+/** A filter expression that filters the results listed in the response. */
+@property(nonatomic, copy, nullable) NSString *filter;
+
+/** Sort the results by a certain order. */
+@property(nonatomic, copy, nullable) NSString *orderBy;
+
+/**
+ *  Requested page size. Server may return fewer items than requested. If
+ *  unspecified, server will pick an appropriate default.
+ */
+@property(nonatomic, assign) NSInteger pageSize;
+
+/** A page token. */
+@property(nonatomic, copy, nullable) NSString *pageToken;
+
+/** Required. The parent resource's name of the RegionalEndpoint. */
+@property(nonatomic, copy, nullable) NSString *parent;
+
+/**
+ *  Fetches a @c GTLRNetworkconnectivity_ListRegionalEndpointsResponse.
+ *
+ *  Lists RegionalEndpoints in a given project and location.
+ *
+ *  @param parent Required. The parent resource's name of the RegionalEndpoint.
+ *
+ *  @return GTLRNetworkconnectivityQuery_ProjectsLocationsRegionalEndpointsList
+ *
+ *  @note Automatic pagination will be done when @c shouldFetchNextPages is
+ *        enabled. See @c shouldFetchNextPages on @c GTLRService for more
+ *        information.
+ */
++ (instancetype)queryWithParent:(NSString *)parent;
 
 @end
 

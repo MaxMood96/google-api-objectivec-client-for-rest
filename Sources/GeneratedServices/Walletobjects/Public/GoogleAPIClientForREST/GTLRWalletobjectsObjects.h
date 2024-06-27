@@ -1445,6 +1445,13 @@ FOUNDATION_EXTERN NSString * const kGTLRWalletobjects_Message_MessageType_Messag
  *  Value: "text"
  */
 FOUNDATION_EXTERN NSString * const kGTLRWalletobjects_Message_MessageType_Text GTLR_DEPRECATED;
+/**
+ *  Renders the message as text on the card details screen and as an Android
+ *  notification.
+ *
+ *  Value: "TEXT_AND_NOTIFY"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRWalletobjects_Message_MessageType_TextAndNotify;
 
 // ----------------------------------------------------------------------------
 // GTLRWalletobjects_OfferClass.multipleDevicesAndHoldersAllowedStatus
@@ -2156,22 +2163,13 @@ FOUNDATION_EXTERN NSString * const kGTLRWalletobjects_TransitObject_TripType_Tri
  */
 @interface GTLRWalletobjects_AppLinkData : GTLRObject
 
-/**
- *  Optional information about the partner app link. If included, the app link
- *  link module will be rendered on the valuable details on the android client.
- */
+/** Optional information about the partner app link. */
 @property(nonatomic, strong, nullable) GTLRWalletobjects_AppLinkDataAppLinkInfo *androidAppLinkInfo;
 
-/**
- *  Optional information about the partner app link. If included, the app link
- *  link module will be rendered on the valuable details on the ios client.
- */
-@property(nonatomic, strong, nullable) GTLRWalletobjects_AppLinkDataAppLinkInfo *iosAppLinkInfo;
+/** Deprecated. Links to open iOS apps are not supported. */
+@property(nonatomic, strong, nullable) GTLRWalletobjects_AppLinkDataAppLinkInfo *iosAppLinkInfo GTLR_DEPRECATED;
 
-/**
- *  Optional information about the partner app link. If included, the app link
- *  link module will be rendered on the valuable details on the web client.
- */
+/** Optional information about the partner web link. */
 @property(nonatomic, strong, nullable) GTLRWalletobjects_AppLinkDataAppLinkInfo *webAppLinkInfo;
 
 @end
@@ -2182,24 +2180,24 @@ FOUNDATION_EXTERN NSString * const kGTLRWalletobjects_TransitObject_TripType_Tri
  */
 @interface GTLRWalletobjects_AppLinkDataAppLinkInfo : GTLRObject
 
-/** Optional image to be displayed in the App Link Module */
-@property(nonatomic, strong, nullable) GTLRWalletobjects_Image *appLogoImage;
+/** Deprecated. Image isn't supported in the app link module. */
+@property(nonatomic, strong, nullable) GTLRWalletobjects_Image *appLogoImage GTLR_DEPRECATED;
 
 /**
- *  Url to follow when opening the App Link Module on clients. It will be used
- *  by partners to open their webpage or deeplink into their app.
+ *  Target to follow when opening the app link on clients. It will be used by
+ *  partners to open their app or webpage.
  */
 @property(nonatomic, strong, nullable) GTLRWalletobjects_AppLinkDataAppLinkInfoAppTarget *appTarget;
 
 /**
- *  String to be displayed in the description of the App Link Module Required
+ *  Deprecated. Description isn't supported in the app link module.
  *
  *  Remapped to 'descriptionProperty' to avoid NSObject's 'description'.
  */
-@property(nonatomic, strong, nullable) GTLRWalletobjects_LocalizedString *descriptionProperty;
+@property(nonatomic, strong, nullable) GTLRWalletobjects_LocalizedString *descriptionProperty GTLR_DEPRECATED;
 
-/** String to be displayed in the title of the App Link Module Required */
-@property(nonatomic, strong, nullable) GTLRWalletobjects_LocalizedString *title;
+/** Deprecated. Title isn't supported in the app link module. */
+@property(nonatomic, strong, nullable) GTLRWalletobjects_LocalizedString *title GTLR_DEPRECATED;
 
 @end
 
@@ -2513,14 +2511,14 @@ FOUNDATION_EXTERN NSString * const kGTLRWalletobjects_TransitObject_TripType_Tri
 /**
  *  URL for the merchant endpoint that would be called to request updates. The
  *  URL should be hosted on HTTPS and robots.txt should allow the URL path to be
- *  accessible by UserAgent:Google-Valuables. Deprecated.
+ *  accessible by UserAgent:Googlebot. Deprecated.
  */
 @property(nonatomic, copy, nullable) NSString *updateRequestUrl GTLR_DEPRECATED;
 
 /**
  *  The HTTPS url configured by the merchant. The URL should be hosted on HTTPS
  *  and robots.txt should allow the URL path to be accessible by
- *  UserAgent:Google-Valuables.
+ *  UserAgent:Googlebot.
  */
 @property(nonatomic, copy, nullable) NSString *url;
 
@@ -3298,6 +3296,13 @@ FOUNDATION_EXTERN NSString * const kGTLRWalletobjects_TransitObject_TripType_Tri
 @property(nonatomic, strong, nullable) NSNumber *allowMultipleUsersPerObject GTLR_DEPRECATED;
 
 /**
+ *  Optional app or website link that will be displayed as a button on the front
+ *  of the pass. If AppLinkData is provided for the corresponding object that
+ *  will be used instead.
+ */
+@property(nonatomic, strong, nullable) GTLRWalletobjects_AppLinkData *appLinkData;
+
+/**
  *  Callback options to be used to call the issuer back for every save/delete of
  *  an object for this class by the end-user. All objects of this class are
  *  eligible for the callback.
@@ -3722,7 +3727,11 @@ FOUNDATION_EXTERN NSString * const kGTLRWalletobjects_TransitObject_TripType_Tri
  */
 @interface GTLRWalletobjects_EventTicketObject : GTLRObject
 
-/** Optional information about the partner app link. */
+/**
+ *  Optional app or website link that will be displayed as a button on the front
+ *  of the pass. If AppLinkData is provided for the corresponding class only
+ *  object AppLinkData will be displayed.
+ */
 @property(nonatomic, strong, nullable) GTLRWalletobjects_AppLinkData *appLinkData;
 
 /** The barcode type and value. */
@@ -4145,6 +4154,13 @@ FOUNDATION_EXTERN NSString * const kGTLRWalletobjects_TransitObject_TripType_Tri
 @property(nonatomic, strong, nullable) NSNumber *allowMultipleUsersPerObject GTLR_DEPRECATED;
 
 /**
+ *  Optional app or website link that will be displayed as a button on the front
+ *  of the pass. If AppLinkData is provided for the corresponding object that
+ *  will be used instead.
+ */
+@property(nonatomic, strong, nullable) GTLRWalletobjects_AppLinkData *appLinkData;
+
+/**
  *  Policies for boarding and seating. These will inform which labels will be
  *  shown to users.
  */
@@ -4554,7 +4570,11 @@ FOUNDATION_EXTERN NSString * const kGTLRWalletobjects_TransitObject_TripType_Tri
  */
 @interface GTLRWalletobjects_FlightObject : GTLRObject
 
-/** Optional information about the partner app link. */
+/**
+ *  Optional app or website link that will be displayed as a button on the front
+ *  of the pass. If AppLinkData is provided for the corresponding class only
+ *  object AppLinkData will be displayed.
+ */
 @property(nonatomic, strong, nullable) GTLRWalletobjects_AppLinkData *appLinkData;
 
 /** The barcode type and value. */
@@ -4792,6 +4812,13 @@ FOUNDATION_EXTERN NSString * const kGTLRWalletobjects_TransitObject_TripType_Tri
 @interface GTLRWalletobjects_GenericClass : GTLRObject
 
 /**
+ *  Optional app or website link that will be displayed as a button on the front
+ *  of the pass. If AppLinkData is provided for the corresponding object that
+ *  will be used instead.
+ */
+@property(nonatomic, strong, nullable) GTLRWalletobjects_AppLinkData *appLinkData;
+
+/**
  *  Callback options to be used to call the issuer back for every save/delete of
  *  an object for this class by the end-user. All objects of this class are
  *  eligible for the callback.
@@ -4935,13 +4962,14 @@ FOUNDATION_EXTERN NSString * const kGTLRWalletobjects_TransitObject_TripType_Tri
 
 
 /**
- *  Generic Object Next ID: 121
+ *  Generic Object
  */
 @interface GTLRWalletobjects_GenericObject : GTLRObject
 
 /**
- *  Information about the partner app link. The maximum number of these fields
- *  displayed is 10.
+ *  Optional app or website link that will be displayed as a button on the front
+ *  of the pass. If AppLinkData is provided for the corresponding class only
+ *  object AppLinkData will be displayed.
  */
 @property(nonatomic, strong, nullable) GTLRWalletobjects_AppLinkData *appLinkData;
 
@@ -5176,6 +5204,13 @@ FOUNDATION_EXTERN NSString * const kGTLRWalletobjects_TransitObject_TripType_Tri
  *  Uses NSNumber of boolValue.
  */
 @property(nonatomic, strong, nullable) NSNumber *allowMultipleUsersPerObject GTLR_DEPRECATED;
+
+/**
+ *  Optional app or website link that will be displayed as a button on the front
+ *  of the pass. If AppLinkData is provided for the corresponding object that
+ *  will be used instead.
+ */
+@property(nonatomic, strong, nullable) GTLRWalletobjects_AppLinkData *appLinkData;
 
 /**
  *  Callback options to be used to call the issuer back for every save/delete of
@@ -5463,7 +5498,11 @@ FOUNDATION_EXTERN NSString * const kGTLRWalletobjects_TransitObject_TripType_Tri
  */
 @interface GTLRWalletobjects_GiftCardObject : GTLRObject
 
-/** Optional information about the partner app link. */
+/**
+ *  Optional app or website link that will be displayed as a button on the front
+ *  of the pass. If AppLinkData is provided for the corresponding class only
+ *  object AppLinkData will be displayed.
+ */
 @property(nonatomic, strong, nullable) GTLRWalletobjects_AppLinkData *appLinkData;
 
 /** The card's monetary balance. */
@@ -6074,6 +6113,13 @@ FOUNDATION_EXTERN NSString * const kGTLRWalletobjects_TransitObject_TripType_Tri
 @property(nonatomic, strong, nullable) NSNumber *allowMultipleUsersPerObject GTLR_DEPRECATED;
 
 /**
+ *  Optional app or website link that will be displayed as a button on the front
+ *  of the pass. If AppLinkData is provided for the corresponding object that
+ *  will be used instead.
+ */
+@property(nonatomic, strong, nullable) GTLRWalletobjects_AppLinkData *appLinkData;
+
+/**
  *  Callback options to be used to call the issuer back for every save/delete of
  *  an object for this class by the end-user. All objects of this class are
  *  eligible for the callback.
@@ -6409,7 +6455,11 @@ FOUNDATION_EXTERN NSString * const kGTLRWalletobjects_TransitObject_TripType_Tri
  */
 @property(nonatomic, copy, nullable) NSString *accountName;
 
-/** Optional information about the partner app link. */
+/**
+ *  Optional app or website link that will be displayed as a button on the front
+ *  of the pass. If AppLinkData is provided for the corresponding class only
+ *  object AppLinkData will be displayed.
+ */
 @property(nonatomic, strong, nullable) GTLRWalletobjects_AppLinkData *appLinkData;
 
 /** The barcode type and value. */
@@ -6780,7 +6830,7 @@ FOUNDATION_EXTERN NSString * const kGTLRWalletobjects_TransitObject_TripType_Tri
  *  Deprecated, use one of explicit hash type fields instead. These two hash
  *  related fields will only be populated on Scotty based media uploads and will
  *  contain the content of the hash group in the NotificationRequest:
- *  http://cs/#google3/uploader/service/proto/upload_listener.proto&q=class:Hash
+ *  http://cs/#google3/blobstore2/api/scotty/service/proto/upload_listener.proto&q=class:Hash
  *  Hex encoded hash value of the uploaded media.
  *
  *  Remapped to 'hashProperty' to avoid NSObject's 'hash'.
@@ -7074,7 +7124,7 @@ FOUNDATION_EXTERN NSString * const kGTLRWalletobjects_TransitObject_TripType_Tri
 @property(nonatomic, strong, nullable) GTLRWalletobjects_LocalizedString *localizedHeader;
 
 /**
- *  The type of the message. Currently, this can only be set for offers.
+ *  The message type.
  *
  *  Likely values:
  *    @arg @c kGTLRWalletobjects_Message_MessageType_ExpirationNotification
@@ -7084,6 +7134,9 @@ FOUNDATION_EXTERN NSString * const kGTLRWalletobjects_TransitObject_TripType_Tri
  *        Value "MESSAGE_TYPE_UNSPECIFIED"
  *    @arg @c kGTLRWalletobjects_Message_MessageType_Text Legacy alias for
  *        `TEXT`. Deprecated. (Value: "text")
+ *    @arg @c kGTLRWalletobjects_Message_MessageType_TextAndNotify Renders the
+ *        message as text on the card details screen and as an Android
+ *        notification. (Value: "TEXT_AND_NOTIFY")
  */
 @property(nonatomic, copy, nullable) NSString *messageType;
 
@@ -7200,6 +7253,13 @@ FOUNDATION_EXTERN NSString * const kGTLRWalletobjects_TransitObject_TripType_Tri
  *  Uses NSNumber of boolValue.
  */
 @property(nonatomic, strong, nullable) NSNumber *allowMultipleUsersPerObject GTLR_DEPRECATED;
+
+/**
+ *  Optional app or website link that will be displayed as a button on the front
+ *  of the pass. If AppLinkData is provided for the corresponding object that
+ *  will be used instead.
+ */
+@property(nonatomic, strong, nullable) GTLRWalletobjects_AppLinkData *appLinkData;
 
 /**
  *  Callback options to be used to call the issuer back for every save/delete of
@@ -7533,7 +7593,11 @@ FOUNDATION_EXTERN NSString * const kGTLRWalletobjects_TransitObject_TripType_Tri
  */
 @interface GTLRWalletobjects_OfferObject : GTLRObject
 
-/** Optional information about the partner app link. */
+/**
+ *  Optional app or website link that will be displayed as a button on the front
+ *  of the pass. If AppLinkData is provided for the corresponding class only
+ *  object AppLinkData will be displayed.
+ */
 @property(nonatomic, strong, nullable) GTLRWalletobjects_AppLinkData *appLinkData;
 
 /** The barcode type and value. */
@@ -7894,17 +7958,46 @@ FOUNDATION_EXTERN NSString * const kGTLRWalletobjects_TransitObject_TripType_Tri
  */
 @interface GTLRWalletobjects_Resources : GTLRObject
 
+/** A list of event ticket classes. */
 @property(nonatomic, strong, nullable) NSArray<GTLRWalletobjects_EventTicketClass *> *eventTicketClasses;
+
+/** A list of event ticket objects. */
 @property(nonatomic, strong, nullable) NSArray<GTLRWalletobjects_EventTicketObject *> *eventTicketObjects;
+
+/** A list of flight classes. */
 @property(nonatomic, strong, nullable) NSArray<GTLRWalletobjects_FlightClass *> *flightClasses;
+
+/** A list of flight objects. */
 @property(nonatomic, strong, nullable) NSArray<GTLRWalletobjects_FlightObject *> *flightObjects;
+
+/** A list of generic classes. */
+@property(nonatomic, strong, nullable) NSArray<GTLRWalletobjects_GenericClass *> *genericClasses;
+
+/** A list of generic objects. */
+@property(nonatomic, strong, nullable) NSArray<GTLRWalletobjects_GenericObject *> *genericObjects;
+
+/** A list of gift card classes. */
 @property(nonatomic, strong, nullable) NSArray<GTLRWalletobjects_GiftCardClass *> *giftCardClasses;
+
+/** A list of gift card objects. */
 @property(nonatomic, strong, nullable) NSArray<GTLRWalletobjects_GiftCardObject *> *giftCardObjects;
+
+/** A list of loyalty classes. */
 @property(nonatomic, strong, nullable) NSArray<GTLRWalletobjects_LoyaltyClass *> *loyaltyClasses;
+
+/** A list of loyalty objects. */
 @property(nonatomic, strong, nullable) NSArray<GTLRWalletobjects_LoyaltyObject *> *loyaltyObjects;
+
+/** A list of offer classes. */
 @property(nonatomic, strong, nullable) NSArray<GTLRWalletobjects_OfferClass *> *offerClasses;
+
+/** A list of offer objects. */
 @property(nonatomic, strong, nullable) NSArray<GTLRWalletobjects_OfferObject *> *offerObjects;
+
+/** A list of transit classes. */
 @property(nonatomic, strong, nullable) NSArray<GTLRWalletobjects_TransitClass *> *transitClasses;
+
+/** A list of transit objects. */
 @property(nonatomic, strong, nullable) NSArray<GTLRWalletobjects_TransitObject *> *transitObjects;
 
 @end
@@ -8525,6 +8618,13 @@ FOUNDATION_EXTERN NSString * const kGTLRWalletobjects_TransitObject_TripType_Tri
 @property(nonatomic, strong, nullable) NSNumber *allowMultipleUsersPerObject GTLR_DEPRECATED;
 
 /**
+ *  Optional app or website link that will be displayed as a button on the front
+ *  of the pass. If AppLinkData is provided for the corresponding object that
+ *  will be used instead.
+ */
+@property(nonatomic, strong, nullable) GTLRWalletobjects_AppLinkData *appLinkData;
+
+/**
  *  Callback options to be used to call the issuer back for every save/delete of
  *  an object for this class by the end-user. All objects of this class are
  *  eligible for the callback.
@@ -8932,7 +9032,11 @@ FOUNDATION_EXTERN NSString * const kGTLRWalletobjects_TransitObject_TripType_Tri
  */
 @property(nonatomic, strong, nullable) GTLRWalletobjects_ActivationStatus *activationStatus;
 
-/** Optional information about the partner app link. */
+/**
+ *  Optional app or website link that will be displayed as a button on the front
+ *  of the pass. If AppLinkData is provided for the corresponding class only
+ *  object AppLinkData will be displayed.
+ */
 @property(nonatomic, strong, nullable) GTLRWalletobjects_AppLinkData *appLinkData;
 
 /** The barcode type and value. */

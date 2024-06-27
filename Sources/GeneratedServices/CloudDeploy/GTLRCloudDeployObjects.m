@@ -28,6 +28,7 @@ NSString * const kGTLRCloudDeploy_AutomationEvent_Type_TypeRolloutUpdate = @"TYP
 NSString * const kGTLRCloudDeploy_AutomationEvent_Type_TypeUnspecified = @"TYPE_UNSPECIFIED";
 
 // GTLRCloudDeploy_AutomationRun.state
+NSString * const kGTLRCloudDeploy_AutomationRun_State_Aborted  = @"ABORTED";
 NSString * const kGTLRCloudDeploy_AutomationRun_State_Cancelled = @"CANCELLED";
 NSString * const kGTLRCloudDeploy_AutomationRun_State_Failed   = @"FAILED";
 NSString * const kGTLRCloudDeploy_AutomationRun_State_InProgress = @"IN_PROGRESS";
@@ -156,17 +157,12 @@ NSString * const kGTLRCloudDeploy_ReleaseRenderEvent_Type_TypeRestrictionViolate
 NSString * const kGTLRCloudDeploy_ReleaseRenderEvent_Type_TypeRolloutUpdate = @"TYPE_ROLLOUT_UPDATE";
 NSString * const kGTLRCloudDeploy_ReleaseRenderEvent_Type_TypeUnspecified = @"TYPE_UNSPECIFIED";
 
-// GTLRCloudDeploy_Retry.backoffMode
-NSString * const kGTLRCloudDeploy_Retry_BackoffMode_BackoffModeExponential = @"BACKOFF_MODE_EXPONENTIAL";
-NSString * const kGTLRCloudDeploy_Retry_BackoffMode_BackoffModeLinear = @"BACKOFF_MODE_LINEAR";
-NSString * const kGTLRCloudDeploy_Retry_BackoffMode_BackoffModeUnspecified = @"BACKOFF_MODE_UNSPECIFIED";
-
 // GTLRCloudDeploy_RetryAttempt.state
+NSString * const kGTLRCloudDeploy_RetryAttempt_State_RepairStateAborted = @"REPAIR_STATE_ABORTED";
 NSString * const kGTLRCloudDeploy_RetryAttempt_State_RepairStateCancelled = @"REPAIR_STATE_CANCELLED";
 NSString * const kGTLRCloudDeploy_RetryAttempt_State_RepairStateFailed = @"REPAIR_STATE_FAILED";
 NSString * const kGTLRCloudDeploy_RetryAttempt_State_RepairStateInProgress = @"REPAIR_STATE_IN_PROGRESS";
 NSString * const kGTLRCloudDeploy_RetryAttempt_State_RepairStatePending = @"REPAIR_STATE_PENDING";
-NSString * const kGTLRCloudDeploy_RetryAttempt_State_RepairStateSkipped = @"REPAIR_STATE_SKIPPED";
 NSString * const kGTLRCloudDeploy_RetryAttempt_State_RepairStateSucceeded = @"REPAIR_STATE_SUCCEEDED";
 NSString * const kGTLRCloudDeploy_RetryAttempt_State_RepairStateUnspecified = @"REPAIR_STATE_UNSPECIFIED";
 
@@ -176,11 +172,11 @@ NSString * const kGTLRCloudDeploy_RetryPhase_BackoffMode_BackoffModeLinear = @"B
 NSString * const kGTLRCloudDeploy_RetryPhase_BackoffMode_BackoffModeUnspecified = @"BACKOFF_MODE_UNSPECIFIED";
 
 // GTLRCloudDeploy_RollbackAttempt.state
+NSString * const kGTLRCloudDeploy_RollbackAttempt_State_RepairStateAborted = @"REPAIR_STATE_ABORTED";
 NSString * const kGTLRCloudDeploy_RollbackAttempt_State_RepairStateCancelled = @"REPAIR_STATE_CANCELLED";
 NSString * const kGTLRCloudDeploy_RollbackAttempt_State_RepairStateFailed = @"REPAIR_STATE_FAILED";
 NSString * const kGTLRCloudDeploy_RollbackAttempt_State_RepairStateInProgress = @"REPAIR_STATE_IN_PROGRESS";
 NSString * const kGTLRCloudDeploy_RollbackAttempt_State_RepairStatePending = @"REPAIR_STATE_PENDING";
-NSString * const kGTLRCloudDeploy_RollbackAttempt_State_RepairStateSkipped = @"REPAIR_STATE_SKIPPED";
 NSString * const kGTLRCloudDeploy_RollbackAttempt_State_RepairStateSucceeded = @"REPAIR_STATE_SUCCEEDED";
 NSString * const kGTLRCloudDeploy_RollbackAttempt_State_RepairStateUnspecified = @"REPAIR_STATE_UNSPECIFIED";
 
@@ -1128,7 +1124,7 @@ NSString * const kGTLRCloudDeploy_VerifyJobRun_FailureCause_VerificationConfigNo
 
 @implementation GTLRCloudDeploy_ExecutionConfig
 @dynamic artifactStorage, defaultPool, executionTimeout, privatePool,
-         serviceAccount, usages, workerPool;
+         serviceAccount, usages, verbose, workerPool;
 
 + (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
   NSDictionary<NSString *, Class> *map = @{
@@ -1172,7 +1168,7 @@ NSString * const kGTLRCloudDeploy_VerifyJobRun_FailureCause_VerificationConfigNo
 //
 
 @implementation GTLRCloudDeploy_GkeCluster
-@dynamic cluster, internalIp;
+@dynamic cluster, internalIp, proxyUrl;
 @end
 
 
@@ -1974,16 +1970,6 @@ NSString * const kGTLRCloudDeploy_VerifyJobRun_FailureCause_VerificationConfigNo
 
 // ----------------------------------------------------------------------------
 //
-//   GTLRCloudDeploy_RepairMode
-//
-
-@implementation GTLRCloudDeploy_RepairMode
-@dynamic retry, rollback;
-@end
-
-
-// ----------------------------------------------------------------------------
-//
 //   GTLRCloudDeploy_RepairPhase
 //
 
@@ -1998,7 +1984,7 @@ NSString * const kGTLRCloudDeploy_VerifyJobRun_FailureCause_VerificationConfigNo
 //
 
 @implementation GTLRCloudDeploy_RepairRolloutOperation
-@dynamic currentRepairModeIndex, jobId, phaseId, repairPhases, rollout;
+@dynamic jobId, phaseId, repairPhases, rollout;
 
 + (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
   NSDictionary<NSString *, Class> *map = @{
@@ -2016,7 +2002,7 @@ NSString * const kGTLRCloudDeploy_VerifyJobRun_FailureCause_VerificationConfigNo
 //
 
 @implementation GTLRCloudDeploy_RepairRolloutRule
-@dynamic condition, identifier, jobs, repairModes, sourcePhases;
+@dynamic condition, identifier, jobs;
 
 + (NSDictionary<NSString *, NSString *> *)propertyToJSONKeyMap {
   return @{ @"identifier" : @"id" };
@@ -2024,23 +2010,11 @@ NSString * const kGTLRCloudDeploy_VerifyJobRun_FailureCause_VerificationConfigNo
 
 + (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
   NSDictionary<NSString *, Class> *map = @{
-    @"jobs" : [NSString class],
-    @"repairModes" : [GTLRCloudDeploy_RepairMode class],
-    @"sourcePhases" : [NSString class]
+    @"jobs" : [NSString class]
   };
   return map;
 }
 
-@end
-
-
-// ----------------------------------------------------------------------------
-//
-//   GTLRCloudDeploy_Retry
-//
-
-@implementation GTLRCloudDeploy_Retry
-@dynamic attempts, backoffMode, wait;
 @end
 
 
@@ -2079,7 +2053,7 @@ NSString * const kGTLRCloudDeploy_VerifyJobRun_FailureCause_VerificationConfigNo
 //
 
 @implementation GTLRCloudDeploy_RetryPhase
-@dynamic attempts, backoffMode, jobId, phaseId, totalAttempts;
+@dynamic attempts, backoffMode, totalAttempts;
 
 + (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
   NSDictionary<NSString *, Class> *map = @{
@@ -2088,16 +2062,6 @@ NSString * const kGTLRCloudDeploy_VerifyJobRun_FailureCause_VerificationConfigNo
   return map;
 }
 
-@end
-
-
-// ----------------------------------------------------------------------------
-//
-//   GTLRCloudDeploy_Rollback
-//
-
-@implementation GTLRCloudDeploy_Rollback
-@dynamic destinationPhase;
 @end
 
 
@@ -2283,6 +2247,16 @@ NSString * const kGTLRCloudDeploy_VerifyJobRun_FailureCause_VerificationConfigNo
 
 // ----------------------------------------------------------------------------
 //
+//   GTLRCloudDeploy_SkaffoldGCBRepoSource
+//
+
+@implementation GTLRCloudDeploy_SkaffoldGCBRepoSource
+@dynamic path, ref, repository;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
 //   GTLRCloudDeploy_SkaffoldGCSSource
 //
 
@@ -2307,7 +2281,7 @@ NSString * const kGTLRCloudDeploy_VerifyJobRun_FailureCause_VerificationConfigNo
 //
 
 @implementation GTLRCloudDeploy_SkaffoldModules
-@dynamic configs, git, googleCloudStorage;
+@dynamic configs, git, googleCloudBuildRepo, googleCloudStorage;
 
 + (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
   NSDictionary<NSString *, Class> *map = @{

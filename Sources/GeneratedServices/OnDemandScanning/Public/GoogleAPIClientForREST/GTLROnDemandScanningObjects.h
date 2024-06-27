@@ -32,6 +32,7 @@
 @class GTLROnDemandScanning_Command;
 @class GTLROnDemandScanning_Completeness;
 @class GTLROnDemandScanning_ComplianceOccurrence;
+@class GTLROnDemandScanning_ComplianceVersion;
 @class GTLROnDemandScanning_CVSS;
 @class GTLROnDemandScanning_DeploymentOccurrence;
 @class GTLROnDemandScanning_DiscoveryOccurrence;
@@ -120,6 +121,7 @@
 @class GTLROnDemandScanning_UpgradeOccurrence;
 @class GTLROnDemandScanning_Version;
 @class GTLROnDemandScanning_VexAssessment;
+@class GTLROnDemandScanning_VulnerabilityAttestation;
 @class GTLROnDemandScanning_VulnerabilityOccurrence;
 @class GTLROnDemandScanning_WindowsUpdate;
 
@@ -760,6 +762,28 @@ FOUNDATION_EXTERN NSString * const kGTLROnDemandScanning_VexAssessment_State_Sta
 FOUNDATION_EXTERN NSString * const kGTLROnDemandScanning_VexAssessment_State_UnderInvestigation;
 
 // ----------------------------------------------------------------------------
+// GTLROnDemandScanning_VulnerabilityAttestation.state
+
+/**
+ *  Attestation was unsuccessfully generated and stored.
+ *
+ *  Value: "FAILURE"
+ */
+FOUNDATION_EXTERN NSString * const kGTLROnDemandScanning_VulnerabilityAttestation_State_Failure;
+/**
+ *  Attestation was successfully generated and stored.
+ *
+ *  Value: "SUCCESS"
+ */
+FOUNDATION_EXTERN NSString * const kGTLROnDemandScanning_VulnerabilityAttestation_State_Success;
+/**
+ *  Default unknown state.
+ *
+ *  Value: "VULNERABILITY_ATTESTATION_STATE_UNSPECIFIED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLROnDemandScanning_VulnerabilityAttestation_State_VulnerabilityAttestationStateUnspecified;
+
+// ----------------------------------------------------------------------------
 // GTLROnDemandScanning_VulnerabilityOccurrence.cvssVersion
 
 /** Value: "CVSS_VERSION_2" */
@@ -1358,6 +1382,36 @@ FOUNDATION_EXTERN NSString * const kGTLROnDemandScanning_VulnerabilityOccurrence
 @property(nonatomic, copy, nullable) NSString *nonComplianceReason;
 @property(nonatomic, strong, nullable) NSArray<GTLROnDemandScanning_NonCompliantFile *> *nonCompliantFiles;
 
+/** The OS and config version the benchmark was run on. */
+@property(nonatomic, strong, nullable) GTLROnDemandScanning_ComplianceVersion *version;
+
+@end
+
+
+/**
+ *  Describes the CIS benchmark version that is applicable to a given OS and os
+ *  version.
+ */
+@interface GTLROnDemandScanning_ComplianceVersion : GTLRObject
+
+/**
+ *  The name of the document that defines this benchmark, e.g. "CIS
+ *  Container-Optimized OS".
+ */
+@property(nonatomic, copy, nullable) NSString *benchmarkDocument;
+
+/**
+ *  The CPE URI (https://cpe.mitre.org/specification/) this benchmark is
+ *  applicable to.
+ */
+@property(nonatomic, copy, nullable) NSString *cpeUri;
+
+/**
+ *  The version of the benchmark. This is set to the version of the OS-specific
+ *  CIS document the benchmark is defined in.
+ */
+@property(nonatomic, copy, nullable) NSString *version;
+
 @end
 
 
@@ -1653,6 +1707,9 @@ FOUNDATION_EXTERN NSString * const kGTLROnDemandScanning_VulnerabilityOccurrence
 
 /** The status of an SBOM generation. */
 @property(nonatomic, strong, nullable) GTLROnDemandScanning_SBOMStatus *sbomStatus;
+
+/** The status of an vulnerability attestation generation. */
+@property(nonatomic, strong, nullable) GTLROnDemandScanning_VulnerabilityAttestation *vulnerabilityAttestation;
 
 @end
 
@@ -3820,6 +3877,35 @@ FOUNDATION_EXTERN NSString * const kGTLROnDemandScanning_VulnerabilityOccurrence
  *  identifiers e.g. CVE, GHSA etc.
  */
 @property(nonatomic, copy, nullable) NSString *vulnerabilityId;
+
+@end
+
+
+/**
+ *  The status of an vulnerability attestation generation.
+ */
+@interface GTLROnDemandScanning_VulnerabilityAttestation : GTLRObject
+
+/** If failure, the error reason for why the attestation generation failed. */
+@property(nonatomic, copy, nullable) NSString *error;
+
+/** The last time we attempted to generate an attestation. */
+@property(nonatomic, strong, nullable) GTLRDateTime *lastAttemptTime;
+
+/**
+ *  The success/failure state of the latest attestation attempt.
+ *
+ *  Likely values:
+ *    @arg @c kGTLROnDemandScanning_VulnerabilityAttestation_State_Failure
+ *        Attestation was unsuccessfully generated and stored. (Value:
+ *        "FAILURE")
+ *    @arg @c kGTLROnDemandScanning_VulnerabilityAttestation_State_Success
+ *        Attestation was successfully generated and stored. (Value: "SUCCESS")
+ *    @arg @c kGTLROnDemandScanning_VulnerabilityAttestation_State_VulnerabilityAttestationStateUnspecified
+ *        Default unknown state. (Value:
+ *        "VULNERABILITY_ATTESTATION_STATE_UNSPECIFIED")
+ */
+@property(nonatomic, copy, nullable) NSString *state;
 
 @end
 

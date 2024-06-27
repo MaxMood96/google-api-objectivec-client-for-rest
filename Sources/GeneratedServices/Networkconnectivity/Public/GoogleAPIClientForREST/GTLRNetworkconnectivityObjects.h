@@ -16,8 +16,10 @@
 
 @class GTLRNetworkconnectivity_AuditConfig;
 @class GTLRNetworkconnectivity_AuditLogConfig;
+@class GTLRNetworkconnectivity_AutoAccept;
 @class GTLRNetworkconnectivity_Binding;
 @class GTLRNetworkconnectivity_ConsumerPscConfig;
+@class GTLRNetworkconnectivity_ConsumerPscConfig_ServiceAttachmentIpAddressMap;
 @class GTLRNetworkconnectivity_ConsumerPscConnection;
 @class GTLRNetworkconnectivity_Expr;
 @class GTLRNetworkconnectivity_Filter;
@@ -42,13 +44,18 @@
 @class GTLRNetworkconnectivity_Location;
 @class GTLRNetworkconnectivity_Location_Labels;
 @class GTLRNetworkconnectivity_Location_Metadata;
+@class GTLRNetworkconnectivity_NextHopInterconnectAttachment;
+@class GTLRNetworkconnectivity_NextHopRouterApplianceInstance;
 @class GTLRNetworkconnectivity_NextHopVpcNetwork;
+@class GTLRNetworkconnectivity_NextHopVPNTunnel;
 @class GTLRNetworkconnectivity_Policy;
 @class GTLRNetworkconnectivity_PolicyBasedRoute;
 @class GTLRNetworkconnectivity_PolicyBasedRoute_Labels;
 @class GTLRNetworkconnectivity_ProducerPscConfig;
 @class GTLRNetworkconnectivity_PscConfig;
 @class GTLRNetworkconnectivity_PscConnection;
+@class GTLRNetworkconnectivity_RegionalEndpoint;
+@class GTLRNetworkconnectivity_RegionalEndpoint_Labels;
 @class GTLRNetworkconnectivity_Route;
 @class GTLRNetworkconnectivity_Route_Labels;
 @class GTLRNetworkconnectivity_RouterApplianceInstance;
@@ -281,6 +288,49 @@ FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivity_Group_State_StateUns
 FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivity_Group_State_Updating;
 
 // ----------------------------------------------------------------------------
+// GTLRNetworkconnectivity_Hub.policyMode
+
+/**
+ *  Policy mode is unspecified. It defaults to PRESET with preset_topology =
+ *  MESH.
+ *
+ *  Value: "POLICY_MODE_UNSPECIFIED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivity_Hub_PolicyMode_PolicyModeUnspecified;
+/**
+ *  Hub uses one of the preset topologies.
+ *
+ *  Value: "PRESET"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivity_Hub_PolicyMode_Preset;
+
+// ----------------------------------------------------------------------------
+// GTLRNetworkconnectivity_Hub.presetTopology
+
+/**
+ *  Mesh topology is implemented. Group `default` is automatically created. All
+ *  spokes in the hub are added to group `default`.
+ *
+ *  Value: "MESH"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivity_Hub_PresetTopology_Mesh;
+/**
+ *  Preset topology is unspecified. When policy_mode = PRESET, it defaults to
+ *  MESH.
+ *
+ *  Value: "PRESET_TOPOLOGY_UNSPECIFIED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivity_Hub_PresetTopology_PresetTopologyUnspecified;
+/**
+ *  Star topology is implemented. Two groups, `center` and `edge`, are
+ *  automatically created along with hub creation. Spokes have to join one of
+ *  the groups during creation.
+ *
+ *  Value: "STAR"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivity_Hub_PresetTopology_Star;
+
+// ----------------------------------------------------------------------------
 // GTLRNetworkconnectivity_Hub.state
 
 /**
@@ -458,9 +508,8 @@ FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivity_LocationMetadata_Loc
 
 /**
  *  Use the routes from the default routing tables (system-generated routes,
- *  custom routes, peering route) to determine the next hop. This will
- *  effectively exclude matching packets being applied on other PBRs with a
- *  lower priority.
+ *  custom routes, peering route) to determine the next hop. This effectively
+ *  excludes matching packets being applied on other PBRs with a lower priority.
  *
  *  Value: "DEFAULT_ROUTING"
  */
@@ -471,6 +520,27 @@ FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivity_PolicyBasedRoute_Nex
  *  Value: "OTHER_ROUTES_UNSPECIFIED"
  */
 FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivity_PolicyBasedRoute_NextHopOtherRoutes_OtherRoutesUnspecified;
+
+// ----------------------------------------------------------------------------
+// GTLRNetworkconnectivity_PscConfig.producerInstanceLocation
+
+/**
+ *  Producer instance must be within one of the values provided in
+ *  allowed_google_producers_resource_hierarchy_level.
+ *
+ *  Value: "CUSTOM_RESOURCE_HIERARCHY_LEVELS"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivity_PscConfig_ProducerInstanceLocation_CustomResourceHierarchyLevels;
+/**
+ *  Producer instance location is not specified. When this option is chosen,
+ *  then the PSC connections created by this ServiceConnectionPolicy must be
+ *  within the same project as the Producer instance. This is the default
+ *  ProducerInstanceLocation value. To allow for PSC connections from this
+ *  network to other networks, use the CUSTOM_RESOURCE_HIERARCHY_LEVELS option.
+ *
+ *  Value: "PRODUCER_INSTANCE_LOCATION_UNSPECIFIED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivity_PscConfig_ProducerInstanceLocation_ProducerInstanceLocationUnspecified;
 
 // ----------------------------------------------------------------------------
 // GTLRNetworkconnectivity_PscConnection.errorType
@@ -536,6 +606,29 @@ FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivity_PscConnection_State_
 FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivity_PscConnection_State_StateUnspecified;
 
 // ----------------------------------------------------------------------------
+// GTLRNetworkconnectivity_RegionalEndpoint.accessType
+
+/**
+ *  An invalid type as the default case.
+ *
+ *  Value: "ACCESS_TYPE_UNSPECIFIED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivity_RegionalEndpoint_AccessType_AccessTypeUnspecified;
+/**
+ *  This regional endpoint is accessible from all regions.
+ *
+ *  Value: "GLOBAL"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivity_RegionalEndpoint_AccessType_Global;
+/**
+ *  This regional endpoint is only accessible from the same region where it
+ *  resides.
+ *
+ *  Value: "REGIONAL"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivity_RegionalEndpoint_AccessType_Regional;
+
+// ----------------------------------------------------------------------------
 // GTLRNetworkconnectivity_Route.state
 
 /**
@@ -597,6 +690,14 @@ FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivity_Route_State_Updating
 // ----------------------------------------------------------------------------
 // GTLRNetworkconnectivity_Route.type
 
+/**
+ *  The route leads to a destination in a dynamic route. Dynamic routes are
+ *  derived from Border Gateway Protocol (BGP) advertisements received from an
+ *  NCC hybrid spoke.
+ *
+ *  Value: "DYNAMIC_ROUTE"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivity_Route_Type_DynamicRoute;
 /**
  *  No route type information specified
  *
@@ -974,8 +1075,8 @@ FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivity_StateReason_Code_Rej
  */
 FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivity_Warnings_Code_ResourceBeingModified;
 /**
- *  The policy-based route is not active and functioning. Common causes are the
- *  dependent network was deleted or the resource project was turned off.
+ *  The policy-based route is not active and functioning. Common causes are that
+ *  the dependent network was deleted or the resource project was turned off.
  *
  *  Value: "RESOURCE_NOT_ACTIVE"
  */
@@ -1091,6 +1192,26 @@ FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivity_Warnings_Code_Warnin
 
 
 /**
+ *  The auto-accept setting for a group controls whether proposed spokes are
+ *  automatically attached to the hub. If auto-accept is enabled, the spoke
+ *  immediately is attached to the hub and becomes part of the group. In this
+ *  case, the new spoke is in the ACTIVE state. If auto-accept is disabled, the
+ *  spoke goes to the INACTIVE state, and it must be reviewed and accepted by a
+ *  hub administrator.
+ */
+@interface GTLRNetworkconnectivity_AutoAccept : GTLRObject
+
+/**
+ *  A list of project ids or project numbers for which you want to enable
+ *  auto-accept. The auto-accept setting is applied to spokes being created or
+ *  updated in these projects.
+ */
+@property(nonatomic, strong, nullable) NSArray<NSString *> *autoAcceptProjects;
+
+@end
+
+
+/**
  *  Associates `members`, or principals, with a `role`.
  */
 @interface GTLRNetworkconnectivity_Binding : GTLRObject
@@ -1182,6 +1303,15 @@ FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivity_Warnings_Code_Warnin
 @interface GTLRNetworkconnectivity_ConsumerPscConfig : GTLRObject
 
 /**
+ *  Required. The project ID or project number of the consumer project. This
+ *  project is the one that the consumer uses to interact with the producer
+ *  instance. From the perspective of a consumer who's created a producer
+ *  instance, this is the project of the producer instance. Format: 'projects/'
+ *  Eg. 'projects/consumer-project' or 'projects/1234'
+ */
+@property(nonatomic, copy, nullable) NSString *consumerInstanceProject;
+
+/**
  *  This is used in PSC consumer ForwardingRule to control whether the PSC
  *  endpoint can be accessed from another region.
  *
@@ -1197,10 +1327,20 @@ FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivity_Warnings_Code_Warnin
  */
 @property(nonatomic, copy, nullable) NSString *network;
 
+/** Immutable. An immutable identifier for the producer instance. */
+@property(nonatomic, copy, nullable) NSString *producerInstanceId;
+
 /**
  *  The consumer project where PSC connections are allowed to be created in.
  */
 @property(nonatomic, copy, nullable) NSString *project;
+
+/**
+ *  Output only. A map to store mapping between customer vip and target service
+ *  attachment. Only service attachment with producer specified ip addresses are
+ *  stored here.
+ */
+@property(nonatomic, strong, nullable) GTLRNetworkconnectivity_ConsumerPscConfig_ServiceAttachmentIpAddressMap *serviceAttachmentIpAddressMap;
 
 /**
  *  Output only. Overall state of PSC Connections management for this consumer
@@ -1223,6 +1363,20 @@ FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivity_Warnings_Code_Warnin
  */
 @property(nonatomic, copy, nullable) NSString *state;
 
+@end
+
+
+/**
+ *  Output only. A map to store mapping between customer vip and target service
+ *  attachment. Only service attachment with producer specified ip addresses are
+ *  stored here.
+ *
+ *  @note This class is documented as having more properties of NSString. Use @c
+ *        -additionalJSONKeys and @c -additionalPropertyForName: to get the list
+ *        of properties and then fetch them; or @c -additionalProperties to
+ *        fetch them all at once.
+ */
+@interface GTLRNetworkconnectivity_ConsumerPscConfig_ServiceAttachmentIpAddressMap : GTLRObject
 @end
 
 
@@ -1283,6 +1437,9 @@ FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivity_Warnings_Code_Warnin
  */
 @property(nonatomic, copy, nullable) NSString *network;
 
+/** Immutable. An immutable identifier for the producer instance. */
+@property(nonatomic, copy, nullable) NSString *producerInstanceId;
+
 /**
  *  The consumer project whose PSC forwarding rule is connected to the service
  *  attachments in this service connection map.
@@ -1294,6 +1451,12 @@ FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivity_Warnings_Code_Warnin
  *  attachments in this service connection map.
  */
 @property(nonatomic, copy, nullable) NSString *pscConnectionId;
+
+/**
+ *  Output only. The URI of the selected subnetwork selected to allocate IP
+ *  address for this connection.
+ */
+@property(nonatomic, copy, nullable) NSString *selectedSubnetwork;
 
 /**
  *  The URI of a service attachment which is the target of the PSC connection.
@@ -1400,7 +1563,7 @@ FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivity_Warnings_Code_Warnin
 
 /**
  *  Required. Internet protocol versions this policy-based route applies to. For
- *  this version, only IPV4 is supported.
+ *  this version, only IPV4 is supported. IPV6 is supported in preview.
  *
  *  Likely values:
  *    @arg @c kGTLRNetworkconnectivity_Filter_ProtocolVersion_Ipv4 The PBR is
@@ -1554,13 +1717,13 @@ FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivity_Warnings_Code_Warnin
 @property(nonatomic, copy, nullable) NSString *domain;
 
 /**
- *  Additional structured details about this error. Keys should match
- *  /[a-zA-Z0-9-_]/ and be limited to 64 characters in length. When identifying
- *  the current value of an exceeded limit, the units should be contained in the
- *  key, not the value. For example, rather than {"instanceLimit":
- *  "100/request"}, should be returned as, {"instanceLimitPerRequest": "100"},
- *  if the client exceeds the number of instances that can be created in a
- *  single (batch) request.
+ *  Additional structured details about this error. Keys must match /a-z+/ but
+ *  should ideally be lowerCamelCase. Also they must be limited to 64 characters
+ *  in length. When identifying the current value of an exceeded limit, the
+ *  units should be contained in the key, not the value. For example, rather
+ *  than {"instanceLimit": "100/request"}, should be returned as,
+ *  {"instanceLimitPerRequest": "100"}, if the client exceeds the number of
+ *  instances that can be created in a single (batch) request.
  */
 @property(nonatomic, strong, nullable) GTLRNetworkconnectivity_GoogleRpcErrorInfo_Metadata *metadata;
 
@@ -1576,13 +1739,13 @@ FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivity_Warnings_Code_Warnin
 
 
 /**
- *  Additional structured details about this error. Keys should match
- *  /[a-zA-Z0-9-_]/ and be limited to 64 characters in length. When identifying
- *  the current value of an exceeded limit, the units should be contained in the
- *  key, not the value. For example, rather than {"instanceLimit":
- *  "100/request"}, should be returned as, {"instanceLimitPerRequest": "100"},
- *  if the client exceeds the number of instances that can be created in a
- *  single (batch) request.
+ *  Additional structured details about this error. Keys must match /a-z+/ but
+ *  should ideally be lowerCamelCase. Also they must be limited to 64 characters
+ *  in length. When identifying the current value of an exceeded limit, the
+ *  units should be contained in the key, not the value. For example, rather
+ *  than {"instanceLimit": "100/request"}, should be returned as,
+ *  {"instanceLimitPerRequest": "100"}, if the client exceeds the number of
+ *  instances that can be created in a single (batch) request.
  *
  *  @note This class is documented as having more properties of NSString. Use @c
  *        -additionalJSONKeys and @c -additionalPropertyForName: to get the list
@@ -1643,6 +1806,9 @@ FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivity_Warnings_Code_Warnin
  */
 @interface GTLRNetworkconnectivity_Group : GTLRObject
 
+/** Optional. The auto-accept setting for this group. */
+@property(nonatomic, strong, nullable) GTLRNetworkconnectivity_AutoAccept *autoAccept;
+
 /** Output only. The time the group was created. */
 @property(nonatomic, strong, nullable) GTLRDateTime *createTime;
 
@@ -1666,6 +1832,13 @@ FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivity_Warnings_Code_Warnin
  *  `projects/{project_number}/locations/global/hubs/{hub}/groups/{group_id}`
  */
 @property(nonatomic, copy, nullable) NSString *name;
+
+/**
+ *  Output only. The name of the route table that corresponds to this group.
+ *  They use the following form:
+ *  `projects/{project_number}/locations/global/hubs/{hub_id}/routeTables/{route_table_id}`
+ */
+@property(nonatomic, copy, nullable) NSString *routeTable;
 
 /**
  *  Output only. The current lifecycle state of this group.
@@ -1741,6 +1914,16 @@ FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivity_Warnings_Code_Warnin
 @property(nonatomic, copy, nullable) NSString *descriptionProperty;
 
 /**
+ *  Optional. Whether Private Service Connect transitivity is enabled for the
+ *  hub. If true, Private Service Connect endpoints in VPC spokes attached to
+ *  the hub are made accessible to other VPC spokes attached to the hub. The
+ *  default value is false.
+ *
+ *  Uses NSNumber of boolValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *exportPsc;
+
+/**
  *  Optional labels in key-value pair format. For more information about labels,
  *  see [Requirements for
  *  labels](https://cloud.google.com/resource-manager/docs/creating-managing-labels#requirements).
@@ -1752,6 +1935,40 @@ FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivity_Warnings_Code_Warnin
  *  following form: `projects/{project_number}/locations/global/hubs/{hub_id}`
  */
 @property(nonatomic, copy, nullable) NSString *name;
+
+/**
+ *  Optional. The policy mode of this hub. This field can be either PRESET or
+ *  CUSTOM. If unspecified, the policy_mode defaults to PRESET.
+ *
+ *  Likely values:
+ *    @arg @c kGTLRNetworkconnectivity_Hub_PolicyMode_PolicyModeUnspecified
+ *        Policy mode is unspecified. It defaults to PRESET with preset_topology
+ *        = MESH. (Value: "POLICY_MODE_UNSPECIFIED")
+ *    @arg @c kGTLRNetworkconnectivity_Hub_PolicyMode_Preset Hub uses one of the
+ *        preset topologies. (Value: "PRESET")
+ */
+@property(nonatomic, copy, nullable) NSString *policyMode;
+
+/**
+ *  Optional. The topology implemented in this hub. Currently, this field is
+ *  only used when policy_mode = PRESET. The available preset topologies are
+ *  MESH and STAR. If preset_topology is unspecified and policy_mode = PRESET,
+ *  the preset_topology defaults to MESH. When policy_mode = CUSTOM, the
+ *  preset_topology is set to PRESET_TOPOLOGY_UNSPECIFIED.
+ *
+ *  Likely values:
+ *    @arg @c kGTLRNetworkconnectivity_Hub_PresetTopology_Mesh Mesh topology is
+ *        implemented. Group `default` is automatically created. All spokes in
+ *        the hub are added to group `default`. (Value: "MESH")
+ *    @arg @c kGTLRNetworkconnectivity_Hub_PresetTopology_PresetTopologyUnspecified
+ *        Preset topology is unspecified. When policy_mode = PRESET, it defaults
+ *        to MESH. (Value: "PRESET_TOPOLOGY_UNSPECIFIED")
+ *    @arg @c kGTLRNetworkconnectivity_Hub_PresetTopology_Star Star topology is
+ *        implemented. Two groups, `center` and `edge`, are automatically
+ *        created along with hub creation. Spokes have to join one of the groups
+ *        during creation. (Value: "STAR")
+ */
+@property(nonatomic, copy, nullable) NSString *presetTopology;
 
 /**
  *  Output only. The route tables that belong to this hub. They use the
@@ -1878,9 +2095,9 @@ FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivity_Warnings_Code_Warnin
 /**
  *  The URL or resource ID of the network in which to reserve the internal
  *  range. The network cannot be deleted if there are any reserved internal
- *  ranges referring to it. Legacy networks are not supported. This can only be
- *  specified for a global internal address. Example: - URL:
- *  /compute/v1/projects/{project}/global/networks/{resourceId} - ID: network123
+ *  ranges referring to it. Legacy networks are not supported. For example:
+ *  https://www.googleapis.com/compute/v1/projects/{project}/locations/global/networks/{network}
+ *  projects/{project}/locations/global/networks/{network} {network}
  */
 @property(nonatomic, copy, nullable) NSString *network;
 
@@ -1999,6 +2216,13 @@ FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivity_Warnings_Code_Warnin
 @interface GTLRNetworkconnectivity_LinkedInterconnectAttachments : GTLRObject
 
 /**
+ *  Optional. IP ranges allowed to be included during import from hub.(does not
+ *  control transit connectivity) The only allowed value for now is
+ *  "ALL_IPV4_RANGES".
+ */
+@property(nonatomic, strong, nullable) NSArray<NSString *> *includeImportRanges;
+
+/**
  *  A value that controls whether site-to-site data transfer is enabled for
  *  these resources. Data transfer is available only in [supported
  *  locations](https://cloud.google.com/network-connectivity/docs/network-connectivity-center/concepts/locations).
@@ -2023,6 +2247,13 @@ FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivity_Warnings_Code_Warnin
  *  spoke.
  */
 @interface GTLRNetworkconnectivity_LinkedRouterApplianceInstances : GTLRObject
+
+/**
+ *  Optional. IP ranges allowed to be included during import from hub.(does not
+ *  control transit connectivity) The only allowed value for now is
+ *  "ALL_IPV4_RANGES".
+ */
+@property(nonatomic, strong, nullable) NSArray<NSString *> *includeImportRanges;
 
 /** The list of router appliance instances. */
 @property(nonatomic, strong, nullable) NSArray<GTLRNetworkconnectivity_RouterApplianceInstance *> *instances;
@@ -2055,6 +2286,9 @@ FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivity_Warnings_Code_Warnin
  */
 @property(nonatomic, strong, nullable) NSArray<NSString *> *excludeExportRanges;
 
+/** Optional. IP ranges allowed to be included from peering. */
+@property(nonatomic, strong, nullable) NSArray<NSString *> *includeExportRanges;
+
 /** Required. The URI of the VPC network resource. */
 @property(nonatomic, copy, nullable) NSString *uri;
 
@@ -2068,6 +2302,13 @@ FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivity_Warnings_Code_Warnin
  *  be capable of advertising the same prefixes.
  */
 @interface GTLRNetworkconnectivity_LinkedVpnTunnels : GTLRObject
+
+/**
+ *  Optional. IP ranges allowed to be included during import from hub.(does not
+ *  control transit connectivity) The only allowed value for now is
+ *  "ALL_IPV4_RANGES".
+ */
+@property(nonatomic, strong, nullable) NSArray<NSString *> *includeImportRanges;
 
 /**
  *  A value that controls whether site-to-site data transfer is enabled for
@@ -2258,6 +2499,36 @@ FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivity_Warnings_Code_Warnin
  *        subscripting on this class.
  */
 @property(nonatomic, strong, nullable) NSArray<GTLRNetworkconnectivity_PolicyBasedRoute *> *policyBasedRoutes;
+
+/** Locations that could not be reached. */
+@property(nonatomic, strong, nullable) NSArray<NSString *> *unreachable;
+
+@end
+
+
+/**
+ *  Response for ListRegionalEndpoints.
+ *
+ *  @note This class supports NSFastEnumeration and indexed subscripting over
+ *        its "regionalEndpoints" property. If returned as the result of a
+ *        query, it should support automatic pagination (when @c
+ *        shouldFetchNextPages is enabled).
+ */
+@interface GTLRNetworkconnectivity_ListRegionalEndpointsResponse : GTLRCollectionObject
+
+/**
+ *  The next pagination token in the List response. It should be used as
+ *  page_token for the following request. An empty value means no more result.
+ */
+@property(nonatomic, copy, nullable) NSString *nextPageToken;
+
+/**
+ *  Regional endpoints to be returned.
+ *
+ *  @note This property is used to support NSFastEnumeration and indexed
+ *        subscripting on this class.
+ */
+@property(nonatomic, strong, nullable) NSArray<GTLRNetworkconnectivity_RegionalEndpoint *> *regionalEndpoints;
 
 /** Locations that could not be reached. */
 @property(nonatomic, strong, nullable) NSArray<NSString *> *unreachable;
@@ -2551,12 +2822,82 @@ FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivity_Warnings_Code_Warnin
 
 
 /**
+ *  A route next hop that leads to an interconnect attachment resource.
+ */
+@interface GTLRNetworkconnectivity_NextHopInterconnectAttachment : GTLRObject
+
+/**
+ *  Indicates whether site-to-site data transfer is allowed for this
+ *  interconnect attachment resource. Data transfer is available only in
+ *  [supported
+ *  locations](https://cloud.google.com/network-connectivity/docs/network-connectivity-center/concepts/locations).
+ *
+ *  Uses NSNumber of boolValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *siteToSiteDataTransfer;
+
+/** The URI of the interconnect attachment resource. */
+@property(nonatomic, copy, nullable) NSString *uri;
+
+/** The VPC network where this interconnect attachment is located. */
+@property(nonatomic, copy, nullable) NSString *vpcNetwork;
+
+@end
+
+
+/**
+ *  A route next hop that leads to a Router appliance instance.
+ */
+@interface GTLRNetworkconnectivity_NextHopRouterApplianceInstance : GTLRObject
+
+/**
+ *  Indicates whether site-to-site data transfer is allowed for this Router
+ *  appliance instance resource. Data transfer is available only in [supported
+ *  locations](https://cloud.google.com/network-connectivity/docs/network-connectivity-center/concepts/locations).
+ *
+ *  Uses NSNumber of boolValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *siteToSiteDataTransfer;
+
+/** The URI of the Router appliance instance. */
+@property(nonatomic, copy, nullable) NSString *uri;
+
+/** The VPC network where this VM is located. */
+@property(nonatomic, copy, nullable) NSString *vpcNetwork;
+
+@end
+
+
+/**
  *  GTLRNetworkconnectivity_NextHopVpcNetwork
  */
 @interface GTLRNetworkconnectivity_NextHopVpcNetwork : GTLRObject
 
 /** The URI of the VPC network resource */
 @property(nonatomic, copy, nullable) NSString *uri;
+
+@end
+
+
+/**
+ *  A route next hop that leads to a VPN tunnel resource.
+ */
+@interface GTLRNetworkconnectivity_NextHopVPNTunnel : GTLRObject
+
+/**
+ *  Indicates whether site-to-site data transfer is allowed for this VPN tunnel
+ *  resource. Data transfer is available only in [supported
+ *  locations](https://cloud.google.com/network-connectivity/docs/network-connectivity-center/concepts/locations).
+ *
+ *  Uses NSNumber of boolValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *siteToSiteDataTransfer;
+
+/** The URI of the VPN tunnel resource. */
+@property(nonatomic, copy, nullable) NSString *uri;
+
+/** The VPC network where this VPN tunnel is located. */
+@property(nonatomic, copy, nullable) NSString *vpcNetwork;
 
 @end
 
@@ -2694,7 +3035,7 @@ FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivity_Warnings_Code_Warnin
  *  Policy-based routes route L4 network traffic based on not just destination
  *  IP address, but also source IP address, protocol, and more. If a
  *  policy-based route conflicts with other types of routes, the policy-based
- *  route always take precedence.
+ *  route always takes precedence.
  */
 @interface GTLRNetworkconnectivity_PolicyBasedRoute : GTLRObject
 
@@ -2753,8 +3094,8 @@ FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivity_Warnings_Code_Warnin
  *    @arg @c kGTLRNetworkconnectivity_PolicyBasedRoute_NextHopOtherRoutes_DefaultRouting
  *        Use the routes from the default routing tables (system-generated
  *        routes, custom routes, peering route) to determine the next hop. This
- *        will effectively exclude matching packets being applied on other PBRs
- *        with a lower priority. (Value: "DEFAULT_ROUTING")
+ *        effectively excludes matching packets being applied on other PBRs with
+ *        a lower priority. (Value: "DEFAULT_ROUTING")
  *    @arg @c kGTLRNetworkconnectivity_PolicyBasedRoute_NextHopOtherRoutes_OtherRoutesUnspecified
  *        Default value. (Value: "OTHER_ROUTES_UNSPECIFIED")
  */
@@ -2777,7 +3118,7 @@ FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivity_Warnings_Code_Warnin
 /** Output only. Time when the policy-based route was updated. */
 @property(nonatomic, strong, nullable) GTLRDateTime *updateTime;
 
-/** Optional. VM instances to which this policy-based route applies to. */
+/** Optional. VM instances that this policy-based route applies to. */
 @property(nonatomic, strong, nullable) GTLRNetworkconnectivity_VirtualMachine *virtualMachine;
 
 /**
@@ -2822,11 +3163,49 @@ FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivity_Warnings_Code_Warnin
 @interface GTLRNetworkconnectivity_PscConfig : GTLRObject
 
 /**
+ *  Optional. List of Projects, Folders, or Organizations from where the
+ *  Producer instance can be within. For example, a network administrator can
+ *  provide both 'organizations/foo' and 'projects/bar' as
+ *  allowed_google_producers_resource_hierarchy_levels. This allowlists this
+ *  network to connect with any Producer instance within the 'foo' organization
+ *  or the 'bar' project. By default,
+ *  allowed_google_producers_resource_hierarchy_level is empty. The format for
+ *  each allowed_google_producers_resource_hierarchy_level is / where is one of
+ *  'projects', 'folders', or 'organizations' and is either the ID or the number
+ *  of the resource type. Format for each
+ *  allowed_google_producers_resource_hierarchy_level value: 'projects/' or
+ *  'folders/' or 'organizations/' Eg. [projects/my-project-id, projects/567,
+ *  folders/891, organizations/123]
+ */
+@property(nonatomic, strong, nullable) NSArray<NSString *> *allowedGoogleProducersResourceHierarchyLevel;
+
+/**
  *  Optional. Max number of PSC connections for this policy.
  *
  *  Uses NSNumber of longLongValue.
  */
 @property(nonatomic, strong, nullable) NSNumber *limit;
+
+/**
+ *  Required. ProducerInstanceLocation is used to specify which authorization
+ *  mechanism to use to determine which projects the Producer instance can be
+ *  within.
+ *
+ *  Likely values:
+ *    @arg @c kGTLRNetworkconnectivity_PscConfig_ProducerInstanceLocation_CustomResourceHierarchyLevels
+ *        Producer instance must be within one of the values provided in
+ *        allowed_google_producers_resource_hierarchy_level. (Value:
+ *        "CUSTOM_RESOURCE_HIERARCHY_LEVELS")
+ *    @arg @c kGTLRNetworkconnectivity_PscConfig_ProducerInstanceLocation_ProducerInstanceLocationUnspecified
+ *        Producer instance location is not specified. When this option is
+ *        chosen, then the PSC connections created by this
+ *        ServiceConnectionPolicy must be within the same project as the
+ *        Producer instance. This is the default ProducerInstanceLocation value.
+ *        To allow for PSC connections from this network to other networks, use
+ *        the CUSTOM_RESOURCE_HIERARCHY_LEVELS option. (Value:
+ *        "PRODUCER_INSTANCE_LOCATION_UNSPECIFIED")
+ */
+@property(nonatomic, copy, nullable) NSString *producerInstanceLocation;
 
 /**
  *  The resource paths of subnetworks to use for IP address management. Example:
@@ -2885,8 +3264,17 @@ FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivity_Warnings_Code_Warnin
 /** The last Compute Engine operation to setup PSC connection. */
 @property(nonatomic, copy, nullable) NSString *gceOperation;
 
+/** Immutable. An immutable identifier for the producer instance. */
+@property(nonatomic, copy, nullable) NSString *producerInstanceId;
+
 /** The PSC connection id of the PSC forwarding rule. */
 @property(nonatomic, copy, nullable) NSString *pscConnectionId;
+
+/**
+ *  Output only. The URI of the subnetwork selected to allocate IP address for
+ *  this connection.
+ */
+@property(nonatomic, copy, nullable) NSString *selectedSubnetwork;
 
 /**
  *  State of the PSC Connection
@@ -2906,6 +3294,104 @@ FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivity_Warnings_Code_Warnin
  */
 @property(nonatomic, copy, nullable) NSString *state;
 
+@end
+
+
+/**
+ *  The RegionalEndpoint resource.
+ */
+@interface GTLRNetworkconnectivity_RegionalEndpoint : GTLRObject
+
+/**
+ *  Required. The access type of this regional endpoint. This field is reflected
+ *  in the PSC Forwarding Rule configuration to enable global access.
+ *
+ *  Likely values:
+ *    @arg @c kGTLRNetworkconnectivity_RegionalEndpoint_AccessType_AccessTypeUnspecified
+ *        An invalid type as the default case. (Value:
+ *        "ACCESS_TYPE_UNSPECIFIED")
+ *    @arg @c kGTLRNetworkconnectivity_RegionalEndpoint_AccessType_Global This
+ *        regional endpoint is accessible from all regions. (Value: "GLOBAL")
+ *    @arg @c kGTLRNetworkconnectivity_RegionalEndpoint_AccessType_Regional This
+ *        regional endpoint is only accessible from the same region where it
+ *        resides. (Value: "REGIONAL")
+ */
+@property(nonatomic, copy, nullable) NSString *accessType;
+
+/**
+ *  Optional. The IP Address of the Regional Endpoint. When no address is
+ *  provided, an IP from the subnetwork is allocated. Use one of the following
+ *  formats: * IPv4 address as in `10.0.0.1` * Address resource URI as in
+ *  `projects/{project}/regions/{region}/addresses/{address_name}`
+ */
+@property(nonatomic, copy, nullable) NSString *address;
+
+/** Output only. Time when the RegionalEndpoint was created. */
+@property(nonatomic, strong, nullable) GTLRDateTime *createTime;
+
+/**
+ *  Optional. A description of this resource.
+ *
+ *  Remapped to 'descriptionProperty' to avoid NSObject's 'description'.
+ */
+@property(nonatomic, copy, nullable) NSString *descriptionProperty;
+
+/**
+ *  Output only. The literal IP address of the PSC Forwarding Rule created on
+ *  behalf of the customer. This field is deprecated. Use address instead.
+ */
+@property(nonatomic, copy, nullable) NSString *ipAddress GTLR_DEPRECATED;
+
+/** User-defined labels. */
+@property(nonatomic, strong, nullable) GTLRNetworkconnectivity_RegionalEndpoint_Labels *labels;
+
+/**
+ *  Output only. The name of a RegionalEndpoint. Format:
+ *  `projects/{project}/locations/{location}/regionalEndpoints/{regional_endpoint}`.
+ */
+@property(nonatomic, copy, nullable) NSString *name;
+
+/**
+ *  The name of the VPC network for this private regional endpoint. Format:
+ *  `projects/{project}/global/networks/{network}`
+ */
+@property(nonatomic, copy, nullable) NSString *network;
+
+/**
+ *  Output only. The resource reference of the PSC Forwarding Rule created on
+ *  behalf of the customer. Format:
+ *  `//compute.googleapis.com/projects/{project}/regions/{region}/forwardingRules/{forwarding_rule_name}`
+ */
+@property(nonatomic, copy, nullable) NSString *pscForwardingRule;
+
+/**
+ *  The name of the subnetwork from which the IP address will be allocated.
+ *  Format: `projects/{project}/regions/{region}/subnetworks/{subnetwork}`
+ */
+@property(nonatomic, copy, nullable) NSString *subnetwork;
+
+/**
+ *  Required. The service endpoint this private regional endpoint connects to.
+ *  Format: `{apiname}.{region}.p.rep.googleapis.com` Example:
+ *  "cloudkms.us-central1.p.rep.googleapis.com".
+ */
+@property(nonatomic, copy, nullable) NSString *targetGoogleApi;
+
+/** Output only. Time when the RegionalEndpoint was updated. */
+@property(nonatomic, strong, nullable) GTLRDateTime *updateTime;
+
+@end
+
+
+/**
+ *  User-defined labels.
+ *
+ *  @note This class is documented as having more properties of NSString. Use @c
+ *        -additionalJSONKeys and @c -additionalPropertyForName: to get the list
+ *        of properties and then fetch them; or @c -additionalProperties to
+ *        fetch them all at once.
+ */
+@interface GTLRNetworkconnectivity_RegionalEndpoint_Labels : GTLRObject
 @end
 
 
@@ -2976,7 +3462,7 @@ FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivity_Warnings_Code_Warnin
 @property(nonatomic, strong, nullable) GTLRNetworkconnectivity_Route_Labels *labels;
 
 /**
- *  Output only. The location of the route. Uses the following form:
+ *  Output only. The origin location of the route. Uses the following form:
  *  "projects/{project}/locations/{location}" Example:
  *  projects/1234/locations/us-central1
  */
@@ -2989,8 +3475,28 @@ FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivity_Warnings_Code_Warnin
  */
 @property(nonatomic, copy, nullable) NSString *name;
 
+/** Immutable. The next-hop VLAN attachment for packets on this route. */
+@property(nonatomic, strong, nullable) GTLRNetworkconnectivity_NextHopInterconnectAttachment *nextHopInterconnectAttachment;
+
+/**
+ *  Immutable. The next-hop Router appliance instance for packets on this route.
+ */
+@property(nonatomic, strong, nullable) GTLRNetworkconnectivity_NextHopRouterApplianceInstance *nextHopRouterApplianceInstance;
+
 /** Immutable. The destination VPC network for packets on this route. */
 @property(nonatomic, strong, nullable) GTLRNetworkconnectivity_NextHopVpcNetwork *nextHopVpcNetwork;
+
+/** Immutable. The next-hop VPN tunnel for packets on this route. */
+@property(nonatomic, strong, nullable) GTLRNetworkconnectivity_NextHopVPNTunnel *nextHopVpnTunnel;
+
+/**
+ *  Output only. The priority of this route. Priority is used to break ties in
+ *  cases where a destination matches more than one route. In these cases the
+ *  route with the lowest-numbered priority value wins.
+ *
+ *  Uses NSNumber of longLongValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *priority;
 
 /**
  *  Immutable. The spoke that this route leads to. Example:
@@ -3029,6 +3535,10 @@ FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivity_Warnings_Code_Warnin
  *  its IP address range.
  *
  *  Likely values:
+ *    @arg @c kGTLRNetworkconnectivity_Route_Type_DynamicRoute The route leads
+ *        to a destination in a dynamic route. Dynamic routes are derived from
+ *        Border Gateway Protocol (BGP) advertisements received from an NCC
+ *        hybrid spoke. (Value: "DYNAMIC_ROUTE")
  *    @arg @c kGTLRNetworkconnectivity_Route_Type_RouteTypeUnspecified No route
  *        type information specified (Value: "ROUTE_TYPE_UNSPECIFIED")
  *    @arg @c kGTLRNetworkconnectivity_Route_Type_VpcPrimarySubnet The route
@@ -3843,13 +4353,13 @@ FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivity_Warnings_Code_Warnin
 
 
 /**
- *  VM instances to which this policy-based route applies to.
+ *  VM instances that this policy-based route applies to.
  */
 @interface GTLRNetworkconnectivity_VirtualMachine : GTLRObject
 
 /**
- *  Optional. A list of VM instance tags the this policy-based route applies to.
- *  VM instances that have ANY of tags specified here will install this PBR.
+ *  Optional. A list of VM instance tags that this policy-based route applies
+ *  to. VM instances that have ANY of tags specified here installs this PBR.
  */
 @property(nonatomic, strong, nullable) NSArray<NSString *> *tags;
 
@@ -3870,8 +4380,8 @@ FOUNDATION_EXTERN NSString * const kGTLRNetworkconnectivity_Warnings_Code_Warnin
  *        time. (Value: "RESOURCE_BEING_MODIFIED")
  *    @arg @c kGTLRNetworkconnectivity_Warnings_Code_ResourceNotActive The
  *        policy-based route is not active and functioning. Common causes are
- *        the dependent network was deleted or the resource project was turned
- *        off. (Value: "RESOURCE_NOT_ACTIVE")
+ *        that the dependent network was deleted or the resource project was
+ *        turned off. (Value: "RESOURCE_NOT_ACTIVE")
  *    @arg @c kGTLRNetworkconnectivity_Warnings_Code_WarningUnspecified Default
  *        value. (Value: "WARNING_UNSPECIFIED")
  */

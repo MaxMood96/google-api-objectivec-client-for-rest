@@ -233,8 +233,9 @@ NSString * const kGTLRBackupdr_NetworkConfig_PeeringMode_PrivateServiceAccess = 
 //
 
 @implementation GTLRBackupdr_ManagementServer
-@dynamic createTime, descriptionProperty, ETag, labels, managementUri, name,
-         networks, oauth2ClientId, state, type, updateTime,
+@dynamic baProxyUri, createTime, descriptionProperty, ETag, labels,
+         managementUri, name, networks, oauth2ClientId, satisfiesPzi,
+         satisfiesPzs, state, type, updateTime,
          workforceIdentityBasedManagementUri,
          workforceIdentityBasedOauth2ClientId;
 
@@ -248,6 +249,7 @@ NSString * const kGTLRBackupdr_NetworkConfig_PeeringMode_PrivateServiceAccess = 
 
 + (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
   NSDictionary<NSString *, Class> *map = @{
+    @"baProxyUri" : [NSString class],
     @"networks" : [GTLRBackupdr_NetworkConfig class]
   };
   return map;

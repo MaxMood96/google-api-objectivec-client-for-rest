@@ -69,6 +69,15 @@ NSString * const kGTLRDatastream_ValidationMessage_Level_Warning = @"WARNING";
 
 // ----------------------------------------------------------------------------
 //
+//   GTLRDatastream_AppendOnly
+//
+
+@implementation GTLRDatastream_AppendOnly
+@end
+
+
+// ----------------------------------------------------------------------------
+//
 //   GTLRDatastream_AvroFileFormat
 //
 
@@ -120,7 +129,8 @@ NSString * const kGTLRDatastream_ValidationMessage_Level_Warning = @"WARNING";
 //
 
 @implementation GTLRDatastream_BigQueryDestinationConfig
-@dynamic dataFreshness, singleTargetDataset, sourceHierarchyDatasets;
+@dynamic appendOnly, dataFreshness, merge, singleTargetDataset,
+         sourceHierarchyDatasets;
 @end
 
 
@@ -208,7 +218,8 @@ NSString * const kGTLRDatastream_ValidationMessage_Level_Warning = @"WARNING";
 
 @implementation GTLRDatastream_DiscoverConnectionProfileRequest
 @dynamic connectionProfile, connectionProfileName, fullHierarchy,
-         hierarchyDepth, mysqlRdbms, oracleRdbms, postgresqlRdbms;
+         hierarchyDepth, mysqlRdbms, oracleRdbms, postgresqlRdbms,
+         sqlServerRdbms;
 @end
 
 
@@ -218,7 +229,7 @@ NSString * const kGTLRDatastream_ValidationMessage_Level_Warning = @"WARNING";
 //
 
 @implementation GTLRDatastream_DiscoverConnectionProfileResponse
-@dynamic mysqlRdbms, oracleRdbms, postgresqlRdbms;
+@dynamic mysqlRdbms, oracleRdbms, postgresqlRdbms, sqlServerRdbms;
 @end
 
 
@@ -526,6 +537,15 @@ NSString * const kGTLRDatastream_ValidationMessage_Level_Warning = @"WARNING";
 
 @implementation GTLRDatastream_LookupStreamObjectRequest
 @dynamic sourceObjectIdentifier;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRDatastream_Merge
+//
+
+@implementation GTLRDatastream_Merge
 @end
 
 
@@ -1064,6 +1084,15 @@ NSString * const kGTLRDatastream_ValidationMessage_Level_Warning = @"WARNING";
 
 // ----------------------------------------------------------------------------
 //
+//   GTLRDatastream_SqlServerChangeTables
+//
+
+@implementation GTLRDatastream_SqlServerChangeTables
+@end
+
+
+// ----------------------------------------------------------------------------
+//
 //   GTLRDatastream_SqlServerColumn
 //
 
@@ -1135,8 +1164,8 @@ NSString * const kGTLRDatastream_ValidationMessage_Level_Warning = @"WARNING";
 //
 
 @implementation GTLRDatastream_SqlServerSourceConfig
-@dynamic excludeObjects, includeObjects, maxConcurrentBackfillTasks,
-         maxConcurrentCdcTasks;
+@dynamic changeTables, excludeObjects, includeObjects,
+         maxConcurrentBackfillTasks, maxConcurrentCdcTasks, transactionLogs;
 @end
 
 
@@ -1155,6 +1184,15 @@ NSString * const kGTLRDatastream_ValidationMessage_Level_Warning = @"WARNING";
   return map;
 }
 
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRDatastream_SqlServerTransactionLogs
+//
+
+@implementation GTLRDatastream_SqlServerTransactionLogs
 @end
 
 

@@ -99,14 +99,11 @@
 @class GTLRCloudDeploy_ReleaseCondition;
 @class GTLRCloudDeploy_ReleaseReadyCondition;
 @class GTLRCloudDeploy_RenderMetadata;
-@class GTLRCloudDeploy_RepairMode;
 @class GTLRCloudDeploy_RepairPhase;
 @class GTLRCloudDeploy_RepairRolloutOperation;
 @class GTLRCloudDeploy_RepairRolloutRule;
-@class GTLRCloudDeploy_Retry;
 @class GTLRCloudDeploy_RetryAttempt;
 @class GTLRCloudDeploy_RetryPhase;
-@class GTLRCloudDeploy_Rollback;
 @class GTLRCloudDeploy_RollbackAttempt;
 @class GTLRCloudDeploy_RollbackTargetConfig;
 @class GTLRCloudDeploy_Rollout;
@@ -115,6 +112,7 @@
 @class GTLRCloudDeploy_RuntimeConfig;
 @class GTLRCloudDeploy_SerialPipeline;
 @class GTLRCloudDeploy_ServiceNetworking;
+@class GTLRCloudDeploy_SkaffoldGCBRepoSource;
 @class GTLRCloudDeploy_SkaffoldGCSSource;
 @class GTLRCloudDeploy_SkaffoldGitSource;
 @class GTLRCloudDeploy_SkaffoldModules;
@@ -232,6 +230,12 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudDeploy_AutomationEvent_Type_TypeUns
 // ----------------------------------------------------------------------------
 // GTLRCloudDeploy_AutomationRun.state
 
+/**
+ *  The `AutomationRun` was aborted.
+ *
+ *  Value: "ABORTED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRCloudDeploy_AutomationRun_State_Aborted;
 /**
  *  The `AutomationRun` was cancelled.
  *
@@ -896,30 +900,14 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudDeploy_ReleaseRenderEvent_Type_Type
 FOUNDATION_EXTERN NSString * const kGTLRCloudDeploy_ReleaseRenderEvent_Type_TypeUnspecified;
 
 // ----------------------------------------------------------------------------
-// GTLRCloudDeploy_Retry.backoffMode
-
-/**
- *  Increases the wait time exponentially.
- *
- *  Value: "BACKOFF_MODE_EXPONENTIAL"
- */
-FOUNDATION_EXTERN NSString * const kGTLRCloudDeploy_Retry_BackoffMode_BackoffModeExponential;
-/**
- *  Increases the wait time linearly.
- *
- *  Value: "BACKOFF_MODE_LINEAR"
- */
-FOUNDATION_EXTERN NSString * const kGTLRCloudDeploy_Retry_BackoffMode_BackoffModeLinear;
-/**
- *  No WaitMode is specified.
- *
- *  Value: "BACKOFF_MODE_UNSPECIFIED"
- */
-FOUNDATION_EXTERN NSString * const kGTLRCloudDeploy_Retry_BackoffMode_BackoffModeUnspecified;
-
-// ----------------------------------------------------------------------------
 // GTLRCloudDeploy_RetryAttempt.state
 
+/**
+ *  The `repair` action was aborted.
+ *
+ *  Value: "REPAIR_STATE_ABORTED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRCloudDeploy_RetryAttempt_State_RepairStateAborted;
 /**
  *  The `repair` action was cancelled.
  *
@@ -944,12 +932,6 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudDeploy_RetryAttempt_State_RepairSta
  *  Value: "REPAIR_STATE_PENDING"
  */
 FOUNDATION_EXTERN NSString * const kGTLRCloudDeploy_RetryAttempt_State_RepairStatePending;
-/**
- *  The `repair` action was skipped.
- *
- *  Value: "REPAIR_STATE_SKIPPED"
- */
-FOUNDATION_EXTERN NSString * const kGTLRCloudDeploy_RetryAttempt_State_RepairStateSkipped;
 /**
  *  The `repair` action has succeeded.
  *
@@ -989,6 +971,12 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudDeploy_RetryPhase_BackoffMode_Backo
 // GTLRCloudDeploy_RollbackAttempt.state
 
 /**
+ *  The `repair` action was aborted.
+ *
+ *  Value: "REPAIR_STATE_ABORTED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRCloudDeploy_RollbackAttempt_State_RepairStateAborted;
+/**
  *  The `repair` action was cancelled.
  *
  *  Value: "REPAIR_STATE_CANCELLED"
@@ -1012,12 +1000,6 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudDeploy_RollbackAttempt_State_Repair
  *  Value: "REPAIR_STATE_PENDING"
  */
 FOUNDATION_EXTERN NSString * const kGTLRCloudDeploy_RollbackAttempt_State_RepairStatePending;
-/**
- *  The `repair` action was skipped.
- *
- *  Value: "REPAIR_STATE_SKIPPED"
- */
-FOUNDATION_EXTERN NSString * const kGTLRCloudDeploy_RollbackAttempt_State_RepairStateSkipped;
 /**
  *  The `repair` action has succeeded.
  *
@@ -1628,7 +1610,7 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudDeploy_VerifyJobRun_FailureCause_Ve
 
 /**
  *  Output only. Name of the `ChildRollout`. Format is
- *  `projects/{project}/locations/{location}/deliveryPipelines/{deliveryPipeline}/releases/{release}/rollouts/a-z{0,62}`.
+ *  `projects/{project}/locations/{location}/deliveryPipelines/{deliveryPipeline}/releases/{release}/rollouts/{rollout}`.
  */
 @property(nonatomic, copy, nullable) NSString *rollout;
 
@@ -1689,7 +1671,8 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudDeploy_VerifyJobRun_FailureCause_Ve
 
 /**
  *  Required. ID of the rule. This id must be unique in the `Automation`
- *  resource to which this rule belongs. The format is `a-z{0,62}`.
+ *  resource to which this rule belongs. The format is
+ *  `[a-z]([a-z0-9-]{0,61}[a-z0-9])?`.
  *
  *  identifier property maps to 'id' in JSON (to avoid Objective C's 'id').
  */
@@ -1716,8 +1699,8 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudDeploy_VerifyJobRun_FailureCause_Ve
 @interface GTLRCloudDeploy_AnthosCluster : GTLRObject
 
 /**
- *  Membership of the GKE Hub-registered cluster to which to apply the Skaffold
- *  configuration. Format is
+ *  Optional. Membership of the GKE Hub-registered cluster to which to apply the
+ *  Skaffold configuration. Format is
  *  `projects/{project}/locations/{location}/memberships/{membership_name}`.
  */
 @property(nonatomic, copy, nullable) NSString *membership;
@@ -2013,19 +1996,19 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudDeploy_VerifyJobRun_FailureCause_Ve
 @interface GTLRCloudDeploy_AutomationRolloutMetadata : GTLRObject
 
 /**
- *  Output only. The IDs of the AutomationRuns initiated by an advance rollout
+ *  Output only. The names of the AutomationRuns initiated by an advance rollout
  *  rule.
  */
 @property(nonatomic, strong, nullable) NSArray<NSString *> *advanceAutomationRuns;
 
 /**
- *  Output only. The ID of the AutomationRun initiated by a promote release
+ *  Output only. The name of the AutomationRun initiated by a promote release
  *  rule.
  */
 @property(nonatomic, copy, nullable) NSString *promoteAutomationRun;
 
 /**
- *  Output only. The IDs of the AutomationRuns initiated by a repair rollout
+ *  Output only. The names of the AutomationRuns initiated by a repair rollout
  *  rule.
  */
 @property(nonatomic, strong, nullable) NSArray<NSString *> *repairAutomationRuns;
@@ -2133,6 +2116,8 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudDeploy_VerifyJobRun_FailureCause_Ve
  *  Output only. Current state of the `AutomationRun`.
  *
  *  Likely values:
+ *    @arg @c kGTLRCloudDeploy_AutomationRun_State_Aborted The `AutomationRun`
+ *        was aborted. (Value: "ABORTED")
  *    @arg @c kGTLRCloudDeploy_AutomationRun_State_Cancelled The `AutomationRun`
  *        was cancelled. (Value: "CANCELLED")
  *    @arg @c kGTLRCloudDeploy_AutomationRun_State_Failed The `AutomationRun`
@@ -2365,7 +2350,8 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudDeploy_VerifyJobRun_FailureCause_Ve
 /**
  *  Required. The percentage based deployments that will occur as a part of a
  *  `Rollout`. List is expected in ascending order and each integer n is 0 <= n
- *  < 100.
+ *  < 100. If the GatewayServiceMesh is configured for Kubernetes, then the
+ *  range for n is 0 <= n <= 100.
  *
  *  Uses NSNumber of intValue.
  */
@@ -2572,7 +2558,7 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudDeploy_VerifyJobRun_FailureCause_Ve
 
 /**
  *  Output only. Name of the `ChildRollout`. Format is
- *  `projects/{project}/locations/{location}/deliveryPipelines/{deliveryPipeline}/releases/{release}/rollouts/a-z{0,62}`.
+ *  `projects/{project}/locations/{location}/deliveryPipelines/{deliveryPipeline}/releases/{release}/rollouts/{rollout}`.
  */
 @property(nonatomic, copy, nullable) NSString *rollout;
 
@@ -2730,7 +2716,9 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudDeploy_VerifyJobRun_FailureCause_Ve
 
 /**
  *  Optional. Name of the `CustomTargetType`. Format is
- *  `projects/{project}/locations/{location}/customTargetTypes/a-z{0,62}`.
+ *  `projects/{project}/locations/{location}/customTargetTypes/{customTargetType}`.
+ *  The `customTargetType` component must match
+ *  `[a-z]([a-z0-9-]{0,61}[a-z0-9])?`
  */
 @property(nonatomic, copy, nullable) NSString *name;
 
@@ -2886,7 +2874,9 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudDeploy_VerifyJobRun_FailureCause_Ve
 
 /**
  *  Optional. Name of the `DeliveryPipeline`. Format is
- *  `projects/{project}/locations/{location}/deliveryPipelines/a-z{0,62}`.
+ *  `projects/{project}/locations/{location}/deliveryPipelines/{deliveryPipeline}`.
+ *  The `deliveryPipeline` component must match
+ *  `[a-z]([a-z0-9-]{0,61}[a-z0-9])?`
  */
 @property(nonatomic, copy, nullable) NSString *name;
 
@@ -3207,6 +3197,14 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudDeploy_VerifyJobRun_FailureCause_Ve
 @property(nonatomic, strong, nullable) NSArray<NSString *> *usages;
 
 /**
+ *  Optional. If true, additional logging will be enabled when running builds in
+ *  this execution environment.
+ *
+ *  Uses NSNumber of boolValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *verbose;
+
+/**
  *  Optional. The resource name of the `WorkerPool`, with the format
  *  `projects/{project}/locations/{location}/workerPools/{worker_pool}`. If this
  *  optional field is unspecified, the default Cloud Build pool will be used.
@@ -3305,7 +3303,7 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudDeploy_VerifyJobRun_FailureCause_Ve
 @interface GTLRCloudDeploy_GkeCluster : GTLRObject
 
 /**
- *  Information specifying a GKE Cluster. Format is
+ *  Optional. Information specifying a GKE Cluster. Format is
  *  `projects/{project_id}/locations/{location_id}/clusters/{cluster_id}`.
  */
 @property(nonatomic, copy, nullable) NSString *cluster;
@@ -3321,6 +3319,13 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudDeploy_VerifyJobRun_FailureCause_Ve
  *  Uses NSNumber of boolValue.
  */
 @property(nonatomic, strong, nullable) NSNumber *internalIp;
+
+/**
+ *  Optional. If set, used to configure a
+ *  [proxy](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/#proxy)
+ *  to the Kubernetes server.
+ */
+@property(nonatomic, copy, nullable) NSString *proxyUrl;
 
 @end
 
@@ -4557,7 +4562,8 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudDeploy_VerifyJobRun_FailureCause_Ve
 
 /**
  *  Required. ID of the rule. This id must be unique in the `Automation`
- *  resource to which this rule belongs. The format is `a-z{0,62}`.
+ *  resource to which this rule belongs. The format is
+ *  `[a-z]([a-z0-9-]{0,61}[a-z0-9])?`.
  *
  *  identifier property maps to 'id' in JSON (to avoid Objective C's 'id').
  */
@@ -4642,7 +4648,8 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudDeploy_VerifyJobRun_FailureCause_Ve
 
 /**
  *  Optional. Name of the `Release`. Format is
- *  `projects/{project}/locations/{location}/deliveryPipelines/{deliveryPipeline}/releases/a-z{0,62}`.
+ *  `projects/{project}/locations/{location}/deliveryPipelines/{deliveryPipeline}/releases/{release}`.
+ *  The `release` component must match `[a-z]([a-z0-9-]{0,61}[a-z0-9])?`
  */
 @property(nonatomic, copy, nullable) NSString *name;
 
@@ -4941,22 +4948,8 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudDeploy_VerifyJobRun_FailureCause_Ve
 
 
 /**
- *  Configuration of the repair action.
- */
-@interface GTLRCloudDeploy_RepairMode : GTLRObject
-
-/** Optional. Retries a failed job. */
-@property(nonatomic, strong, nullable) GTLRCloudDeploy_Retry *retry;
-
-/** Optional. Rolls back a `Rollout`. */
-@property(nonatomic, strong, nullable) GTLRCloudDeploy_Rollback *rollback;
-
-@end
-
-
-/**
  *  RepairPhase tracks the repair attempts that have been made for each
- *  `RepairMode` specified in the `Automation` resource.
+ *  `RepairPhaseConfig` specified in the `Automation` resource.
  */
 @interface GTLRCloudDeploy_RepairPhase : GTLRObject
 
@@ -4973,13 +4966,6 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudDeploy_VerifyJobRun_FailureCause_Ve
  *  Contains the information for an automated `repair rollout` operation.
  */
 @interface GTLRCloudDeploy_RepairRolloutOperation : GTLRObject
-
-/**
- *  Output only. The index of the current repair action in the repair sequence.
- *
- *  Uses NSNumber of longLongValue.
- */
-@property(nonatomic, strong, nullable) NSNumber *currentRepairModeIndex;
 
 /** Output only. The job ID for the Job to repair. */
 @property(nonatomic, copy, nullable) NSString *jobId;
@@ -5014,7 +5000,8 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudDeploy_VerifyJobRun_FailureCause_Ve
 
 /**
  *  Required. ID of the rule. This id must be unique in the `Automation`
- *  resource to which this rule belongs. The format is `a-z{0,62}`.
+ *  resource to which this rule belongs. The format is
+ *  `[a-z]([a-z0-9-]{0,61}[a-z0-9])?`.
  *
  *  identifier property maps to 'id' in JSON (to avoid Objective C's 'id').
  */
@@ -5030,58 +5017,6 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudDeploy_VerifyJobRun_FailureCause_Ve
  *  `^[a-z]([a-z0-9-]{0,61}[a-z0-9])?$`.
  */
 @property(nonatomic, strong, nullable) NSArray<NSString *> *jobs;
-
-/**
- *  Required. Defines the types of automatic repair actions for failed jobs.
- */
-@property(nonatomic, strong, nullable) NSArray<GTLRCloudDeploy_RepairMode *> *repairModes;
-
-/**
- *  Optional. Phases within which jobs are subject to automatic repair actions
- *  on failure. Proceeds only after phase name matched any one in the list, or
- *  for all phases if unspecified. This value must consist of lower-case
- *  letters, numbers, and hyphens, start with a letter and end with a letter or
- *  a number, and have a max length of 63 characters. In other words, it must
- *  match the following regex: `^[a-z]([a-z0-9-]{0,61}[a-z0-9])?$`.
- */
-@property(nonatomic, strong, nullable) NSArray<NSString *> *sourcePhases;
-
-@end
-
-
-/**
- *  Retries the failed job.
- */
-@interface GTLRCloudDeploy_Retry : GTLRObject
-
-/**
- *  Required. Total number of retries. Retry is skipped if set to 0; The minimum
- *  value is 1, and the maximum value is 10.
- *
- *  Uses NSNumber of longLongValue.
- */
-@property(nonatomic, strong, nullable) NSNumber *attempts;
-
-/**
- *  Optional. The pattern of how wait time will be increased. Default is linear.
- *  Backoff mode will be ignored if `wait` is 0.
- *
- *  Likely values:
- *    @arg @c kGTLRCloudDeploy_Retry_BackoffMode_BackoffModeExponential
- *        Increases the wait time exponentially. (Value:
- *        "BACKOFF_MODE_EXPONENTIAL")
- *    @arg @c kGTLRCloudDeploy_Retry_BackoffMode_BackoffModeLinear Increases the
- *        wait time linearly. (Value: "BACKOFF_MODE_LINEAR")
- *    @arg @c kGTLRCloudDeploy_Retry_BackoffMode_BackoffModeUnspecified No
- *        WaitMode is specified. (Value: "BACKOFF_MODE_UNSPECIFIED")
- */
-@property(nonatomic, copy, nullable) NSString *backoffMode;
-
-/**
- *  Optional. How long to wait for the first retry. Default is 0, and the
- *  maximum value is 14d.
- */
-@property(nonatomic, strong, nullable) GTLRDuration *wait;
 
 @end
 
@@ -5102,6 +5037,8 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudDeploy_VerifyJobRun_FailureCause_Ve
  *  Output only. Valid state of this retry action.
  *
  *  Likely values:
+ *    @arg @c kGTLRCloudDeploy_RetryAttempt_State_RepairStateAborted The
+ *        `repair` action was aborted. (Value: "REPAIR_STATE_ABORTED")
  *    @arg @c kGTLRCloudDeploy_RetryAttempt_State_RepairStateCancelled The
  *        `repair` action was cancelled. (Value: "REPAIR_STATE_CANCELLED")
  *    @arg @c kGTLRCloudDeploy_RetryAttempt_State_RepairStateFailed The `repair`
@@ -5110,8 +5047,6 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudDeploy_VerifyJobRun_FailureCause_Ve
  *        `repair` action is in progress. (Value: "REPAIR_STATE_IN_PROGRESS")
  *    @arg @c kGTLRCloudDeploy_RetryAttempt_State_RepairStatePending The
  *        `repair` action is pending. (Value: "REPAIR_STATE_PENDING")
- *    @arg @c kGTLRCloudDeploy_RetryAttempt_State_RepairStateSkipped The
- *        `repair` action was skipped. (Value: "REPAIR_STATE_SKIPPED")
  *    @arg @c kGTLRCloudDeploy_RetryAttempt_State_RepairStateSucceeded The
  *        `repair` action has succeeded. (Value: "REPAIR_STATE_SUCCEEDED")
  *    @arg @c kGTLRCloudDeploy_RetryAttempt_State_RepairStateUnspecified The
@@ -5173,34 +5108,12 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudDeploy_VerifyJobRun_FailureCause_Ve
  */
 @property(nonatomic, copy, nullable) NSString *backoffMode;
 
-/** Output only. The job ID for the Job to retry. */
-@property(nonatomic, copy, nullable) NSString *jobId GTLR_DEPRECATED;
-
-/**
- *  Output only. The phase ID of the phase that includes the job being retried.
- */
-@property(nonatomic, copy, nullable) NSString *phaseId GTLR_DEPRECATED;
-
 /**
  *  Output only. The number of attempts that have been made.
  *
  *  Uses NSNumber of longLongValue.
  */
 @property(nonatomic, strong, nullable) NSNumber *totalAttempts;
-
-@end
-
-
-/**
- *  Rolls back a `Rollout`.
- */
-@interface GTLRCloudDeploy_Rollback : GTLRObject
-
-/**
- *  Optional. The starting phase ID for the `Rollout`. If unspecified, the
- *  `Rollout` will start in the stable phase.
- */
-@property(nonatomic, copy, nullable) NSString *destinationPhase;
 
 @end
 
@@ -5221,6 +5134,8 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudDeploy_VerifyJobRun_FailureCause_Ve
  *  Output only. Valid state of this rollback action.
  *
  *  Likely values:
+ *    @arg @c kGTLRCloudDeploy_RollbackAttempt_State_RepairStateAborted The
+ *        `repair` action was aborted. (Value: "REPAIR_STATE_ABORTED")
  *    @arg @c kGTLRCloudDeploy_RollbackAttempt_State_RepairStateCancelled The
  *        `repair` action was cancelled. (Value: "REPAIR_STATE_CANCELLED")
  *    @arg @c kGTLRCloudDeploy_RollbackAttempt_State_RepairStateFailed The
@@ -5229,8 +5144,6 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudDeploy_VerifyJobRun_FailureCause_Ve
  *        `repair` action is in progress. (Value: "REPAIR_STATE_IN_PROGRESS")
  *    @arg @c kGTLRCloudDeploy_RollbackAttempt_State_RepairStatePending The
  *        `repair` action is pending. (Value: "REPAIR_STATE_PENDING")
- *    @arg @c kGTLRCloudDeploy_RollbackAttempt_State_RepairStateSkipped The
- *        `repair` action was skipped. (Value: "REPAIR_STATE_SKIPPED")
  *    @arg @c kGTLRCloudDeploy_RollbackAttempt_State_RepairStateSucceeded The
  *        `repair` action has succeeded. (Value: "REPAIR_STATE_SUCCEEDED")
  *    @arg @c kGTLRCloudDeploy_RollbackAttempt_State_RepairStateUnspecified The
@@ -5346,7 +5259,7 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudDeploy_VerifyJobRun_FailureCause_Ve
 
 /**
  *  Output only. Name of the `ControllerRollout`. Format is
- *  `projects/{project}/locations/{location}/deliveryPipelines/{deliveryPipeline}/releases/{release}/rollouts/a-z{0,62}`.
+ *  `projects/{project}/locations/{location}/deliveryPipelines/{deliveryPipeline}/releases/{release}/rollouts/{rollout}`.
  */
 @property(nonatomic, copy, nullable) NSString *controllerRollout;
 
@@ -5441,7 +5354,8 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudDeploy_VerifyJobRun_FailureCause_Ve
 
 /**
  *  Optional. Name of the `Rollout`. Format is
- *  `projects/{project}/locations/{location}/deliveryPipelines/{deliveryPipeline}/releases/{release}/rollouts/a-z{0,62}`.
+ *  `projects/{project}/locations/{location}/deliveryPipelines/{deliveryPipeline}/releases/{release}/rollouts/{rollout}`.
+ *  The `rollout` component must match `[a-z]([a-z0-9-]{0,61}[a-z0-9])?`
  */
 @property(nonatomic, copy, nullable) NSString *name;
 
@@ -5767,6 +5681,29 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudDeploy_VerifyJobRun_FailureCause_Ve
 
 
 /**
+ *  Cloud Build V2 Repository containing Skaffold Configs.
+ */
+@interface GTLRCloudDeploy_SkaffoldGCBRepoSource : GTLRObject
+
+/**
+ *  Optional. Relative path from the repository root to the Skaffold Config
+ *  file.
+ */
+@property(nonatomic, copy, nullable) NSString *path;
+
+/** Optional. Branch or tag to use when cloning the repository. */
+@property(nonatomic, copy, nullable) NSString *ref;
+
+/**
+ *  Required. Name of the Cloud Build V2 Repository. Format is
+ *  projects/{project}/locations/{location}/connections/{connection}/repositories/{repository}.
+ */
+@property(nonatomic, copy, nullable) NSString *repository;
+
+@end
+
+
+/**
  *  Cloud Storage bucket containing Skaffold Config modules.
  */
 @interface GTLRCloudDeploy_SkaffoldGCSSource : GTLRObject
@@ -5792,7 +5729,7 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudDeploy_VerifyJobRun_FailureCause_Ve
 /** Optional. Relative path from the repository root to the Skaffold file. */
 @property(nonatomic, copy, nullable) NSString *path;
 
-/** Optional. Git ref the package should be cloned from. */
+/** Optional. Git branch or tag to use when cloning the repository. */
 @property(nonatomic, copy, nullable) NSString *ref;
 
 /** Required. Git repository the package should be cloned from. */
@@ -5811,6 +5748,9 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudDeploy_VerifyJobRun_FailureCause_Ve
 
 /** Remote git repository containing the Skaffold Config modules. */
 @property(nonatomic, strong, nullable) GTLRCloudDeploy_SkaffoldGitSource *git;
+
+/** Cloud Build V2 repository containing the Skaffold Config modules. */
+@property(nonatomic, strong, nullable) GTLRCloudDeploy_SkaffoldGCBRepoSource *googleCloudBuildRepo;
 
 /** Cloud Storage bucket containing the Skaffold Config modules. */
 @property(nonatomic, strong, nullable) GTLRCloudDeploy_SkaffoldGCSSource *googleCloudStorage;
@@ -6076,7 +6016,8 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudDeploy_VerifyJobRun_FailureCause_Ve
 
 /**
  *  Optional. Name of the `Target`. Format is
- *  `projects/{project}/locations/{location}/targets/a-z{0,62}`.
+ *  `projects/{project}/locations/{location}/targets/{target}`. The `target`
+ *  component must match `[a-z]([a-z0-9-]{0,61}[a-z0-9])?`
  */
 @property(nonatomic, copy, nullable) NSString *name;
 

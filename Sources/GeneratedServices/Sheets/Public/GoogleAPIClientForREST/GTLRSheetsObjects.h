@@ -55,6 +55,9 @@
 @class GTLRSheets_Border;
 @class GTLRSheets_Borders;
 @class GTLRSheets_BubbleChartSpec;
+@class GTLRSheets_CancelDataSourceRefreshRequest;
+@class GTLRSheets_CancelDataSourceRefreshResponse;
+@class GTLRSheets_CancelDataSourceRefreshStatus;
 @class GTLRSheets_CandlestickChartSpec;
 @class GTLRSheets_CandlestickData;
 @class GTLRSheets_CandlestickDomain;
@@ -181,6 +184,7 @@
 @class GTLRSheets_PointStyle;
 @class GTLRSheets_ProtectedRange;
 @class GTLRSheets_RandomizeRangeRequest;
+@class GTLRSheets_RefreshCancellationStatus;
 @class GTLRSheets_RefreshDataSourceObjectExecutionStatus;
 @class GTLRSheets_RefreshDataSourceRequest;
 @class GTLRSheets_RefreshDataSourceResponse;
@@ -1758,6 +1762,12 @@ FOUNDATION_EXTERN NSString * const kGTLRSheets_CutPasteRequest_PasteType_PasteVa
  */
 FOUNDATION_EXTERN NSString * const kGTLRSheets_DataExecutionStatus_ErrorCode_ConcurrentQuery;
 /**
+ *  The data execution has been cancelled.
+ *
+ *  Value: "DATA_EXECUTION_CANCELLED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRSheets_DataExecutionStatus_ErrorCode_DataExecutionCancelled;
+/**
  *  Default value, do not use.
  *
  *  Value: "DATA_EXECUTION_ERROR_CODE_UNSPECIFIED"
@@ -1872,6 +1882,12 @@ FOUNDATION_EXTERN NSString * const kGTLRSheets_DataExecutionStatus_ErrorCode_Uns
 // ----------------------------------------------------------------------------
 // GTLRSheets_DataExecutionStatus.state
 
+/**
+ *  The data execution is currently being cancelled.
+ *
+ *  Value: "CANCELLING"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRSheets_DataExecutionStatus_State_Cancelling;
 /**
  *  Default value, do not use.
  *
@@ -2962,6 +2978,14 @@ FOUNDATION_EXTERN NSString * const kGTLRSheets_PivotValue_SummarizeFunction_Medi
  */
 FOUNDATION_EXTERN NSString * const kGTLRSheets_PivotValue_SummarizeFunction_Min;
 /**
+ *  Indicates that the value is already summarized, and the summarization
+ *  function is not explicitly specified. Used for Looker data source pivot
+ *  tables where the value is already summarized.
+ *
+ *  Value: "NONE"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRSheets_PivotValue_SummarizeFunction_None;
+/**
  *  The default, do not use.
  *
  *  Value: "PIVOT_STANDARD_VALUE_FUNCTION_UNSPECIFIED"
@@ -3061,6 +3085,70 @@ FOUNDATION_EXTERN NSString * const kGTLRSheets_PointStyle_Shape_Triangle;
  *  Value: "X_MARK"
  */
 FOUNDATION_EXTERN NSString * const kGTLRSheets_PointStyle_Shape_XMark;
+
+// ----------------------------------------------------------------------------
+// GTLRSheets_RefreshCancellationStatus.errorCode
+
+/**
+ *  All other errors.
+ *
+ *  Value: "CANCEL_OTHER_ERROR"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRSheets_RefreshCancellationStatus_ErrorCode_CancelOtherError;
+/**
+ *  The user does not have permission to cancel the query.
+ *
+ *  Value: "CANCEL_PERMISSION_DENIED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRSheets_RefreshCancellationStatus_ErrorCode_CancelPermissionDenied;
+/**
+ *  There is already another cancellation in process.
+ *
+ *  Value: "CONCURRENT_CANCELLATION"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRSheets_RefreshCancellationStatus_ErrorCode_ConcurrentCancellation;
+/**
+ *  Execution to be cancelled not found in the query engine or in Sheets.
+ *
+ *  Value: "EXECUTION_NOT_FOUND"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRSheets_RefreshCancellationStatus_ErrorCode_ExecutionNotFound;
+/**
+ *  The query execution has already completed and thus could not be cancelled.
+ *
+ *  Value: "QUERY_EXECUTION_COMPLETED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRSheets_RefreshCancellationStatus_ErrorCode_QueryExecutionCompleted;
+/**
+ *  Default value, do not use.
+ *
+ *  Value: "REFRESH_CANCELLATION_ERROR_CODE_UNSPECIFIED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRSheets_RefreshCancellationStatus_ErrorCode_RefreshCancellationErrorCodeUnspecified;
+
+// ----------------------------------------------------------------------------
+// GTLRSheets_RefreshCancellationStatus.state
+
+/**
+ *  The API call to Sheets to cancel a refresh has failed.
+ *
+ *  Value: "CANCEL_FAILED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRSheets_RefreshCancellationStatus_State_CancelFailed;
+/**
+ *  The API call to Sheets to cancel a refresh has succeeded. This does not mean
+ *  that the cancel happened successfully, but that the call has been made
+ *  successfully.
+ *
+ *  Value: "CANCEL_SUCCEEDED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRSheets_RefreshCancellationStatus_State_CancelSucceeded;
+/**
+ *  Default value, do not use.
+ *
+ *  Value: "REFRESH_CANCELLATION_STATE_UNSPECIFIED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRSheets_RefreshCancellationStatus_State_RefreshCancellationStateUnspecified;
 
 // ----------------------------------------------------------------------------
 // GTLRSheets_ScorecardChartSpec.aggregateType
@@ -5323,6 +5411,62 @@ GTLR_DEPRECATED
 
 
 /**
+ *  Cancels one or multiple refreshes of data source objects in the spreadsheet
+ *  by the specified references.
+ */
+@interface GTLRSheets_CancelDataSourceRefreshRequest : GTLRObject
+
+/**
+ *  Reference to a DataSource. If specified, cancels all associated data source
+ *  object refreshes for this data source.
+ */
+@property(nonatomic, copy, nullable) NSString *dataSourceId;
+
+/**
+ *  Cancels all existing data source object refreshes for all data sources in
+ *  the spreadsheet.
+ *
+ *  Uses NSNumber of boolValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *isAll;
+
+/** References to data source objects whose refreshes are to be cancelled. */
+@property(nonatomic, strong, nullable) GTLRSheets_DataSourceObjectReferences *references;
+
+@end
+
+
+/**
+ *  The response from cancelling one or multiple data source object refreshes.
+ */
+@interface GTLRSheets_CancelDataSourceRefreshResponse : GTLRObject
+
+/**
+ *  The cancellation statuses of refreshes of all data source objects specified
+ *  in the request. If is_all is specified, the field contains only those in
+ *  failure status. Refreshing and canceling refresh the same data source object
+ *  is also not allowed in the same `batchUpdate`.
+ */
+@property(nonatomic, strong, nullable) NSArray<GTLRSheets_CancelDataSourceRefreshStatus *> *statuses;
+
+@end
+
+
+/**
+ *  The status of cancelling a single data source object refresh.
+ */
+@interface GTLRSheets_CancelDataSourceRefreshStatus : GTLRObject
+
+/** Reference to the data source object whose refresh is being cancelled. */
+@property(nonatomic, strong, nullable) GTLRSheets_DataSourceObjectReference *reference;
+
+/** The cancellation status. */
+@property(nonatomic, strong, nullable) GTLRSheets_RefreshCancellationStatus *refreshCancellationStatus;
+
+@end
+
+
+/**
  *  A candlestick chart.
  */
 @interface GTLRSheets_CandlestickChartSpec : GTLRObject
@@ -6376,6 +6520,9 @@ GTLR_DEPRECATED
  *    @arg @c kGTLRSheets_DataExecutionStatus_ErrorCode_ConcurrentQuery The data
  *        execution is currently in progress, can not be refreshed until it
  *        completes. (Value: "CONCURRENT_QUERY")
+ *    @arg @c kGTLRSheets_DataExecutionStatus_ErrorCode_DataExecutionCancelled
+ *        The data execution has been cancelled. (Value:
+ *        "DATA_EXECUTION_CANCELLED")
  *    @arg @c kGTLRSheets_DataExecutionStatus_ErrorCode_DataExecutionErrorCodeUnspecified
  *        Default value, do not use. (Value:
  *        "DATA_EXECUTION_ERROR_CODE_UNSPECIFIED")
@@ -6437,6 +6584,8 @@ GTLR_DEPRECATED
  *  The state of the data execution.
  *
  *  Likely values:
+ *    @arg @c kGTLRSheets_DataExecutionStatus_State_Cancelling The data
+ *        execution is currently being cancelled. (Value: "CANCELLING")
  *    @arg @c kGTLRSheets_DataExecutionStatus_State_DataExecutionStateUnspecified
  *        Default value, do not use. (Value: "DATA_EXECUTION_STATE_UNSPECIFIED")
  *    @arg @c kGTLRSheets_DataExecutionStatus_State_Failed The data execution
@@ -9518,6 +9667,10 @@ GTLR_DEPRECATED
  *        `MEDIAN` function. (Value: "MEDIAN")
  *    @arg @c kGTLRSheets_PivotValue_SummarizeFunction_Min Corresponds to the
  *        `MIN` function. (Value: "MIN")
+ *    @arg @c kGTLRSheets_PivotValue_SummarizeFunction_None Indicates that the
+ *        value is already summarized, and the summarization function is not
+ *        explicitly specified. Used for Looker data source pivot tables where
+ *        the value is already summarized. (Value: "NONE")
  *    @arg @c kGTLRSheets_PivotValue_SummarizeFunction_PivotStandardValueFunctionUnspecified
  *        The default, do not use. (Value:
  *        "PIVOT_STANDARD_VALUE_FUNCTION_UNSPECIFIED")
@@ -9654,6 +9807,56 @@ GTLR_DEPRECATED
 
 /** The range to randomize. */
 @property(nonatomic, strong, nullable) GTLRSheets_GridRange *range;
+
+@end
+
+
+/**
+ *  The status of a refresh cancellation. You can send a cancel request to
+ *  explicitly cancel one or multiple data source object refreshes.
+ */
+@interface GTLRSheets_RefreshCancellationStatus : GTLRObject
+
+/**
+ *  The error code.
+ *
+ *  Likely values:
+ *    @arg @c kGTLRSheets_RefreshCancellationStatus_ErrorCode_CancelOtherError
+ *        All other errors. (Value: "CANCEL_OTHER_ERROR")
+ *    @arg @c kGTLRSheets_RefreshCancellationStatus_ErrorCode_CancelPermissionDenied
+ *        The user does not have permission to cancel the query. (Value:
+ *        "CANCEL_PERMISSION_DENIED")
+ *    @arg @c kGTLRSheets_RefreshCancellationStatus_ErrorCode_ConcurrentCancellation
+ *        There is already another cancellation in process. (Value:
+ *        "CONCURRENT_CANCELLATION")
+ *    @arg @c kGTLRSheets_RefreshCancellationStatus_ErrorCode_ExecutionNotFound
+ *        Execution to be cancelled not found in the query engine or in Sheets.
+ *        (Value: "EXECUTION_NOT_FOUND")
+ *    @arg @c kGTLRSheets_RefreshCancellationStatus_ErrorCode_QueryExecutionCompleted
+ *        The query execution has already completed and thus could not be
+ *        cancelled. (Value: "QUERY_EXECUTION_COMPLETED")
+ *    @arg @c kGTLRSheets_RefreshCancellationStatus_ErrorCode_RefreshCancellationErrorCodeUnspecified
+ *        Default value, do not use. (Value:
+ *        "REFRESH_CANCELLATION_ERROR_CODE_UNSPECIFIED")
+ */
+@property(nonatomic, copy, nullable) NSString *errorCode;
+
+/**
+ *  The state of a call to cancel a refresh in Sheets.
+ *
+ *  Likely values:
+ *    @arg @c kGTLRSheets_RefreshCancellationStatus_State_CancelFailed The API
+ *        call to Sheets to cancel a refresh has failed. (Value:
+ *        "CANCEL_FAILED")
+ *    @arg @c kGTLRSheets_RefreshCancellationStatus_State_CancelSucceeded The
+ *        API call to Sheets to cancel a refresh has succeeded. This does not
+ *        mean that the cancel happened successfully, but that the call has been
+ *        made successfully. (Value: "CANCEL_SUCCEEDED")
+ *    @arg @c kGTLRSheets_RefreshCancellationStatus_State_RefreshCancellationStateUnspecified
+ *        Default value, do not use. (Value:
+ *        "REFRESH_CANCELLATION_STATE_UNSPECIFIED")
+ */
+@property(nonatomic, copy, nullable) NSString *state;
 
 @end
 
@@ -9804,6 +10007,11 @@ GTLR_DEPRECATED
  *  cells in that dimension.
  */
 @property(nonatomic, strong, nullable) GTLRSheets_AutoResizeDimensionsRequest *autoResizeDimensions;
+
+/**
+ *  Cancels refreshes of one or multiple data sources and associated dbobjects.
+ */
+@property(nonatomic, strong, nullable) GTLRSheets_CancelDataSourceRefreshRequest *cancelDataSourceRefresh;
 
 /** Clears the basic filter on a sheet. */
 @property(nonatomic, strong, nullable) GTLRSheets_ClearBasicFilterRequest *clearBasicFilter;
@@ -9995,6 +10203,9 @@ GTLR_DEPRECATED
 
 /** A reply from adding a slicer. */
 @property(nonatomic, strong, nullable) GTLRSheets_AddSlicerResponse *addSlicer;
+
+/** A reply from cancelling data source object refreshes. */
+@property(nonatomic, strong, nullable) GTLRSheets_CancelDataSourceRefreshResponse *cancelDataSourceRefresh;
 
 /** A reply from creating a developer metadata entry. */
 @property(nonatomic, strong, nullable) GTLRSheets_CreateDeveloperMetadataResponse *createDeveloperMetadata;
@@ -10603,6 +10814,14 @@ GTLR_DEPRECATED
  *  field is read-only.
  */
 @property(nonatomic, strong, nullable) GTLRSheets_CellFormat *defaultFormat;
+
+/**
+ *  Whether to allow external URL access for image and import functions. Read
+ *  only when true. When false, you can set to true.
+ *
+ *  Uses NSNumber of boolValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *importFunctionsExternalUrlAccessAllowed;
 
 /**
  *  Determines whether and how circular references are resolved with iterative

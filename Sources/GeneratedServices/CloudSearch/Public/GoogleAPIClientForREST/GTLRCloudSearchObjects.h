@@ -166,6 +166,7 @@
 @class GTLRCloudSearch_ResultDisplayLine;
 @class GTLRCloudSearch_ResultDisplayMetadata;
 @class GTLRCloudSearch_RetrievalImportance;
+@class GTLRCloudSearch_RewrittenQuery;
 @class GTLRCloudSearch_SafeHtmlProto;
 @class GTLRCloudSearch_SafeUrlProto;
 @class GTLRCloudSearch_Schema;
@@ -175,6 +176,7 @@
 @class GTLRCloudSearch_SearchApplicationSessionStats;
 @class GTLRCloudSearch_SearchApplicationUserStats;
 @class GTLRCloudSearch_SearchQualityMetadata;
+@class GTLRCloudSearch_SearchResponse;
 @class GTLRCloudSearch_SearchResult;
 @class GTLRCloudSearch_Snippet;
 @class GTLRCloudSearch_SortOptions;
@@ -2133,6 +2135,34 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudSearch_RetrievalImportance_Importan
 FOUNDATION_EXTERN NSString * const kGTLRCloudSearch_RetrievalImportance_Importance_None;
 
 // ----------------------------------------------------------------------------
+// GTLRCloudSearch_RewrittenQuery.sortBy
+
+/** Value: "SORTBY_CREATE_LATEST" */
+FOUNDATION_EXTERN NSString * const kGTLRCloudSearch_RewrittenQuery_SortBy_SortbyCreateLatest;
+/** Value: "SORTBY_CREATE_OLDEST" */
+FOUNDATION_EXTERN NSString * const kGTLRCloudSearch_RewrittenQuery_SortBy_SortbyCreateOldest;
+/** Value: "SORTBY_LARGEST" */
+FOUNDATION_EXTERN NSString * const kGTLRCloudSearch_RewrittenQuery_SortBy_SortbyLargest;
+/** Value: "SORTBY_LATEST" */
+FOUNDATION_EXTERN NSString * const kGTLRCloudSearch_RewrittenQuery_SortBy_SortbyLatest;
+/** Value: "SORTBY_MODIFY_LATEST" */
+FOUNDATION_EXTERN NSString * const kGTLRCloudSearch_RewrittenQuery_SortBy_SortbyModifyLatest;
+/** Value: "SORTBY_MODIFY_OLDEST" */
+FOUNDATION_EXTERN NSString * const kGTLRCloudSearch_RewrittenQuery_SortBy_SortbyModifyOldest;
+/** Value: "SORTBY_OLDEST" */
+FOUNDATION_EXTERN NSString * const kGTLRCloudSearch_RewrittenQuery_SortBy_SortbyOldest;
+/** Value: "SORTBY_RELEVANCY" */
+FOUNDATION_EXTERN NSString * const kGTLRCloudSearch_RewrittenQuery_SortBy_SortbyRelevancy;
+/** Value: "SORTBY_SMALLEST" */
+FOUNDATION_EXTERN NSString * const kGTLRCloudSearch_RewrittenQuery_SortBy_SortbySmallest;
+/** Value: "SORTBY_UNSUPPORTED" */
+FOUNDATION_EXTERN NSString * const kGTLRCloudSearch_RewrittenQuery_SortBy_SortbyUnsupported;
+/** Value: "SORTBY_VIEW_LATEST" */
+FOUNDATION_EXTERN NSString * const kGTLRCloudSearch_RewrittenQuery_SortBy_SortbyViewLatest;
+/** Value: "SORTBY_VIEW_OLDEST" */
+FOUNDATION_EXTERN NSString * const kGTLRCloudSearch_RewrittenQuery_SortBy_SortbyViewOldest;
+
+// ----------------------------------------------------------------------------
 // GTLRCloudSearch_SortOptions.sortOrder
 
 /** Value: "ASCENDING" */
@@ -2897,6 +2927,33 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudSearch_UnmappedIdentity_ResolutionS
  *  Uses NSNumber of boolValue.
  */
 @property(nonatomic, strong, nullable) NSNumber *enableDebugging;
+
+@end
+
+
+/**
+ *  Debug Search Response.
+ */
+@interface GTLRCloudSearch_DebugResponse : GTLRObject
+
+/**
+ *  Serialized string of GenericSearchRequest.
+ *
+ *  Contains encoded binary data; GTLRBase64 can encode/decode (probably
+ *  web-safe format).
+ */
+@property(nonatomic, copy, nullable) NSString *gsrRequest;
+
+/**
+ *  Serialized string of GenericSearchResponse.
+ *
+ *  Contains encoded binary data; GTLRBase64 can encode/decode (probably
+ *  web-safe format).
+ */
+@property(nonatomic, copy, nullable) NSString *gsrResponse;
+
+/** Search response. */
+@property(nonatomic, strong, nullable) GTLRCloudSearch_SearchResponse *searchResponse;
 
 @end
 
@@ -7791,6 +7848,74 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudSearch_UnmappedIdentity_ResolutionS
  *        "NONE")
  */
 @property(nonatomic, copy, nullable) NSString *importance;
+
+@end
+
+
+/**
+ *  The rewritten queries returned by Apps Search Query Understanding service.
+ */
+@interface GTLRCloudSearch_RewrittenQueries : GTLRObject
+
+@property(nonatomic, strong, nullable) NSArray<GTLRCloudSearch_RewrittenQuery *> *rewrittenQueries;
+
+/**
+ *  The index of the selected query in `rewritten_queries` that is used by QAPI
+ *  to call CSSR to get search results. If none of the queries were used (i.e.
+ *  they all give empty search results), `selected_query_index` would default to
+ *  -1.
+ *
+ *  Uses NSNumber of intValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *selectedQueryIndex;
+
+@end
+
+
+/**
+ *  GTLRCloudSearch_RewrittenQuery
+ */
+@interface GTLRCloudSearch_RewrittenQuery : GTLRObject
+
+@property(nonatomic, copy, nullable) NSString *rewrittenQuery;
+
+/**
+ *  score
+ *
+ *  Uses NSNumber of doubleValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *score;
+
+/**
+ *  sortBy
+ *
+ *  Likely values:
+ *    @arg @c kGTLRCloudSearch_RewrittenQuery_SortBy_SortbyCreateLatest Value
+ *        "SORTBY_CREATE_LATEST"
+ *    @arg @c kGTLRCloudSearch_RewrittenQuery_SortBy_SortbyCreateOldest Value
+ *        "SORTBY_CREATE_OLDEST"
+ *    @arg @c kGTLRCloudSearch_RewrittenQuery_SortBy_SortbyLargest Value
+ *        "SORTBY_LARGEST"
+ *    @arg @c kGTLRCloudSearch_RewrittenQuery_SortBy_SortbyLatest Value
+ *        "SORTBY_LATEST"
+ *    @arg @c kGTLRCloudSearch_RewrittenQuery_SortBy_SortbyModifyLatest Value
+ *        "SORTBY_MODIFY_LATEST"
+ *    @arg @c kGTLRCloudSearch_RewrittenQuery_SortBy_SortbyModifyOldest Value
+ *        "SORTBY_MODIFY_OLDEST"
+ *    @arg @c kGTLRCloudSearch_RewrittenQuery_SortBy_SortbyOldest Value
+ *        "SORTBY_OLDEST"
+ *    @arg @c kGTLRCloudSearch_RewrittenQuery_SortBy_SortbyRelevancy Value
+ *        "SORTBY_RELEVANCY"
+ *    @arg @c kGTLRCloudSearch_RewrittenQuery_SortBy_SortbySmallest Value
+ *        "SORTBY_SMALLEST"
+ *    @arg @c kGTLRCloudSearch_RewrittenQuery_SortBy_SortbyUnsupported Value
+ *        "SORTBY_UNSUPPORTED"
+ *    @arg @c kGTLRCloudSearch_RewrittenQuery_SortBy_SortbyViewLatest Value
+ *        "SORTBY_VIEW_LATEST"
+ *    @arg @c kGTLRCloudSearch_RewrittenQuery_SortBy_SortbyViewOldest Value
+ *        "SORTBY_VIEW_OLDEST"
+ */
+@property(nonatomic, copy, nullable) NSString *sortBy;
 
 @end
 

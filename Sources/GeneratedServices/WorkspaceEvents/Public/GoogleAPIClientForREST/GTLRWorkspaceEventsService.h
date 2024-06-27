@@ -33,8 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 FOUNDATION_EXTERN NSString * const kGTLRAuthScopeWorkspaceEventsChatBot;
 /**
- *  Authorization scope: View, add, and remove members from conversations in
- *  Google Chat
+ *  Authorization scope: View, add, update, and remove members from
+ *  conversations in Google Chat
  *
  *  Value "https://www.googleapis.com/auth/chat.memberships"
  */
@@ -84,6 +84,20 @@ FOUNDATION_EXTERN NSString * const kGTLRAuthScopeWorkspaceEventsChatSpaces;
  *  Value "https://www.googleapis.com/auth/chat.spaces.readonly"
  */
 FOUNDATION_EXTERN NSString * const kGTLRAuthScopeWorkspaceEventsChatSpacesReadonly;
+/**
+ *  Authorization scope: Create, edit, and see information about your Google
+ *  Meet conferences created by the app.
+ *
+ *  Value "https://www.googleapis.com/auth/meetings.space.created"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAuthScopeWorkspaceEventsMeetingsSpaceCreated;
+/**
+ *  Authorization scope: Read information about any of your Google Meet
+ *  conferences
+ *
+ *  Value "https://www.googleapis.com/auth/meetings.space.readonly"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAuthScopeWorkspaceEventsMeetingsSpaceReadonly;
 
 // ----------------------------------------------------------------------------
 //   GTLRWorkspaceEventsService

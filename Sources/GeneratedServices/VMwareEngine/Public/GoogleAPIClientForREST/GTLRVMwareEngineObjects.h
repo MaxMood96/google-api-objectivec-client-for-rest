@@ -232,6 +232,12 @@ FOUNDATION_EXTERN NSString * const kGTLRVMwareEngine_ExternalAddress_State_Updat
 // GTLRVMwareEngine_Hcx.state
 
 /**
+ *  The appliance is being activated.
+ *
+ *  Value: "ACTIVATING"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRVMwareEngine_Hcx_State_Activating;
+/**
  *  The appliance is operational and can be used.
  *
  *  Value: "ACTIVE"
@@ -305,11 +311,29 @@ FOUNDATION_EXTERN NSString * const kGTLRVMwareEngine_LocationMetadata_Capabiliti
  */
 FOUNDATION_EXTERN NSString * const kGTLRVMwareEngine_LoggingServer_Protocol_ProtocolUnspecified;
 /**
+ *  RELP
+ *
+ *  Value: "RELP"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRVMwareEngine_LoggingServer_Protocol_Relp;
+/**
+ *  SSL
+ *
+ *  Value: "SSL"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRVMwareEngine_LoggingServer_Protocol_Ssl;
+/**
  *  TCP
  *
  *  Value: "TCP"
  */
 FOUNDATION_EXTERN NSString * const kGTLRVMwareEngine_LoggingServer_Protocol_Tcp;
+/**
+ *  TLS
+ *
+ *  Value: "TLS"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRVMwareEngine_LoggingServer_Protocol_Tls;
 /**
  *  UDP
  *
@@ -446,6 +470,12 @@ FOUNDATION_EXTERN NSString * const kGTLRVMwareEngine_Network_Type_TypeUnspecifie
  *  Value: "DELL_POWERSCALE"
  */
 FOUNDATION_EXTERN NSString * const kGTLRVMwareEngine_NetworkPeering_PeerNetworkType_DellPowerscale;
+/**
+ *  Peering connection used for connecting to Google Cloud NetApp Volumes.
+ *
+ *  Value: "GOOGLE_CLOUD_NETAPP_VOLUMES"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRVMwareEngine_NetworkPeering_PeerNetworkType_GoogleCloudNetappVolumes;
 /**
  *  Peering connection used for connecting to NetApp Cloud Volumes.
  *
@@ -1622,6 +1652,8 @@ FOUNDATION_EXTERN NSString * const kGTLRVMwareEngine_VpcNetwork_Type_TypeUnspeci
  *  Output only. The state of the appliance.
  *
  *  Likely values:
+ *    @arg @c kGTLRVMwareEngine_Hcx_State_Activating The appliance is being
+ *        activated. (Value: "ACTIVATING")
  *    @arg @c kGTLRVMwareEngine_Hcx_State_Active The appliance is operational
  *        and can be used. (Value: "ACTIVE")
  *    @arg @c kGTLRVMwareEngine_Hcx_State_Creating The appliance is being
@@ -2363,7 +2395,10 @@ FOUNDATION_EXTERN NSString * const kGTLRVMwareEngine_VpcNetwork_Type_TypeUnspeci
  *    @arg @c kGTLRVMwareEngine_LoggingServer_Protocol_ProtocolUnspecified
  *        Unspecified communications protocol. This is the default value.
  *        (Value: "PROTOCOL_UNSPECIFIED")
+ *    @arg @c kGTLRVMwareEngine_LoggingServer_Protocol_Relp RELP (Value: "RELP")
+ *    @arg @c kGTLRVMwareEngine_LoggingServer_Protocol_Ssl SSL (Value: "SSL")
  *    @arg @c kGTLRVMwareEngine_LoggingServer_Protocol_Tcp TCP (Value: "TCP")
+ *    @arg @c kGTLRVMwareEngine_LoggingServer_Protocol_Tls TLS (Value: "TLS")
  *    @arg @c kGTLRVMwareEngine_LoggingServer_Protocol_Udp UDP (Value: "UDP")
  */
 @property(nonatomic, copy, nullable) NSString *protocol;
@@ -2731,6 +2766,9 @@ FOUNDATION_EXTERN NSString * const kGTLRVMwareEngine_VpcNetwork_Type_TypeUnspeci
  *    @arg @c kGTLRVMwareEngine_NetworkPeering_PeerNetworkType_DellPowerscale
  *        Peering connection used for connecting to Dell PowerScale Filers
  *        (Value: "DELL_POWERSCALE")
+ *    @arg @c kGTLRVMwareEngine_NetworkPeering_PeerNetworkType_GoogleCloudNetappVolumes
+ *        Peering connection used for connecting to Google Cloud NetApp Volumes.
+ *        (Value: "GOOGLE_CLOUD_NETAPP_VOLUMES")
  *    @arg @c kGTLRVMwareEngine_NetworkPeering_PeerNetworkType_NetappCloudVolumes
  *        Peering connection used for connecting to NetApp Cloud Volumes.
  *        (Value: "NETAPP_CLOUD_VOLUMES")

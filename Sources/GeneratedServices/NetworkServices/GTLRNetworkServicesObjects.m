@@ -31,8 +31,10 @@ NSString * const kGTLRNetworkServices_EndpointPolicy_Type_SidecarProxy = @"SIDEC
 NSString * const kGTLRNetworkServices_ExtensionChainExtension_SupportedEvents_EventTypeUnspecified = @"EVENT_TYPE_UNSPECIFIED";
 NSString * const kGTLRNetworkServices_ExtensionChainExtension_SupportedEvents_RequestBody = @"REQUEST_BODY";
 NSString * const kGTLRNetworkServices_ExtensionChainExtension_SupportedEvents_RequestHeaders = @"REQUEST_HEADERS";
+NSString * const kGTLRNetworkServices_ExtensionChainExtension_SupportedEvents_RequestTrailers = @"REQUEST_TRAILERS";
 NSString * const kGTLRNetworkServices_ExtensionChainExtension_SupportedEvents_ResponseBody = @"RESPONSE_BODY";
 NSString * const kGTLRNetworkServices_ExtensionChainExtension_SupportedEvents_ResponseHeaders = @"RESPONSE_HEADERS";
+NSString * const kGTLRNetworkServices_ExtensionChainExtension_SupportedEvents_ResponseTrailers = @"RESPONSE_TRAILERS";
 
 // GTLRNetworkServices_Gateway.envoyHeaders
 NSString * const kGTLRNetworkServices_Gateway_EnvoyHeaders_DebugHeaders = @"DEBUG_HEADERS";
@@ -831,7 +833,7 @@ NSString * const kGTLRNetworkServices_ServiceLbPolicy_LoadBalancingAlgorithm_Wat
 
 @implementation GTLRNetworkServices_LbRouteExtension
 @dynamic createTime, descriptionProperty, extensionChains, forwardingRules,
-         labels, loadBalancingScheme, name, updateTime;
+         labels, loadBalancingScheme, metadata, name, updateTime;
 
 + (NSDictionary<NSString *, NSString *> *)propertyToJSONKeyMap {
   return @{ @"descriptionProperty" : @"description" };
@@ -864,12 +866,26 @@ NSString * const kGTLRNetworkServices_ServiceLbPolicy_LoadBalancingAlgorithm_Wat
 
 // ----------------------------------------------------------------------------
 //
+//   GTLRNetworkServices_LbRouteExtension_Metadata
+//
+
+@implementation GTLRNetworkServices_LbRouteExtension_Metadata
+
++ (Class)classForAdditionalProperties {
+  return [NSObject class];
+}
+
+@end
+
+
+// ----------------------------------------------------------------------------
+//
 //   GTLRNetworkServices_LbTrafficExtension
 //
 
 @implementation GTLRNetworkServices_LbTrafficExtension
 @dynamic createTime, descriptionProperty, extensionChains, forwardingRules,
-         labels, loadBalancingScheme, name, updateTime;
+         labels, loadBalancingScheme, metadata, name, updateTime;
 
 + (NSDictionary<NSString *, NSString *> *)propertyToJSONKeyMap {
   return @{ @"descriptionProperty" : @"description" };
@@ -895,6 +911,20 @@ NSString * const kGTLRNetworkServices_ServiceLbPolicy_LoadBalancingAlgorithm_Wat
 
 + (Class)classForAdditionalProperties {
   return [NSString class];
+}
+
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRNetworkServices_LbTrafficExtension_Metadata
+//
+
+@implementation GTLRNetworkServices_LbTrafficExtension_Metadata
+
++ (Class)classForAdditionalProperties {
+  return [NSObject class];
 }
 
 @end

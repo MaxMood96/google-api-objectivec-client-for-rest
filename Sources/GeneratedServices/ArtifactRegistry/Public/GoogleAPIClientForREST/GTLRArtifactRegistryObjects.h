@@ -27,7 +27,13 @@
 @class GTLRArtifactRegistry_Expr;
 @class GTLRArtifactRegistry_GoogetArtifact;
 @class GTLRArtifactRegistry_GoogleDevtoolsArtifactregistryV1File;
+@class GTLRArtifactRegistry_GoogleDevtoolsArtifactregistryV1RemoteRepositoryConfigAptRepositoryCustomRepository;
 @class GTLRArtifactRegistry_GoogleDevtoolsArtifactregistryV1RemoteRepositoryConfigAptRepositoryPublicRepository;
+@class GTLRArtifactRegistry_GoogleDevtoolsArtifactregistryV1RemoteRepositoryConfigDockerRepositoryCustomRepository;
+@class GTLRArtifactRegistry_GoogleDevtoolsArtifactregistryV1RemoteRepositoryConfigMavenRepositoryCustomRepository;
+@class GTLRArtifactRegistry_GoogleDevtoolsArtifactregistryV1RemoteRepositoryConfigNpmRepositoryCustomRepository;
+@class GTLRArtifactRegistry_GoogleDevtoolsArtifactregistryV1RemoteRepositoryConfigPythonRepositoryCustomRepository;
+@class GTLRArtifactRegistry_GoogleDevtoolsArtifactregistryV1RemoteRepositoryConfigYumRepositoryCustomRepository;
 @class GTLRArtifactRegistry_GoogleDevtoolsArtifactregistryV1RemoteRepositoryConfigYumRepositoryPublicRepository;
 @class GTLRArtifactRegistry_Hash;
 @class GTLRArtifactRegistry_ImportAptArtifactsErrorInfo;
@@ -48,6 +54,7 @@
 @class GTLRArtifactRegistry_Operation_Metadata;
 @class GTLRArtifactRegistry_Operation_Response;
 @class GTLRArtifactRegistry_Package;
+@class GTLRArtifactRegistry_Package_Annotations;
 @class GTLRArtifactRegistry_Policy;
 @class GTLRArtifactRegistry_PythonPackage;
 @class GTLRArtifactRegistry_PythonRepository;
@@ -332,11 +339,23 @@ FOUNDATION_EXTERN NSString * const kGTLRArtifactRegistry_ProjectSettings_LegacyR
  */
 FOUNDATION_EXTERN NSString * const kGTLRArtifactRegistry_ProjectSettings_LegacyRedirectionState_RedirectionFromGcrIoEnabled;
 /**
+ *  Redirection is enabled and missing images are copied from GCR
+ *
+ *  Value: "REDIRECTION_FROM_GCR_IO_ENABLED_AND_COPYING"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRArtifactRegistry_ProjectSettings_LegacyRedirectionState_RedirectionFromGcrIoEnabledAndCopying;
+/**
  *  Redirection is enabled, and has been finalized so cannot be reverted.
  *
  *  Value: "REDIRECTION_FROM_GCR_IO_FINALIZED"
  */
 FOUNDATION_EXTERN NSString * const kGTLRArtifactRegistry_ProjectSettings_LegacyRedirectionState_RedirectionFromGcrIoFinalized GTLR_DEPRECATED;
+/**
+ *  Redirection is partially enabled and missing images are copied from GCR
+ *
+ *  Value: "REDIRECTION_FROM_GCR_IO_PARTIAL_AND_COPYING"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRArtifactRegistry_ProjectSettings_LegacyRedirectionState_RedirectionFromGcrIoPartialAndCopying;
 /**
  *  No redirection status has been set.
  *
@@ -381,6 +400,12 @@ FOUNDATION_EXTERN NSString * const kGTLRArtifactRegistry_Repository_Format_Docke
  *  Value: "FORMAT_UNSPECIFIED"
  */
 FOUNDATION_EXTERN NSString * const kGTLRArtifactRegistry_Repository_Format_FormatUnspecified;
+/**
+ *  Generic package format.
+ *
+ *  Value: "GENERIC"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRArtifactRegistry_Repository_Format_Generic;
 /**
  *  Go package format.
  *
@@ -427,6 +452,18 @@ FOUNDATION_EXTERN NSString * const kGTLRArtifactRegistry_Repository_Format_Yum;
 // ----------------------------------------------------------------------------
 // GTLRArtifactRegistry_Repository.mode
 
+/**
+ *  An AOSS repository provides artifacts from AOSS upstreams.
+ *
+ *  Value: "AOSS_REPOSITORY"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRArtifactRegistry_Repository_Mode_AossRepository;
+/**
+ *  Replacement of AOSS_REPOSITORY.
+ *
+ *  Value: "ASSURED_OSS_REPOSITORY"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRArtifactRegistry_Repository_Mode_AssuredOssRepository;
 /**
  *  Unspecified mode.
  *
@@ -547,6 +584,9 @@ FOUNDATION_EXTERN NSString * const kGTLRArtifactRegistry_YumArtifact_PackageType
  *  Configuration for an Apt remote repository.
  */
 @interface GTLRArtifactRegistry_AptRepository : GTLRObject
+
+/** Customer-specified remote repository. */
+@property(nonatomic, strong, nullable) GTLRArtifactRegistry_GoogleDevtoolsArtifactregistryV1RemoteRepositoryConfigAptRepositoryCustomRepository *customRepository;
 
 /**
  *  One of the publicly available Apt repositories supported by Artifact
@@ -837,6 +877,9 @@ FOUNDATION_EXTERN NSString * const kGTLRArtifactRegistry_YumArtifact_PackageType
  */
 @interface GTLRArtifactRegistry_DockerRepository : GTLRObject
 
+/** Customer-specified remote repository. */
+@property(nonatomic, strong, nullable) GTLRArtifactRegistry_GoogleDevtoolsArtifactregistryV1RemoteRepositoryConfigDockerRepositoryCustomRepository *customRepository;
+
 /**
  *  One of the publicly available Docker repositories supported by Artifact
  *  Registry.
@@ -866,6 +909,13 @@ FOUNDATION_EXTERN NSString * const kGTLRArtifactRegistry_YumArtifact_PackageType
  */
 @property(nonatomic, strong, nullable) NSNumber *immutableTags;
 
+@end
+
+
+/**
+ *  The response to download a file.
+ */
+@interface GTLRArtifactRegistry_DownloadFileResponse : GTLRObject
 @end
 
 
@@ -924,6 +974,31 @@ FOUNDATION_EXTERN NSString * const kGTLRArtifactRegistry_YumArtifact_PackageType
  *  purpose. This can be used e.g. in UIs which allow to enter the expression.
  */
 @property(nonatomic, copy, nullable) NSString *title;
+
+@end
+
+
+/**
+ *  GenericArtifact represents a generic artifact
+ */
+@interface GTLRArtifactRegistry_GenericArtifact : GTLRObject
+
+/** Output only. The time when the Generic module is created. */
+@property(nonatomic, strong, nullable) GTLRDateTime *createTime;
+
+/**
+ *  Resource name of the generic artifact. project, location, repository,
+ *  package_id and version_id create a unique generic artifact. i.e.
+ *  "projects/test-project/locations/us-west4/repositories/test-repo/
+ *  genericArtifacts/package_id:version_id"
+ */
+@property(nonatomic, copy, nullable) NSString *name;
+
+/** Output only. The time when the Generic module is updated. */
+@property(nonatomic, strong, nullable) GTLRDateTime *updateTime;
+
+/** The version of the generic artifact. */
+@property(nonatomic, copy, nullable) NSString *version;
 
 @end
 
@@ -988,7 +1063,7 @@ FOUNDATION_EXTERN NSString * const kGTLRArtifactRegistry_YumArtifact_PackageType
 
 /**
  *  The name of the file, for example:
- *  "projects/p1/locations/us-central1/repositories/repo1/files/a%2Fb%2Fc.txt".
+ *  `projects/p1/locations/us-central1/repositories/repo1/files/a%2Fb%2Fc.txt`.
  *  If the file ID part contains slashes, they are escaped.
  */
 @property(nonatomic, copy, nullable) NSString *name;
@@ -1005,6 +1080,20 @@ FOUNDATION_EXTERN NSString * const kGTLRArtifactRegistry_YumArtifact_PackageType
 
 /** Output only. The time when the File was last updated. */
 @property(nonatomic, strong, nullable) GTLRDateTime *updateTime;
+
+@end
+
+
+/**
+ *  Customer-specified publicly available remote repository.
+ */
+@interface GTLRArtifactRegistry_GoogleDevtoolsArtifactregistryV1RemoteRepositoryConfigAptRepositoryCustomRepository : GTLRObject
+
+/**
+ *  An http/https uri reference to the upstream remote repository, for ex:
+ *  "https://my.apt.registry/".
+ */
+@property(nonatomic, copy, nullable) NSString *uri;
 
 @end
 
@@ -1032,6 +1121,76 @@ FOUNDATION_EXTERN NSString * const kGTLRArtifactRegistry_YumArtifact_PackageType
 
 /** A custom field to define a path to a specific repository from the base. */
 @property(nonatomic, copy, nullable) NSString *repositoryPath;
+
+@end
+
+
+/**
+ *  Customer-specified publicly available remote repository.
+ */
+@interface GTLRArtifactRegistry_GoogleDevtoolsArtifactregistryV1RemoteRepositoryConfigDockerRepositoryCustomRepository : GTLRObject
+
+/**
+ *  An http/https uri reference to the custom remote repository, for ex:
+ *  "https://registry-1.docker.io".
+ */
+@property(nonatomic, copy, nullable) NSString *uri;
+
+@end
+
+
+/**
+ *  Customer-specified publicly available remote repository.
+ */
+@interface GTLRArtifactRegistry_GoogleDevtoolsArtifactregistryV1RemoteRepositoryConfigMavenRepositoryCustomRepository : GTLRObject
+
+/**
+ *  An http/https uri reference to the upstream remote repository, for ex:
+ *  "https://my.maven.registry/".
+ */
+@property(nonatomic, copy, nullable) NSString *uri;
+
+@end
+
+
+/**
+ *  Customer-specified publicly available remote repository.
+ */
+@interface GTLRArtifactRegistry_GoogleDevtoolsArtifactregistryV1RemoteRepositoryConfigNpmRepositoryCustomRepository : GTLRObject
+
+/**
+ *  An http/https uri reference to the upstream remote repository, for ex:
+ *  "https://my.npm.registry/".
+ */
+@property(nonatomic, copy, nullable) NSString *uri;
+
+@end
+
+
+/**
+ *  Customer-specified publicly available remote repository.
+ */
+@interface GTLRArtifactRegistry_GoogleDevtoolsArtifactregistryV1RemoteRepositoryConfigPythonRepositoryCustomRepository : GTLRObject
+
+/**
+ *  An http/https uri reference to the upstream remote repository, for ex:
+ *  "https://my.python.registry/".
+ */
+@property(nonatomic, copy, nullable) NSString *uri;
+
+@end
+
+
+/**
+ *  Customer-specified publicly available remote repository.
+ */
+@interface GTLRArtifactRegistry_GoogleDevtoolsArtifactregistryV1RemoteRepositoryConfigYumRepositoryCustomRepository : GTLRObject
+
+/**
+ *  An http/https uri reference to the upstream remote repository, for ex:
+ *  "https://my.yum.registry/".
+ */
+@property(nonatomic, copy, nullable) NSString *uri;
 
 @end
 
@@ -1683,6 +1842,9 @@ FOUNDATION_EXTERN NSString * const kGTLRArtifactRegistry_YumArtifact_PackageType
  */
 @interface GTLRArtifactRegistry_MavenRepository : GTLRObject
 
+/** Customer-specified remote repository. */
+@property(nonatomic, strong, nullable) GTLRArtifactRegistry_GoogleDevtoolsArtifactregistryV1RemoteRepositoryConfigMavenRepositoryCustomRepository *customRepository;
+
 /**
  *  One of the publicly available Maven repositories supported by Artifact
  *  Registry.
@@ -1769,6 +1931,9 @@ FOUNDATION_EXTERN NSString * const kGTLRArtifactRegistry_YumArtifact_PackageType
  *  Configuration for a Npm remote repository.
  */
 @interface GTLRArtifactRegistry_NpmRepository : GTLRObject
+
+/** Customer-specified remote repository. */
+@property(nonatomic, strong, nullable) GTLRArtifactRegistry_GoogleDevtoolsArtifactregistryV1RemoteRepositoryConfigNpmRepositoryCustomRepository *customRepository;
 
 /**
  *  One of the publicly available Npm repositories supported by Artifact
@@ -1877,6 +2042,9 @@ FOUNDATION_EXTERN NSString * const kGTLRArtifactRegistry_YumArtifact_PackageType
  */
 @interface GTLRArtifactRegistry_Package : GTLRObject
 
+/** Optional. Client specified annotations. */
+@property(nonatomic, strong, nullable) GTLRArtifactRegistry_Package_Annotations *annotations;
+
 /** The time when the package was created. */
 @property(nonatomic, strong, nullable) GTLRDateTime *createTime;
 
@@ -1896,6 +2064,18 @@ FOUNDATION_EXTERN NSString * const kGTLRArtifactRegistry_YumArtifact_PackageType
  */
 @property(nonatomic, strong, nullable) GTLRDateTime *updateTime;
 
+@end
+
+
+/**
+ *  Optional. Client specified annotations.
+ *
+ *  @note This class is documented as having more properties of NSString. Use @c
+ *        -additionalJSONKeys and @c -additionalPropertyForName: to get the list
+ *        of properties and then fetch them; or @c -additionalProperties to
+ *        fetch them all at once.
+ */
+@interface GTLRArtifactRegistry_Package_Annotations : GTLRObject
 @end
 
 
@@ -2000,9 +2180,15 @@ FOUNDATION_EXTERN NSString * const kGTLRArtifactRegistry_YumArtifact_PackageType
  *        Redirection is disabled. (Value: "REDIRECTION_FROM_GCR_IO_DISABLED")
  *    @arg @c kGTLRArtifactRegistry_ProjectSettings_LegacyRedirectionState_RedirectionFromGcrIoEnabled
  *        Redirection is enabled. (Value: "REDIRECTION_FROM_GCR_IO_ENABLED")
+ *    @arg @c kGTLRArtifactRegistry_ProjectSettings_LegacyRedirectionState_RedirectionFromGcrIoEnabledAndCopying
+ *        Redirection is enabled and missing images are copied from GCR (Value:
+ *        "REDIRECTION_FROM_GCR_IO_ENABLED_AND_COPYING")
  *    @arg @c kGTLRArtifactRegistry_ProjectSettings_LegacyRedirectionState_RedirectionFromGcrIoFinalized
  *        Redirection is enabled, and has been finalized so cannot be reverted.
  *        (Value: "REDIRECTION_FROM_GCR_IO_FINALIZED")
+ *    @arg @c kGTLRArtifactRegistry_ProjectSettings_LegacyRedirectionState_RedirectionFromGcrIoPartialAndCopying
+ *        Redirection is partially enabled and missing images are copied from
+ *        GCR (Value: "REDIRECTION_FROM_GCR_IO_PARTIAL_AND_COPYING")
  *    @arg @c kGTLRArtifactRegistry_ProjectSettings_LegacyRedirectionState_RedirectionStateUnspecified
  *        No redirection status has been set. (Value:
  *        "REDIRECTION_STATE_UNSPECIFIED")
@@ -2061,6 +2247,9 @@ FOUNDATION_EXTERN NSString * const kGTLRArtifactRegistry_YumArtifact_PackageType
  */
 @interface GTLRArtifactRegistry_PythonRepository : GTLRObject
 
+/** Customer-specified remote repository. */
+@property(nonatomic, strong, nullable) GTLRArtifactRegistry_GoogleDevtoolsArtifactregistryV1RemoteRepositoryConfigPythonRepositoryCustomRepository *customRepository;
+
 /**
  *  One of the publicly available Python repositories supported by Artifact
  *  Registry.
@@ -2090,6 +2279,14 @@ FOUNDATION_EXTERN NSString * const kGTLRArtifactRegistry_YumArtifact_PackageType
  *  Remapped to 'descriptionProperty' to avoid NSObject's 'description'.
  */
 @property(nonatomic, copy, nullable) NSString *descriptionProperty;
+
+/**
+ *  Input only. A create/update remote repo option to avoid making a HEAD/GET
+ *  request to validate a remote repo and any supplied upstream credentials.
+ *
+ *  Uses NSNumber of boolValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *disableUpstreamValidation;
 
 /** Specific settings for a Docker remote repository. */
 @property(nonatomic, strong, nullable) GTLRArtifactRegistry_DockerRepository *dockerRepository;
@@ -2144,9 +2341,8 @@ FOUNDATION_EXTERN NSString * const kGTLRArtifactRegistry_YumArtifact_PackageType
 @property(nonatomic, copy, nullable) NSString *descriptionProperty;
 
 /**
- *  Optional. If this is true, aunspecified repo type will be treated as error.
- *  Is used for new repo types that don't have any specific fields. Right now is
- *  used by AOSS team when creating repos for customers.
+ *  Optional. If this is true, an unspecified repo type will be treated as error
+ *  rather than defaulting to standard.
  *
  *  Uses NSNumber of boolValue.
  */
@@ -2168,6 +2364,8 @@ FOUNDATION_EXTERN NSString * const kGTLRArtifactRegistry_YumArtifact_PackageType
  *        format. (Value: "DOCKER")
  *    @arg @c kGTLRArtifactRegistry_Repository_Format_FormatUnspecified
  *        Unspecified package format. (Value: "FORMAT_UNSPECIFIED")
+ *    @arg @c kGTLRArtifactRegistry_Repository_Format_Generic Generic package
+ *        format. (Value: "GENERIC")
  *    @arg @c kGTLRArtifactRegistry_Repository_Format_Go Go package format.
  *        (Value: "GO")
  *    @arg @c kGTLRArtifactRegistry_Repository_Format_Googet GooGet package
@@ -2211,6 +2409,11 @@ FOUNDATION_EXTERN NSString * const kGTLRArtifactRegistry_YumArtifact_PackageType
  *  Optional. The mode of the repository.
  *
  *  Likely values:
+ *    @arg @c kGTLRArtifactRegistry_Repository_Mode_AossRepository An AOSS
+ *        repository provides artifacts from AOSS upstreams. (Value:
+ *        "AOSS_REPOSITORY")
+ *    @arg @c kGTLRArtifactRegistry_Repository_Mode_AssuredOssRepository
+ *        Replacement of AOSS_REPOSITORY. (Value: "ASSURED_OSS_REPOSITORY")
  *    @arg @c kGTLRArtifactRegistry_Repository_Mode_ModeUnspecified Unspecified
  *        mode. (Value: "MODE_UNSPECIFIED")
  *    @arg @c kGTLRArtifactRegistry_Repository_Mode_RemoteRepository A remote
@@ -2226,12 +2429,20 @@ FOUNDATION_EXTERN NSString * const kGTLRArtifactRegistry_YumArtifact_PackageType
 
 /**
  *  The name of the repository, for example:
- *  `projects/p1/locations/us-central1/repositories/repo1`.
+ *  `projects/p1/locations/us-central1/repositories/repo1`. For each location in
+ *  a project, repository names must be unique.
  */
 @property(nonatomic, copy, nullable) NSString *name;
 
 /** Configuration specific for a Remote Repository. */
 @property(nonatomic, strong, nullable) GTLRArtifactRegistry_RemoteRepositoryConfig *remoteRepositoryConfig;
+
+/**
+ *  Output only. If set, the repository satisfies physical zone isolation.
+ *
+ *  Uses NSNumber of boolValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *satisfiesPzi;
 
 /**
  *  Output only. If set, the repository satisfies physical zone separation.
@@ -2434,6 +2645,59 @@ FOUNDATION_EXTERN NSString * const kGTLRArtifactRegistry_YumArtifact_PackageType
 
 /** The Apt artifacts updated. */
 @property(nonatomic, strong, nullable) NSArray<GTLRArtifactRegistry_AptArtifact *> *aptArtifacts;
+
+@end
+
+
+/**
+ *  The response to upload a generic artifact.
+ */
+@interface GTLRArtifactRegistry_UploadGenericArtifactMediaResponse : GTLRObject
+
+/** Operation that will be returned to the user. */
+@property(nonatomic, strong, nullable) GTLRArtifactRegistry_Operation *operation;
+
+@end
+
+
+/**
+ *  The operation metadata for uploading generic artifacts.
+ */
+@interface GTLRArtifactRegistry_UploadGenericArtifactMetadata : GTLRObject
+@end
+
+
+/**
+ *  The request to upload a generic artifact. The created GenericArtifact will
+ *  have the resource name {parent}/genericArtifacts/package_id:version_id. The
+ *  created file will have the resource name
+ *  {parent}/files/package_id:version_id:filename.
+ */
+@interface GTLRArtifactRegistry_UploadGenericArtifactRequest : GTLRObject
+
+/**
+ *  The name of the file of the generic artifact to be uploaded. E.g.
+ *  `example-file.zip` The filename is limited to letters, numbers, and url safe
+ *  characters, i.e. [a-zA-Z0-9-_.~\@].
+ */
+@property(nonatomic, copy, nullable) NSString *filename;
+
+/**
+ *  The ID of the package of the generic artifact. If the package does not
+ *  exist, a new package will be created. The `package_id` must start with a
+ *  letter, end with a letter or number, only contain letters, numbers, hyphens
+ *  and periods i.e. [a-z0-9-.], and cannot exceed 256 characters.
+ */
+@property(nonatomic, copy, nullable) NSString *packageId;
+
+/**
+ *  The ID of the version of the generic artifact. If the version does not
+ *  exist, a new version will be created. The version_id must start and end with
+ *  a letter or number, can only contain lowercase letters, numbers, hyphens and
+ *  periods, i.e. [a-z0-9-.] and cannot exceed a total of 128 characters.
+ *  Creating a version called `latest` is not allowed.
+ */
+@property(nonatomic, copy, nullable) NSString *versionId;
 
 @end
 
@@ -2768,6 +3032,9 @@ FOUNDATION_EXTERN NSString * const kGTLRArtifactRegistry_YumArtifact_PackageType
  *  Configuration for a Yum remote repository.
  */
 @interface GTLRArtifactRegistry_YumRepository : GTLRObject
+
+/** Customer-specified remote repository. */
+@property(nonatomic, strong, nullable) GTLRArtifactRegistry_GoogleDevtoolsArtifactregistryV1RemoteRepositoryConfigYumRepositoryCustomRepository *customRepository;
 
 /**
  *  One of the publicly available Yum repositories supported by Artifact

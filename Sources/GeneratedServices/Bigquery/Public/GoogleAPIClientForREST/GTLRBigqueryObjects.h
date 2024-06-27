@@ -53,6 +53,7 @@
 @class GTLRBigquery_DataMaskingStatistics;
 @class GTLRBigquery_Dataset_Access_Item;
 @class GTLRBigquery_Dataset_Labels;
+@class GTLRBigquery_Dataset_ResourceTags;
 @class GTLRBigquery_Dataset_Tags_Item;
 @class GTLRBigquery_DatasetAccessEntry;
 @class GTLRBigquery_DatasetList_Datasets_Item;
@@ -61,6 +62,7 @@
 @class GTLRBigquery_DataSplitResult;
 @class GTLRBigquery_DestinationTableProperties;
 @class GTLRBigquery_DestinationTableProperties_Labels;
+@class GTLRBigquery_DifferentialPrivacyPolicy;
 @class GTLRBigquery_DimensionalityReductionMetrics;
 @class GTLRBigquery_DmlStatistics;
 @class GTLRBigquery_DoubleCandidates;
@@ -75,10 +77,16 @@
 @class GTLRBigquery_Explanation;
 @class GTLRBigquery_ExportDataStatistics;
 @class GTLRBigquery_Expr;
+@class GTLRBigquery_ExternalCatalogDatasetOptions;
+@class GTLRBigquery_ExternalCatalogDatasetOptions_Parameters;
+@class GTLRBigquery_ExternalCatalogTableOptions;
+@class GTLRBigquery_ExternalCatalogTableOptions_Parameters;
 @class GTLRBigquery_ExternalDataConfiguration;
 @class GTLRBigquery_ExternalDatasetReference;
 @class GTLRBigquery_ExternalServiceCost;
 @class GTLRBigquery_FeatureValue;
+@class GTLRBigquery_ForeignTypeInfo;
+@class GTLRBigquery_ForeignViewDefinition;
 @class GTLRBigquery_GetPolicyOptions;
 @class GTLRBigquery_GlobalExplanation;
 @class GTLRBigquery_GoogleSheetsOptions;
@@ -113,8 +121,10 @@
 @class GTLRBigquery_JobStatistics5;
 @class GTLRBigquery_JobStatistics_ReservationUsage_Item;
 @class GTLRBigquery_JobStatus;
+@class GTLRBigquery_JoinRestrictionPolicy;
 @class GTLRBigquery_JsonObject;
 @class GTLRBigquery_JsonOptions;
+@class GTLRBigquery_LinkedDatasetMetadata;
 @class GTLRBigquery_LinkedDatasetSource;
 @class GTLRBigquery_LoadQueryStatistics;
 @class GTLRBigquery_MaterializedView;
@@ -132,6 +142,9 @@
 @class GTLRBigquery_ModelTraining;
 @class GTLRBigquery_MultiClassClassificationMetrics;
 @class GTLRBigquery_ParquetOptions;
+@class GTLRBigquery_PartitionedColumn;
+@class GTLRBigquery_PartitioningDefinition;
+@class GTLRBigquery_PartitionSkew;
 @class GTLRBigquery_PerformanceInsights;
 @class GTLRBigquery_Policy;
 @class GTLRBigquery_PrincipalComponentInfo;
@@ -155,6 +168,7 @@
 @class GTLRBigquery_RemoteFunctionOptions;
 @class GTLRBigquery_RemoteFunctionOptions_UserDefinedContext;
 @class GTLRBigquery_RemoteModelInfo;
+@class GTLRBigquery_RestrictionConfig;
 @class GTLRBigquery_Routine;
 @class GTLRBigquery_RoutineReference;
 @class GTLRBigquery_Row;
@@ -165,7 +179,10 @@
 @class GTLRBigquery_ScriptStackFrame;
 @class GTLRBigquery_ScriptStatistics;
 @class GTLRBigquery_SearchStatistics;
+@class GTLRBigquery_SerDeInfo;
+@class GTLRBigquery_SerDeInfo_Parameters;
 @class GTLRBigquery_SessionInfo;
+@class GTLRBigquery_SkewSource;
 @class GTLRBigquery_SnapshotDefinition;
 @class GTLRBigquery_SparkLoggingInfo;
 @class GTLRBigquery_SparkOptions;
@@ -178,6 +195,7 @@
 @class GTLRBigquery_StandardSqlField;
 @class GTLRBigquery_StandardSqlStructType;
 @class GTLRBigquery_StandardSqlTableType;
+@class GTLRBigquery_StorageDescriptor;
 @class GTLRBigquery_Streamingbuffer;
 @class GTLRBigquery_StringHparamSearchSpace;
 @class GTLRBigquery_SystemVariables;
@@ -837,6 +855,22 @@ FOUNDATION_EXTERN NSString * const kGTLRBigquery_ExternalDataConfiguration_Objec
 FOUNDATION_EXTERN NSString * const kGTLRBigquery_ExternalDataConfiguration_ObjectMetadata_Simple;
 
 // ----------------------------------------------------------------------------
+// GTLRBigquery_ForeignTypeInfo.typeSystem
+
+/**
+ *  Represents Hive data types.
+ *
+ *  Value: "HIVE"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRBigquery_ForeignTypeInfo_TypeSystem_Hive;
+/**
+ *  TypeSystem not specified.
+ *
+ *  Value: "TYPE_SYSTEM_UNSPECIFIED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRBigquery_ForeignTypeInfo_TypeSystem_TypeSystemUnspecified;
+
+// ----------------------------------------------------------------------------
 // GTLRBigquery_HparamTuningTrial.status
 
 /**
@@ -1024,6 +1058,35 @@ FOUNDATION_EXTERN NSString * const kGTLRBigquery_IndexUnusedReason_Code_Unindexe
 FOUNDATION_EXTERN NSString * const kGTLRBigquery_IndexUnusedReason_Code_UnsupportedSearchPattern;
 
 // ----------------------------------------------------------------------------
+// GTLRBigquery_JobConfigurationLoad.columnNameCharacterMap
+
+/**
+ *  Unspecified column name character map.
+ *
+ *  Value: "COLUMN_NAME_CHARACTER_MAP_UNSPECIFIED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRBigquery_JobConfigurationLoad_ColumnNameCharacterMap_ColumnNameCharacterMapUnspecified;
+/**
+ *  Support flexible column name and reject invalid column names.
+ *
+ *  Value: "STRICT"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRBigquery_JobConfigurationLoad_ColumnNameCharacterMap_Strict;
+/**
+ *  Support alphanumeric + underscore characters and names must start with a
+ *  letter or underscore. Invalid column names will be normalized.
+ *
+ *  Value: "V1"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRBigquery_JobConfigurationLoad_ColumnNameCharacterMap_V1;
+/**
+ *  Support flexible column name. Invalid column names will be normalized.
+ *
+ *  Value: "V2"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRBigquery_JobConfigurationLoad_ColumnNameCharacterMap_V2;
+
+// ----------------------------------------------------------------------------
 // GTLRBigquery_JobConfigurationLoad.decimalTargetTypes
 
 /**
@@ -1160,6 +1223,64 @@ FOUNDATION_EXTERN NSString * const kGTLRBigquery_JobCreationReason_Code_Other;
 FOUNDATION_EXTERN NSString * const kGTLRBigquery_JobCreationReason_Code_Requested;
 
 // ----------------------------------------------------------------------------
+// GTLRBigquery_JoinRestrictionPolicy.joinCondition
+
+/**
+ *  A join is required on all specified columns.
+ *
+ *  Value: "JOIN_ALL"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRBigquery_JoinRestrictionPolicy_JoinCondition_JoinAll;
+/**
+ *  A join is required on at least one of the specified columns.
+ *
+ *  Value: "JOIN_ANY"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRBigquery_JoinRestrictionPolicy_JoinCondition_JoinAny;
+/**
+ *  Joins are blocked for all queries.
+ *
+ *  Value: "JOIN_BLOCKED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRBigquery_JoinRestrictionPolicy_JoinCondition_JoinBlocked;
+/**
+ *  A join is neither required nor restricted on any column. Default value.
+ *
+ *  Value: "JOIN_CONDITION_UNSPECIFIED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRBigquery_JoinRestrictionPolicy_JoinCondition_JoinConditionUnspecified;
+/**
+ *  A join is not required, but if present it is only permitted on
+ *  'join_allowed_columns'
+ *
+ *  Value: "JOIN_NOT_REQUIRED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRBigquery_JoinRestrictionPolicy_JoinCondition_JoinNotRequired;
+
+// ----------------------------------------------------------------------------
+// GTLRBigquery_LinkedDatasetMetadata.linkState
+
+/**
+ *  Normal Linked Dataset state. Data is queryable via the Linked Dataset.
+ *
+ *  Value: "LINKED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRBigquery_LinkedDatasetMetadata_LinkState_Linked;
+/**
+ *  The default value. Default to the LINKED state.
+ *
+ *  Value: "LINK_STATE_UNSPECIFIED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRBigquery_LinkedDatasetMetadata_LinkState_LinkStateUnspecified;
+/**
+ *  Data publisher or owner has unlinked this Linked Dataset. It means you can
+ *  no longer query or see the data in the Linked Dataset.
+ *
+ *  Value: "UNLINKED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRBigquery_LinkedDatasetMetadata_LinkState_Unlinked;
+
+// ----------------------------------------------------------------------------
 // GTLRBigquery_MaterializedView.rejectedReason
 
 /**
@@ -1200,7 +1321,7 @@ FOUNDATION_EXTERN NSString * const kGTLRBigquery_MaterializedView_RejectedReason
 FOUNDATION_EXTERN NSString * const kGTLRBigquery_MaterializedView_RejectedReason_BaseTablePartitionExpirationChange;
 /**
  *  One of the view's base tables is too stale. For example, the cached metadata
- *  of a biglake table needs to be updated.
+ *  of a BigLake external table needs to be updated.
  *
  *  Value: "BASE_TABLE_TOO_STALE"
  */
@@ -1386,6 +1507,12 @@ FOUNDATION_EXTERN NSString * const kGTLRBigquery_MlStatistics_ModelType_Tensorfl
  */
 FOUNDATION_EXTERN NSString * const kGTLRBigquery_MlStatistics_ModelType_TensorflowLite;
 /**
+ *  Model to capture the manual preprocessing logic in the transform clause.
+ *
+ *  Value: "TRANSFORM_ONLY"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRBigquery_MlStatistics_ModelType_TransformOnly;
+/**
  *  An imported XGBoost model.
  *
  *  Value: "XGBOOST"
@@ -1557,11 +1684,35 @@ FOUNDATION_EXTERN NSString * const kGTLRBigquery_Model_ModelType_Tensorflow;
  */
 FOUNDATION_EXTERN NSString * const kGTLRBigquery_Model_ModelType_TensorflowLite;
 /**
+ *  Model to capture the manual preprocessing logic in the transform clause.
+ *
+ *  Value: "TRANSFORM_ONLY"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRBigquery_Model_ModelType_TransformOnly;
+/**
  *  An imported XGBoost model.
  *
  *  Value: "XGBOOST"
  */
 FOUNDATION_EXTERN NSString * const kGTLRBigquery_Model_ModelType_Xgboost;
+
+// ----------------------------------------------------------------------------
+// GTLRBigquery_ParquetOptions.mapTargetType
+
+/**
+ *  In this mode, the map will have the following schema: repeated struct
+ *  map_field_name { key value }.
+ *
+ *  Value: "ARRAY_OF_STRUCT"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRBigquery_ParquetOptions_MapTargetType_ArrayOfStruct;
+/**
+ *  In this mode, the map will have the following schema: struct map_field_name
+ *  { repeated struct key_value { key value } }.
+ *
+ *  Value: "MAP_TARGET_TYPE_UNSPECIFIED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRBigquery_ParquetOptions_MapTargetType_MapTargetTypeUnspecified;
 
 // ----------------------------------------------------------------------------
 // GTLRBigquery_QueryRequest.jobCreationMode
@@ -1626,6 +1777,24 @@ FOUNDATION_EXTERN NSString * const kGTLRBigquery_RemoteModelInfo_RemoteServiceTy
  *  Value: "REMOTE_SERVICE_TYPE_UNSPECIFIED"
  */
 FOUNDATION_EXTERN NSString * const kGTLRBigquery_RemoteModelInfo_RemoteServiceType_RemoteServiceTypeUnspecified;
+
+// ----------------------------------------------------------------------------
+// GTLRBigquery_RestrictionConfig.type
+
+/**
+ *  Restrict data egress. See [Data
+ *  egress](/bigquery/docs/analytics-hub-introduction#data_egress) for more
+ *  details.
+ *
+ *  Value: "RESTRICTED_DATA_EGRESS"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRBigquery_RestrictionConfig_Type_RestrictedDataEgress;
+/**
+ *  Should never be used.
+ *
+ *  Value: "RESTRICTION_TYPE_UNSPECIFIED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRBigquery_RestrictionConfig_Type_RestrictionTypeUnspecified;
 
 // ----------------------------------------------------------------------------
 // GTLRBigquery_Routine.dataGovernanceType
@@ -4789,8 +4958,12 @@ FOUNDATION_EXTERN NSString * const kGTLRBigquery_VectorSearchStatistics_IndexUsa
  *  format in which a you can specify a query label, see labels in the
  *  JobConfiguration resource type:
  *  https://cloud.google.com/bigquery/docs/reference/rest/v2/Job#jobconfiguration
- *  Additional properties are allowed, but ignored. Specifying multiple
- *  connection properties with the same key returns an error.
+ *  * **service_account**: indicates the service account to use to run a
+ *  continuous query. If set, the query job uses the service account to access
+ *  Google Cloud resources. Service account access is bounded by the IAM
+ *  permissions that you have granted to the service account. Additional
+ *  properties are allowed, but ignored. Specifying multiple connection
+ *  properties with the same key returns an error.
  */
 @interface GTLRBigquery_ConnectionProperty : GTLRObject
 
@@ -4849,8 +5022,12 @@ FOUNDATION_EXTERN NSString * const kGTLRBigquery_VectorSearchStatistics_IndexUsa
 @property(nonatomic, copy, nullable) NSString *fieldDelimiter;
 
 /**
- *  [Optional] A custom string that will represent a NULL value in CSV import
- *  data.
+ *  Optional. Specifies a string that represents a null value in a CSV file. For
+ *  example, if you specify "\\N", BigQuery interprets "\\N" as a null value
+ *  when querying a CSV file. The default value is the empty string. If you set
+ *  this property to a custom value, BigQuery throws an error if an empty string
+ *  is present for all data types except for STRING and BYTE. For STRING and
+ *  BYTE columns, BigQuery interprets the empty string as an empty value.
  */
 @property(nonatomic, copy, nullable) NSString *nullMarker;
 
@@ -4966,10 +5143,10 @@ FOUNDATION_EXTERN NSString * const kGTLRBigquery_VectorSearchStatistics_IndexUsa
 @property(nonatomic, copy, nullable) NSString *defaultCollation;
 
 /**
- *  The default encryption key for all tables in the dataset. Once this property
- *  is set, all newly-created partitioned tables in the dataset will have
- *  encryption key set to this value, unless table creation request (or query)
- *  overrides the key.
+ *  The default encryption key for all tables in the dataset. After this
+ *  property is set, the encryption key of all newly-created tables in the
+ *  dataset is set to this value unless the table creation request or query
+ *  explicitly overrides the key.
  */
 @property(nonatomic, strong, nullable) GTLRBigquery_EncryptionConfiguration *defaultEncryptionConfiguration;
 
@@ -5042,6 +5219,13 @@ FOUNDATION_EXTERN NSString * const kGTLRBigquery_VectorSearchStatistics_IndexUsa
 @property(nonatomic, copy, nullable) NSString *ETag;
 
 /**
+ *  Optional. Options defining open source compatible datasets living in the
+ *  BigQuery catalog. Contains metadata of open source database, schema or
+ *  namespace represented by the current dataset.
+ */
+@property(nonatomic, strong, nullable) GTLRBigquery_ExternalCatalogDatasetOptions *externalCatalogDatasetOptions;
+
+/**
  *  Optional. Reference to a read-only external dataset defined in data catalogs
  *  outside of BigQuery. Filled out when the dataset type is EXTERNAL.
  */
@@ -5089,6 +5273,12 @@ FOUNDATION_EXTERN NSString * const kGTLRBigquery_VectorSearchStatistics_IndexUsa
 @property(nonatomic, strong, nullable) NSNumber *lastModifiedTime;
 
 /**
+ *  Output only. Metadata about the LinkedDataset. Filled out when the dataset
+ *  type is LINKED.
+ */
+@property(nonatomic, strong, nullable) GTLRBigquery_LinkedDatasetMetadata *linkedDatasetMetadata;
+
+/**
  *  Optional. The source dataset reference when the dataset is of type LINKED.
  *  For all other dataset types it is not set. This field cannot be updated once
  *  it is set. Any attempt to update this field using Update and Patch API
@@ -5110,6 +5300,25 @@ FOUNDATION_EXTERN NSString * const kGTLRBigquery_VectorSearchStatistics_IndexUsa
  *  Uses NSNumber of longLongValue.
  */
 @property(nonatomic, strong, nullable) NSNumber *maxTimeTravelHours;
+
+/**
+ *  Optional. The [tags](/bigquery/docs/tags) attached to this dataset. Tag keys
+ *  are globally unique. Tag key is expected to be in the namespaced format, for
+ *  example "123456789012/environment" where 123456789012 is the ID of the
+ *  parent organization or project resource for this tag key. Tag value is
+ *  expected to be the short name, for example "Production". See [Tag
+ *  definitions](/iam/docs/tags-access-control#definitions) for more details.
+ */
+@property(nonatomic, strong, nullable) GTLRBigquery_Dataset_ResourceTags *resourceTags;
+
+/**
+ *  Optional. Output only. Restriction config for all tables and dataset. If
+ *  set, restrict certain accesses on the dataset and all its tables based on
+ *  the config. See [Data
+ *  egress](/bigquery/docs/analytics-hub-introduction#data_egress) for more
+ *  details.
+ */
+@property(nonatomic, strong, nullable) GTLRBigquery_RestrictionConfig *restrictions;
 
 /**
  *  Output only. Reserved for future use.
@@ -5151,8 +5360,7 @@ FOUNDATION_EXTERN NSString * const kGTLRBigquery_VectorSearchStatistics_IndexUsa
  *  Output only. Same as `type` in `ListFormatDataset`. The type of the dataset,
  *  one of: * DEFAULT - only accessible by owner and authorized accounts, *
  *  PUBLIC - accessible by everyone, * LINKED - linked dataset, * EXTERNAL -
- *  dataset with definition in external metadata catalog. -- *BIGLAKE_METASTORE
- *  - dataset that references a database created in BigLakeMetastore service. --
+ *  dataset with definition in external metadata catalog.
  */
 @property(nonatomic, copy, nullable) NSString *type;
 
@@ -5251,6 +5459,23 @@ FOUNDATION_EXTERN NSString * const kGTLRBigquery_VectorSearchStatistics_IndexUsa
  *        fetch them all at once.
  */
 @interface GTLRBigquery_Dataset_Labels : GTLRObject
+@end
+
+
+/**
+ *  Optional. The [tags](/bigquery/docs/tags) attached to this dataset. Tag keys
+ *  are globally unique. Tag key is expected to be in the namespaced format, for
+ *  example "123456789012/environment" where 123456789012 is the ID of the
+ *  parent organization or project resource for this tag key. Tag value is
+ *  expected to be the short name, for example "Production". See [Tag
+ *  definitions](/iam/docs/tags-access-control#definitions) for more details.
+ *
+ *  @note This class is documented as having more properties of NSString. Use @c
+ *        -additionalJSONKeys and @c -additionalPropertyForName: to get the list
+ *        of properties and then fetch them; or @c -additionalProperties to
+ *        fetch them all at once.
+ */
+@interface GTLRBigquery_Dataset_ResourceTags : GTLRObject
 @end
 
 
@@ -5479,6 +5704,108 @@ FOUNDATION_EXTERN NSString * const kGTLRBigquery_VectorSearchStatistics_IndexUsa
  *        fetch them all at once.
  */
 @interface GTLRBigquery_DestinationTableProperties_Labels : GTLRObject
+@end
+
+
+/**
+ *  Represents privacy policy associated with "differential privacy" method.
+ */
+@interface GTLRBigquery_DifferentialPrivacyPolicy : GTLRObject
+
+/**
+ *  Optional. The total delta budget for all queries against the
+ *  privacy-protected view. Each subscriber query against this view charges the
+ *  amount of delta that is pre-defined by the contributor through the privacy
+ *  policy delta_per_query field. If there is sufficient budget, then the
+ *  subscriber query attempts to complete. It might still fail due to other
+ *  reasons, in which case the charge is refunded. If there is insufficient
+ *  budget the query is rejected. There might be multiple charge attempts if a
+ *  single query references multiple views. In this case there must be
+ *  sufficient budget for all charges or the query is rejected and charges are
+ *  refunded in best effort. The budget does not have a refresh policy and can
+ *  only be updated via ALTER VIEW or circumvented by creating a new view that
+ *  can be queried with a fresh budget.
+ *
+ *  Uses NSNumber of doubleValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *deltaBudget;
+
+/**
+ *  Output only. The delta budget remaining. If budget is exhausted, no more
+ *  queries are allowed. Note that the budget for queries that are in progress
+ *  is deducted before the query executes. If the query fails or is cancelled
+ *  then the budget is refunded. In this case the amount of budget remaining can
+ *  increase.
+ *
+ *  Uses NSNumber of doubleValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *deltaBudgetRemaining;
+
+/**
+ *  Optional. The delta value that is used per query. Delta represents the
+ *  probability that any row will fail to be epsilon differentially private.
+ *  Indicates the risk associated with exposing aggregate rows in the result of
+ *  a query.
+ *
+ *  Uses NSNumber of doubleValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *deltaPerQuery;
+
+/**
+ *  Optional. The total epsilon budget for all queries against the
+ *  privacy-protected view. Each subscriber query against this view charges the
+ *  amount of epsilon they request in their query. If there is sufficient
+ *  budget, then the subscriber query attempts to complete. It might still fail
+ *  due to other reasons, in which case the charge is refunded. If there is
+ *  insufficient budget the query is rejected. There might be multiple charge
+ *  attempts if a single query references multiple views. In this case there
+ *  must be sufficient budget for all charges or the query is rejected and
+ *  charges are refunded in best effort. The budget does not have a refresh
+ *  policy and can only be updated via ALTER VIEW or circumvented by creating a
+ *  new view that can be queried with a fresh budget.
+ *
+ *  Uses NSNumber of doubleValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *epsilonBudget;
+
+/**
+ *  Output only. The epsilon budget remaining. If budget is exhausted, no more
+ *  queries are allowed. Note that the budget for queries that are in progress
+ *  is deducted before the query executes. If the query fails or is cancelled
+ *  then the budget is refunded. In this case the amount of budget remaining can
+ *  increase.
+ *
+ *  Uses NSNumber of doubleValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *epsilonBudgetRemaining;
+
+/**
+ *  Optional. The maximum epsilon value that a query can consume. If the
+ *  subscriber specifies epsilon as a parameter in a SELECT query, it must be
+ *  less than or equal to this value. The epsilon parameter controls the amount
+ *  of noise that is added to the groups — a higher epsilon means less noise.
+ *
+ *  Uses NSNumber of doubleValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *maxEpsilonPerQuery;
+
+/**
+ *  Optional. The maximum groups contributed value that is used per query.
+ *  Represents the maximum number of groups to which each protected entity can
+ *  contribute. Changing this value does not improve or worsen privacy. The best
+ *  value for accuracy and utility depends on the query and data.
+ *
+ *  Uses NSNumber of longLongValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *maxGroupsContributed;
+
+/**
+ *  Optional. The privacy unit column associated with this policy. Differential
+ *  privacy policies can only have one privacy unit column per data source
+ *  object (table, view).
+ */
+@property(nonatomic, copy, nullable) NSString *privacyUnitColumn;
+
 @end
 
 
@@ -6010,6 +6337,85 @@ FOUNDATION_EXTERN NSString * const kGTLRBigquery_VectorSearchStatistics_IndexUsa
 
 
 /**
+ *  Options defining open source compatible datasets living in the BigQuery
+ *  catalog. Contains metadata of open source database, schema or namespace
+ *  represented by the current dataset.
+ */
+@interface GTLRBigquery_ExternalCatalogDatasetOptions : GTLRObject
+
+/**
+ *  Optional. The storage location URI for all tables in the dataset. Equivalent
+ *  to hive metastore's database locationUri. Maximum length of 1024 characters.
+ */
+@property(nonatomic, copy, nullable) NSString *defaultStorageLocationUri;
+
+/**
+ *  Optional. A map of key value pairs defining the parameters and properties of
+ *  the open source schema. Maximum size of 2Mib.
+ */
+@property(nonatomic, strong, nullable) GTLRBigquery_ExternalCatalogDatasetOptions_Parameters *parameters;
+
+@end
+
+
+/**
+ *  Optional. A map of key value pairs defining the parameters and properties of
+ *  the open source schema. Maximum size of 2Mib.
+ *
+ *  @note This class is documented as having more properties of NSString. Use @c
+ *        -additionalJSONKeys and @c -additionalPropertyForName: to get the list
+ *        of properties and then fetch them; or @c -additionalProperties to
+ *        fetch them all at once.
+ */
+@interface GTLRBigquery_ExternalCatalogDatasetOptions_Parameters : GTLRObject
+@end
+
+
+/**
+ *  Metadata about open source compatible table. The fields contained in these
+ *  options correspond to hive metastore's table level properties.
+ */
+@interface GTLRBigquery_ExternalCatalogTableOptions : GTLRObject
+
+/**
+ *  Optional. The connection specifying the credentials to be used to read
+ *  external storage, such as Azure Blob, Cloud Storage, or S3. The connection
+ *  is needed to read the open source table from BigQuery Engine. The
+ *  connection_id can have the form `..` or `projects//locations//connections/`.
+ */
+@property(nonatomic, copy, nullable) NSString *connectionId;
+
+/**
+ *  Optional. A map of key value pairs defining the parameters and properties of
+ *  the open source table. Corresponds with hive meta store table parameters.
+ *  Maximum size of 4Mib.
+ */
+@property(nonatomic, strong, nullable) GTLRBigquery_ExternalCatalogTableOptions_Parameters *parameters;
+
+/**
+ *  Optional. A storage descriptor containing information about the physical
+ *  storage of this table.
+ */
+@property(nonatomic, strong, nullable) GTLRBigquery_StorageDescriptor *storageDescriptor;
+
+@end
+
+
+/**
+ *  Optional. A map of key value pairs defining the parameters and properties of
+ *  the open source table. Corresponds with hive meta store table parameters.
+ *  Maximum size of 4Mib.
+ *
+ *  @note This class is documented as having more properties of NSString. Use @c
+ *        -additionalJSONKeys and @c -additionalPropertyForName: to get the list
+ *        of properties and then fetch them; or @c -additionalProperties to
+ *        fetch them all at once.
+ */
+@interface GTLRBigquery_ExternalCatalogTableOptions_Parameters : GTLRObject
+@end
+
+
+/**
  *  GTLRBigquery_ExternalDataConfiguration
  */
 @interface GTLRBigquery_ExternalDataConfiguration : GTLRObject
@@ -6311,6 +6717,42 @@ FOUNDATION_EXTERN NSString * const kGTLRBigquery_VectorSearchStatistics_IndexUsa
  *  Uses NSNumber of doubleValue.
  */
 @property(nonatomic, strong, nullable) NSNumber *numericalValue;
+
+@end
+
+
+/**
+ *  Metadata about the foreign data type definition such as the system in which
+ *  the type is defined.
+ */
+@interface GTLRBigquery_ForeignTypeInfo : GTLRObject
+
+/**
+ *  Required. Specifies the system which defines the foreign data type.
+ *
+ *  Likely values:
+ *    @arg @c kGTLRBigquery_ForeignTypeInfo_TypeSystem_Hive Represents Hive data
+ *        types. (Value: "HIVE")
+ *    @arg @c kGTLRBigquery_ForeignTypeInfo_TypeSystem_TypeSystemUnspecified
+ *        TypeSystem not specified. (Value: "TYPE_SYSTEM_UNSPECIFIED")
+ */
+@property(nonatomic, copy, nullable) NSString *typeSystem;
+
+@end
+
+
+/**
+ *  A view can be represented in multiple ways. Each representation has its own
+ *  dialect. This message stores the metadata required for these
+ *  representations.
+ */
+@interface GTLRBigquery_ForeignViewDefinition : GTLRObject
+
+/** Optional. Represents the dialect of the query. */
+@property(nonatomic, copy, nullable) NSString *dialect;
+
+/** Required. The query that defines the view. */
+@property(nonatomic, copy, nullable) NSString *query;
 
 @end
 
@@ -7126,7 +7568,10 @@ FOUNDATION_EXTERN NSString * const kGTLRBigquery_VectorSearchStatistics_IndexUsa
 
 /**
  *  Optional. Job timeout in milliseconds. If this time limit is exceeded,
- *  BigQuery might attempt to stop the job.
+ *  BigQuery will attempt to stop a longer job, but may not always succeed in
+ *  canceling it before the job completes. For example, a job that takes more
+ *  than 60 seconds to complete has a better chance of being stopped than a job
+ *  that takes 10 seconds to complete.
  *
  *  Uses NSNumber of longLongValue.
  */
@@ -7283,6 +7728,28 @@ FOUNDATION_EXTERN NSString * const kGTLRBigquery_VectorSearchStatistics_IndexUsa
 @property(nonatomic, strong, nullable) GTLRBigquery_Clustering *clustering;
 
 /**
+ *  Optional. Character map supported for column names in CSV/Parquet loads.
+ *  Defaults to STRICT and can be overridden by Project Config Service. Using
+ *  this option with unsupporting load formats will result in an error.
+ *
+ *  Likely values:
+ *    @arg @c kGTLRBigquery_JobConfigurationLoad_ColumnNameCharacterMap_ColumnNameCharacterMapUnspecified
+ *        Unspecified column name character map. (Value:
+ *        "COLUMN_NAME_CHARACTER_MAP_UNSPECIFIED")
+ *    @arg @c kGTLRBigquery_JobConfigurationLoad_ColumnNameCharacterMap_Strict
+ *        Support flexible column name and reject invalid column names. (Value:
+ *        "STRICT")
+ *    @arg @c kGTLRBigquery_JobConfigurationLoad_ColumnNameCharacterMap_V1
+ *        Support alphanumeric + underscore characters and names must start with
+ *        a letter or underscore. Invalid column names will be normalized.
+ *        (Value: "V1")
+ *    @arg @c kGTLRBigquery_JobConfigurationLoad_ColumnNameCharacterMap_V2
+ *        Support flexible column name. Invalid column names will be normalized.
+ *        (Value: "V2")
+ */
+@property(nonatomic, copy, nullable) NSString *columnNameCharacterMap;
+
+/**
  *  Optional. Connection properties which can modify the load job behavior.
  *  Currently, only the 'session_id' connection property is supported, and is
  *  used to resolve _SESSION appearing as the dataset id.
@@ -7290,14 +7757,13 @@ FOUNDATION_EXTERN NSString * const kGTLRBigquery_VectorSearchStatistics_IndexUsa
 @property(nonatomic, strong, nullable) NSArray<GTLRBigquery_ConnectionProperty *> *connectionProperties;
 
 /**
- *  Optional. [Experimental] Configures the load job to only copy files to the
- *  destination BigLake managed table with an external storage_uri, without
- *  reading file content and writing them to new files. Copying files only is
- *  supported when: * source_uris are in the same external storage system as the
- *  destination table but they do not overlap with storage_uri of the
- *  destination table. * source_format is the same file format as the
- *  destination table. * destination_table is an existing BigLake managed table.
- *  Its schema does not have default value expression. It schema does not have
+ *  Optional. [Experimental] Configures the load job to copy files directly to
+ *  the destination BigLake managed table, bypassing file content reading and
+ *  rewriting. Copying files only is supported when all the following are true:
+ *  * `source_uris` are located in the same Cloud Storage location as the
+ *  destination table's `storage_uri` location. * `source_format` is `PARQUET`.
+ *  * `destination_table` is an existing BigLake managed table. The table's
+ *  schema does not have flexible column names. The table's columns do not have
  *  type parameters other than precision and scale. * No options other than the
  *  above are specified.
  *
@@ -8216,7 +8682,10 @@ FOUNDATION_EXTERN NSString * const kGTLRBigquery_VectorSearchStatistics_IndexUsa
  */
 @interface GTLRBigquery_JobStatistics_ReservationUsage_Item : GTLRObject
 
-/** Reservation name or "unreserved" for on-demand resources usage. */
+/**
+ *  Reservation name or "unreserved" for on-demand resource usage and
+ *  multi-statement queries.
+ */
 @property(nonatomic, copy, nullable) NSString *name;
 
 /**
@@ -8566,7 +9035,10 @@ FOUNDATION_EXTERN NSString * const kGTLRBigquery_VectorSearchStatistics_IndexUsa
  */
 @interface GTLRBigquery_JobStatistics2_ReservationUsage_Item : GTLRObject
 
-/** Reservation name or "unreserved" for on-demand resources usage. */
+/**
+ *  Reservation name or "unreserved" for on-demand resource usage and
+ *  multi-statement queries.
+ */
 @property(nonatomic, copy, nullable) NSString *name;
 
 /**
@@ -8711,6 +9183,44 @@ FOUNDATION_EXTERN NSString * const kGTLRBigquery_VectorSearchStatistics_IndexUsa
 
 
 /**
+ *  Represents privacy policy associated with "join restrictions". Join
+ *  restriction gives data providers the ability to enforce joins on the
+ *  'join_allowed_columns' when data is queried from a privacy protected view.
+ */
+@interface GTLRBigquery_JoinRestrictionPolicy : GTLRObject
+
+/**
+ *  Optional. The only columns that joins are allowed on. This field is must be
+ *  specified for join_conditions JOIN_ANY and JOIN_ALL and it cannot be set for
+ *  JOIN_BLOCKED.
+ */
+@property(nonatomic, strong, nullable) NSArray<NSString *> *joinAllowedColumns;
+
+/**
+ *  Optional. Specifies if a join is required or not on queries for the view.
+ *  Default is JOIN_CONDITION_UNSPECIFIED.
+ *
+ *  Likely values:
+ *    @arg @c kGTLRBigquery_JoinRestrictionPolicy_JoinCondition_JoinAll A join
+ *        is required on all specified columns. (Value: "JOIN_ALL")
+ *    @arg @c kGTLRBigquery_JoinRestrictionPolicy_JoinCondition_JoinAny A join
+ *        is required on at least one of the specified columns. (Value:
+ *        "JOIN_ANY")
+ *    @arg @c kGTLRBigquery_JoinRestrictionPolicy_JoinCondition_JoinBlocked
+ *        Joins are blocked for all queries. (Value: "JOIN_BLOCKED")
+ *    @arg @c kGTLRBigquery_JoinRestrictionPolicy_JoinCondition_JoinConditionUnspecified
+ *        A join is neither required nor restricted on any column. Default
+ *        value. (Value: "JOIN_CONDITION_UNSPECIFIED")
+ *    @arg @c kGTLRBigquery_JoinRestrictionPolicy_JoinCondition_JoinNotRequired
+ *        A join is not required, but if present it is only permitted on
+ *        'join_allowed_columns' (Value: "JOIN_NOT_REQUIRED")
+ */
+@property(nonatomic, copy, nullable) NSString *joinCondition;
+
+@end
+
+
+/**
  *  Represents a single JSON object.
  *
  *  @note This class is documented as having more properties of any valid JSON
@@ -8733,6 +9243,32 @@ FOUNDATION_EXTERN NSString * const kGTLRBigquery_VectorSearchStatistics_IndexUsa
  *  UTF-8.
  */
 @property(nonatomic, copy, nullable) NSString *encoding;
+
+@end
+
+
+/**
+ *  Metadata about the Linked Dataset.
+ */
+@interface GTLRBigquery_LinkedDatasetMetadata : GTLRObject
+
+/**
+ *  Output only. Specifies whether Linked Dataset is currently in a linked state
+ *  or not.
+ *
+ *  Likely values:
+ *    @arg @c kGTLRBigquery_LinkedDatasetMetadata_LinkState_Linked Normal Linked
+ *        Dataset state. Data is queryable via the Linked Dataset. (Value:
+ *        "LINKED")
+ *    @arg @c kGTLRBigquery_LinkedDatasetMetadata_LinkState_LinkStateUnspecified
+ *        The default value. Default to the LINKED state. (Value:
+ *        "LINK_STATE_UNSPECIFIED")
+ *    @arg @c kGTLRBigquery_LinkedDatasetMetadata_LinkState_Unlinked Data
+ *        publisher or owner has unlinked this Linked Dataset. It means you can
+ *        no longer query or see the data in the Linked Dataset. (Value:
+ *        "UNLINKED")
+ */
+@property(nonatomic, copy, nullable) NSString *linkState;
 
 @end
 
@@ -8949,7 +9485,7 @@ FOUNDATION_EXTERN NSString * const kGTLRBigquery_VectorSearchStatistics_IndexUsa
  *        changed. (Value: "BASE_TABLE_PARTITION_EXPIRATION_CHANGE")
  *    @arg @c kGTLRBigquery_MaterializedView_RejectedReason_BaseTableTooStale
  *        One of the view's base tables is too stale. For example, the cached
- *        metadata of a biglake table needs to be updated. (Value:
+ *        metadata of a BigLake external table needs to be updated. (Value:
  *        "BASE_TABLE_TOO_STALE")
  *    @arg @c kGTLRBigquery_MaterializedView_RejectedReason_BaseTableTruncated
  *        View has no cached data because a base table is truncated. (Value:
@@ -8983,8 +9519,8 @@ FOUNDATION_EXTERN NSString * const kGTLRBigquery_VectorSearchStatistics_IndexUsa
 @interface GTLRBigquery_MaterializedViewDefinition : GTLRObject
 
 /**
- *  Optional. This option declares authors intention to construct a materialized
- *  view that will not be refreshed incrementally.
+ *  Optional. This option declares the intention to construct a materialized
+ *  view that isn't refreshed incrementally.
  *
  *  Uses NSNumber of boolValue.
  */
@@ -9155,6 +9691,9 @@ FOUNDATION_EXTERN NSString * const kGTLRBigquery_VectorSearchStatistics_IndexUsa
  *        TensorFlow model. (Value: "TENSORFLOW")
  *    @arg @c kGTLRBigquery_MlStatistics_ModelType_TensorflowLite An imported
  *        TensorFlow Lite model. (Value: "TENSORFLOW_LITE")
+ *    @arg @c kGTLRBigquery_MlStatistics_ModelType_TransformOnly Model to
+ *        capture the manual preprocessing logic in the transform clause.
+ *        (Value: "TRANSFORM_ONLY")
  *    @arg @c kGTLRBigquery_MlStatistics_ModelType_Xgboost An imported XGBoost
  *        model. (Value: "XGBOOST")
  */
@@ -9342,6 +9881,9 @@ FOUNDATION_EXTERN NSString * const kGTLRBigquery_VectorSearchStatistics_IndexUsa
  *        model. (Value: "TENSORFLOW")
  *    @arg @c kGTLRBigquery_Model_ModelType_TensorflowLite An imported
  *        TensorFlow Lite model. (Value: "TENSORFLOW_LITE")
+ *    @arg @c kGTLRBigquery_Model_ModelType_TransformOnly Model to capture the
+ *        manual preprocessing logic in the transform clause. (Value:
+ *        "TRANSFORM_ONLY")
  *    @arg @c kGTLRBigquery_Model_ModelType_Xgboost An imported XGBoost model.
  *        (Value: "XGBOOST")
  */
@@ -9514,6 +10056,63 @@ FOUNDATION_EXTERN NSString * const kGTLRBigquery_VectorSearchStatistics_IndexUsa
  */
 @property(nonatomic, strong, nullable) NSNumber *enumAsString;
 
+/**
+ *  Optional. Indicates how to represent a Parquet map if present.
+ *
+ *  Likely values:
+ *    @arg @c kGTLRBigquery_ParquetOptions_MapTargetType_ArrayOfStruct In this
+ *        mode, the map will have the following schema: repeated struct
+ *        map_field_name { key value }. (Value: "ARRAY_OF_STRUCT")
+ *    @arg @c kGTLRBigquery_ParquetOptions_MapTargetType_MapTargetTypeUnspecified
+ *        In this mode, the map will have the following schema: struct
+ *        map_field_name { repeated struct key_value { key value } }. (Value:
+ *        "MAP_TARGET_TYPE_UNSPECIFIED")
+ */
+@property(nonatomic, copy, nullable) NSString *mapTargetType;
+
+@end
+
+
+/**
+ *  The partitioning column information.
+ */
+@interface GTLRBigquery_PartitionedColumn : GTLRObject
+
+/** Required. The name of the partition column. */
+@property(nonatomic, copy, nullable) NSString *field;
+
+@end
+
+
+/**
+ *  The partitioning information, which includes managed table, external table
+ *  and metastore partitioned table partition information.
+ */
+@interface GTLRBigquery_PartitioningDefinition : GTLRObject
+
+/**
+ *  Optional. Details about each partitioning column. This field is output only
+ *  for all partitioning types other than metastore partitioned tables. BigQuery
+ *  native tables only support 1 partitioning column. Other table types may
+ *  support 0, 1 or more partitioning columns. For metastore partitioned tables,
+ *  the order must match the definition order in the Hive Metastore, where it
+ *  must match the physical layout of the table. For example, CREATE TABLE
+ *  a_table(id BIGINT, name STRING) PARTITIONED BY (city STRING, state STRING).
+ *  In this case the values must be ['city', 'state'] in that order.
+ */
+@property(nonatomic, strong, nullable) NSArray<GTLRBigquery_PartitionedColumn *> *partitionedColumn;
+
+@end
+
+
+/**
+ *  Partition skew detailed information.
+ */
+@interface GTLRBigquery_PartitionSkew : GTLRObject
+
+/** Output only. Source stages which produce skewed data. */
+@property(nonatomic, strong, nullable) NSArray<GTLRBigquery_SkewSource *> *skewSources;
+
 @end
 
 
@@ -9684,6 +10283,17 @@ FOUNDATION_EXTERN NSString * const kGTLRBigquery_VectorSearchStatistics_IndexUsa
 
 /** Optional. Policy used for aggregation thresholds. */
 @property(nonatomic, strong, nullable) GTLRBigquery_AggregationThresholdPolicy *aggregationThresholdPolicy;
+
+/** Optional. Policy used for differential privacy. */
+@property(nonatomic, strong, nullable) GTLRBigquery_DifferentialPrivacyPolicy *differentialPrivacyPolicy;
+
+/**
+ *  Optional. Join restriction policy is outside of the one of policies, since
+ *  this policy can be set along with other policies. This policy gives data
+ *  providers the ability to enforce joins on the 'join_allowed_columns' when
+ *  data is queried from a privacy protected view.
+ */
+@property(nonatomic, strong, nullable) GTLRBigquery_JoinRestrictionPolicy *joinRestrictionPolicy;
 
 @end
 
@@ -10279,9 +10889,8 @@ FOUNDATION_EXTERN NSString * const kGTLRBigquery_VectorSearchStatistics_IndexUsa
 @interface GTLRBigquery_RangePartitioning : GTLRObject
 
 /**
- *  Required. [Experimental] The table is partitioned by this field. The field
- *  must be a top-level NULLABLE/REQUIRED field. The only supported type is
- *  INTEGER/INT64.
+ *  Required. The name of the column to partition the table on. It must be a
+ *  top-level, INT64 column whose mode is NULLABLE or REQUIRED.
  */
 @property(nonatomic, copy, nullable) NSString *field;
 
@@ -10543,6 +11152,27 @@ FOUNDATION_EXTERN NSString * const kGTLRBigquery_VectorSearchStatistics_IndexUsa
  *  [recognizers](https://cloud.google.com/speech-to-text/v2/docs/reference/rest/v2/projects.locations.recognizers)
  */
 @property(nonatomic, copy, nullable) NSString *speechRecognizer;
+
+@end
+
+
+/**
+ *  GTLRBigquery_RestrictionConfig
+ */
+@interface GTLRBigquery_RestrictionConfig : GTLRObject
+
+/**
+ *  Output only. Specifies the type of dataset/table restriction.
+ *
+ *  Likely values:
+ *    @arg @c kGTLRBigquery_RestrictionConfig_Type_RestrictedDataEgress Restrict
+ *        data egress. See [Data
+ *        egress](/bigquery/docs/analytics-hub-introduction#data_egress) for
+ *        more details. (Value: "RESTRICTED_DATA_EGRESS")
+ *    @arg @c kGTLRBigquery_RestrictionConfig_Type_RestrictionTypeUnspecified
+ *        Should never be used. (Value: "RESTRICTION_TYPE_UNSPECIFIED")
+ */
+@property(nonatomic, copy, nullable) NSString *type;
 
 @end
 
@@ -11010,6 +11640,44 @@ FOUNDATION_EXTERN NSString * const kGTLRBigquery_VectorSearchStatistics_IndexUsa
 
 
 /**
+ *  Serializer and deserializer information.
+ */
+@interface GTLRBigquery_SerDeInfo : GTLRObject
+
+/** Optional. Name of the SerDe. The maximum length is 256 characters. */
+@property(nonatomic, copy, nullable) NSString *name;
+
+/**
+ *  Optional. Key-value pairs that define the initialization parameters for the
+ *  serialization library. Maximum size 10 Kib.
+ */
+@property(nonatomic, strong, nullable) GTLRBigquery_SerDeInfo_Parameters *parameters;
+
+/**
+ *  Required. Specifies a fully-qualified class name of the serialization
+ *  library that is responsible for the translation of data between table
+ *  representation and the underlying low-level input and output format
+ *  structures. The maximum length is 256 characters.
+ */
+@property(nonatomic, copy, nullable) NSString *serializationLibrary;
+
+@end
+
+
+/**
+ *  Optional. Key-value pairs that define the initialization parameters for the
+ *  serialization library. Maximum size 10 Kib.
+ *
+ *  @note This class is documented as having more properties of NSString. Use @c
+ *        -additionalJSONKeys and @c -additionalPropertyForName: to get the list
+ *        of properties and then fetch them; or @c -additionalProperties to
+ *        fetch them all at once.
+ */
+@interface GTLRBigquery_SerDeInfo_Parameters : GTLRObject
+@end
+
+
+/**
  *  [Preview] Information related to sessions.
  */
 @interface GTLRBigquery_SessionInfo : GTLRObject
@@ -11040,6 +11708,21 @@ FOUNDATION_EXTERN NSString * const kGTLRBigquery_VectorSearchStatistics_IndexUsa
  *  String format is a comma-separated list of fields.
  */
 @property(nonatomic, copy, nullable) NSString *updateMask;
+
+@end
+
+
+/**
+ *  Details about source stages which produce skewed data.
+ */
+@interface GTLRBigquery_SkewSource : GTLRObject
+
+/**
+ *  Output only. Stage id of the skew source stage.
+ *
+ *  Uses NSNumber of longLongValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *stageId;
 
 @end
 
@@ -11177,25 +11860,25 @@ FOUNDATION_EXTERN NSString * const kGTLRBigquery_VectorSearchStatistics_IndexUsa
 
 /**
  *  Output only. The Google Cloud Storage bucket that is used as the default
- *  filesystem by the Spark application. This fields is only filled when the
- *  Spark procedure uses the INVOKER security mode. It is inferred from the
- *  system variable \@\@spark_proc_properties.staging_bucket if it is provided.
- *  Otherwise, BigQuery creates a default staging bucket for the job and returns
- *  the bucket name in this field. Example: * `gs://[bucket_name]`
+ *  file system by the Spark application. This field is only filled when the
+ *  Spark procedure uses the invoker security mode. The `gcsStagingBucket`
+ *  bucket is inferred from the `\@\@spark_proc_properties.staging_bucket`
+ *  system variable (if it is provided). Otherwise, BigQuery creates a default
+ *  staging bucket for the job and returns the bucket name in this field.
+ *  Example: * `gs://[bucket_name]`
  */
 @property(nonatomic, copy, nullable) NSString *gcsStagingBucket;
 
 /**
  *  Output only. The Cloud KMS encryption key that is used to protect the
- *  resources created by the Spark job. If the Spark procedure uses DEFINER
- *  security mode, the Cloud KMS key is inferred from the Spark connection
- *  associated with the procedure if it is provided. Otherwise the key is
- *  inferred from the default key of the Spark connection's project if the CMEK
- *  organization policy is enforced. If the Spark procedure uses INVOKER
- *  security mode, the Cloud KMS encryption key is inferred from the system
- *  variable \@\@spark_proc_properties.kms_key_name if it is provided.
- *  Otherwise, the key is inferred fromt he default key of the BigQuery job's
- *  project if the CMEK organization policy is enforced. Example: *
+ *  resources created by the Spark job. If the Spark procedure uses the invoker
+ *  security mode, the Cloud KMS encryption key is either inferred from the
+ *  provided system variable, `\@\@spark_proc_properties.kms_key_name`, or the
+ *  default key of the BigQuery job's project (if the CMEK organization policy
+ *  is enforced). Otherwise, the Cloud KMS key is either inferred from the Spark
+ *  connection associated with the procedure (if it is provided), or from the
+ *  default key of the Spark connection's project if the CMEK organization
+ *  policy is enforced. Example: *
  *  `projects/[kms_project_id]/locations/[region]/keyRings/[key_region]/cryptoKeys/[key]`
  */
 @property(nonatomic, copy, nullable) NSString *kmsKeyName;
@@ -11267,6 +11950,9 @@ FOUNDATION_EXTERN NSString * const kGTLRBigquery_VectorSearchStatistics_IndexUsa
  *  Uses NSNumber of boolValue.
  */
 @property(nonatomic, strong, nullable) NSNumber *insufficientShuffleQuota;
+
+/** Output only. Partition skew in the stage. */
+@property(nonatomic, strong, nullable) GTLRBigquery_PartitionSkew *partitionSkew;
 
 /**
  *  Output only. True if the stage has a slot contention issue.
@@ -11391,6 +12077,40 @@ FOUNDATION_EXTERN NSString * const kGTLRBigquery_VectorSearchStatistics_IndexUsa
 
 /** The columns in this table type */
 @property(nonatomic, strong, nullable) NSArray<GTLRBigquery_StandardSqlField *> *columns;
+
+@end
+
+
+/**
+ *  Contains information about how a table's data is stored and accessed by open
+ *  source query engines.
+ */
+@interface GTLRBigquery_StorageDescriptor : GTLRObject
+
+/**
+ *  Optional. Specifies the fully qualified class name of the InputFormat (e.g.
+ *  "org.apache.hadoop.hive.ql.io.orc.OrcInputFormat"). The maximum length is
+ *  128 characters.
+ */
+@property(nonatomic, copy, nullable) NSString *inputFormat;
+
+/**
+ *  Optional. The physical location of the table (e.g.
+ *  'gs://spark-dataproc-data/pangea-data/case_sensitive/' or
+ *  'gs://spark-dataproc-data/pangea-data/ *'). The maximum length is 2056
+ *  bytes.
+ */
+@property(nonatomic, copy, nullable) NSString *locationUri;
+
+/**
+ *  Optional. Specifies the fully qualified class name of the OutputFormat (e.g.
+ *  "org.apache.hadoop.hive.ql.io.orc.OrcOutputFormat"). The maximum length is
+ *  128 characters.
+ */
+@property(nonatomic, copy, nullable) NSString *outputFormat;
+
+/** Optional. Serializer and deserializer information. */
+@property(nonatomic, strong, nullable) GTLRBigquery_SerDeInfo *serdeInfo;
 
 @end
 
@@ -11565,6 +12285,9 @@ FOUNDATION_EXTERN NSString * const kGTLRBigquery_VectorSearchStatistics_IndexUsa
  */
 @property(nonatomic, strong, nullable) NSNumber *expirationTime;
 
+/** Optional. Options defining open source compatible table. */
+@property(nonatomic, strong, nullable) GTLRBigquery_ExternalCatalogTableOptions *externalCatalogTableOptions;
+
 /**
  *  Optional. Describes the data format, location, and other properties of a
  *  table stored outside of BigQuery. By defining these properties, the data
@@ -11650,6 +12373,15 @@ FOUNDATION_EXTERN NSString * const kGTLRBigquery_VectorSearchStatistics_IndexUsa
 @property(nonatomic, strong, nullable) NSNumber *numBytes;
 
 /**
+ *  Output only. Number of physical bytes used by current live data storage.
+ *  This data is not kept in real time, and might be delayed by a few seconds to
+ *  a few minutes.
+ *
+ *  Uses NSNumber of longLongValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *numCurrentPhysicalBytes;
+
+/**
  *  Output only. The number of logical bytes in the table that are considered
  *  "long-term storage".
  *
@@ -11724,6 +12456,14 @@ FOUNDATION_EXTERN NSString * const kGTLRBigquery_VectorSearchStatistics_IndexUsa
  */
 @property(nonatomic, strong, nullable) NSNumber *numTotalPhysicalBytes;
 
+/**
+ *  Optional. The partition information for all table formats, including managed
+ *  partitioned tables, hive partitioned tables, iceberg partitioned, and
+ *  metastore partitioned tables. This field is only populated for metastore
+ *  partitioned tables. For other table formats, this is an output only field.
+ */
+@property(nonatomic, strong, nullable) GTLRBigquery_PartitioningDefinition *partitionDefinition;
+
 /** If specified, configures range partitioning for this table. */
 @property(nonatomic, strong, nullable) GTLRBigquery_RangePartitioning *rangePartitioning;
 
@@ -11751,6 +12491,14 @@ FOUNDATION_EXTERN NSString * const kGTLRBigquery_VectorSearchStatistics_IndexUsa
  *  "production".
  */
 @property(nonatomic, strong, nullable) GTLRBigquery_Table_ResourceTags *resourceTags;
+
+/**
+ *  Optional. Output only. Restriction config for table. If set, restrict
+ *  certain accesses on the table based on the config. See [Data
+ *  egress](/bigquery/docs/analytics-hub-introduction#data_egress) for more
+ *  details.
+ */
+@property(nonatomic, strong, nullable) GTLRBigquery_RestrictionConfig *restrictions;
 
 /** Optional. Describes the schema of this table. */
 @property(nonatomic, strong, nullable) GTLRBigquery_TableSchema *schema;
@@ -12096,6 +12844,13 @@ FOUNDATION_EXTERN NSString * const kGTLRBigquery_VectorSearchStatistics_IndexUsa
 @property(nonatomic, strong, nullable) NSArray<GTLRBigquery_TableFieldSchema *> *fields;
 
 /**
+ *  Optional. Definition of the foreign data type. Only valid for top-level
+ *  schema fields (not nested fields). If the type is FOREIGN, this field is
+ *  required.
+ */
+@property(nonatomic, copy, nullable) NSString *foreignTypeDefinition;
+
+/**
  *  Optional. Maximum length of values of this field for STRINGS or BYTES. If
  *  max_length is not specified, no maximum length constraint is imposed on this
  *  field. If type = "STRING", then max_length represents the maximum UTF-8
@@ -12183,8 +12938,8 @@ FOUNDATION_EXTERN NSString * const kGTLRBigquery_VectorSearchStatistics_IndexUsa
  *  Required. The field data type. Possible values include: * STRING * BYTES *
  *  INTEGER (or INT64) * FLOAT (or FLOAT64) * BOOLEAN (or BOOL) * TIMESTAMP *
  *  DATE * TIME * DATETIME * GEOGRAPHY * NUMERIC * BIGNUMERIC * JSON * RECORD
- *  (or STRUCT) Use of RECORD/STRUCT indicates that the field contains a nested
- *  schema.
+ *  (or STRUCT) * RANGE ([Preview](/products/#product-launch-stages)) Use of
+ *  RECORD/STRUCT indicates that the field contains a nested schema.
  */
 @property(nonatomic, copy, nullable) NSString *type;
 
@@ -12223,7 +12978,10 @@ FOUNDATION_EXTERN NSString * const kGTLRBigquery_VectorSearchStatistics_IndexUsa
  */
 @interface GTLRBigquery_TableFieldSchema_RangeElementType : GTLRObject
 
-/** Required. The type of a field element. See TableFieldSchema.type. */
+/**
+ *  Required. The type of a field element. For more information, see
+ *  TableFieldSchema.type.
+ */
 @property(nonatomic, copy, nullable) NSString *type;
 
 @end
@@ -12453,8 +13211,9 @@ FOUNDATION_EXTERN NSString * const kGTLRBigquery_VectorSearchStatistics_IndexUsa
 @property(nonatomic, strong, nullable) GTLRBigquery_ErrorProto *replicationError;
 
 /**
- *  Required. Specifies the interval at which the source table is polled for
- *  updates.
+ *  Optional. Specifies the interval at which the source table is polled for
+ *  updates. It's Optional. If not specified, default replication interval would
+ *  be applied.
  *
  *  Uses NSNumber of longLongValue.
  */
@@ -12504,6 +13263,12 @@ FOUNDATION_EXTERN NSString * const kGTLRBigquery_VectorSearchStatistics_IndexUsa
 
 /** Describes the fields in a table. */
 @property(nonatomic, strong, nullable) NSArray<GTLRBigquery_TableFieldSchema *> *fields;
+
+/**
+ *  Optional. Specifies metadata of the foreign data type definition in field
+ *  schema (TableFieldSchema.foreign_type_definition).
+ */
+@property(nonatomic, strong, nullable) GTLRBigquery_ForeignTypeInfo *foreignTypeInfo;
 
 @end
 
@@ -13547,8 +14312,9 @@ FOUNDATION_EXTERN NSString * const kGTLRBigquery_VectorSearchStatistics_IndexUsa
 @interface GTLRBigquery_UndeleteDatasetRequest : GTLRObject
 
 /**
- *  Optional. The exact time when the dataset was deleted. If not specified, it
- *  will undelete the most recently deleted version.
+ *  Optional. The exact time when the dataset was deleted. If not specified, the
+ *  most recently deleted version is undeleted. Undeleting a dataset using
+ *  deletion time is not supported.
  */
 @property(nonatomic, strong, nullable) GTLRDateTime *deletionTime;
 
@@ -13622,6 +14388,9 @@ FOUNDATION_EXTERN NSString * const kGTLRBigquery_VectorSearchStatistics_IndexUsa
  *  Describes the definition of a logical view.
  */
 @interface GTLRBigquery_ViewDefinition : GTLRObject
+
+/** Optional. Foreign view representations. */
+@property(nonatomic, strong, nullable) NSArray<GTLRBigquery_ForeignViewDefinition *> *foreignDefinitions;
 
 /** Optional. Specifices the privacy policy for the view. */
 @property(nonatomic, strong, nullable) GTLRBigquery_PrivacyPolicy *privacyPolicy;

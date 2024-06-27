@@ -141,6 +141,7 @@
 @class GTLRDataflow_SeqMapTask;
 @class GTLRDataflow_SeqMapTask_UserFn;
 @class GTLRDataflow_SeqMapTaskOutputInfo;
+@class GTLRDataflow_ServiceResources;
 @class GTLRDataflow_ShellTask;
 @class GTLRDataflow_SideInputInfo;
 @class GTLRDataflow_SideInputInfo_Kind;
@@ -184,7 +185,9 @@
 @class GTLRDataflow_StreamingComputationTask;
 @class GTLRDataflow_StreamingConfigTask;
 @class GTLRDataflow_StreamingConfigTask_UserStepToStateFamilyNameMap;
+@class GTLRDataflow_StreamingOperationalLimits;
 @class GTLRDataflow_StreamingScalingReport;
+@class GTLRDataflow_StreamingScalingReportResponse;
 @class GTLRDataflow_StreamingSetupTask;
 @class GTLRDataflow_StreamingSideInputLocation;
 @class GTLRDataflow_StreamingStageLocation;
@@ -1294,6 +1297,28 @@ FOUNDATION_EXTERN NSString * const kGTLRDataflow_ParameterMetadata_ParamType_Gcs
  *  Value: "JAVASCRIPT_UDF_FILE"
  */
 FOUNDATION_EXTERN NSString * const kGTLRDataflow_ParameterMetadata_ParamType_JavascriptUdfFile;
+/**
+ *  The parameter specifies the fully-qualified name of an Apache Kafka topic.
+ *  This can be either a Google Managed Kafka topic or a non-managed Kafka
+ *  topic.
+ *
+ *  Value: "KAFKA_READ_TOPIC"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRDataflow_ParameterMetadata_ParamType_KafkaReadTopic;
+/**
+ *  Deprecated. Please use KAFKA_READ_TOPIC instead.
+ *
+ *  Value: "KAFKA_TOPIC"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRDataflow_ParameterMetadata_ParamType_KafkaTopic GTLR_DEPRECATED;
+/**
+ *  The parameter specifies the fully-qualified name of an Apache Kafka topic.
+ *  This can be an existing Google Managed Kafka topic, the name for a new
+ *  Google Managed Kafka topic, or an existing non-managed Kafka topic.
+ *
+ *  Value: "KAFKA_WRITE_TOPIC"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRDataflow_ParameterMetadata_ParamType_KafkaWriteTopic;
 /**
  *  The parameter specifies a KMS Key name.
  *
@@ -2780,8 +2805,8 @@ FOUNDATION_EXTERN NSString * const kGTLRDataflow_WorkItemDetails_State_Execution
 @property(nonatomic, strong, nullable) GTLRDataflow_DataSamplingConfig *dataSampling;
 
 /**
- *  When true, enables the logging of the literal hot key to the user's Cloud
- *  Logging.
+ *  Optional. When true, enables the logging of the literal hot key to the
+ *  user's Cloud Logging.
  *
  *  Uses NSNumber of boolValue.
  */
@@ -3006,13 +3031,13 @@ FOUNDATION_EXTERN NSString * const kGTLRDataflow_WorkItemDetails_State_Execution
 @property(nonatomic, copy, nullable) NSString *clusterManagerApiService;
 
 /**
- *  The dataset for the current project where various workflow related tables
- *  are stored. The supported resource type is: Google BigQuery:
+ *  Optional. The dataset for the current project where various workflow related
+ *  tables are stored. The supported resource type is: Google BigQuery:
  *  bigquery.googleapis.com/{dataset}
  */
 @property(nonatomic, copy, nullable) NSString *dataset;
 
-/** Any debugging options to be supplied to the job. */
+/** Optional. Any debugging options to be supplied to the job. */
 @property(nonatomic, strong, nullable) GTLRDataflow_DebugOptions *debugOptions;
 
 /**
@@ -3023,7 +3048,7 @@ FOUNDATION_EXTERN NSString * const kGTLRDataflow_WorkItemDetails_State_Execution
 @property(nonatomic, strong, nullable) NSArray<NSString *> *experiments;
 
 /**
- *  Which Flexible Resource Scheduling mode to run in.
+ *  Optional. Which Flexible Resource Scheduling mode to run in.
  *
  *  Likely values:
  *    @arg @c kGTLRDataflow_Environment_FlexResourceSchedulingGoal_FlexrsCostOptimized
@@ -3045,20 +3070,24 @@ FOUNDATION_EXTERN NSString * const kGTLRDataflow_WorkItemDetails_State_Execution
  */
 @property(nonatomic, strong, nullable) GTLRDataflow_Environment_SdkPipelineOptions *sdkPipelineOptions;
 
-/** Identity to run virtual machines as. Defaults to the default account. */
+/**
+ *  Optional. Identity to run virtual machines as. Defaults to the default
+ *  account.
+ */
 @property(nonatomic, copy, nullable) NSString *serviceAccountEmail;
 
 /**
- *  If set, contains the Cloud KMS key identifier used to encrypt data at rest,
- *  AKA a Customer Managed Encryption Key (CMEK). Format:
+ *  Optional. If set, contains the Cloud KMS key identifier used to encrypt data
+ *  at rest, AKA a Customer Managed Encryption Key (CMEK). Format:
  *  projects/PROJECT_ID/locations/LOCATION/keyRings/KEY_RING/cryptoKeys/KEY
  */
 @property(nonatomic, copy, nullable) NSString *serviceKmsKeyName;
 
 /**
- *  The list of service options to enable. This field should be used for service
- *  related experiments only. These experiments, when graduating to GA, should
- *  be replaced by dedicated fields or become default (i.e. always on).
+ *  Optional. The list of service options to enable. This field should be used
+ *  for service related experiments only. These experiments, when graduating to
+ *  GA, should be replaced by dedicated fields or become default (i.e. always
+ *  on).
  */
 @property(nonatomic, strong, nullable) NSArray<NSString *> *serviceOptions;
 
@@ -3081,7 +3110,8 @@ FOUNDATION_EXTERN NSString * const kGTLRDataflow_WorkItemDetails_State_Execution
  *  Reduces cost and latency but might result in duplicate messages committed to
  *  storage. Designed to run simple mapping streaming ETL jobs at the lowest
  *  cost. For example, Change Data Capture (CDC) to BigQuery is a canonical use
- *  case.
+ *  case. For more information, see [Set the pipeline streaming
+ *  mode](https://cloud.google.com/dataflow/docs/guides/streaming-modes).
  *
  *  Likely values:
  *    @arg @c kGTLRDataflow_Environment_StreamingMode_StreamingModeAtLeastOnce
@@ -3134,7 +3164,7 @@ FOUNDATION_EXTERN NSString * const kGTLRDataflow_WorkItemDetails_State_Execution
 @property(nonatomic, strong, nullable) NSArray<GTLRDataflow_WorkerPool *> *workerPools;
 
 /**
- *  The Compute Engine region
+ *  Optional. The Compute Engine region
  *  (https://cloud.google.com/compute/docs/regions-zones/regions-zones) in which
  *  worker processing should occur, e.g. "us-west1". Mutually exclusive with
  *  worker_zone. If neither worker_region nor worker_zone is specified, default
@@ -3143,7 +3173,7 @@ FOUNDATION_EXTERN NSString * const kGTLRDataflow_WorkItemDetails_State_Execution
 @property(nonatomic, copy, nullable) NSString *workerRegion;
 
 /**
- *  The Compute Engine zone
+ *  Optional. The Compute Engine zone
  *  (https://cloud.google.com/compute/docs/regions-zones/regions-zones) in which
  *  worker processing should occur, e.g. "us-west1-a". Mutually exclusive with
  *  worker_region. If neither worker_region nor worker_zone is specified, a zone
@@ -3396,7 +3426,7 @@ FOUNDATION_EXTERN NSString * const kGTLRDataflow_WorkItemDetails_State_Execution
 
 
 /**
- *  The environment values to be set at runtime for flex template.
+ *  The environment values to be set at runtime for flex template. LINT.IfChange
  */
 @interface GTLRDataflow_FlexTemplateRuntimeEnvironment : GTLRObject
 
@@ -3553,7 +3583,8 @@ FOUNDATION_EXTERN NSString * const kGTLRDataflow_WorkItemDetails_State_Execution
  *  Reduces cost and latency but might result in duplicate messages committed to
  *  storage. Designed to run simple mapping streaming ETL jobs at the lowest
  *  cost. For example, Change Data Capture (CDC) to BigQuery is a canonical use
- *  case.
+ *  case. For more information, see [Set the pipeline streaming
+ *  mode](https://cloud.google.com/dataflow/docs/guides/streaming-modes).
  *
  *  Likely values:
  *    @arg @c kGTLRDataflow_FlexTemplateRuntimeEnvironment_StreamingMode_StreamingModeAtLeastOnce
@@ -4098,7 +4129,7 @@ FOUNDATION_EXTERN NSString * const kGTLRDataflow_WorkItemDetails_State_Execution
 /** The timestamp associated with the current state. */
 @property(nonatomic, strong, nullable) GTLRDateTime *currentStateTime;
 
-/** The environment for the job. */
+/** Optional. The environment for the job. */
 @property(nonatomic, strong, nullable) GTLRDataflow_Environment *environment;
 
 /** Deprecated. */
@@ -4129,17 +4160,17 @@ FOUNDATION_EXTERN NSString * const kGTLRDataflow_WorkItemDetails_State_Execution
 @property(nonatomic, strong, nullable) GTLRDataflow_Job_Labels *labels;
 
 /**
- *  The [regional endpoint]
+ *  Optional. The [regional endpoint]
  *  (https://cloud.google.com/dataflow/docs/concepts/regional-endpoints) that
  *  contains this job.
  */
 @property(nonatomic, copy, nullable) NSString *location;
 
 /**
- *  The user-specified Dataflow job name. Only one active job with a given name
- *  can exist in a project within one region at any given time. Jobs in
- *  different regions can have the same name. If a caller attempts to create a
- *  job with the same name as an active job that already exists, the attempt
+ *  Optional. The user-specified Dataflow job name. Only one active job with a
+ *  given name can exist in a project within one region at any given time. Jobs
+ *  in different regions can have the same name. If a caller attempts to create
+ *  a job with the same name as an active job that already exists, the attempt
  *  returns the existing job. The name must match the regular expression
  *  `[a-z]([-a-z0-9]{0,1022}[a-z0-9])?`
  */
@@ -4271,6 +4302,9 @@ FOUNDATION_EXTERN NSString * const kGTLRDataflow_WorkItemDetails_State_Execution
  */
 @property(nonatomic, strong, nullable) NSNumber *satisfiesPzs;
 
+/** Output only. Resources used by the Dataflow Service to run the job. */
+@property(nonatomic, strong, nullable) GTLRDataflow_ServiceResources *serviceResources;
+
 /**
  *  This field may be mutated by the Cloud Dataflow service; callers cannot
  *  mutate it.
@@ -4306,13 +4340,13 @@ FOUNDATION_EXTERN NSString * const kGTLRDataflow_WorkItemDetails_State_Execution
 @property(nonatomic, strong, nullable) NSArray<NSString *> *tempFiles;
 
 /**
- *  The map of transform name prefixes of the job to be replaced to the
- *  corresponding name prefixes of the new job.
+ *  Optional. The map of transform name prefixes of the job to be replaced to
+ *  the corresponding name prefixes of the new job.
  */
 @property(nonatomic, strong, nullable) GTLRDataflow_Job_TransformNameMapping *transformNameMapping;
 
 /**
- *  The type of Dataflow job.
+ *  Optional. The type of Dataflow job.
  *
  *  Likely values:
  *    @arg @c kGTLRDataflow_Job_Type_JobTypeBatch A batch job with a
@@ -4346,8 +4380,8 @@ FOUNDATION_EXTERN NSString * const kGTLRDataflow_WorkItemDetails_State_Execution
 
 
 /**
- *  The map of transform name prefixes of the job to be replaced to the
- *  corresponding name prefixes of the new job.
+ *  Optional. The map of transform name prefixes of the job to be replaced to
+ *  the corresponding name prefixes of the new job.
  *
  *  @note This class is documented as having more properties of NSString. Use @c
  *        -additionalJSONKeys and @c -additionalPropertyForName: to get the list
@@ -5495,6 +5529,17 @@ FOUNDATION_EXTERN NSString * const kGTLRDataflow_WorkItemDetails_State_Execution
  *    @arg @c kGTLRDataflow_ParameterMetadata_ParamType_JavascriptUdfFile The
  *        parameter specifies a JavaScript UDF in Cloud Storage. (Value:
  *        "JAVASCRIPT_UDF_FILE")
+ *    @arg @c kGTLRDataflow_ParameterMetadata_ParamType_KafkaReadTopic The
+ *        parameter specifies the fully-qualified name of an Apache Kafka topic.
+ *        This can be either a Google Managed Kafka topic or a non-managed Kafka
+ *        topic. (Value: "KAFKA_READ_TOPIC")
+ *    @arg @c kGTLRDataflow_ParameterMetadata_ParamType_KafkaTopic Deprecated.
+ *        Please use KAFKA_READ_TOPIC instead. (Value: "KAFKA_TOPIC")
+ *    @arg @c kGTLRDataflow_ParameterMetadata_ParamType_KafkaWriteTopic The
+ *        parameter specifies the fully-qualified name of an Apache Kafka topic.
+ *        This can be an existing Google Managed Kafka topic, the name for a new
+ *        Google Managed Kafka topic, or an existing non-managed Kafka topic.
+ *        (Value: "KAFKA_WRITE_TOPIC")
  *    @arg @c kGTLRDataflow_ParameterMetadata_ParamType_KmsKeyName The parameter
  *        specifies a KMS Key name. (Value: "KMS_KEY_NAME")
  *    @arg @c kGTLRDataflow_ParameterMetadata_ParamType_MachineType The
@@ -6052,7 +6097,7 @@ FOUNDATION_EXTERN NSString * const kGTLRDataflow_WorkItemDetails_State_Execution
 
 
 /**
- *  The environment values to set at runtime.
+ *  The environment values to set at runtime. LINT.IfChange
  */
 @interface GTLRDataflow_RuntimeEnvironment : GTLRObject
 
@@ -6151,7 +6196,8 @@ FOUNDATION_EXTERN NSString * const kGTLRDataflow_WorkItemDetails_State_Execution
  *  Reduces cost and latency but might result in duplicate messages committed to
  *  storage. Designed to run simple mapping streaming ETL jobs at the lowest
  *  cost. For example, Change Data Capture (CDC) to BigQuery is a canonical use
- *  case.
+ *  case. For more information, see [Set the pipeline streaming
+ *  mode](https://cloud.google.com/dataflow/docs/guides/streaming-modes).
  *
  *  Likely values:
  *    @arg @c kGTLRDataflow_RuntimeEnvironment_StreamingMode_StreamingModeAtLeastOnce
@@ -6272,7 +6318,9 @@ FOUNDATION_EXTERN NSString * const kGTLRDataflow_WorkItemDetails_State_Execution
 /**
  *  Target worker utilization, compared against the aggregate utilization of the
  *  worker pool by autoscaler, to determine upscaling and downscaling when
- *  absent other constraints such as backlog.
+ *  absent other constraints such as backlog. For more information, see [Update
+ *  an existing
+ *  pipeline](https://cloud.google.com/dataflow/docs/guides/updating-a-pipeline).
  *
  *  Uses NSNumber of doubleValue.
  */
@@ -6549,6 +6597,20 @@ FOUNDATION_EXTERN NSString * const kGTLRDataflow_WorkItemDetails_State_Execution
 
 /** The id of the TupleTag the user code will tag the output value by. */
 @property(nonatomic, copy, nullable) NSString *tag;
+
+@end
+
+
+/**
+ *  Resources used by the Dataflow Service to run the job.
+ */
+@interface GTLRDataflow_ServiceResources : GTLRObject
+
+/**
+ *  Output only. List of Cloud Zones being used by the Dataflow Service for this
+ *  job. Example: us-central1-c
+ */
+@property(nonatomic, strong, nullable) NSArray<NSString *> *zones;
 
 @end
 
@@ -7548,6 +7610,12 @@ FOUNDATION_EXTERN NSString * const kGTLRDataflow_WorkItemDetails_State_Execution
  */
 @property(nonatomic, strong, nullable) NSNumber *maxWorkItemCommitBytes;
 
+/**
+ *  Operational limits for the streaming job. Can be used by the worker to
+ *  validate outputs sent to the backend.
+ */
+@property(nonatomic, strong, nullable) GTLRDataflow_StreamingOperationalLimits *operationalLimits;
+
 /** Set of computation configuration information. */
 @property(nonatomic, strong, nullable) NSArray<GTLRDataflow_StreamingComputationConfig *> *streamingComputationConfigs;
 
@@ -7582,6 +7650,70 @@ FOUNDATION_EXTERN NSString * const kGTLRDataflow_WorkItemDetails_State_Execution
  *        fetch them all at once.
  */
 @interface GTLRDataflow_StreamingConfigTask_UserStepToStateFamilyNameMap : GTLRObject
+@end
+
+
+/**
+ *  Operational limits imposed on streaming jobs by the backend.
+ */
+@interface GTLRDataflow_StreamingOperationalLimits : GTLRObject
+
+/**
+ *  The maximum size for an element in bag state.
+ *
+ *  Uses NSNumber of longLongValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *maxBagElementBytes;
+
+/**
+ *  The maximum size for an element in global data.
+ *
+ *  Uses NSNumber of longLongValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *maxGlobalDataBytes;
+
+/**
+ *  The maximum size allowed for a key.
+ *
+ *  Uses NSNumber of longLongValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *maxKeyBytes;
+
+/**
+ *  The maximum size for a single output element.
+ *
+ *  Uses NSNumber of longLongValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *maxProductionOutputBytes;
+
+/**
+ *  The maximum size for an element in sorted list state.
+ *
+ *  Uses NSNumber of longLongValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *maxSortedListElementBytes;
+
+/**
+ *  The maximum size for a source state update.
+ *
+ *  Uses NSNumber of longLongValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *maxSourceStateBytes;
+
+/**
+ *  The maximum size for a state tag.
+ *
+ *  Uses NSNumber of longLongValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *maxTagBytes;
+
+/**
+ *  The maximum size for a value state field.
+ *
+ *  Uses NSNumber of longLongValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *maxValueBytes;
+
 @end
 
 
@@ -7652,6 +7784,21 @@ FOUNDATION_EXTERN NSString * const kGTLRDataflow_WorkItemDetails_State_Execution
  *  Uses NSNumber of intValue.
  */
 @property(nonatomic, strong, nullable) NSNumber *outstandingBytesCount GTLR_DEPRECATED;
+
+@end
+
+
+/**
+ *  Contains per-user-worker streaming scaling recommendation from the backend.
+ */
+@interface GTLRDataflow_StreamingScalingReportResponse : GTLRObject
+
+/**
+ *  Maximum thread count limit;
+ *
+ *  Uses NSNumber of intValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *maximumThreadCount;
 
 @end
 
@@ -7907,6 +8054,13 @@ FOUNDATION_EXTERN NSString * const kGTLRDataflow_WorkItemDetails_State_Execution
  *  Metadata describing a template.
  */
 @interface GTLRDataflow_TemplateMetadata : GTLRObject
+
+/**
+ *  Optional. Indicates the default streaming mode for a streaming template.
+ *  Only valid if both supports_at_least_once and supports_exactly_once are
+ *  true. Possible values: UNSPECIFIED, EXACTLY_ONCE and AT_LEAST_ONCE
+ */
+@property(nonatomic, copy, nullable) NSString *defaultStreamingMode;
 
 /**
  *  Optional. A description of the template.
@@ -8334,6 +8488,9 @@ FOUNDATION_EXTERN NSString * const kGTLRDataflow_WorkItemDetails_State_Execution
  *  sender.
  */
 @interface GTLRDataflow_WorkerMessageResponse : GTLRObject
+
+/** Service's streaming scaling response for workers. */
+@property(nonatomic, strong, nullable) GTLRDataflow_StreamingScalingReportResponse *streamingScalingReportResponse;
 
 /** The service's response to a worker's health report. */
 @property(nonatomic, strong, nullable) GTLRDataflow_WorkerHealthReportResponse *workerHealthReportResponse;

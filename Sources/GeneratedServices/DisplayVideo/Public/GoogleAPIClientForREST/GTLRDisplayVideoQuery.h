@@ -8898,7 +8898,7 @@ FOUNDATION_EXTERN NSString * const kGTLRDisplayVideoTargetingTypeTargetingTypeYo
  *  Required. Identifies the type of this assigned targeting option. Supported
  *  targeting types: * `TARGETING_TYPE_CHANNEL` *
  *  `TARGETING_TYPE_DIGITAL_CONTENT_LABEL_EXCLUSION` * `TARGETING_TYPE_OMID` *
- *  `TARGETING_TYPE_SENSITIVE_CATEGORY_EXCLUSION`
+ *  `TARGETING_TYPE_SENSITIVE_CATEGORY_EXCLUSION` * `TARGETING_TYPE_KEYWORD`
  *
  *  Likely values:
  *    @arg @c kGTLRDisplayVideoTargetingTypeTargetingTypeUnspecified Default
@@ -9072,7 +9072,7 @@ FOUNDATION_EXTERN NSString * const kGTLRDisplayVideoTargetingTypeTargetingTypeYo
  *  @param targetingType Required. Identifies the type of this assigned
  *    targeting option. Supported targeting types: * `TARGETING_TYPE_CHANNEL` *
  *    `TARGETING_TYPE_DIGITAL_CONTENT_LABEL_EXCLUSION` * `TARGETING_TYPE_OMID` *
- *    `TARGETING_TYPE_SENSITIVE_CATEGORY_EXCLUSION`
+ *    `TARGETING_TYPE_SENSITIVE_CATEGORY_EXCLUSION` * `TARGETING_TYPE_KEYWORD`
  *
  *  Likely values for @c targetingType:
  *    @arg @c kGTLRDisplayVideoTargetingTypeTargetingTypeUnspecified Default
@@ -9260,7 +9260,7 @@ FOUNDATION_EXTERN NSString * const kGTLRDisplayVideoTargetingTypeTargetingTypeYo
  *  Required. Identifies the type of this assigned targeting option. Supported
  *  targeting types: * `TARGETING_TYPE_CHANNEL` *
  *  `TARGETING_TYPE_DIGITAL_CONTENT_LABEL_EXCLUSION` * `TARGETING_TYPE_OMID` *
- *  `TARGETING_TYPE_SENSITIVE_CATEGORY_EXCLUSION`
+ *  `TARGETING_TYPE_SENSITIVE_CATEGORY_EXCLUSION` * `TARGETING_TYPE_KEYWORD`
  *
  *  Likely values:
  *    @arg @c kGTLRDisplayVideoTargetingTypeTargetingTypeUnspecified Default
@@ -9431,7 +9431,7 @@ FOUNDATION_EXTERN NSString * const kGTLRDisplayVideoTargetingTypeTargetingTypeYo
  *  @param targetingType Required. Identifies the type of this assigned
  *    targeting option. Supported targeting types: * `TARGETING_TYPE_CHANNEL` *
  *    `TARGETING_TYPE_DIGITAL_CONTENT_LABEL_EXCLUSION` * `TARGETING_TYPE_OMID` *
- *    `TARGETING_TYPE_SENSITIVE_CATEGORY_EXCLUSION`
+ *    `TARGETING_TYPE_SENSITIVE_CATEGORY_EXCLUSION` * `TARGETING_TYPE_KEYWORD`
  *  @param assignedTargetingOptionId Required. The ID of the assigned targeting
  *    option to delete.
  *
@@ -9625,7 +9625,8 @@ FOUNDATION_EXTERN NSString * const kGTLRDisplayVideoTargetingTypeTargetingTypeYo
  *  targeting types: * `TARGETING_TYPE_CHANNEL` *
  *  `TARGETING_TYPE_DIGITAL_CONTENT_LABEL_EXCLUSION` * `TARGETING_TYPE_OMID` *
  *  `TARGETING_TYPE_SENSITIVE_CATEGORY_EXCLUSION` *
- *  `TARGETING_TYPE_YOUTUBE_VIDEO` * `TARGETING_TYPE_YOUTUBE_CHANNEL`
+ *  `TARGETING_TYPE_YOUTUBE_VIDEO` * `TARGETING_TYPE_YOUTUBE_CHANNEL` *
+ *  `TARGETING_TYPE_KEYWORD`
  *
  *  Likely values:
  *    @arg @c kGTLRDisplayVideoTargetingTypeTargetingTypeUnspecified Default
@@ -9797,7 +9798,8 @@ FOUNDATION_EXTERN NSString * const kGTLRDisplayVideoTargetingTypeTargetingTypeYo
  *    targeting option. Supported targeting types: * `TARGETING_TYPE_CHANNEL` *
  *    `TARGETING_TYPE_DIGITAL_CONTENT_LABEL_EXCLUSION` * `TARGETING_TYPE_OMID` *
  *    `TARGETING_TYPE_SENSITIVE_CATEGORY_EXCLUSION` *
- *    `TARGETING_TYPE_YOUTUBE_VIDEO` * `TARGETING_TYPE_YOUTUBE_CHANNEL`
+ *    `TARGETING_TYPE_YOUTUBE_VIDEO` * `TARGETING_TYPE_YOUTUBE_CHANNEL` *
+ *    `TARGETING_TYPE_KEYWORD`
  *  @param assignedTargetingOptionId Required. An identifier unique to the
  *    targeting type in this advertiser that identifies the assigned targeting
  *    option being requested.
@@ -10023,7 +10025,8 @@ FOUNDATION_EXTERN NSString * const kGTLRDisplayVideoTargetingTypeTargetingTypeYo
  *  Supported targeting types: * `TARGETING_TYPE_CHANNEL` *
  *  `TARGETING_TYPE_DIGITAL_CONTENT_LABEL_EXCLUSION` * `TARGETING_TYPE_OMID` *
  *  `TARGETING_TYPE_SENSITIVE_CATEGORY_EXCLUSION` *
- *  `TARGETING_TYPE_YOUTUBE_VIDEO` * `TARGETING_TYPE_YOUTUBE_CHANNEL`
+ *  `TARGETING_TYPE_YOUTUBE_VIDEO` * `TARGETING_TYPE_YOUTUBE_CHANNEL` *
+ *  `TARGETING_TYPE_KEYWORD`
  *
  *  Likely values:
  *    @arg @c kGTLRDisplayVideoTargetingTypeTargetingTypeUnspecified Default
@@ -10196,7 +10199,8 @@ FOUNDATION_EXTERN NSString * const kGTLRDisplayVideoTargetingTypeTargetingTypeYo
  *    options to list. Supported targeting types: * `TARGETING_TYPE_CHANNEL` *
  *    `TARGETING_TYPE_DIGITAL_CONTENT_LABEL_EXCLUSION` * `TARGETING_TYPE_OMID` *
  *    `TARGETING_TYPE_SENSITIVE_CATEGORY_EXCLUSION` *
- *    `TARGETING_TYPE_YOUTUBE_VIDEO` * `TARGETING_TYPE_YOUTUBE_CHANNEL`
+ *    `TARGETING_TYPE_YOUTUBE_VIDEO` * `TARGETING_TYPE_YOUTUBE_CHANNEL` *
+ *    `TARGETING_TYPE_KEYWORD`
  *
  *  Likely values for @c targetingType:
  *    @arg @c kGTLRDisplayVideoTargetingTypeTargetingTypeUnspecified Default
@@ -16072,28 +16076,31 @@ FOUNDATION_EXTERN NSString * const kGTLRDisplayVideoTargetingTypeTargetingTypeYo
  *  Allows filtering by user fields. Supported syntax: * Filter expressions are
  *  made up of one or more restrictions. * Restrictions can be combined by the
  *  logical operator `AND`. * A restriction has the form of `{field} {operator}
- *  {value}`. * The `budget.budget_segments.date_range.end_date` field must use
- *  the `LESS THAN (<)` operator. * The `displayName and `email` field must use
- *  the `HAS (:)` operator. * All other fields must use the `EQUALS (=)`
- *  operator. Supported fields: * `assignedUserRole.advertiserId` *
- *  `assignedUserRole.entityType` * This is synthetic field of
- *  `AssignedUserRole` used for filtering. Identifies the type of entity to
- *  which the user role is assigned. Valid values are `Partner` and
- *  `Advertiser`. * `assignedUserRole.parentPartnerId` * This is a synthetic
- *  field of `AssignedUserRole` used for filtering. Identifies the parent
- *  partner of the entity to which the user role is assigned. *
+ *  {value}`. * The `displayName` and `email` fields must use the `HAS (:)`
+ *  operator. * The `lastLoginTime` field must use either the `LESS THAN OR
+ *  EQUAL TO (<=)` or `GREATER THAN OR EQUAL TO (>=)` operator. * All other
+ *  fields must use the `EQUALS (=)` operator. Supported fields: *
+ *  `assignedUserRole.advertiserId` * `assignedUserRole.entityType`: This is
+ *  synthetic field of `AssignedUserRole` used for filtering. Identifies the
+ *  type of entity to which the user role is assigned. Valid values are
+ *  `Partner` and `Advertiser`. * `assignedUserRole.parentPartnerId`: This is a
+ *  synthetic field of `AssignedUserRole` used for filtering. Identifies the
+ *  parent partner of the entity to which the user role is assigned. *
  *  `assignedUserRole.partnerId` * `assignedUserRole.userRole` * `displayName` *
- *  `email` Examples: * The user with `displayName` containing "foo":
- *  `displayName:"foo"` * The user with `email` containing "bar": `email:"bar"`
- *  * All users with standard user roles: `assignedUserRole.userRole="STANDARD"`
- *  * All users with user roles for partner 123:
- *  `assignedUserRole.partnerId="123"` * All users with user roles for
- *  advertiser 123: `assignedUserRole.advertiserId="123"` * All users with
+ *  `email` * `lastLoginTime` (input in ISO 8601 format, or
+ *  `YYYY-MM-DDTHH:MM:SSZ`) Examples: * The user with `displayName` containing
+ *  "foo": `displayName:"foo"` * The user with `email` containing "bar":
+ *  `email:"bar"` * All users with standard user roles:
+ *  `assignedUserRole.userRole="STANDARD"` * All users with user roles for
+ *  partner 123: `assignedUserRole.partnerId="123"` * All users with user roles
+ *  for advertiser 123: `assignedUserRole.advertiserId="123"` * All users with
  *  partner level user roles: `entityType="PARTNER"` * All users with user roles
- *  for partner 123 and advertisers under partner 123: `parentPartnerId="123"`
- *  The length of this field should be no more than 500 characters. Reference
- *  our [filter `LIST` requests](/display-video/api/guides/how-tos/filters)
- *  guide for more information.
+ *  for partner 123 and advertisers under partner 123: `parentPartnerId="123"` *
+ *  All users that last logged in on or after 2023-01-01T00:00:00Z (format of
+ *  ISO 8601): `lastLoginTime>="2023-01-01T00:00:00Z"` The length of this field
+ *  should be no more than 500 characters. Reference our [filter `LIST`
+ *  requests](/display-video/api/guides/how-tos/filters) guide for more
+ *  information.
  */
 @property(nonatomic, copy, nullable) NSString *filter;
 

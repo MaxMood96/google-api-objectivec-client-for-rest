@@ -13,6 +13,11 @@
 // ----------------------------------------------------------------------------
 // Constants
 
+// GTLRCloudComposer_AirflowMetadataRetentionPolicyConfig.retentionMode
+NSString * const kGTLRCloudComposer_AirflowMetadataRetentionPolicyConfig_RetentionMode_RetentionModeDisabled = @"RETENTION_MODE_DISABLED";
+NSString * const kGTLRCloudComposer_AirflowMetadataRetentionPolicyConfig_RetentionMode_RetentionModeEnabled = @"RETENTION_MODE_ENABLED";
+NSString * const kGTLRCloudComposer_AirflowMetadataRetentionPolicyConfig_RetentionMode_RetentionModeUnspecified = @"RETENTION_MODE_UNSPECIFIED";
+
 // GTLRCloudComposer_CheckUpgradeResponse.containsPypiModulesConflict
 NSString * const kGTLRCloudComposer_CheckUpgradeResponse_ContainsPypiModulesConflict_Conflict = @"CONFLICT";
 NSString * const kGTLRCloudComposer_CheckUpgradeResponse_ContainsPypiModulesConflict_ConflictResultUnspecified = @"CONFLICT_RESULT_UNSPECIFIED";
@@ -91,6 +96,16 @@ NSString * const kGTLRCloudComposer_TaskLogsRetentionConfig_StorageMode_TaskLogs
 
 // ----------------------------------------------------------------------------
 //
+//   GTLRCloudComposer_AirflowMetadataRetentionPolicyConfig
+//
+
+@implementation GTLRCloudComposer_AirflowMetadataRetentionPolicyConfig
+@dynamic retentionDays, retentionMode;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
 //   GTLRCloudComposer_AllowedIpRange
 //
 
@@ -101,6 +116,16 @@ NSString * const kGTLRCloudComposer_TaskLogsRetentionConfig_StorageMode_TaskLogs
   return @{ @"descriptionProperty" : @"description" };
 }
 
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRCloudComposer_CheckUpgradeRequest
+//
+
+@implementation GTLRCloudComposer_CheckUpgradeRequest
+@dynamic imageVersion;
 @end
 
 
@@ -218,7 +243,7 @@ NSString * const kGTLRCloudComposer_TaskLogsRetentionConfig_StorageMode_TaskLogs
 //
 
 @implementation GTLRCloudComposer_DataRetentionConfig
-@dynamic taskLogsRetentionConfig;
+@dynamic airflowMetadataRetentionConfig, taskLogsRetentionConfig;
 @end
 
 

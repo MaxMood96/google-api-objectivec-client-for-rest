@@ -5976,7 +5976,7 @@ GTLR_DEPRECATED
  *
  *  Uses NSNumber of boolValue.
  */
-@property(nonatomic, strong, nullable) NSNumber *moderateComments;
+@property(nonatomic, strong, nullable) NSNumber *moderateComments GTLR_DEPRECATED;
 
 /** A prominent color that can be rendered on this channel page. */
 @property(nonatomic, copy, nullable) NSString *profileColor GTLR_DEPRECATED;
@@ -8065,7 +8065,7 @@ GTLR_DEPRECATED
  *
  *  Uses NSNumber of intValue.
  */
-@property(nonatomic, strong, nullable) NSNumber *repeatIntervalSecs;
+@property(nonatomic, strong, nullable) NSNumber *repeatIntervalSecs GTLR_DEPRECATED;
 
 /**
  *  The strategy to use when scheduling cuepoints.
@@ -8081,7 +8081,7 @@ GTLR_DEPRECATED
  *    @arg @c kGTLRYouTube_CuepointSchedule_ScheduleStrategy_ScheduleStrategyUnspecified
  *        Value "scheduleStrategyUnspecified"
  */
-@property(nonatomic, copy, nullable) NSString *scheduleStrategy;
+@property(nonatomic, copy, nullable) NSString *scheduleStrategy GTLR_DEPRECATED;
 
 @end
 
@@ -8780,7 +8780,7 @@ GTLR_DEPRECATED
  *
  *  Uses NSNumber of boolValue.
  */
-@property(nonatomic, strong, nullable) NSNumber *startWithSlate;
+@property(nonatomic, strong, nullable) NSNumber *startWithSlate GTLR_DEPRECATED;
 
 /**
  *  The 3D stereo layout of this broadcast. This defaults to mono.
@@ -9328,6 +9328,9 @@ GTLR_DEPRECATED
  *        enabled).
  */
 @interface GTLRYouTube_LiveChatMessageListResponse : GTLRCollectionObject
+
+/** Set when there is an active poll. */
+@property(nonatomic, strong, nullable) GTLRYouTube_LiveChatMessage *activePollItem;
 
 /** Etag of this resource. */
 @property(nonatomic, copy, nullable) NSString *ETag;

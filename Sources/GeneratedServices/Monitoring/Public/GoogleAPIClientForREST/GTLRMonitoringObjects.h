@@ -64,6 +64,7 @@
 @class GTLRMonitoring_LabelValue;
 @class GTLRMonitoring_LatencyCriteria;
 @class GTLRMonitoring_Linear;
+@class GTLRMonitoring_Link;
 @class GTLRMonitoring_LogMatch;
 @class GTLRMonitoring_LogMatch_LabelExtractors;
 @class GTLRMonitoring_MeshIstio;
@@ -102,6 +103,7 @@
 @class GTLRMonitoring_ResponseStatusCode;
 @class GTLRMonitoring_Service;
 @class GTLRMonitoring_Service_UserLabels;
+@class GTLRMonitoring_ServiceAgentAuthentication;
 @class GTLRMonitoring_ServiceLevelIndicator;
 @class GTLRMonitoring_ServiceLevelObjective;
 @class GTLRMonitoring_ServiceLevelObjective_UserLabels;
@@ -1513,6 +1515,22 @@ FOUNDATION_EXTERN NSString * const kGTLRMonitoring_ResponseStatusCode_StatusClas
  *  Value: "STATUS_CLASS_UNSPECIFIED"
  */
 FOUNDATION_EXTERN NSString * const kGTLRMonitoring_ResponseStatusCode_StatusClass_StatusClassUnspecified;
+
+// ----------------------------------------------------------------------------
+// GTLRMonitoring_ServiceAgentAuthentication.type
+
+/**
+ *  OIDC Authentication
+ *
+ *  Value: "OIDC_TOKEN"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRMonitoring_ServiceAgentAuthentication_Type_OidcToken;
+/**
+ *  Default value, will result in OIDC Authentication.
+ *
+ *  Value: "SERVICE_AGENT_AUTHENTICATION_TYPE_UNSPECIFIED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRMonitoring_ServiceAgentAuthentication_Type_ServiceAgentAuthenticationTypeUnspecified;
 
 // ----------------------------------------------------------------------------
 // GTLRMonitoring_ServiceLevelObjective.calendarPeriod
@@ -3101,7 +3119,8 @@ FOUNDATION_EXTERN NSString * const kGTLRMonitoring_ValueDescriptor_ValueType_Val
 
 
 /**
- *  A content string and a MIME type that describes the content string's format.
+ *  Documentation that is included in the notifications and incidents pertaining
+ *  to this policy.
  */
 @interface GTLRMonitoring_Documentation : GTLRObject
 
@@ -3110,9 +3129,15 @@ FOUNDATION_EXTERN NSString * const kGTLRMonitoring_ValueDescriptor_ValueType_Val
  *  content may not exceed 8,192 Unicode characters and may not exceed more than
  *  10,240 bytes when encoded in UTF-8 format, whichever is smaller. This text
  *  can be templatized by using variables
- *  (https://cloud.google.com/monitoring/alerts/doc-variables).
+ *  (https://cloud.google.com/monitoring/alerts/doc-variables#doc-vars).
  */
 @property(nonatomic, copy, nullable) NSString *content;
+
+/**
+ *  Optional. Links to content such as playbooks, repositories, and other
+ *  resources. This field can contain up to 3 entries.
+ */
+@property(nonatomic, strong, nullable) NSArray<GTLRMonitoring_Link *> *links;
 
 /**
  *  The format of the content field. Presently, only the value "text/markdown"
@@ -3131,8 +3156,8 @@ FOUNDATION_EXTERN NSString * const kGTLRMonitoring_ValueDescriptor_ValueType_Val
  *  It is both the limit imposed by some third-party ticketing products and it
  *  is common to define textual fields in databases as VARCHAR(255).The contents
  *  of the subject line can be templatized by using variables
- *  (https://cloud.google.com/monitoring/alerts/doc-variables). If this field is
- *  missing or empty, a default subject line will be generated.
+ *  (https://cloud.google.com/monitoring/alerts/doc-variables#doc-vars). If this
+ *  field is missing or empty, a default subject line will be generated.
  */
 @property(nonatomic, copy, nullable) NSString *subject;
 
@@ -3656,7 +3681,7 @@ FOUNDATION_EXTERN NSString * const kGTLRMonitoring_ValueDescriptor_ValueType_Val
 
 /**
  *  The authentication information. Optional when creating an HTTP check;
- *  defaults to empty.
+ *  defaults to empty. Do not set both auth_method and auth_info.
  */
 @property(nonatomic, strong, nullable) GTLRMonitoring_BasicAuthentication *authInfo;
 
@@ -3761,6 +3786,13 @@ FOUNDATION_EXTERN NSString * const kGTLRMonitoring_ValueDescriptor_ValueType_Val
  *        "POST")
  */
 @property(nonatomic, copy, nullable) NSString *requestMethod;
+
+/**
+ *  If specified, Uptime will generate and attach an OIDC JWT token for the
+ *  Monitoring service agent service account as an Authorization header in the
+ *  HTTP request when probing.
+ */
+@property(nonatomic, strong, nullable) GTLRMonitoring_ServiceAgentAuthentication *serviceAgentAuthentication;
 
 /**
  *  If true, use HTTPS instead of HTTP to run the check.
@@ -4038,6 +4070,28 @@ GTLR_DEPRECATED
  *  Uses NSNumber of doubleValue.
  */
 @property(nonatomic, strong, nullable) NSNumber *width;
+
+@end
+
+
+/**
+ *  Links to content such as playbooks, repositories, and other resources.
+ */
+@interface GTLRMonitoring_Link : GTLRObject
+
+/**
+ *  A short display name for the link. The display name must not be empty or
+ *  exceed 63 characters. Example: "playbook".
+ */
+@property(nonatomic, copy, nullable) NSString *displayName;
+
+/**
+ *  The url of a webpage. A url can be templatized by using variables in the
+ *  path or the query parameters. The total length of a URL should not exceed
+ *  2083 characters before and after variable expansion. Example:
+ *  "https://my_domain.com/playbook?name=${resource.name}"
+ */
+@property(nonatomic, copy, nullable) NSString *url;
 
 @end
 
@@ -5762,9 +5816,9 @@ GTLR_DEPRECATED
  *  names must be valid
  *  (https://prometheus.io/docs/concepts/data_model/#metric-names-and-labels).
  *  Label values can be templatized by using variables
- *  (https://cloud.google.com/monitoring/alerts/doc-variables). The only
- *  available variable names are the names of the labels in the PromQL result,
- *  including "__name__" and "value". "labels" may be empty.
+ *  (https://cloud.google.com/monitoring/alerts/doc-variables#doc-vars). The
+ *  only available variable names are the names of the labels in the PromQL
+ *  result, including "__name__" and "value". "labels" may be empty.
  */
 @property(nonatomic, strong, nullable) GTLRMonitoring_PrometheusQueryLanguageCondition_Labels *labels;
 
@@ -5795,9 +5849,9 @@ GTLR_DEPRECATED
  *  names must be valid
  *  (https://prometheus.io/docs/concepts/data_model/#metric-names-and-labels).
  *  Label values can be templatized by using variables
- *  (https://cloud.google.com/monitoring/alerts/doc-variables). The only
- *  available variable names are the names of the labels in the PromQL result,
- *  including "__name__" and "value". "labels" may be empty.
+ *  (https://cloud.google.com/monitoring/alerts/doc-variables#doc-vars). The
+ *  only available variable names are the names of the labels in the PromQL
+ *  result, including "__name__" and "value". "labels" may be empty.
  *
  *  @note This class is documented as having more properties of NSString. Use @c
  *        -additionalJSONKeys and @c -additionalPropertyForName: to get the list
@@ -6093,7 +6147,7 @@ GTLR_DEPRECATED
 @property(nonatomic, strong, nullable) GTLRMonitoring_MeshIstio *meshIstio;
 
 /**
- *  Resource name for this Service. The format is:
+ *  Identifier. Resource name for this Service. The format is:
  *  projects/[PROJECT_ID_OR_NUMBER]/services/[SERVICE_ID]
  */
 @property(nonatomic, copy, nullable) NSString *name;
@@ -6128,6 +6182,29 @@ GTLR_DEPRECATED
  *        fetch them all at once.
  */
 @interface GTLRMonitoring_Service_UserLabels : GTLRObject
+@end
+
+
+/**
+ *  Contains information needed for generating either an OpenID Connect token
+ *  (https://developers.google.com/identity/protocols/OpenIDConnect) or OAuth
+ *  token (https://developers.google.com/identity/protocols/oauth2). The token
+ *  will be generated for the Monitoring service agent service account.
+ */
+@interface GTLRMonitoring_ServiceAgentAuthentication : GTLRObject
+
+/**
+ *  Type of authentication.
+ *
+ *  Likely values:
+ *    @arg @c kGTLRMonitoring_ServiceAgentAuthentication_Type_OidcToken OIDC
+ *        Authentication (Value: "OIDC_TOKEN")
+ *    @arg @c kGTLRMonitoring_ServiceAgentAuthentication_Type_ServiceAgentAuthenticationTypeUnspecified
+ *        Default value, will result in OIDC Authentication. (Value:
+ *        "SERVICE_AGENT_AUTHENTICATION_TYPE_UNSPECIFIED")
+ */
+@property(nonatomic, copy, nullable) NSString *type;
+
 @end
 
 
@@ -6205,14 +6282,14 @@ GTLR_DEPRECATED
 
 /**
  *  The fraction of service that must be good in order for this objective to be
- *  met. 0 < goal <= 0.999.
+ *  met. 0 < goal <= 0.9999.
  *
  *  Uses NSNumber of doubleValue.
  */
 @property(nonatomic, strong, nullable) NSNumber *goal;
 
 /**
- *  Resource name for this ServiceLevelObjective. The format is:
+ *  Identifier. Resource name for this ServiceLevelObjective. The format is:
  *  projects/[PROJECT_ID_OR_NUMBER]/services/[SERVICE_ID]/serviceLevelObjectives/[SLO_NAME]
  */
 @property(nonatomic, copy, nullable) NSString *name;
@@ -6289,7 +6366,7 @@ GTLR_DEPRECATED
 @property(nonatomic, strong, nullable) GTLRMonitoring_TimeInterval *interval;
 
 /**
- *  Required. The name of the Snooze. The format is:
+ *  Required. Identifier. The name of the Snooze. The format is:
  *  projects/[PROJECT_ID_OR_NUMBER]/snoozes/[SNOOZE_ID] The ID of the Snooze
  *  will be generated by the system.
  */

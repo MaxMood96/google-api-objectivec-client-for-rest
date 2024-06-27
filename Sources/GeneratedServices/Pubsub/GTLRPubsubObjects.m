@@ -35,6 +35,7 @@ NSString * const kGTLRPubsub_CloudStorageConfig_State_Active   = @"ACTIVE";
 NSString * const kGTLRPubsub_CloudStorageConfig_State_InTransitLocationRestriction = @"IN_TRANSIT_LOCATION_RESTRICTION";
 NSString * const kGTLRPubsub_CloudStorageConfig_State_NotFound = @"NOT_FOUND";
 NSString * const kGTLRPubsub_CloudStorageConfig_State_PermissionDenied = @"PERMISSION_DENIED";
+NSString * const kGTLRPubsub_CloudStorageConfig_State_SchemaMismatch = @"SCHEMA_MISMATCH";
 NSString * const kGTLRPubsub_CloudStorageConfig_State_StateUnspecified = @"STATE_UNSPECIFIED";
 
 // GTLRPubsub_Schema.type
@@ -82,11 +83,21 @@ NSString * const kGTLRPubsub_ValidateMessageRequest_Encoding_Json = @"JSON";
 
 // ----------------------------------------------------------------------------
 //
+//   GTLRPubsub_AnalyticsHubSubscriptionInfo
+//
+
+@implementation GTLRPubsub_AnalyticsHubSubscriptionInfo
+@dynamic listing, subscription;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
 //   GTLRPubsub_AvroConfig
 //
 
 @implementation GTLRPubsub_AvroConfig
-@dynamic writeMetadata;
+@dynamic useTopicSchema, writeMetadata;
 @end
 
 
@@ -135,8 +146,9 @@ NSString * const kGTLRPubsub_ValidateMessageRequest_Encoding_Json = @"JSON";
 //
 
 @implementation GTLRPubsub_CloudStorageConfig
-@dynamic avroConfig, bucket, filenamePrefix, filenameSuffix, maxBytes,
-         maxDuration, serviceAccountEmail, state, textConfig;
+@dynamic avroConfig, bucket, filenameDatetimeFormat, filenamePrefix,
+         filenameSuffix, maxBytes, maxDuration, serviceAccountEmail, state,
+         textConfig;
 @end
 
 
@@ -692,11 +704,12 @@ NSString * const kGTLRPubsub_ValidateMessageRequest_Encoding_Json = @"JSON";
 //
 
 @implementation GTLRPubsub_Subscription
-@dynamic ackDeadlineSeconds, bigqueryConfig, cloudStorageConfig,
-         deadLetterPolicy, detached, enableExactlyOnceDelivery,
-         enableMessageOrdering, expirationPolicy, filter, labels,
-         messageRetentionDuration, name, pushConfig, retainAckedMessages,
-         retryPolicy, state, topic, topicMessageRetentionDuration;
+@dynamic ackDeadlineSeconds, analyticsHubSubscriptionInfo, bigqueryConfig,
+         cloudStorageConfig, deadLetterPolicy, detached,
+         enableExactlyOnceDelivery, enableMessageOrdering, expirationPolicy,
+         filter, labels, messageRetentionDuration, name, pushConfig,
+         retainAckedMessages, retryPolicy, state, topic,
+         topicMessageRetentionDuration;
 @end
 
 

@@ -52,6 +52,7 @@
 @class GTLRAndroidManagement_DeviceRadioState;
 @class GTLRAndroidManagement_DeviceSettings;
 @class GTLRAndroidManagement_Display;
+@class GTLRAndroidManagement_DisplaySettings;
 @class GTLRAndroidManagement_DnsEvent;
 @class GTLRAndroidManagement_DpcMigrationInfo;
 @class GTLRAndroidManagement_EnrollmentCompleteEvent;
@@ -62,6 +63,7 @@
 @class GTLRAndroidManagement_FilePulledEvent;
 @class GTLRAndroidManagement_FilePushedEvent;
 @class GTLRAndroidManagement_FreezePeriod;
+@class GTLRAndroidManagement_GoogleAuthenticationSettings;
 @class GTLRAndroidManagement_HardwareInfo;
 @class GTLRAndroidManagement_HardwareStatus;
 @class GTLRAndroidManagement_InstallConstraint;
@@ -115,6 +117,8 @@
 @class GTLRAndroidManagement_PowerManagementEvent;
 @class GTLRAndroidManagement_ProxyInfo;
 @class GTLRAndroidManagement_RemoteLockEvent;
+@class GTLRAndroidManagement_ScreenBrightnessSettings;
+@class GTLRAndroidManagement_ScreenTimeoutSettings;
 @class GTLRAndroidManagement_SecurityPosture;
 @class GTLRAndroidManagement_SetupAction;
 @class GTLRAndroidManagement_SigninDetail;
@@ -139,6 +143,8 @@
 @class GTLRAndroidManagement_UserFacingMessage_LocalizedMessages;
 @class GTLRAndroidManagement_WebApp;
 @class GTLRAndroidManagement_WebAppIcon;
+@class GTLRAndroidManagement_WifiSsid;
+@class GTLRAndroidManagement_WifiSsidPolicy;
 @class GTLRAndroidManagement_WipeAction;
 @class GTLRAndroidManagement_WipeFailureEvent;
 
@@ -501,8 +507,9 @@ FOUNDATION_EXTERN NSString * const kGTLRAndroidManagement_ApplicationPolicy_Alwa
 FOUNDATION_EXTERN NSString * const kGTLRAndroidManagement_ApplicationPolicy_AutoUpdateMode_AutoUpdateDefault;
 /**
  *  The app is updated as soon as possible. No constraints are applied.The
- *  device is notified immediately about a new update after it becomes
- *  available.
+ *  device is notified as soon as possible about a new update after it becomes
+ *  available.*NOTE:* Updates to apps with larger deployments across Android's
+ *  ecosystem can take up to 24h.
  *
  *  Value: "AUTO_UPDATE_HIGH_PRIORITY"
  */
@@ -759,6 +766,34 @@ FOUNDATION_EXTERN NSString * const kGTLRAndroidManagement_ApplicationPolicy_Inst
  *  Value: "REQUIRED_FOR_SETUP"
  */
 FOUNDATION_EXTERN NSString * const kGTLRAndroidManagement_ApplicationPolicy_InstallType_RequiredForSetup;
+
+// ----------------------------------------------------------------------------
+// GTLRAndroidManagement_ApplicationPolicy.userControlSettings
+
+/**
+ *  User control is allowed for the app. Kiosk apps can use this to allow user
+ *  control.
+ *
+ *  Value: "USER_CONTROL_ALLOWED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAndroidManagement_ApplicationPolicy_UserControlSettings_UserControlAllowed;
+/**
+ *  User control is disallowed for the app. API_LEVEL is reported if the Android
+ *  version is less than 11.
+ *
+ *  Value: "USER_CONTROL_DISALLOWED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAndroidManagement_ApplicationPolicy_UserControlSettings_UserControlDisallowed;
+/**
+ *  Uses the default behaviour of the app to determine if user control is
+ *  allowed or disallowed. For most apps, user control is allowed by default,
+ *  but for some critical apps such as companion apps (extensionConfig set to
+ *  true), kiosk apps and other critical system apps, user control is
+ *  disallowed.
+ *
+ *  Value: "USER_CONTROL_SETTINGS_UNSPECIFIED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAndroidManagement_ApplicationPolicy_UserControlSettings_UserControlSettingsUnspecified;
 
 // ----------------------------------------------------------------------------
 // GTLRAndroidManagement_ApplicationPolicy.workProfileWidgets
@@ -1176,6 +1211,17 @@ FOUNDATION_EXTERN NSString * const kGTLRAndroidManagement_CrossProfilePolicies_W
  */
 FOUNDATION_EXTERN NSString * const kGTLRAndroidManagement_Device_AppliedState_Active;
 /**
+ *  This is a financed device that has been "locked" by the financing agent.
+ *  This means certain policy settings have been applied which limit device
+ *  functionality until the device has been "unlocked" by the financing agent.
+ *  The device will continue to apply policy settings excluding those overridden
+ *  by the financing agent. When the device is "locked", the state is reported
+ *  in appliedState as DEACTIVATED_BY_DEVICE_FINANCE.
+ *
+ *  Value: "DEACTIVATED_BY_DEVICE_FINANCE"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAndroidManagement_Device_AppliedState_DeactivatedByDeviceFinance;
+/**
  *  The device was deleted. This state is never returned by an API call, but is
  *  used in the final status report when the device acknowledges the deletion.
  *  If the device is deleted via the API call, this state is published to
@@ -1273,6 +1319,17 @@ FOUNDATION_EXTERN NSString * const kGTLRAndroidManagement_Device_Ownership_Perso
  *  Value: "ACTIVE"
  */
 FOUNDATION_EXTERN NSString * const kGTLRAndroidManagement_Device_State_Active;
+/**
+ *  This is a financed device that has been "locked" by the financing agent.
+ *  This means certain policy settings have been applied which limit device
+ *  functionality until the device has been "unlocked" by the financing agent.
+ *  The device will continue to apply policy settings excluding those overridden
+ *  by the financing agent. When the device is "locked", the state is reported
+ *  in appliedState as DEACTIVATED_BY_DEVICE_FINANCE.
+ *
+ *  Value: "DEACTIVATED_BY_DEVICE_FINANCE"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAndroidManagement_Device_State_DeactivatedByDeviceFinance;
 /**
  *  The device was deleted. This state is never returned by an API call, but is
  *  used in the final status report when the device acknowledges the deletion.
@@ -1429,9 +1486,7 @@ FOUNDATION_EXTERN NSString * const kGTLRAndroidManagement_DeviceConnectivityMana
  */
 FOUNDATION_EXTERN NSString * const kGTLRAndroidManagement_DeviceConnectivityManagement_UsbDataAccess_DisallowUsbFileTransfer;
 /**
- *  Unspecified. Defaults to ALLOW_USB_DATA_TRANSFER, unless
- *  usbFileTransferDisabled is set to true. If usbFileTransferDisabled is set to
- *  true, this is equivalent to DISALLOW_USB_FILE_TRANSFER.
+ *  Unspecified. Defaults to DISALLOW_USB_FILE_TRANSFER.
  *
  *  Value: "USB_DATA_ACCESS_UNSPECIFIED"
  */
@@ -1511,6 +1566,16 @@ FOUNDATION_EXTERN NSString * const kGTLRAndroidManagement_DeviceRadioState_Cellu
 // ----------------------------------------------------------------------------
 // GTLRAndroidManagement_DeviceRadioState.minimumWifiSecurityLevel
 
+/**
+ *  A 192-bit enterprise network is the minimum required security level. The
+ *  device will not be able to connect to Wi-Fi network below this security
+ *  level. This is stricter than ENTERPRISE_NETWORK_SECURITY. A
+ *  nonComplianceDetail with API_LEVEL is reported if the Android version is
+ *  less than 13.
+ *
+ *  Value: "ENTERPRISE_BIT192_NETWORK_SECURITY"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAndroidManagement_DeviceRadioState_MinimumWifiSecurityLevel_EnterpriseBit192NetworkSecurity;
 /**
  *  An enterprise EAP network is the minimum required security level. The device
  *  will not be able to connect to Wi-Fi network below this security level. This
@@ -1700,6 +1765,13 @@ FOUNDATION_EXTERN NSString * const kGTLRAndroidManagement_EnrollmentToken_AllowP
  *  Value: "PERSONAL_USAGE_DISALLOWED"
  */
 FOUNDATION_EXTERN NSString * const kGTLRAndroidManagement_EnrollmentToken_AllowPersonalUsage_PersonalUsageDisallowed;
+/**
+ *  Device is not associated with a single user, and thus both personal usage
+ *  and corporate identity authentication are not expected.
+ *
+ *  Value: "PERSONAL_USAGE_DISALLOWED_USERLESS"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAndroidManagement_EnrollmentToken_AllowPersonalUsage_PersonalUsageDisallowedUserless;
 
 // ----------------------------------------------------------------------------
 // GTLRAndroidManagement_Enterprise.enabledNotificationTypes
@@ -1740,6 +1812,28 @@ FOUNDATION_EXTERN NSString * const kGTLRAndroidManagement_Enterprise_EnabledNoti
  *  Value: "USAGE_LOGS"
  */
 FOUNDATION_EXTERN NSString * const kGTLRAndroidManagement_Enterprise_EnabledNotificationTypes_UsageLogs;
+
+// ----------------------------------------------------------------------------
+// GTLRAndroidManagement_GoogleAuthenticationSettings.googleAuthenticationRequired
+
+/**
+ *  This value is not used.
+ *
+ *  Value: "GOOGLE_AUTHENTICATION_REQUIRED_UNSPECIFIED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAndroidManagement_GoogleAuthenticationSettings_GoogleAuthenticationRequired_GoogleAuthenticationRequiredUnspecified;
+/**
+ *  Google authentication is not required.
+ *
+ *  Value: "NOT_REQUIRED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAndroidManagement_GoogleAuthenticationSettings_GoogleAuthenticationRequired_NotRequired;
+/**
+ *  User is required to be successfully authenticated by Google.
+ *
+ *  Value: "REQUIRED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAndroidManagement_GoogleAuthenticationSettings_GoogleAuthenticationRequired_Required;
 
 // ----------------------------------------------------------------------------
 // GTLRAndroidManagement_InstallConstraint.chargingConstraint
@@ -3438,6 +3532,70 @@ FOUNDATION_EXTERN NSString * const kGTLRAndroidManagement_ProvisioningInfo_Owner
 FOUNDATION_EXTERN NSString * const kGTLRAndroidManagement_ProvisioningInfo_Ownership_PersonallyOwned;
 
 // ----------------------------------------------------------------------------
+// GTLRAndroidManagement_ScreenBrightnessSettings.screenBrightnessMode
+
+/**
+ *  The screen brightness mode is automatic in which the brightness is
+ *  automatically adjusted and the user is not allowed to configure the screen
+ *  brightness. screenBrightness can still be set and it is taken into account
+ *  while the brightness is automatically adjusted. Supported on Android 9 and
+ *  above on fully managed devices. A NonComplianceDetail with API_LEVEL is
+ *  reported if the Android version is less than 9.
+ *
+ *  Value: "BRIGHTNESS_AUTOMATIC"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAndroidManagement_ScreenBrightnessSettings_ScreenBrightnessMode_BrightnessAutomatic;
+/**
+ *  The screen brightness mode is fixed in which the brightness is set to
+ *  screenBrightness and the user is not allowed to configure the screen
+ *  brightness. screenBrightness must be set. Supported on Android 9 and above
+ *  on fully managed devices. A NonComplianceDetail with API_LEVEL is reported
+ *  if the Android version is less than 9.
+ *
+ *  Value: "BRIGHTNESS_FIXED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAndroidManagement_ScreenBrightnessSettings_ScreenBrightnessMode_BrightnessFixed;
+/**
+ *  The user is allowed to configure the screen brightness. screenBrightness
+ *  must not be set.
+ *
+ *  Value: "BRIGHTNESS_USER_CHOICE"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAndroidManagement_ScreenBrightnessSettings_ScreenBrightnessMode_BrightnessUserChoice;
+/**
+ *  Unspecified. Defaults to BRIGHTNESS_USER_CHOICE.
+ *
+ *  Value: "SCREEN_BRIGHTNESS_MODE_UNSPECIFIED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAndroidManagement_ScreenBrightnessSettings_ScreenBrightnessMode_ScreenBrightnessModeUnspecified;
+
+// ----------------------------------------------------------------------------
+// GTLRAndroidManagement_ScreenTimeoutSettings.screenTimeoutMode
+
+/**
+ *  The screen timeout is set to screenTimeout and the user is not allowed to
+ *  configure the timeout. screenTimeout must be set. Supported on Android 9 and
+ *  above on fully managed devices. A NonComplianceDetail with API_LEVEL is
+ *  reported if the Android version is less than 9.
+ *
+ *  Value: "SCREEN_TIMEOUT_ENFORCED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAndroidManagement_ScreenTimeoutSettings_ScreenTimeoutMode_ScreenTimeoutEnforced;
+/**
+ *  Unspecified. Defaults to SCREEN_TIMEOUT_USER_CHOICE.
+ *
+ *  Value: "SCREEN_TIMEOUT_MODE_UNSPECIFIED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAndroidManagement_ScreenTimeoutSettings_ScreenTimeoutMode_ScreenTimeoutModeUnspecified;
+/**
+ *  The user is allowed to configure the screen timeout. screenTimeout must not
+ *  be set.
+ *
+ *  Value: "SCREEN_TIMEOUT_USER_CHOICE"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAndroidManagement_ScreenTimeoutSettings_ScreenTimeoutMode_ScreenTimeoutUserChoice;
+
+// ----------------------------------------------------------------------------
 // GTLRAndroidManagement_SecurityPosture.devicePosture
 
 /**
@@ -3488,6 +3646,13 @@ FOUNDATION_EXTERN NSString * const kGTLRAndroidManagement_SigninDetail_AllowPers
  *  Value: "PERSONAL_USAGE_DISALLOWED"
  */
 FOUNDATION_EXTERN NSString * const kGTLRAndroidManagement_SigninDetail_AllowPersonalUsage_PersonalUsageDisallowed;
+/**
+ *  Device is not associated with a single user, and thus both personal usage
+ *  and corporate identity authentication are not expected.
+ *
+ *  Value: "PERSONAL_USAGE_DISALLOWED_USERLESS"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAndroidManagement_SigninDetail_AllowPersonalUsage_PersonalUsageDisallowedUserless;
 
 // ----------------------------------------------------------------------------
 // GTLRAndroidManagement_StartLostModeStatus.status
@@ -4004,6 +4169,32 @@ FOUNDATION_EXTERN NSString * const kGTLRAndroidManagement_WebToken_Permissions_A
  */
 FOUNDATION_EXTERN NSString * const kGTLRAndroidManagement_WebToken_Permissions_WebTokenPermissionUnspecified;
 
+// ----------------------------------------------------------------------------
+// GTLRAndroidManagement_WifiSsidPolicy.wifiSsidPolicyType
+
+/**
+ *  The device can make Wi-Fi connections only to the SSIDs in wifiSsids.
+ *  wifiSsids must not be empty. The device will not be able to connect to any
+ *  other Wi-Fi network.
+ *
+ *  Value: "WIFI_SSID_ALLOWLIST"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAndroidManagement_WifiSsidPolicy_WifiSsidPolicyType_WifiSsidAllowlist;
+/**
+ *  The device cannot connect to any Wi-Fi network whose SSID is in wifiSsids,
+ *  but can connect to other networks.
+ *
+ *  Value: "WIFI_SSID_DENYLIST"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAndroidManagement_WifiSsidPolicy_WifiSsidPolicyType_WifiSsidDenylist;
+/**
+ *  Defaults to WIFI_SSID_DENYLIST. wifiSsids must not be set. There are no
+ *  restrictions on which SSID the device can connect to.
+ *
+ *  Value: "WIFI_SSID_POLICY_TYPE_UNSPECIFIED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAndroidManagement_WifiSsidPolicy_WifiSsidPolicyType_WifiSsidPolicyTypeUnspecified;
+
 /**
  *  A shell command was issued over ADB via “adb shell command”.
  */
@@ -4454,8 +4645,10 @@ GTLR_DEPRECATED
  *        time the constraints above are met. (Value: "AUTO_UPDATE_DEFAULT")
  *    @arg @c kGTLRAndroidManagement_ApplicationPolicy_AutoUpdateMode_AutoUpdateHighPriority
  *        The app is updated as soon as possible. No constraints are applied.The
- *        device is notified immediately about a new update after it becomes
- *        available. (Value: "AUTO_UPDATE_HIGH_PRIORITY")
+ *        device is notified as soon as possible about a new update after it
+ *        becomes available.*NOTE:* Updates to apps with larger deployments
+ *        across Android's ecosystem can take up to 24h. (Value:
+ *        "AUTO_UPDATE_HIGH_PRIORITY")
  *    @arg @c kGTLRAndroidManagement_ApplicationPolicy_AutoUpdateMode_AutoUpdateModeUnspecified
  *        Unspecified. Defaults to AUTO_UPDATE_DEFAULT. (Value:
  *        "AUTO_UPDATE_MODE_UNSPECIFIED")
@@ -4660,6 +4853,28 @@ GTLR_DEPRECATED
  *  default_permission_policy and permission_grants which apply to all apps.
  */
 @property(nonatomic, strong, nullable) NSArray<GTLRAndroidManagement_PermissionGrant *> *permissionGrants;
+
+/**
+ *  Optional. Specifies whether user control is permitted for the app. User
+ *  control includes user actions like force-stopping and clearing app data.
+ *  Supported on Android 11 and above.
+ *
+ *  Likely values:
+ *    @arg @c kGTLRAndroidManagement_ApplicationPolicy_UserControlSettings_UserControlAllowed
+ *        User control is allowed for the app. Kiosk apps can use this to allow
+ *        user control. (Value: "USER_CONTROL_ALLOWED")
+ *    @arg @c kGTLRAndroidManagement_ApplicationPolicy_UserControlSettings_UserControlDisallowed
+ *        User control is disallowed for the app. API_LEVEL is reported if the
+ *        Android version is less than 11. (Value: "USER_CONTROL_DISALLOWED")
+ *    @arg @c kGTLRAndroidManagement_ApplicationPolicy_UserControlSettings_UserControlSettingsUnspecified
+ *        Uses the default behaviour of the app to determine if user control is
+ *        allowed or disallowed. For most apps, user control is allowed by
+ *        default, but for some critical apps such as companion apps
+ *        (extensionConfig set to true), kiosk apps and other critical system
+ *        apps, user control is disallowed. (Value:
+ *        "USER_CONTROL_SETTINGS_UNSPECIFIED")
+ */
+@property(nonatomic, copy, nullable) NSString *userControlSettings;
 
 /**
  *  Specifies whether the app installed in the work profile is allowed to add
@@ -4927,7 +5142,7 @@ GTLR_DEPRECATED
 @interface GTLRAndroidManagement_BatchUsageLogEvents : GTLRObject
 
 /**
- *  The name of the device in the form
+ *  If present, the name of the device in the form
  *  ‘enterprises/{enterpriseId}/devices/{deviceId}’
  */
 @property(nonatomic, copy, nullable) NSString *device;
@@ -4945,7 +5160,7 @@ GTLR_DEPRECATED
 @property(nonatomic, strong, nullable) NSArray<GTLRAndroidManagement_UsageLogEvent *> *usageLogEvents;
 
 /**
- *  The resource name of the user that owns this device in the form
+ *  If present, the resource name of the user that owns this device in the form
  *  ‘enterprises/{enterpriseId}/users/{userId}’.
  */
 @property(nonatomic, copy, nullable) NSString *user;
@@ -5675,6 +5890,15 @@ GTLR_DEPRECATED
  *  Likely values:
  *    @arg @c kGTLRAndroidManagement_Device_AppliedState_Active The device is
  *        active. (Value: "ACTIVE")
+ *    @arg @c kGTLRAndroidManagement_Device_AppliedState_DeactivatedByDeviceFinance
+ *        This is a financed device that has been "locked" by the financing
+ *        agent. This means certain policy settings have been applied which
+ *        limit device functionality until the device has been "unlocked" by the
+ *        financing agent. The device will continue to apply policy settings
+ *        excluding those overridden by the financing agent. When the device is
+ *        "locked", the state is reported in appliedState as
+ *        DEACTIVATED_BY_DEVICE_FINANCE. (Value:
+ *        "DEACTIVATED_BY_DEVICE_FINANCE")
  *    @arg @c kGTLRAndroidManagement_Device_AppliedState_Deleted The device was
  *        deleted. This state is never returned by an API call, but is used in
  *        the final status report when the device acknowledges the deletion. If
@@ -5872,6 +6096,15 @@ GTLR_DEPRECATED
  *  Likely values:
  *    @arg @c kGTLRAndroidManagement_Device_State_Active The device is active.
  *        (Value: "ACTIVE")
+ *    @arg @c kGTLRAndroidManagement_Device_State_DeactivatedByDeviceFinance
+ *        This is a financed device that has been "locked" by the financing
+ *        agent. This means certain policy settings have been applied which
+ *        limit device functionality until the device has been "unlocked" by the
+ *        financing agent. The device will continue to apply policy settings
+ *        excluding those overridden by the financing agent. When the device is
+ *        "locked", the state is reported in appliedState as
+ *        DEACTIVATED_BY_DEVICE_FINANCE. (Value:
+ *        "DEACTIVATED_BY_DEVICE_FINANCE")
  *    @arg @c kGTLRAndroidManagement_Device_State_Deleted The device was
  *        deleted. This state is never returned by an API call, but is used in
  *        the final status report when the device acknowledges the deletion. If
@@ -6020,9 +6253,7 @@ GTLR_DEPRECATED
  *        usbFileTransferDisabled is ignored. (Value:
  *        "DISALLOW_USB_FILE_TRANSFER")
  *    @arg @c kGTLRAndroidManagement_DeviceConnectivityManagement_UsbDataAccess_UsbDataAccessUnspecified
- *        Unspecified. Defaults to ALLOW_USB_DATA_TRANSFER, unless
- *        usbFileTransferDisabled is set to true. If usbFileTransferDisabled is
- *        set to true, this is equivalent to DISALLOW_USB_FILE_TRANSFER. (Value:
+ *        Unspecified. Defaults to DISALLOW_USB_FILE_TRANSFER. (Value:
  *        "USB_DATA_ACCESS_UNSPECIFIED")
  */
 @property(nonatomic, copy, nullable) NSString *usbDataAccess;
@@ -6043,6 +6274,13 @@ GTLR_DEPRECATED
  *        "WIFI_DIRECT_SETTINGS_UNSPECIFIED")
  */
 @property(nonatomic, copy, nullable) NSString *wifiDirectSettings;
+
+/**
+ *  Restrictions on which Wi-Fi SSIDs the device can connect to. Note that this
+ *  does not affect which networks can be configured on the device. Supported on
+ *  company-owned devices running Android 13 and above.
+ */
+@property(nonatomic, strong, nullable) GTLRAndroidManagement_WifiSsidPolicy *wifiSsidPolicy;
 
 @end
 
@@ -6092,6 +6330,12 @@ GTLR_DEPRECATED
  *  connect to.
  *
  *  Likely values:
+ *    @arg @c kGTLRAndroidManagement_DeviceRadioState_MinimumWifiSecurityLevel_EnterpriseBit192NetworkSecurity
+ *        A 192-bit enterprise network is the minimum required security level.
+ *        The device will not be able to connect to Wi-Fi network below this
+ *        security level. This is stricter than ENTERPRISE_NETWORK_SECURITY. A
+ *        nonComplianceDetail with API_LEVEL is reported if the Android version
+ *        is less than 13. (Value: "ENTERPRISE_BIT192_NETWORK_SECURITY")
  *    @arg @c kGTLRAndroidManagement_DeviceRadioState_MinimumWifiSecurityLevel_EnterpriseNetworkSecurity
  *        An enterprise EAP network is the minimum required security level. The
  *        device will not be able to connect to Wi-Fi network below this
@@ -6300,6 +6544,20 @@ GTLR_DEPRECATED
 
 
 /**
+ *  Controls for the display settings.
+ */
+@interface GTLRAndroidManagement_DisplaySettings : GTLRObject
+
+/** Optional. Controls the screen brightness settings. */
+@property(nonatomic, strong, nullable) GTLRAndroidManagement_ScreenBrightnessSettings *screenBrightnessSettings;
+
+/** Optional. Controls the screen timeout settings. */
+@property(nonatomic, strong, nullable) GTLRAndroidManagement_ScreenTimeoutSettings *screenTimeoutSettings;
+
+@end
+
+
+/**
  *  A DNS lookup event was initiated through the standard network stack.
  */
 @interface GTLRAndroidManagement_DnsEvent : GTLRObject
@@ -6399,6 +6657,10 @@ GTLR_DEPRECATED
  *        Personal usage is allowed (Value: "PERSONAL_USAGE_ALLOWED")
  *    @arg @c kGTLRAndroidManagement_EnrollmentToken_AllowPersonalUsage_PersonalUsageDisallowed
  *        Personal usage is disallowed (Value: "PERSONAL_USAGE_DISALLOWED")
+ *    @arg @c kGTLRAndroidManagement_EnrollmentToken_AllowPersonalUsage_PersonalUsageDisallowedUserless
+ *        Device is not associated with a single user, and thus both personal
+ *        usage and corporate identity authentication are not expected. (Value:
+ *        "PERSONAL_USAGE_DISALLOWED_USERLESS")
  */
 @property(nonatomic, copy, nullable) NSString *allowPersonalUsage;
 
@@ -6454,13 +6716,8 @@ GTLR_DEPRECATED
  */
 @property(nonatomic, copy, nullable) NSString *qrCode;
 
-/**
- *  The user associated with this enrollment token. If it's specified when the
- *  enrollment token is created and the user does not exist, the user will be
- *  created. This field must not contain personally identifiable information.
- *  Only the account_identifier field needs to be set.
- */
-@property(nonatomic, strong, nullable) GTLRAndroidManagement_User *user;
+/** This field is deprecated and the value is ignored. */
+@property(nonatomic, strong, nullable) GTLRAndroidManagement_User *user GTLR_DEPRECATED;
 
 /**
  *  The token value that's passed to the device and authorizes the device to
@@ -6494,6 +6751,9 @@ GTLR_DEPRECATED
  *  length of 100 characters.
  */
 @property(nonatomic, copy, nullable) NSString *enterpriseDisplayName;
+
+/** Settings for Google-provided user authentication. */
+@property(nonatomic, strong, nullable) GTLRAndroidManagement_GoogleAuthenticationSettings *googleAuthenticationSettings;
 
 /**
  *  An image displayed as a logo during device provisioning. Supported types
@@ -6545,9 +6805,7 @@ GTLR_DEPRECATED
  *  (https://developer.android.com/topic/performance/appstandby#restricted-bucket).
  *  Extensions apps are also protected against users clearing their data or
  *  force-closing the application, although admins can continue to use the clear
- *  app data command
- *  (https://developer.android.com/management/reference/rest/v1/enterprises.devices/issueCommand#CommandType)
- *  on extension apps if needed for Android 13 and above.
+ *  app data command on extension apps if needed for Android 13 and above.
  */
 @interface GTLRAndroidManagement_ExtensionConfig : GTLRObject
 
@@ -6649,6 +6907,35 @@ GTLR_DEPRECATED
  *  For example, {"month": 1,"date": 30}.
  */
 @property(nonatomic, strong, nullable) GTLRAndroidManagement_Date *startDate;
+
+@end
+
+
+/**
+ *  Contains settings for Google-provided user authentication.
+ */
+@interface GTLRAndroidManagement_GoogleAuthenticationSettings : GTLRObject
+
+/**
+ *  Output only. Whether users need to be authenticated by Google during the
+ *  enrollment process. IT admin can specify if Google authentication is enabled
+ *  for the enterprise for knowledge worker devices. This value can be set only
+ *  via the Google Admin Console. Google authentication can be used with
+ *  signin_url In the case where Google authentication is required and a
+ *  signin_url is specified, Google authentication will be launched before
+ *  signin_url.
+ *
+ *  Likely values:
+ *    @arg @c kGTLRAndroidManagement_GoogleAuthenticationSettings_GoogleAuthenticationRequired_GoogleAuthenticationRequiredUnspecified
+ *        This value is not used. (Value:
+ *        "GOOGLE_AUTHENTICATION_REQUIRED_UNSPECIFIED")
+ *    @arg @c kGTLRAndroidManagement_GoogleAuthenticationSettings_GoogleAuthenticationRequired_NotRequired
+ *        Google authentication is not required. (Value: "NOT_REQUIRED")
+ *    @arg @c kGTLRAndroidManagement_GoogleAuthenticationSettings_GoogleAuthenticationRequired_Required
+ *        User is required to be successfully authenticated by Google. (Value:
+ *        "REQUIRED")
+ */
+@property(nonatomic, copy, nullable) NSString *googleAuthenticationRequired;
 
 @end
 
@@ -7638,7 +7925,9 @@ GTLR_DEPRECATED
 /**
  *  A token to initiate the migration of a device from being managed by a
  *  third-party DPC to being managed by Android Management API. A migration
- *  token is valid only for a single device.
+ *  token is valid only for a single device. See the guide
+ *  (https://developers.google.com/android/management/dpc-migration) for more
+ *  details.
  */
 @interface GTLRAndroidManagement_MigrationToken : GTLRObject
 
@@ -8911,6 +9200,9 @@ GTLR_DEPRECATED
 /** Covers controls for radio state such as Wi-Fi, bluetooth, and more. */
 @property(nonatomic, strong, nullable) GTLRAndroidManagement_DeviceRadioState *deviceRadioState;
 
+/** Optional. Controls for the display settings. */
+@property(nonatomic, strong, nullable) GTLRAndroidManagement_DisplaySettings *displaySettings;
+
 /**
  *  Whether encryption is enabled
  *
@@ -9378,7 +9670,12 @@ GTLR_DEPRECATED
 /**
  *  The system update policy, which controls how OS updates are applied. If the
  *  update type is WINDOWED, the update window will automatically apply to Play
- *  app updates as well.
+ *  app updates as well.Note: Google Play system updates
+ *  (https://source.android.com/docs/core/ota/modular-system) (also called
+ *  Mainline updates) are automatically downloaded and require a device reboot
+ *  to be installed. Refer to the mainline section in Manage system updates
+ *  (https://developer.android.com/work/dpc/system-updates#mainline) for further
+ *  details.
  */
 @property(nonatomic, strong, nullable) GTLRAndroidManagement_SystemUpdate *systemUpdate;
 
@@ -9608,11 +9905,23 @@ GTLR_DEPRECATED
  */
 @property(nonatomic, strong, nullable) NSNumber *apiLevel;
 
+/**
+ *  The email address of the authenticated user (only present for Google Account
+ *  provisioning method).
+ */
+@property(nonatomic, copy, nullable) NSString *authenticatedUserEmail;
+
 /** The brand of the device. For example, Google. */
 @property(nonatomic, copy, nullable) NSString *brand;
 
 /** The name of the enterprise in the form enterprises/{enterprise}. */
 @property(nonatomic, copy, nullable) NSString *enterprise;
+
+/**
+ *  For corporate-owned devices, IMEI number of the GSM device. For example,
+ *  A1000031212.
+ */
+@property(nonatomic, copy, nullable) NSString *imei;
 
 /**
  *  The management mode of the device or profile.
@@ -9628,6 +9937,12 @@ GTLR_DEPRECATED
  *        profile on the device. (Value: "PROFILE_OWNER")
  */
 @property(nonatomic, copy, nullable) NSString *managementMode;
+
+/**
+ *  For corporate-owned devices, MEID number of the CDMA device. For example,
+ *  A00000292788E1.
+ */
+@property(nonatomic, copy, nullable) NSString *meid;
 
 /** The model of the device. For example, Asus Nexus 7. */
 @property(nonatomic, copy, nullable) NSString *model;
@@ -9649,6 +9964,9 @@ GTLR_DEPRECATED
  *        Device is personally-owned. (Value: "PERSONALLY_OWNED")
  */
 @property(nonatomic, copy, nullable) NSString *ownership;
+
+/** For corporate-owned devices, The device serial number. */
+@property(nonatomic, copy, nullable) NSString *serialNumber;
 
 @end
 
@@ -9703,6 +10021,96 @@ GTLR_DEPRECATED
  *  Uses NSNumber of intValue.
  */
 @property(nonatomic, strong, nullable) NSNumber *targetUserId;
+
+@end
+
+
+/**
+ *  Controls for the screen brightness settings.
+ */
+@interface GTLRAndroidManagement_ScreenBrightnessSettings : GTLRObject
+
+/**
+ *  Optional. The screen brightness between 1 and 255 where 1 is the lowest and
+ *  255 is the highest brightness. A value of 0 (default) means no screen
+ *  brightness set. Any other value is rejected. screenBrightnessMode must be
+ *  either BRIGHTNESS_AUTOMATIC or BRIGHTNESS_FIXED to set this. Supported on
+ *  Android 9 and above on fully managed devices. A NonComplianceDetail with
+ *  API_LEVEL is reported if the Android version is less than 9.
+ *
+ *  Uses NSNumber of intValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *screenBrightness;
+
+/**
+ *  Optional. Controls the screen brightness mode.
+ *
+ *  Likely values:
+ *    @arg @c kGTLRAndroidManagement_ScreenBrightnessSettings_ScreenBrightnessMode_BrightnessAutomatic
+ *        The screen brightness mode is automatic in which the brightness is
+ *        automatically adjusted and the user is not allowed to configure the
+ *        screen brightness. screenBrightness can still be set and it is taken
+ *        into account while the brightness is automatically adjusted. Supported
+ *        on Android 9 and above on fully managed devices. A NonComplianceDetail
+ *        with API_LEVEL is reported if the Android version is less than 9.
+ *        (Value: "BRIGHTNESS_AUTOMATIC")
+ *    @arg @c kGTLRAndroidManagement_ScreenBrightnessSettings_ScreenBrightnessMode_BrightnessFixed
+ *        The screen brightness mode is fixed in which the brightness is set to
+ *        screenBrightness and the user is not allowed to configure the screen
+ *        brightness. screenBrightness must be set. Supported on Android 9 and
+ *        above on fully managed devices. A NonComplianceDetail with API_LEVEL
+ *        is reported if the Android version is less than 9. (Value:
+ *        "BRIGHTNESS_FIXED")
+ *    @arg @c kGTLRAndroidManagement_ScreenBrightnessSettings_ScreenBrightnessMode_BrightnessUserChoice
+ *        The user is allowed to configure the screen brightness.
+ *        screenBrightness must not be set. (Value: "BRIGHTNESS_USER_CHOICE")
+ *    @arg @c kGTLRAndroidManagement_ScreenBrightnessSettings_ScreenBrightnessMode_ScreenBrightnessModeUnspecified
+ *        Unspecified. Defaults to BRIGHTNESS_USER_CHOICE. (Value:
+ *        "SCREEN_BRIGHTNESS_MODE_UNSPECIFIED")
+ */
+@property(nonatomic, copy, nullable) NSString *screenBrightnessMode;
+
+@end
+
+
+/**
+ *  Controls the screen timeout settings.
+ */
+@interface GTLRAndroidManagement_ScreenTimeoutSettings : GTLRObject
+
+/**
+ *  Optional. Controls the screen timeout duration. The screen timeout duration
+ *  must be greater than 0, otherwise it is rejected. Additionally, it should
+ *  not be greater than maximumTimeToLock, otherwise the screen timeout is set
+ *  to maximumTimeToLock and a NonComplianceDetail with INVALID_VALUE reason and
+ *  SCREEN_TIMEOUT_GREATER_THAN_MAXIMUM_TIME_TO_LOCK specific reason is
+ *  reported. If the screen timeout is less than a certain lower bound, it is
+ *  set to the lower bound. The lower bound may vary across devices. If this is
+ *  set, screenTimeoutMode must be SCREEN_TIMEOUT_ENFORCED. Supported on Android
+ *  9 and above on fully managed devices. A NonComplianceDetail with API_LEVEL
+ *  is reported if the Android version is less than 9.
+ */
+@property(nonatomic, strong, nullable) GTLRDuration *screenTimeout;
+
+/**
+ *  Optional. Controls whether the user is allowed to configure the screen
+ *  timeout.
+ *
+ *  Likely values:
+ *    @arg @c kGTLRAndroidManagement_ScreenTimeoutSettings_ScreenTimeoutMode_ScreenTimeoutEnforced
+ *        The screen timeout is set to screenTimeout and the user is not allowed
+ *        to configure the timeout. screenTimeout must be set. Supported on
+ *        Android 9 and above on fully managed devices. A NonComplianceDetail
+ *        with API_LEVEL is reported if the Android version is less than 9.
+ *        (Value: "SCREEN_TIMEOUT_ENFORCED")
+ *    @arg @c kGTLRAndroidManagement_ScreenTimeoutSettings_ScreenTimeoutMode_ScreenTimeoutModeUnspecified
+ *        Unspecified. Defaults to SCREEN_TIMEOUT_USER_CHOICE. (Value:
+ *        "SCREEN_TIMEOUT_MODE_UNSPECIFIED")
+ *    @arg @c kGTLRAndroidManagement_ScreenTimeoutSettings_ScreenTimeoutMode_ScreenTimeoutUserChoice
+ *        The user is allowed to configure the screen timeout. screenTimeout
+ *        must not be set. (Value: "SCREEN_TIMEOUT_USER_CHOICE")
+ */
+@property(nonatomic, copy, nullable) NSString *screenTimeoutMode;
 
 @end
 
@@ -9804,6 +10212,10 @@ GTLR_DEPRECATED
  *        Personal usage is allowed (Value: "PERSONAL_USAGE_ALLOWED")
  *    @arg @c kGTLRAndroidManagement_SigninDetail_AllowPersonalUsage_PersonalUsageDisallowed
  *        Personal usage is disallowed (Value: "PERSONAL_USAGE_DISALLOWED")
+ *    @arg @c kGTLRAndroidManagement_SigninDetail_AllowPersonalUsage_PersonalUsageDisallowedUserless
+ *        Device is not associated with a single user, and thus both personal
+ *        usage and corporate identity authentication are not expected. (Value:
+ *        "PERSONAL_USAGE_DISALLOWED_USERLESS")
  */
 @property(nonatomic, copy, nullable) NSString *allowPersonalUsage;
 
@@ -9954,7 +10366,10 @@ GTLR_DEPRECATED
  */
 @property(nonatomic, strong, nullable) GTLRAndroidManagement_UserFacingMessage *lostOrganization;
 
-/** The phone number displayed to the user when the device is in lost mode. */
+/**
+ *  The phone number that will be called when the device is in lost mode and the
+ *  call owner button is tapped.
+ */
 @property(nonatomic, strong, nullable) GTLRAndroidManagement_UserFacingMessage *lostPhoneNumber;
 
 /**
@@ -10177,7 +10592,12 @@ GTLR_DEPRECATED
 
 
 /**
- *  Configuration for managing system updates
+ *  Configuration for managing system updatesNote: Google Play system updates
+ *  (https://source.android.com/docs/core/ota/modular-system) (also called
+ *  Mainline updates) are automatically downloaded but require a device reboot
+ *  to be installed. Refer to the mainline section in Manage system updates
+ *  (https://developer.android.com/work/dpc/system-updates#mainline) for further
+ *  details.
  */
 @interface GTLRAndroidManagement_SystemUpdate : GTLRObject
 
@@ -10753,6 +11173,56 @@ GTLR_DEPRECATED
  *  with the embedded UI. This is a read-only field generated by the server.
  */
 @property(nonatomic, copy, nullable) NSString *value;
+
+@end
+
+
+/**
+ *  Represents a Wi-Fi SSID.
+ */
+@interface GTLRAndroidManagement_WifiSsid : GTLRObject
+
+/** Required. Wi-Fi SSID represented as a string. */
+@property(nonatomic, copy, nullable) NSString *wifiSsid;
+
+@end
+
+
+/**
+ *  Restrictions on which Wi-Fi SSIDs the device can connect to. Note that this
+ *  does not affect which networks can be configured on the device. Supported on
+ *  company-owned devices running Android 13 and above.
+ */
+@interface GTLRAndroidManagement_WifiSsidPolicy : GTLRObject
+
+/**
+ *  Type of the Wi-Fi SSID policy to be applied.
+ *
+ *  Likely values:
+ *    @arg @c kGTLRAndroidManagement_WifiSsidPolicy_WifiSsidPolicyType_WifiSsidAllowlist
+ *        The device can make Wi-Fi connections only to the SSIDs in wifiSsids.
+ *        wifiSsids must not be empty. The device will not be able to connect to
+ *        any other Wi-Fi network. (Value: "WIFI_SSID_ALLOWLIST")
+ *    @arg @c kGTLRAndroidManagement_WifiSsidPolicy_WifiSsidPolicyType_WifiSsidDenylist
+ *        The device cannot connect to any Wi-Fi network whose SSID is in
+ *        wifiSsids, but can connect to other networks. (Value:
+ *        "WIFI_SSID_DENYLIST")
+ *    @arg @c kGTLRAndroidManagement_WifiSsidPolicy_WifiSsidPolicyType_WifiSsidPolicyTypeUnspecified
+ *        Defaults to WIFI_SSID_DENYLIST. wifiSsids must not be set. There are
+ *        no restrictions on which SSID the device can connect to. (Value:
+ *        "WIFI_SSID_POLICY_TYPE_UNSPECIFIED")
+ */
+@property(nonatomic, copy, nullable) NSString *wifiSsidPolicyType;
+
+/**
+ *  Optional. List of Wi-Fi SSIDs that should be applied in the policy. This
+ *  field must be non-empty when WifiSsidPolicyType is set to
+ *  WIFI_SSID_ALLOWLIST. If this is set to a non-empty list, then a
+ *  nonComplianceDetail detail with API_LEVEL is reported if the Android version
+ *  is less than 13 and a nonComplianceDetail with MANAGEMENT_MODE is reported
+ *  for non-company-owned devices.
+ */
+@property(nonatomic, strong, nullable) NSArray<GTLRAndroidManagement_WifiSsid *> *wifiSsids;
 
 @end
 

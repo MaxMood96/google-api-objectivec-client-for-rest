@@ -70,7 +70,9 @@ NSString * const kGTLRArtifactRegistry_NpmRepository_PublicRepository_PublicRepo
 // GTLRArtifactRegistry_ProjectSettings.legacyRedirectionState
 NSString * const kGTLRArtifactRegistry_ProjectSettings_LegacyRedirectionState_RedirectionFromGcrIoDisabled = @"REDIRECTION_FROM_GCR_IO_DISABLED";
 NSString * const kGTLRArtifactRegistry_ProjectSettings_LegacyRedirectionState_RedirectionFromGcrIoEnabled = @"REDIRECTION_FROM_GCR_IO_ENABLED";
+NSString * const kGTLRArtifactRegistry_ProjectSettings_LegacyRedirectionState_RedirectionFromGcrIoEnabledAndCopying = @"REDIRECTION_FROM_GCR_IO_ENABLED_AND_COPYING";
 NSString * const kGTLRArtifactRegistry_ProjectSettings_LegacyRedirectionState_RedirectionFromGcrIoFinalized = @"REDIRECTION_FROM_GCR_IO_FINALIZED";
+NSString * const kGTLRArtifactRegistry_ProjectSettings_LegacyRedirectionState_RedirectionFromGcrIoPartialAndCopying = @"REDIRECTION_FROM_GCR_IO_PARTIAL_AND_COPYING";
 NSString * const kGTLRArtifactRegistry_ProjectSettings_LegacyRedirectionState_RedirectionStateUnspecified = @"REDIRECTION_STATE_UNSPECIFIED";
 
 // GTLRArtifactRegistry_PythonRepository.publicRepository
@@ -81,6 +83,7 @@ NSString * const kGTLRArtifactRegistry_PythonRepository_PublicRepository_Pypi = 
 NSString * const kGTLRArtifactRegistry_Repository_Format_Apt   = @"APT";
 NSString * const kGTLRArtifactRegistry_Repository_Format_Docker = @"DOCKER";
 NSString * const kGTLRArtifactRegistry_Repository_Format_FormatUnspecified = @"FORMAT_UNSPECIFIED";
+NSString * const kGTLRArtifactRegistry_Repository_Format_Generic = @"GENERIC";
 NSString * const kGTLRArtifactRegistry_Repository_Format_Go    = @"GO";
 NSString * const kGTLRArtifactRegistry_Repository_Format_Googet = @"GOOGET";
 NSString * const kGTLRArtifactRegistry_Repository_Format_Kfp   = @"KFP";
@@ -90,6 +93,8 @@ NSString * const kGTLRArtifactRegistry_Repository_Format_Python = @"PYTHON";
 NSString * const kGTLRArtifactRegistry_Repository_Format_Yum   = @"YUM";
 
 // GTLRArtifactRegistry_Repository.mode
+NSString * const kGTLRArtifactRegistry_Repository_Mode_AossRepository = @"AOSS_REPOSITORY";
+NSString * const kGTLRArtifactRegistry_Repository_Mode_AssuredOssRepository = @"ASSURED_OSS_REPOSITORY";
 NSString * const kGTLRArtifactRegistry_Repository_Mode_ModeUnspecified = @"MODE_UNSPECIFIED";
 NSString * const kGTLRArtifactRegistry_Repository_Mode_RemoteRepository = @"REMOTE_REPOSITORY";
 NSString * const kGTLRArtifactRegistry_Repository_Mode_StandardRepository = @"STANDARD_REPOSITORY";
@@ -121,7 +126,7 @@ NSString * const kGTLRArtifactRegistry_YumArtifact_PackageType_Source = @"SOURCE
 //
 
 @implementation GTLRArtifactRegistry_AptRepository
-@dynamic publicRepository;
+@dynamic customRepository, publicRepository;
 @end
 
 
@@ -258,7 +263,7 @@ NSString * const kGTLRArtifactRegistry_YumArtifact_PackageType_Source = @"SOURCE
 //
 
 @implementation GTLRArtifactRegistry_DockerRepository
-@dynamic publicRepository;
+@dynamic customRepository, publicRepository;
 @end
 
 
@@ -269,6 +274,15 @@ NSString * const kGTLRArtifactRegistry_YumArtifact_PackageType_Source = @"SOURCE
 
 @implementation GTLRArtifactRegistry_DockerRepositoryConfig
 @dynamic immutableTags;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRArtifactRegistry_DownloadFileResponse
+//
+
+@implementation GTLRArtifactRegistry_DownloadFileResponse
 @end
 
 
@@ -293,6 +307,16 @@ NSString * const kGTLRArtifactRegistry_YumArtifact_PackageType_Source = @"SOURCE
   return @{ @"descriptionProperty" : @"description" };
 }
 
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRArtifactRegistry_GenericArtifact
+//
+
+@implementation GTLRArtifactRegistry_GenericArtifact
+@dynamic createTime, name, updateTime, version;
 @end
 
 
@@ -336,11 +360,71 @@ NSString * const kGTLRArtifactRegistry_YumArtifact_PackageType_Source = @"SOURCE
 
 // ----------------------------------------------------------------------------
 //
+//   GTLRArtifactRegistry_GoogleDevtoolsArtifactregistryV1RemoteRepositoryConfigAptRepositoryCustomRepository
+//
+
+@implementation GTLRArtifactRegistry_GoogleDevtoolsArtifactregistryV1RemoteRepositoryConfigAptRepositoryCustomRepository
+@dynamic uri;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
 //   GTLRArtifactRegistry_GoogleDevtoolsArtifactregistryV1RemoteRepositoryConfigAptRepositoryPublicRepository
 //
 
 @implementation GTLRArtifactRegistry_GoogleDevtoolsArtifactregistryV1RemoteRepositoryConfigAptRepositoryPublicRepository
 @dynamic repositoryBase, repositoryPath;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRArtifactRegistry_GoogleDevtoolsArtifactregistryV1RemoteRepositoryConfigDockerRepositoryCustomRepository
+//
+
+@implementation GTLRArtifactRegistry_GoogleDevtoolsArtifactregistryV1RemoteRepositoryConfigDockerRepositoryCustomRepository
+@dynamic uri;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRArtifactRegistry_GoogleDevtoolsArtifactregistryV1RemoteRepositoryConfigMavenRepositoryCustomRepository
+//
+
+@implementation GTLRArtifactRegistry_GoogleDevtoolsArtifactregistryV1RemoteRepositoryConfigMavenRepositoryCustomRepository
+@dynamic uri;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRArtifactRegistry_GoogleDevtoolsArtifactregistryV1RemoteRepositoryConfigNpmRepositoryCustomRepository
+//
+
+@implementation GTLRArtifactRegistry_GoogleDevtoolsArtifactregistryV1RemoteRepositoryConfigNpmRepositoryCustomRepository
+@dynamic uri;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRArtifactRegistry_GoogleDevtoolsArtifactregistryV1RemoteRepositoryConfigPythonRepositoryCustomRepository
+//
+
+@implementation GTLRArtifactRegistry_GoogleDevtoolsArtifactregistryV1RemoteRepositoryConfigPythonRepositoryCustomRepository
+@dynamic uri;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRArtifactRegistry_GoogleDevtoolsArtifactregistryV1RemoteRepositoryConfigYumRepositoryCustomRepository
+//
+
+@implementation GTLRArtifactRegistry_GoogleDevtoolsArtifactregistryV1RemoteRepositoryConfigYumRepositoryCustomRepository
+@dynamic uri;
 @end
 
 
@@ -846,7 +930,7 @@ NSString * const kGTLRArtifactRegistry_YumArtifact_PackageType_Source = @"SOURCE
 //
 
 @implementation GTLRArtifactRegistry_MavenRepository
-@dynamic publicRepository;
+@dynamic customRepository, publicRepository;
 @end
 
 
@@ -884,7 +968,7 @@ NSString * const kGTLRArtifactRegistry_YumArtifact_PackageType_Source = @"SOURCE
 //
 
 @implementation GTLRArtifactRegistry_NpmRepository
-@dynamic publicRepository;
+@dynamic customRepository, publicRepository;
 @end
 
 
@@ -941,7 +1025,21 @@ NSString * const kGTLRArtifactRegistry_YumArtifact_PackageType_Source = @"SOURCE
 //
 
 @implementation GTLRArtifactRegistry_Package
-@dynamic createTime, displayName, name, updateTime;
+@dynamic annotations, createTime, displayName, name, updateTime;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRArtifactRegistry_Package_Annotations
+//
+
+@implementation GTLRArtifactRegistry_Package_Annotations
+
++ (Class)classForAdditionalProperties {
+  return [NSString class];
+}
+
 @end
 
 
@@ -993,7 +1091,7 @@ NSString * const kGTLRArtifactRegistry_YumArtifact_PackageType_Source = @"SOURCE
 //
 
 @implementation GTLRArtifactRegistry_PythonRepository
-@dynamic publicRepository;
+@dynamic customRepository, publicRepository;
 @end
 
 
@@ -1003,8 +1101,9 @@ NSString * const kGTLRArtifactRegistry_YumArtifact_PackageType_Source = @"SOURCE
 //
 
 @implementation GTLRArtifactRegistry_RemoteRepositoryConfig
-@dynamic aptRepository, descriptionProperty, dockerRepository, mavenRepository,
-         npmRepository, pythonRepository, upstreamCredentials, yumRepository;
+@dynamic aptRepository, descriptionProperty, disableUpstreamValidation,
+         dockerRepository, mavenRepository, npmRepository, pythonRepository,
+         upstreamCredentials, yumRepository;
 
 + (NSDictionary<NSString *, NSString *> *)propertyToJSONKeyMap {
   return @{ @"descriptionProperty" : @"description" };
@@ -1021,8 +1120,8 @@ NSString * const kGTLRArtifactRegistry_YumArtifact_PackageType_Source = @"SOURCE
 @implementation GTLRArtifactRegistry_Repository
 @dynamic cleanupPolicies, cleanupPolicyDryRun, createTime, descriptionProperty,
          disallowUnspecifiedMode, dockerConfig, format, kmsKeyName, labels,
-         mavenConfig, mode, name, remoteRepositoryConfig, satisfiesPzs,
-         sizeBytes, updateTime, virtualRepositoryConfig;
+         mavenConfig, mode, name, remoteRepositoryConfig, satisfiesPzi,
+         satisfiesPzs, sizeBytes, updateTime, virtualRepositoryConfig;
 
 + (NSDictionary<NSString *, NSString *> *)propertyToJSONKeyMap {
   return @{ @"descriptionProperty" : @"description" };
@@ -1190,6 +1289,35 @@ NSString * const kGTLRArtifactRegistry_YumArtifact_PackageType_Source = @"SOURCE
   return map;
 }
 
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRArtifactRegistry_UploadGenericArtifactMediaResponse
+//
+
+@implementation GTLRArtifactRegistry_UploadGenericArtifactMediaResponse
+@dynamic operation;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRArtifactRegistry_UploadGenericArtifactMetadata
+//
+
+@implementation GTLRArtifactRegistry_UploadGenericArtifactMetadata
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRArtifactRegistry_UploadGenericArtifactRequest
+//
+
+@implementation GTLRArtifactRegistry_UploadGenericArtifactRequest
+@dynamic filename, packageId, versionId;
 @end
 
 
@@ -1470,5 +1598,5 @@ NSString * const kGTLRArtifactRegistry_YumArtifact_PackageType_Source = @"SOURCE
 //
 
 @implementation GTLRArtifactRegistry_YumRepository
-@dynamic publicRepository;
+@dynamic customRepository, publicRepository;
 @end

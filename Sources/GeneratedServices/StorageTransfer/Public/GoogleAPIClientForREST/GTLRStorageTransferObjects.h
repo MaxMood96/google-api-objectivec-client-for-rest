@@ -27,6 +27,7 @@
 @class GTLRStorageTransfer_ErrorSummary;
 @class GTLRStorageTransfer_EventStream;
 @class GTLRStorageTransfer_GcsData;
+@class GTLRStorageTransfer_HdfsData;
 @class GTLRStorageTransfer_HttpData;
 @class GTLRStorageTransfer_LoggingConfig;
 @class GTLRStorageTransfer_MetadataOptions;
@@ -36,6 +37,7 @@
 @class GTLRStorageTransfer_Operation_Metadata;
 @class GTLRStorageTransfer_Operation_Response;
 @class GTLRStorageTransfer_PosixFilesystem;
+@class GTLRStorageTransfer_ReplicationSpec;
 @class GTLRStorageTransfer_S3CompatibleMetadata;
 @class GTLRStorageTransfer_Schedule;
 @class GTLRStorageTransfer_Status;
@@ -68,8 +70,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 FOUNDATION_EXTERN NSString * const kGTLRStorageTransfer_AgentPool_State_Created;
 /**
- *  This is an initialization state. During this stage, the resources such as
- *  Pub/Sub topics are allocated for the AgentPool.
+ *  This is an initialization state. During this stage, resources are allocated
+ *  for the AgentPool.
  *
  *  Value: "CREATING"
  */
@@ -495,10 +497,10 @@ FOUNDATION_EXTERN NSString * const kGTLRStorageTransfer_MetadataOptions_Temporar
 // GTLRStorageTransfer_MetadataOptions.timeCreated
 
 /**
- *  Preserves the source object's `timeCreated` metadata in the `customTime`
- *  field in the destination object. Note that any value stored in the source
- *  object's `customTime` field will not be propagated to the destination
- *  object.
+ *  Preserves the source object's `timeCreated` or `lastModified` metadata in
+ *  the `customTime` field in the destination object. Note that any value stored
+ *  in the source object's `customTime` field will not be propagated to the
+ *  destination object.
  *
  *  Value: "TIME_CREATED_PRESERVE_AS_CUSTOM_TIME"
  */
@@ -797,7 +799,7 @@ FOUNDATION_EXTERN NSString * const kGTLRStorageTransfer_TransferOptions_Overwrit
 FOUNDATION_EXTERN NSString * const kGTLRStorageTransfer_TransferOptions_OverwriteWhen_OverwriteWhenUnspecified;
 
 /**
- *  Represents an On-Premises Agent pool.
+ *  Represents an agent pool.
  */
 @interface GTLRStorageTransfer_AgentPool : GTLRObject
 
@@ -825,8 +827,8 @@ FOUNDATION_EXTERN NSString * const kGTLRStorageTransfer_TransferOptions_Overwrit
  *        AgentPool and participate in the transfer jobs in that pool. (Value:
  *        "CREATED")
  *    @arg @c kGTLRStorageTransfer_AgentPool_State_Creating This is an
- *        initialization state. During this stage, the resources such as Pub/Sub
- *        topics are allocated for the AgentPool. (Value: "CREATING")
+ *        initialization state. During this stage, resources are allocated for
+ *        the AgentPool. (Value: "CREATING")
  *    @arg @c kGTLRStorageTransfer_AgentPool_State_Deleting Determines that the
  *        AgentPool deletion has been initiated, and all the resources are
  *        scheduled to be cleaned up and freed. (Value: "DELETING")
@@ -910,9 +912,11 @@ FOUNDATION_EXTERN NSString * const kGTLRStorageTransfer_TransferOptions_Overwrit
 @property(nonatomic, copy, nullable) NSString *bucketName;
 
 /**
- *  Optional. Cloudfront domain name pointing to this bucket (as origin), to use
- *  when fetching. Format: `https://{id}.cloudfront.net` or any valid custom
- *  domain `https://...`
+ *  Optional. The CloudFront distribution domain name pointing to this bucket,
+ *  to use when fetching. See [Transfer from S3 via
+ *  CloudFront](https://cloud.google.com/storage-transfer/docs/s3-cloudfront)
+ *  for more information. Format: `https://{id}.cloudfront.net` or any valid
+ *  custom domain. Must begin with `https://`.
  */
 @property(nonatomic, copy, nullable) NSString *cloudfrontDomain;
 
@@ -924,11 +928,18 @@ FOUNDATION_EXTERN NSString * const kGTLRStorageTransfer_TransferOptions_Overwrit
  *  for the resource. See [Configure access to a source: Amazon S3]
  *  (https://cloud.google.com/storage-transfer/docs/source-amazon-s3#secret_manager)
  *  for more information. If `credentials_secret` is specified, do not specify
- *  role_arn or aws_access_key. This feature is in
- *  [preview](https://cloud.google.com/terms/service-terms#1). Format:
+ *  role_arn or aws_access_key. Format:
  *  `projects/{project_number}/secrets/{secret_name}`
  */
 @property(nonatomic, copy, nullable) NSString *credentialsSecret;
+
+/**
+ *  Egress bytes over a Google-managed private network. This network is shared
+ *  between other users of Storage Transfer Service.
+ *
+ *  Uses NSNumber of boolValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *managedPrivateNetwork;
 
 /**
  *  Root path to transfer objects. Must be an empty string or full path name
@@ -980,9 +991,7 @@ FOUNDATION_EXTERN NSString * const kGTLRStorageTransfer_TransferOptions_Overwrit
  *  to a source: Microsoft Azure Blob Storage]
  *  (https://cloud.google.com/storage-transfer/docs/source-microsoft-azure#secret_manager)
  *  for more information. If `credentials_secret` is specified, do not specify
- *  azure_credentials. This feature is in
- *  [preview](https://cloud.google.com/terms/service-terms#1). Format:
- *  `projects/{project_number}/secrets/{secret_name}`
+ *  azure_credentials. Format: `projects/{project_number}/secrets/{secret_name}`
  */
 @property(nonatomic, copy, nullable) NSString *credentialsSecret;
 
@@ -1281,11 +1290,12 @@ FOUNDATION_EXTERN NSString * const kGTLRStorageTransfer_TransferOptions_Overwrit
 @property(nonatomic, copy, nullable) NSString *bucketName;
 
 /**
- *  Transfer managed folders is in public preview. This option is only
- *  applicable to the Cloud Storage source bucket. If set to true: - The source
- *  managed folder will be transferred to the destination bucket - The
- *  destination managed folder will always be overwritten, other OVERWRITE
- *  options will not be supported
+ *  Preview. Enables the transfer of managed folders between Cloud Storage
+ *  buckets. Set this option on the gcs_data_source. If set to true: - Managed
+ *  folders in the source bucket are transferred to the destination bucket. -
+ *  Managed folders in the destination bucket are overwritten. Other OVERWRITE
+ *  options are not supported. See [Transfer Cloud Storage managed
+ *  folders](/storage-transfer/docs/managed-folders).
  *
  *  Uses NSNumber of boolValue.
  */
@@ -1312,6 +1322,20 @@ FOUNDATION_EXTERN NSString * const kGTLRStorageTransfer_TransferOptions_Overwrit
 
 /** Unique identifier for the service account. */
 @property(nonatomic, copy, nullable) NSString *subjectId;
+
+@end
+
+
+/**
+ *  An HdfsData resource specifies a path within an HDFS entity (e.g. a
+ *  cluster). All cluster-specific settings, such as namenodes and ports, are
+ *  configured on the transfer agents servicing requests, so HdfsData only
+ *  contains the root path to the data in our transfer.
+ */
+@interface GTLRStorageTransfer_HdfsData : GTLRObject
+
+/** Root path to transfer files. */
+@property(nonatomic, copy, nullable) NSString *path;
 
 @end
 
@@ -1425,36 +1449,29 @@ FOUNDATION_EXTERN NSString * const kGTLRStorageTransfer_TransferOptions_Overwrit
 
 
 /**
- *  Specifies the logging behavior for transfer operations. For cloud-to-cloud
- *  transfers, logs are sent to Cloud Logging. See [Read transfer
+ *  Specifies the logging behavior for transfer operations. Logs can be sent to
+ *  Cloud Logging for all transfer types. See [Read transfer
  *  logs](https://cloud.google.com/storage-transfer/docs/read-transfer-logs) for
- *  details. For transfers to or from a POSIX file system, logs are stored in
- *  the Cloud Storage bucket that is the source or sink of the transfer. See
- *  [Managing Transfer for on-premises jobs]
- *  (https://cloud.google.com/storage-transfer/docs/managing-on-prem-jobs#viewing-logs)
- *  for details.
+ *  details.
  */
 @interface GTLRStorageTransfer_LoggingConfig : GTLRObject
 
 /**
- *  For transfers with a PosixFilesystem source, this option enables the Cloud
- *  Storage transfer logs for this transfer.
+ *  For PosixFilesystem transfers, enables [file system transfer
+ *  logs](https://cloud.google.com/storage-transfer/docs/on-prem-transfer-log-format)
+ *  instead of, or in addition to, Cloud Logging. This option ignores
+ *  [LoggableAction] and [LoggableActionState]. If these are set, Cloud Logging
+ *  will also be enabled for this transfer.
  *
  *  Uses NSNumber of boolValue.
  */
 @property(nonatomic, strong, nullable) NSNumber *enableOnpremGcsTransferLogs;
 
-/**
- *  Specifies the actions to be logged. If empty, no logs are generated. Not
- *  supported for transfers with PosixFilesystem data sources; use
- *  enable_onprem_gcs_transfer_logs instead.
- */
+/** Specifies the actions to be logged. If empty, no logs are generated. */
 @property(nonatomic, strong, nullable) NSArray<NSString *> *logActions;
 
 /**
  *  States in which `log_actions` are logged. If empty, no logs are generated.
- *  Not supported for transfers with PosixFilesystem data sources; use
- *  enable_onprem_gcs_transfer_logs instead.
  */
 @property(nonatomic, strong, nullable) NSArray<NSString *> *logActionStates;
 
@@ -1601,14 +1618,16 @@ FOUNDATION_EXTERN NSString * const kGTLRStorageTransfer_TransferOptions_Overwrit
 
 /**
  *  Specifies how each object's `timeCreated` metadata is preserved for
- *  transfers between Google Cloud Storage buckets. If unspecified, the default
- *  behavior is the same as TIME_CREATED_SKIP.
+ *  transfers. If unspecified, the default behavior is the same as
+ *  TIME_CREATED_SKIP. This behavior is supported for transfers to Cloud Storage
+ *  buckets from Cloud Storage, Amazon S3, S3-compatible storage, and Azure
+ *  sources.
  *
  *  Likely values:
  *    @arg @c kGTLRStorageTransfer_MetadataOptions_TimeCreated_TimeCreatedPreserveAsCustomTime
- *        Preserves the source object's `timeCreated` metadata in the
- *        `customTime` field in the destination object. Note that any value
- *        stored in the source object's `customTime` field will not be
+ *        Preserves the source object's `timeCreated` or `lastModified` metadata
+ *        in the `customTime` field in the destination object. Note that any
+ *        value stored in the source object's `customTime` field will not be
  *        propagated to the destination object. (Value:
  *        "TIME_CREATED_PRESERVE_AS_CUSTOM_TIME")
  *    @arg @c kGTLRStorageTransfer_MetadataOptions_TimeCreated_TimeCreatedSkip
@@ -1869,6 +1888,34 @@ FOUNDATION_EXTERN NSString * const kGTLRStorageTransfer_TransferOptions_Overwrit
 
 /** Root directory path to the filesystem. */
 @property(nonatomic, copy, nullable) NSString *rootDirectory;
+
+@end
+
+
+/**
+ *  Specifies the configuration for running a replication job.
+ */
+@interface GTLRStorageTransfer_ReplicationSpec : GTLRObject
+
+/** Specifies cloud Storage data sink. */
+@property(nonatomic, strong, nullable) GTLRStorageTransfer_GcsData *gcsDataSink;
+
+/** Specifies cloud Storage data source. */
+@property(nonatomic, strong, nullable) GTLRStorageTransfer_GcsData *gcsDataSource;
+
+/**
+ *  Specifies the object conditions to only include objects that satisfy these
+ *  conditions in the set of data source objects. Object conditions based on
+ *  objects' "last modification time" do not exclude objects in a data sink.
+ */
+@property(nonatomic, strong, nullable) GTLRStorageTransfer_ObjectConditions *objectConditions;
+
+/**
+ *  Specifies the actions to be performed on the object during replication.
+ *  Delete options are not supported for replication and when specified, the
+ *  request fails with an INVALID_ARGUMENT error.
+ */
+@property(nonatomic, strong, nullable) GTLRStorageTransfer_TransferOptions *transferOptions;
 
 @end
 
@@ -2341,14 +2388,14 @@ FOUNDATION_EXTERN NSString * const kGTLRStorageTransfer_TransferOptions_Overwrit
  */
 @property(nonatomic, copy, nullable) NSString *name;
 
-/**
- *  Notification configuration. This is not supported for transfers involving
- *  PosixFilesystem.
- */
+/** Notification configuration. */
 @property(nonatomic, strong, nullable) GTLRStorageTransfer_NotificationConfig *notificationConfig;
 
 /** The ID of the Google Cloud project that owns the job. */
 @property(nonatomic, copy, nullable) NSString *projectId;
+
+/** Replication specification. */
+@property(nonatomic, strong, nullable) GTLRStorageTransfer_ReplicationSpec *replicationSpec;
 
 /**
  *  Specifies schedule for the transfer job. This is an optional field. When the
@@ -2551,6 +2598,9 @@ FOUNDATION_EXTERN NSString * const kGTLRStorageTransfer_TransferOptions_Overwrit
  *  more information.
  */
 @property(nonatomic, strong, nullable) GTLRStorageTransfer_GcsData *gcsIntermediateDataLocation;
+
+/** An HDFS cluster data source. */
+@property(nonatomic, strong, nullable) GTLRStorageTransfer_HdfsData *hdfsDataSource;
 
 /** An HTTP URL data source. */
 @property(nonatomic, strong, nullable) GTLRStorageTransfer_HttpData *httpDataSource;

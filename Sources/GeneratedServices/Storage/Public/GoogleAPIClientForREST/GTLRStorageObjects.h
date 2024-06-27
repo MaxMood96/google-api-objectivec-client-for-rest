@@ -39,6 +39,8 @@
 @class GTLRStorage_Bucket_Website;
 @class GTLRStorage_BucketAccessControl;
 @class GTLRStorage_BucketAccessControl_ProjectTeam;
+@class GTLRStorage_BucketStorageLayout_CustomPlacementConfig;
+@class GTLRStorage_BucketStorageLayout_HierarchicalNamespace;
 @class GTLRStorage_Channel_Params;
 @class GTLRStorage_ComposeRequest_SourceObjects_Item;
 @class GTLRStorage_ComposeRequest_SourceObjects_Item_ObjectPreconditions;
@@ -995,6 +997,61 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
+ *  The storage layout configuration of a bucket.
+ */
+@interface GTLRStorage_BucketStorageLayout : GTLRObject
+
+/** The name of the bucket. */
+@property(nonatomic, copy, nullable) NSString *bucket;
+
+/** The bucket's custom placement configuration for Custom Dual Regions. */
+@property(nonatomic, strong, nullable) GTLRStorage_BucketStorageLayout_CustomPlacementConfig *customPlacementConfig;
+
+/** The bucket's hierarchical namespace configuration. */
+@property(nonatomic, strong, nullable) GTLRStorage_BucketStorageLayout_HierarchicalNamespace *hierarchicalNamespace;
+
+/**
+ *  The kind of item this is. For storage layout, this is always
+ *  storage#storageLayout.
+ */
+@property(nonatomic, copy, nullable) NSString *kind;
+
+/** The location of the bucket. */
+@property(nonatomic, copy, nullable) NSString *location;
+
+/** The type of the bucket location. */
+@property(nonatomic, copy, nullable) NSString *locationType;
+
+@end
+
+
+/**
+ *  The bucket's custom placement configuration for Custom Dual Regions.
+ */
+@interface GTLRStorage_BucketStorageLayout_CustomPlacementConfig : GTLRObject
+
+/** The list of regional locations in which data is placed. */
+@property(nonatomic, strong, nullable) NSArray<NSString *> *dataLocations;
+
+@end
+
+
+/**
+ *  The bucket's hierarchical namespace configuration.
+ */
+@interface GTLRStorage_BucketStorageLayout_HierarchicalNamespace : GTLRObject
+
+/**
+ *  When set to true, hierarchical namespace is enabled for this bucket.
+ *
+ *  Uses NSNumber of boolValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *enabled;
+
+@end
+
+
+/**
  *  A bulk restore objects request.
  */
 @interface GTLRStorage_BulkRestoreObjectsRequest : GTLRObject
@@ -1307,6 +1364,12 @@ NS_ASSUME_NONNULL_BEGIN
 @interface GTLRStorage_GoogleLongrunningListOperationsResponse : GTLRCollectionObject
 
 /**
+ *  The kind of item this is. For lists of operations, this is always
+ *  storage#operations.
+ */
+@property(nonatomic, copy, nullable) NSString *kind;
+
+/**
  *  The continuation token, used to page through large result sets. Provide this
  *  value in a subsequent request to return the next page of results.
  */
@@ -1342,6 +1405,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, strong, nullable) GTLRStorage_GoogleRpcStatus *error;
 
 /**
+ *  The kind of item this is. For operations, this is always storage#operation.
+ */
+@property(nonatomic, copy, nullable) NSString *kind;
+
+/**
  *  Service-specific metadata associated with the operation. It typically
  *  contains progress information and common metadata such as create time. Some
  *  services might not provide such metadata. Any method that returns a
@@ -1366,6 +1434,9 @@ NS_ASSUME_NONNULL_BEGIN
  *  response type is "TakeSnapshotResponse".
  */
 @property(nonatomic, strong, nullable) GTLRStorage_GoogleLongrunningOperation_Response *response;
+
+/** The link to this long running operation. */
+@property(nonatomic, copy, nullable) NSString *selfLink;
 
 @end
 

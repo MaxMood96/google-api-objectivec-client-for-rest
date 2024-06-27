@@ -83,6 +83,8 @@
 @class GTLRAndroidPublisher_InAppProductListing;
 @class GTLRAndroidPublisher_InappproductsDeleteRequest;
 @class GTLRAndroidPublisher_InappproductsUpdateRequest;
+@class GTLRAndroidPublisher_InstallmentPlan;
+@class GTLRAndroidPublisher_InstallmentsBasePlanType;
 @class GTLRAndroidPublisher_IntroductoryPriceInfo;
 @class GTLRAndroidPublisher_LanguageTargeting;
 @class GTLRAndroidPublisher_Listing;
@@ -99,13 +101,16 @@
 @class GTLRAndroidPublisher_OfferDetails;
 @class GTLRAndroidPublisher_OfferTag;
 @class GTLRAndroidPublisher_OneTimeExternalTransaction;
+@class GTLRAndroidPublisher_OtherRecurringProduct;
 @class GTLRAndroidPublisher_OtherRegionsBasePlanConfig;
 @class GTLRAndroidPublisher_OtherRegionsSubscriptionOfferConfig;
 @class GTLRAndroidPublisher_OtherRegionsSubscriptionOfferPhaseConfig;
+@class GTLRAndroidPublisher_OtherRegionsSubscriptionOfferPhaseFreePriceOverride;
 @class GTLRAndroidPublisher_OtherRegionsSubscriptionOfferPhasePrices;
 @class GTLRAndroidPublisher_PageInfo;
 @class GTLRAndroidPublisher_PartialRefund;
 @class GTLRAndroidPublisher_PausedStateContext;
+@class GTLRAndroidPublisher_PendingCancellation;
 @class GTLRAndroidPublisher_PrepaidBasePlanType;
 @class GTLRAndroidPublisher_PrepaidPlan;
 @class GTLRAndroidPublisher_Price;
@@ -114,6 +119,7 @@
 @class GTLRAndroidPublisher_RegionalPriceMigrationConfig;
 @class GTLRAndroidPublisher_RegionalSubscriptionOfferConfig;
 @class GTLRAndroidPublisher_RegionalSubscriptionOfferPhaseConfig;
+@class GTLRAndroidPublisher_RegionalSubscriptionOfferPhaseFreePriceOverride;
 @class GTLRAndroidPublisher_RegionalTaxRateInfo;
 @class GTLRAndroidPublisher_Regions;
 @class GTLRAndroidPublisher_RegionsVersion;
@@ -121,6 +127,7 @@
 @class GTLRAndroidPublisher_RemoteInAppUpdateData;
 @class GTLRAndroidPublisher_RemoteInAppUpdateDataPerBundle;
 @class GTLRAndroidPublisher_ReplacementCancellation;
+@class GTLRAndroidPublisher_RestrictedPaymentCountries;
 @class GTLRAndroidPublisher_Review;
 @class GTLRAndroidPublisher_ReviewReplyResult;
 @class GTLRAndroidPublisher_RevocationContext;
@@ -151,6 +158,8 @@
 @class GTLRAndroidPublisher_Targeting;
 @class GTLRAndroidPublisher_TargetingInfo;
 @class GTLRAndroidPublisher_TargetingRuleScope;
+@class GTLRAndroidPublisher_TargetingRuleScopeAnySubscriptionInApp;
+@class GTLRAndroidPublisher_TargetingRuleScopeThisSubscription;
 @class GTLRAndroidPublisher_TargetingUpdate;
 @class GTLRAndroidPublisher_TestPurchase;
 @class GTLRAndroidPublisher_TextureCompressionFormat;
@@ -306,6 +315,18 @@ FOUNDATION_EXTERN NSString * const kGTLRAndroidPublisher_AppRecoveryAction_Statu
  *  Value: "RECOVERY_STATUS_DRAFT"
  */
 FOUNDATION_EXTERN NSString * const kGTLRAndroidPublisher_AppRecoveryAction_Status_RecoveryStatusDraft;
+/**
+ *  The app recovery action generation has failed.
+ *
+ *  Value: "RECOVERY_STATUS_GENERATION_FAILED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAndroidPublisher_AppRecoveryAction_Status_RecoveryStatusGenerationFailed;
+/**
+ *  The recovery action is generating recovery apks.
+ *
+ *  Value: "RECOVERY_STATUS_GENERATION_IN_PROGRESS"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAndroidPublisher_AppRecoveryAction_Status_RecoveryStatusGenerationInProgress;
 /**
  *  RecoveryStatus is unspecified.
  *
@@ -602,6 +623,18 @@ FOUNDATION_EXTERN NSString * const kGTLRAndroidPublisher_GeneratedRecoveryApk_Re
  */
 FOUNDATION_EXTERN NSString * const kGTLRAndroidPublisher_GeneratedRecoveryApk_RecoveryStatus_RecoveryStatusDraft;
 /**
+ *  The app recovery action generation has failed.
+ *
+ *  Value: "RECOVERY_STATUS_GENERATION_FAILED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAndroidPublisher_GeneratedRecoveryApk_RecoveryStatus_RecoveryStatusGenerationFailed;
+/**
+ *  The recovery action is generating recovery apks.
+ *
+ *  Value: "RECOVERY_STATUS_GENERATION_IN_PROGRESS"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAndroidPublisher_GeneratedRecoveryApk_RecoveryStatus_RecoveryStatusGenerationInProgress;
+/**
  *  RecoveryStatus is unspecified.
  *
  *  Value: "RECOVERY_STATUS_UNSPECIFIED"
@@ -630,6 +663,12 @@ FOUNDATION_EXTERN NSString * const kGTLRAndroidPublisher_Grant_AppLevelPermissio
  *  Value: "CAN_MANAGE_APP_CONTENT"
  */
 FOUNDATION_EXTERN NSString * const kGTLRAndroidPublisher_Grant_AppLevelPermissions_CanManageAppContent;
+/**
+ *  Manage the deep links setup of an app.
+ *
+ *  Value: "CAN_MANAGE_DEEPLINKS"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAndroidPublisher_Grant_AppLevelPermissions_CanManageDeeplinks;
 /**
  *  Edit and delete draft apps.
  *
@@ -794,6 +833,75 @@ FOUNDATION_EXTERN NSString * const kGTLRAndroidPublisher_InappproductsUpdateRequ
 FOUNDATION_EXTERN NSString * const kGTLRAndroidPublisher_InappproductsUpdateRequest_LatencyTolerance_ProductUpdateLatencyToleranceUnspecified;
 
 // ----------------------------------------------------------------------------
+// GTLRAndroidPublisher_InstallmentsBasePlanType.prorationMode
+
+/**
+ *  Users will be charged for their new base plan immediately and in full. Any
+ *  remaining period of their existing subscription will be used to extend the
+ *  duration of the new billing plan.
+ *
+ *  Value: "SUBSCRIPTION_PRORATION_MODE_CHARGE_FULL_PRICE_IMMEDIATELY"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAndroidPublisher_InstallmentsBasePlanType_ProrationMode_SubscriptionProrationModeChargeFullPriceImmediately;
+/**
+ *  Users will be charged for their new base plan at the end of their current
+ *  billing period.
+ *
+ *  Value: "SUBSCRIPTION_PRORATION_MODE_CHARGE_ON_NEXT_BILLING_DATE"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAndroidPublisher_InstallmentsBasePlanType_ProrationMode_SubscriptionProrationModeChargeOnNextBillingDate;
+/**
+ *  Unspecified mode.
+ *
+ *  Value: "SUBSCRIPTION_PRORATION_MODE_UNSPECIFIED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAndroidPublisher_InstallmentsBasePlanType_ProrationMode_SubscriptionProrationModeUnspecified;
+
+// ----------------------------------------------------------------------------
+// GTLRAndroidPublisher_InstallmentsBasePlanType.renewalType
+
+/**
+ *  Renews with the commitment of the same duration as the initial one.
+ *
+ *  Value: "RENEWAL_TYPE_RENEWS_WITH_COMMITMENT"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAndroidPublisher_InstallmentsBasePlanType_RenewalType_RenewalTypeRenewsWithCommitment;
+/**
+ *  Renews periodically for the billing period duration without commitment.
+ *
+ *  Value: "RENEWAL_TYPE_RENEWS_WITHOUT_COMMITMENT"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAndroidPublisher_InstallmentsBasePlanType_RenewalType_RenewalTypeRenewsWithoutCommitment;
+/**
+ *  Unspecified state.
+ *
+ *  Value: "RENEWAL_TYPE_UNSPECIFIED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAndroidPublisher_InstallmentsBasePlanType_RenewalType_RenewalTypeUnspecified;
+
+// ----------------------------------------------------------------------------
+// GTLRAndroidPublisher_InstallmentsBasePlanType.resubscribeState
+
+/**
+ *  Resubscribe is active.
+ *
+ *  Value: "RESUBSCRIBE_STATE_ACTIVE"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAndroidPublisher_InstallmentsBasePlanType_ResubscribeState_ResubscribeStateActive;
+/**
+ *  Resubscribe is inactive.
+ *
+ *  Value: "RESUBSCRIBE_STATE_INACTIVE"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAndroidPublisher_InstallmentsBasePlanType_ResubscribeState_ResubscribeStateInactive;
+/**
+ *  Unspecified state.
+ *
+ *  Value: "RESUBSCRIBE_STATE_UNSPECIFIED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAndroidPublisher_InstallmentsBasePlanType_ResubscribeState_ResubscribeStateUnspecified;
+
+// ----------------------------------------------------------------------------
 // GTLRAndroidPublisher_ManagedProductTaxAndComplianceSettings.eeaWithdrawalRightType
 
 /** Value: "WITHDRAWAL_RIGHT_DIGITAL_CONTENT" */
@@ -904,12 +1012,12 @@ FOUNDATION_EXTERN NSString * const kGTLRAndroidPublisher_PrepaidBasePlanType_Tim
 // GTLRAndroidPublisher_RecurringExternalTransaction.migratedTransactionProgram
 
 /**
- *  Alternatively billing only, where users may only use developer-manager
+ *  Alternative billing only, where users may only use developer-manager
  *  billing.
  *
- *  Value: "ALTERTNATIVE_BILLING_ONLY"
+ *  Value: "ALTERNATIVE_BILLING_ONLY"
  */
-FOUNDATION_EXTERN NSString * const kGTLRAndroidPublisher_RecurringExternalTransaction_MigratedTransactionProgram_AltertnativeBillingOnly;
+FOUNDATION_EXTERN NSString * const kGTLRAndroidPublisher_RecurringExternalTransaction_MigratedTransactionProgram_AlternativeBillingOnly;
 /**
  *  Unspecified transaction program. Not used.
  *
@@ -1235,6 +1343,14 @@ FOUNDATION_EXTERN NSString * const kGTLRAndroidPublisher_SubscriptionPurchaseV2_
  */
 FOUNDATION_EXTERN NSString * const kGTLRAndroidPublisher_SubscriptionPurchaseV2_SubscriptionState_SubscriptionStatePending;
 /**
+ *  Pending transaction for subscription is canceled. If this pending purchase
+ *  was for an existing subscription, use linked_purchase_token to get the
+ *  current state of that subscription.
+ *
+ *  Value: "SUBSCRIPTION_STATE_PENDING_PURCHASE_CANCELED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAndroidPublisher_SubscriptionPurchaseV2_SubscriptionState_SubscriptionStatePendingPurchaseCanceled;
+/**
  *  Unspecified subscription state.
  *
  *  Value: "SUBSCRIPTION_STATE_UNSPECIFIED"
@@ -1515,6 +1631,12 @@ FOUNDATION_EXTERN NSString * const kGTLRAndroidPublisher_User_DeveloperAccountPe
  *  Value: "CAN_MANAGE_APP_CONTENT_GLOBAL"
  */
 FOUNDATION_EXTERN NSString * const kGTLRAndroidPublisher_User_DeveloperAccountPermissions_CanManageAppContentGlobal;
+/**
+ *  Manage the deep links setup for all apps for the developer.
+ *
+ *  Value: "CAN_MANAGE_DEEPLINKS_GLOBAL"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAndroidPublisher_User_DeveloperAccountPermissions_CanManageDeeplinksGlobal;
 /**
  *  Create, edit, and delete draft apps.
  *
@@ -2030,6 +2152,12 @@ FOUNDATION_EXTERN NSString * const kGTLRAndroidPublisher_User_DeveloperAccountPe
  *    @arg @c kGTLRAndroidPublisher_AppRecoveryAction_Status_RecoveryStatusDraft
  *        The recovery action is in the draft state and has not yet been
  *        deployed to users. (Value: "RECOVERY_STATUS_DRAFT")
+ *    @arg @c kGTLRAndroidPublisher_AppRecoveryAction_Status_RecoveryStatusGenerationFailed
+ *        The app recovery action generation has failed. (Value:
+ *        "RECOVERY_STATUS_GENERATION_FAILED")
+ *    @arg @c kGTLRAndroidPublisher_AppRecoveryAction_Status_RecoveryStatusGenerationInProgress
+ *        The recovery action is generating recovery apks. (Value:
+ *        "RECOVERY_STATUS_GENERATION_IN_PROGRESS")
  *    @arg @c kGTLRAndroidPublisher_AppRecoveryAction_Status_RecoveryStatusUnspecified
  *        RecoveryStatus is unspecified. (Value: "RECOVERY_STATUS_UNSPECIFIED")
  */
@@ -2045,8 +2173,7 @@ FOUNDATION_EXTERN NSString * const kGTLRAndroidPublisher_User_DeveloperAccountPe
 
 
 /**
- *  Data format for a list of app versions. Only one app version is supported
- *  for now.
+ *  Data format for a list of app versions.
  */
 @interface GTLRAndroidPublisher_AppVersionList : GTLRObject
 
@@ -2232,6 +2359,12 @@ GTLR_DEPRECATED
 @property(nonatomic, strong, nullable) NSNumber *autoRenewEnabled;
 
 /**
+ *  The installment plan commitment and state related info for the auto renewing
+ *  plan.
+ */
+@property(nonatomic, strong, nullable) GTLRAndroidPublisher_InstallmentPlan *installmentDetails;
+
+/**
  *  The information of the last price change for the item since subscription
  *  signup.
  */
@@ -2255,6 +2388,12 @@ GTLR_DEPRECATED
  *  be at most 63 characters.
  */
 @property(nonatomic, copy, nullable) NSString *basePlanId;
+
+/**
+ *  Set for installments base plans where a user is committed to a specified
+ *  number of payments.
+ */
+@property(nonatomic, strong, nullable) GTLRAndroidPublisher_InstallmentsBasePlanType *installmentsBasePlanType;
 
 /**
  *  List of up to 20 custom tags specified for this base plan, and returned to
@@ -2525,7 +2664,8 @@ GTLR_DEPRECATED
 
 
 /**
- *  Information specific to a subscription in canceled state.
+ *  Information specific to a subscription in the SUBSCRIPTION_STATE_CANCELED or
+ *  SUBSCRIPTION_STATE_EXPIRED state.
  */
 @interface GTLRAndroidPublisher_CanceledStateContext : GTLRObject
 
@@ -3382,6 +3522,20 @@ GTLR_DEPRECATED
 @property(nonatomic, strong, nullable) GTLRAndroidPublisher_ExternalTransactionTestPurchase *testPurchase;
 
 /**
+ *  Optional. The transaction program code, used to help determine service fee
+ *  for apps partcipating in special partner programs. This field can not be
+ *  used for external offers transactions. Developers participating in the Play
+ *  Media Experience Program
+ *  (https://play.google.com/console/about/programs/mediaprogram/) must provide
+ *  the program code when reporting alternative billing external transactions.
+ *  If you are an eligible developer, please contact your BDM for more
+ *  information on how to set this field.
+ *
+ *  Uses NSNumber of intValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *transactionProgramCode;
+
+/**
  *  Output only. The current state of the transaction.
  *
  *  Likely values:
@@ -3569,6 +3723,12 @@ GTLR_DEPRECATED
  *    @arg @c kGTLRAndroidPublisher_GeneratedRecoveryApk_RecoveryStatus_RecoveryStatusDraft
  *        The recovery action is in the draft state and has not yet been
  *        deployed to users. (Value: "RECOVERY_STATUS_DRAFT")
+ *    @arg @c kGTLRAndroidPublisher_GeneratedRecoveryApk_RecoveryStatus_RecoveryStatusGenerationFailed
+ *        The app recovery action generation has failed. (Value:
+ *        "RECOVERY_STATUS_GENERATION_FAILED")
+ *    @arg @c kGTLRAndroidPublisher_GeneratedRecoveryApk_RecoveryStatus_RecoveryStatusGenerationInProgress
+ *        The recovery action is generating recovery apks. (Value:
+ *        "RECOVERY_STATUS_GENERATION_IN_PROGRESS")
  *    @arg @c kGTLRAndroidPublisher_GeneratedRecoveryApk_RecoveryStatus_RecoveryStatusUnspecified
  *        RecoveryStatus is unspecified. (Value: "RECOVERY_STATUS_UNSPECIFIED")
  */
@@ -4045,6 +4205,132 @@ GTLR_DEPRECATED
 
 /** Unique identifier for the in-app product. */
 @property(nonatomic, copy, nullable) NSString *sku;
+
+@end
+
+
+/**
+ *  Information to a installment plan.
+ */
+@interface GTLRAndroidPublisher_InstallmentPlan : GTLRObject
+
+/**
+ *  Total number of payments the user is initially committed for.
+ *
+ *  Uses NSNumber of intValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *initialCommittedPaymentsCount;
+
+/**
+ *  If present, this installment plan is pending to be canceled. The
+ *  cancellation will happen only after the user finished all committed
+ *  payments.
+ */
+@property(nonatomic, strong, nullable) GTLRAndroidPublisher_PendingCancellation *pendingCancellation;
+
+/**
+ *  Total number of committed payments remaining to be paid for in this renewal
+ *  cycle.
+ *
+ *  Uses NSNumber of intValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *remainingCommittedPaymentsCount;
+
+/**
+ *  Total number of payments the user will be committed for after each
+ *  commitment period. Empty means the installment plan will fall back to a
+ *  normal auto-renew subscription after initial commitment.
+ *
+ *  Uses NSNumber of intValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *subsequentCommittedPaymentsCount;
+
+@end
+
+
+/**
+ *  Represents an installments base plan where a user commits to a specified
+ *  number of payments.
+ */
+@interface GTLRAndroidPublisher_InstallmentsBasePlanType : GTLRObject
+
+/**
+ *  Optional. Account hold period of the subscription, specified exclusively in
+ *  days and in ISO 8601 format. Acceptable values are P0D (zero days) to P30D
+ *  (30days). If not specified, the default value is P30D (30 days).
+ */
+@property(nonatomic, copy, nullable) NSString *accountHoldDuration;
+
+/**
+ *  Required. Subscription period, specified in ISO 8601 format. For a list of
+ *  acceptable billing periods, refer to the help center.
+ */
+@property(nonatomic, copy, nullable) NSString *billingPeriodDuration;
+
+/**
+ *  Required. The number of payments the user is committed to.
+ *
+ *  Uses NSNumber of intValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *committedPaymentsCount;
+
+/**
+ *  Grace period of the subscription, specified in ISO 8601 format. Acceptable
+ *  values are P0D (zero days), P3D (3 days), P7D (7 days), P14D (14 days), and
+ *  P30D (30 days). If not specified, a default value will be used based on the
+ *  recurring period duration.
+ */
+@property(nonatomic, copy, nullable) NSString *gracePeriodDuration;
+
+/**
+ *  The proration mode for the base plan determines what happens when a user
+ *  switches to this plan from another base plan. If unspecified, defaults to
+ *  CHARGE_ON_NEXT_BILLING_DATE.
+ *
+ *  Likely values:
+ *    @arg @c kGTLRAndroidPublisher_InstallmentsBasePlanType_ProrationMode_SubscriptionProrationModeChargeFullPriceImmediately
+ *        Users will be charged for their new base plan immediately and in full.
+ *        Any remaining period of their existing subscription will be used to
+ *        extend the duration of the new billing plan. (Value:
+ *        "SUBSCRIPTION_PRORATION_MODE_CHARGE_FULL_PRICE_IMMEDIATELY")
+ *    @arg @c kGTLRAndroidPublisher_InstallmentsBasePlanType_ProrationMode_SubscriptionProrationModeChargeOnNextBillingDate
+ *        Users will be charged for their new base plan at the end of their
+ *        current billing period. (Value:
+ *        "SUBSCRIPTION_PRORATION_MODE_CHARGE_ON_NEXT_BILLING_DATE")
+ *    @arg @c kGTLRAndroidPublisher_InstallmentsBasePlanType_ProrationMode_SubscriptionProrationModeUnspecified
+ *        Unspecified mode. (Value: "SUBSCRIPTION_PRORATION_MODE_UNSPECIFIED")
+ */
+@property(nonatomic, copy, nullable) NSString *prorationMode;
+
+/**
+ *  Required. Installments base plan renewal type. Determines the behavior at
+ *  the end of the initial commitment.
+ *
+ *  Likely values:
+ *    @arg @c kGTLRAndroidPublisher_InstallmentsBasePlanType_RenewalType_RenewalTypeRenewsWithCommitment
+ *        Renews with the commitment of the same duration as the initial one.
+ *        (Value: "RENEWAL_TYPE_RENEWS_WITH_COMMITMENT")
+ *    @arg @c kGTLRAndroidPublisher_InstallmentsBasePlanType_RenewalType_RenewalTypeRenewsWithoutCommitment
+ *        Renews periodically for the billing period duration without
+ *        commitment. (Value: "RENEWAL_TYPE_RENEWS_WITHOUT_COMMITMENT")
+ *    @arg @c kGTLRAndroidPublisher_InstallmentsBasePlanType_RenewalType_RenewalTypeUnspecified
+ *        Unspecified state. (Value: "RENEWAL_TYPE_UNSPECIFIED")
+ */
+@property(nonatomic, copy, nullable) NSString *renewalType;
+
+/**
+ *  Whether users should be able to resubscribe to this base plan in Google Play
+ *  surfaces. Defaults to RESUBSCRIBE_STATE_ACTIVE if not specified.
+ *
+ *  Likely values:
+ *    @arg @c kGTLRAndroidPublisher_InstallmentsBasePlanType_ResubscribeState_ResubscribeStateActive
+ *        Resubscribe is active. (Value: "RESUBSCRIBE_STATE_ACTIVE")
+ *    @arg @c kGTLRAndroidPublisher_InstallmentsBasePlanType_ResubscribeState_ResubscribeStateInactive
+ *        Resubscribe is inactive. (Value: "RESUBSCRIBE_STATE_INACTIVE")
+ *    @arg @c kGTLRAndroidPublisher_InstallmentsBasePlanType_ResubscribeState_ResubscribeStateUnspecified
+ *        Unspecified state. (Value: "RESUBSCRIBE_STATE_UNSPECIFIED")
+ */
+@property(nonatomic, copy, nullable) NSString *resubscribeState;
 
 @end
 
@@ -4598,6 +4884,14 @@ GTLR_DEPRECATED
 
 
 /**
+ *  Details of a recurring external transaction product which doesn't belong to
+ *  any other more specific category.
+ */
+@interface GTLRAndroidPublisher_OtherRecurringProduct : GTLRObject
+@end
+
+
+/**
  *  Pricing information for any new locations Play may launch in.
  */
 @interface GTLRAndroidPublisher_OtherRegionsBasePlanConfig : GTLRObject
@@ -4652,6 +4946,9 @@ GTLR_DEPRECATED
  */
 @property(nonatomic, strong, nullable) GTLRAndroidPublisher_OtherRegionsSubscriptionOfferPhasePrices *absoluteDiscounts;
 
+/** Set to specify this offer is free to obtain. */
+@property(nonatomic, strong, nullable) GTLRAndroidPublisher_OtherRegionsSubscriptionOfferPhaseFreePriceOverride *free;
+
 /**
  *  The absolute price the user pays for this offer phase. The price must not be
  *  smaller than the minimum price allowed for any new locations Play may launch
@@ -4674,6 +4971,14 @@ GTLR_DEPRECATED
  */
 @property(nonatomic, strong, nullable) NSNumber *relativeDiscount;
 
+@end
+
+
+/**
+ *  Represents the free price override configuration for any new locations Play
+ *  may launch for a single offer phase.
+ */
+@interface GTLRAndroidPublisher_OtherRegionsSubscriptionOfferPhaseFreePriceOverride : GTLRObject
 @end
 
 
@@ -4753,6 +5058,15 @@ GTLR_DEPRECATED
 /** Time at which the subscription will be automatically resumed. */
 @property(nonatomic, strong, nullable) GTLRDateTime *autoResumeTime;
 
+@end
+
+
+/**
+ *  This is an indicator of whether there is a pending cancellation on the
+ *  virtual installment plan. The cancellation will happen only after the user
+ *  finished all committed payments.
+ */
+@interface GTLRAndroidPublisher_PendingCancellation : GTLRObject
 @end
 
 
@@ -4899,8 +5213,8 @@ GTLR_DEPRECATED
  *  The type of purchase of the inapp product. This field is only set if this
  *  purchase was not made using the standard in-app billing flow. Possible
  *  values are: 0. Test (i.e. purchased from a license testing account) 1. Promo
- *  (i.e. purchased using a promo code) 2. Rewarded (i.e. from watching a video
- *  ad instead of paying)
+ *  (i.e. purchased using a promo code). Does not include Play Points purchases.
+ *  2. Rewarded (i.e. from watching a video ad instead of paying)
  *
  *  Uses NSNumber of intValue.
  */
@@ -4913,6 +5227,14 @@ GTLR_DEPRECATED
  *  Uses NSNumber of intValue.
  */
 @property(nonatomic, strong, nullable) NSNumber *quantity;
+
+/**
+ *  The quantity eligible for refund, i.e. quantity that hasn't been refunded.
+ *  The value reflects quantity-based partial refunds and full refunds.
+ *
+ *  Uses NSNumber of intValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *refundableQuantity;
 
 /**
  *  ISO 3166-1 alpha-2 billing region code of the user at the time the product
@@ -4965,9 +5287,9 @@ GTLR_DEPRECATED
  *  reporting.
  *
  *  Likely values:
- *    @arg @c kGTLRAndroidPublisher_RecurringExternalTransaction_MigratedTransactionProgram_AltertnativeBillingOnly
- *        Alternatively billing only, where users may only use developer-manager
- *        billing. (Value: "ALTERTNATIVE_BILLING_ONLY")
+ *    @arg @c kGTLRAndroidPublisher_RecurringExternalTransaction_MigratedTransactionProgram_AlternativeBillingOnly
+ *        Alternative billing only, where users may only use developer-manager
+ *        billing. (Value: "ALTERNATIVE_BILLING_ONLY")
  *    @arg @c kGTLRAndroidPublisher_RecurringExternalTransaction_MigratedTransactionProgram_ExternalTransactionProgramUnspecified
  *        Unspecified transaction program. Not used. (Value:
  *        "EXTERNAL_TRANSACTION_PROGRAM_UNSPECIFIED")
@@ -4976,6 +5298,12 @@ GTLR_DEPRECATED
  *        Billing developer-managed billing. (Value: "USER_CHOICE_BILLING")
  */
 @property(nonatomic, copy, nullable) NSString *migratedTransactionProgram;
+
+/**
+ *  Details of a recurring external transaction product which doesn't belong to
+ *  any other specific category.
+ */
+@property(nonatomic, strong, nullable) GTLRAndroidPublisher_OtherRecurringProduct *otherRecurringProduct;
 
 @end
 
@@ -5108,6 +5436,9 @@ GTLR_DEPRECATED
  */
 @property(nonatomic, strong, nullable) GTLRAndroidPublisher_Money *absoluteDiscount;
 
+/** Set to specify this offer is free to obtain. */
+@property(nonatomic, strong, nullable) GTLRAndroidPublisher_RegionalSubscriptionOfferPhaseFreePriceOverride *free;
+
 /**
  *  The absolute price the user pays for this offer phase. The price must not be
  *  smaller than the minimum price allowed for this region.
@@ -5132,6 +5463,14 @@ GTLR_DEPRECATED
  */
 @property(nonatomic, strong, nullable) NSNumber *relativeDiscount;
 
+@end
+
+
+/**
+ *  Represents the free price override configuration for a single phase of a
+ *  subscription offer
+ */
+@interface GTLRAndroidPublisher_RegionalSubscriptionOfferPhaseFreePriceOverride : GTLRObject
 @end
 
 
@@ -5305,6 +5644,22 @@ GTLR_DEPRECATED
  *  Information specific to cancellations caused by subscription replacement.
  */
 @interface GTLRAndroidPublisher_ReplacementCancellation : GTLRObject
+@end
+
+
+/**
+ *  Countries where the purchase of this product is restricted to payment
+ *  methods registered in the same country. If empty, no payment location
+ *  restrictions are imposed.
+ */
+@interface GTLRAndroidPublisher_RestrictedPaymentCountries : GTLRObject
+
+/**
+ *  Required. Region codes to impose payment restrictions on, as defined by ISO
+ *  3166-2, e.g. "US".
+ */
+@property(nonatomic, strong, nullable) NSArray<NSString *> *regionCodes;
+
 @end
 
 
@@ -5644,6 +5999,13 @@ GTLR_DEPRECATED
  *  number, and be between 1 and 40 (inclusive) characters in length.
  */
 @property(nonatomic, copy, nullable) NSString *productId;
+
+/**
+ *  Optional. Countries where the purchase of this subscription is restricted to
+ *  payment methods registered in the same country. If empty, no payment
+ *  location restrictions are imposed.
+ */
+@property(nonatomic, strong, nullable) GTLRAndroidPublisher_RestrictedPaymentCountries *restrictedPaymentCountries;
 
 /** Details about taxes and legal compliance. */
 @property(nonatomic, strong, nullable) GTLRAndroidPublisher_SubscriptionTaxAndComplianceSettings *taxAndComplianceSettings;
@@ -6273,7 +6635,8 @@ GTLR_DEPRECATED
 
 /**
  *  Additional context around canceled subscriptions. Only present if the
- *  subscription currently has subscription_state SUBSCRIPTION_STATE_CANCELED.
+ *  subscription currently has subscription_state SUBSCRIPTION_STATE_CANCELED or
+ *  SUBSCRIPTION_STATE_EXPIRED.
  */
 @property(nonatomic, strong, nullable) GTLRAndroidPublisher_CanceledStateContext *canceledStateContext;
 
@@ -6366,6 +6729,11 @@ GTLR_DEPRECATED
  *        Subscription was created but awaiting payment during signup. In this
  *        state, all items are awaiting payment. (Value:
  *        "SUBSCRIPTION_STATE_PENDING")
+ *    @arg @c kGTLRAndroidPublisher_SubscriptionPurchaseV2_SubscriptionState_SubscriptionStatePendingPurchaseCanceled
+ *        Pending transaction for subscription is canceled. If this pending
+ *        purchase was for an existing subscription, use linked_purchase_token
+ *        to get the current state of that subscription. (Value:
+ *        "SUBSCRIPTION_STATE_PENDING_PURCHASE_CANCELED")
  *    @arg @c kGTLRAndroidPublisher_SubscriptionPurchaseV2_SubscriptionState_SubscriptionStateUnspecified
  *        Unspecified subscription state. (Value:
  *        "SUBSCRIPTION_STATE_UNSPECIFIED")
@@ -6538,12 +6906,40 @@ GTLR_DEPRECATED
 @interface GTLRAndroidPublisher_TargetingRuleScope : GTLRObject
 
 /**
+ *  The scope of the current targeting rule is any subscription in the parent
+ *  app.
+ */
+@property(nonatomic, strong, nullable) GTLRAndroidPublisher_TargetingRuleScopeAnySubscriptionInApp *anySubscriptionInApp;
+
+/**
  *  The scope of the current targeting rule is the subscription with the
  *  specified subscription ID. Must be a subscription within the same parent
  *  app.
  */
 @property(nonatomic, copy, nullable) NSString *specificSubscriptionInApp;
 
+/**
+ *  The scope of the current targeting rule is the subscription in which this
+ *  offer is defined.
+ */
+@property(nonatomic, strong, nullable) GTLRAndroidPublisher_TargetingRuleScopeThisSubscription *thisSubscription;
+
+@end
+
+
+/**
+ *  Represents the targeting rule scope corresponding to any subscription in the
+ *  parent app.
+ */
+@interface GTLRAndroidPublisher_TargetingRuleScopeAnySubscriptionInApp : GTLRObject
+@end
+
+
+/**
+ *  Represents the targeting rule scope corresponding to the subscriptions in
+ *  which this offer is defined.
+ */
+@interface GTLRAndroidPublisher_TargetingRuleScopeThisSubscription : GTLRObject
 @end
 
 
@@ -7355,9 +7751,18 @@ GTLR_DEPRECATED
 @property(nonatomic, copy, nullable) NSString *purchaseToken;
 
 /**
+ *  The voided quantity as the result of a quantity-based partial refund. Voided
+ *  purchases of quantity-based partial refunds may only be returned when
+ *  includeQuantityBasedPartialRefund is set to true.
+ *
+ *  Uses NSNumber of intValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *voidedQuantity;
+
+/**
  *  The reason why the purchase was voided, possible values are: 0. Other 1.
  *  Remorse 2. Not_received 3. Defective 4. Accidental_purchase 5. Fraud 6.
- *  Friendly_fraud 7. Chargeback
+ *  Friendly_fraud 7. Chargeback 8. Unacknowledged_purchase
  *
  *  Uses NSNumber of intValue.
  */

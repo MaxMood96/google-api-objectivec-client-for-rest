@@ -159,7 +159,7 @@ FOUNDATION_EXTERN NSString * const kGTLRAssuredworkloads_GoogleCloudAssuredworkl
  */
 FOUNDATION_EXTERN NSString * const kGTLRAssuredworkloads_GoogleCloudAssuredworkloadsV1CreateWorkloadOperationMetadata_ComplianceRegime_Il5;
 /**
- *  Assured Workloads for Israel
+ *  Assured Workloads for Israel Regions
  *
  *  Value: "ISR_REGIONS"
  */
@@ -182,6 +182,54 @@ FOUNDATION_EXTERN NSString * const kGTLRAssuredworkloads_GoogleCloudAssuredworkl
  *  Value: "JP_REGIONS_AND_SUPPORT"
  */
 FOUNDATION_EXTERN NSString * const kGTLRAssuredworkloads_GoogleCloudAssuredworkloadsV1CreateWorkloadOperationMetadata_ComplianceRegime_JpRegionsAndSupport;
+/**
+ *  KSA R5 Controls.
+ *
+ *  Value: "KSA_REGIONS_AND_SUPPORT_WITH_SOVEREIGNTY_CONTROLS"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAssuredworkloads_GoogleCloudAssuredworkloadsV1CreateWorkloadOperationMetadata_ComplianceRegime_KsaRegionsAndSupportWithSovereigntyControls;
+/**
+ *  Assured Workloads for Regional Controls
+ *
+ *  Value: "REGIONAL_CONTROLS"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAssuredworkloads_GoogleCloudAssuredworkloadsV1CreateWorkloadOperationMetadata_ComplianceRegime_RegionalControls;
+/**
+ *  Assured Workloads for Australia Regions and Support controls
+ *
+ *  Value: "REGIONAL_CONTROLS_PREMIUM_AU"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAssuredworkloads_GoogleCloudAssuredworkloadsV1CreateWorkloadOperationMetadata_ComplianceRegime_RegionalControlsPremiumAu;
+/**
+ *  Assured Workloads For Canada Regions and Support controls
+ *
+ *  Value: "REGIONAL_CONTROLS_PREMIUM_CA"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAssuredworkloads_GoogleCloudAssuredworkloadsV1CreateWorkloadOperationMetadata_ComplianceRegime_RegionalControlsPremiumCa;
+/**
+ *  Assured Workloads For EU Regions and Support controls
+ *
+ *  Value: "REGIONAL_CONTROLS_PREMIUM_EU"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAssuredworkloads_GoogleCloudAssuredworkloadsV1CreateWorkloadOperationMetadata_ComplianceRegime_RegionalControlsPremiumEu;
+/**
+ *  Assured Workloads for Israel
+ *
+ *  Value: "REGIONAL_CONTROLS_PREMIUM_ISR"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAssuredworkloads_GoogleCloudAssuredworkloadsV1CreateWorkloadOperationMetadata_ComplianceRegime_RegionalControlsPremiumIsr;
+/**
+ *  Assured Workloads for Japan Regions
+ *
+ *  Value: "REGIONAL_CONTROLS_PREMIUM_JP"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAssuredworkloads_GoogleCloudAssuredworkloadsV1CreateWorkloadOperationMetadata_ComplianceRegime_RegionalControlsPremiumJp;
+/**
+ *  Assured Workloads For US Regions data protection controls
+ *
+ *  Value: "REGIONAL_CONTROLS_PREMIUM_US"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAssuredworkloads_GoogleCloudAssuredworkloadsV1CreateWorkloadOperationMetadata_ComplianceRegime_RegionalControlsPremiumUs;
 /**
  *  Assured Workloads For US Regions data protection controls
  *
@@ -304,6 +352,12 @@ FOUNDATION_EXTERN NSString * const kGTLRAssuredworkloads_GoogleCloudAssuredworkl
  */
 FOUNDATION_EXTERN NSString * const kGTLRAssuredworkloads_GoogleCloudAssuredworkloadsV1ViolationRemediation_RemediationType_RemediationResourceViolation;
 /**
+ *  Remediation type for resource violation due to gcp.restrictNonCmekServices
+ *
+ *  Value: "REMEDIATION_RESOURCE_VIOLATION_NON_CMEK_SERVICES"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAssuredworkloads_GoogleCloudAssuredworkloadsV1ViolationRemediation_RemediationType_RemediationResourceViolationNonCmekServices;
+/**
  *  Remediation type for gcp.restrictCmekCryptoKeyProjects
  *
  *  Value: "REMEDIATION_RESTRICT_CMEK_CRYPTO_KEY_PROJECTS_ORG_POLICY_VIOLATION"
@@ -404,7 +458,7 @@ FOUNDATION_EXTERN NSString * const kGTLRAssuredworkloads_GoogleCloudAssuredworkl
  */
 FOUNDATION_EXTERN NSString * const kGTLRAssuredworkloads_GoogleCloudAssuredworkloadsV1Workload_ComplianceRegime_Il5;
 /**
- *  Assured Workloads for Israel
+ *  Assured Workloads for Israel Regions
  *
  *  Value: "ISR_REGIONS"
  */
@@ -427,6 +481,54 @@ FOUNDATION_EXTERN NSString * const kGTLRAssuredworkloads_GoogleCloudAssuredworkl
  *  Value: "JP_REGIONS_AND_SUPPORT"
  */
 FOUNDATION_EXTERN NSString * const kGTLRAssuredworkloads_GoogleCloudAssuredworkloadsV1Workload_ComplianceRegime_JpRegionsAndSupport;
+/**
+ *  KSA R5 Controls.
+ *
+ *  Value: "KSA_REGIONS_AND_SUPPORT_WITH_SOVEREIGNTY_CONTROLS"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAssuredworkloads_GoogleCloudAssuredworkloadsV1Workload_ComplianceRegime_KsaRegionsAndSupportWithSovereigntyControls;
+/**
+ *  Assured Workloads for Regional Controls
+ *
+ *  Value: "REGIONAL_CONTROLS"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAssuredworkloads_GoogleCloudAssuredworkloadsV1Workload_ComplianceRegime_RegionalControls;
+/**
+ *  Assured Workloads for Australia Regions and Support controls
+ *
+ *  Value: "REGIONAL_CONTROLS_PREMIUM_AU"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAssuredworkloads_GoogleCloudAssuredworkloadsV1Workload_ComplianceRegime_RegionalControlsPremiumAu;
+/**
+ *  Assured Workloads For Canada Regions and Support controls
+ *
+ *  Value: "REGIONAL_CONTROLS_PREMIUM_CA"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAssuredworkloads_GoogleCloudAssuredworkloadsV1Workload_ComplianceRegime_RegionalControlsPremiumCa;
+/**
+ *  Assured Workloads For EU Regions and Support controls
+ *
+ *  Value: "REGIONAL_CONTROLS_PREMIUM_EU"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAssuredworkloads_GoogleCloudAssuredworkloadsV1Workload_ComplianceRegime_RegionalControlsPremiumEu;
+/**
+ *  Assured Workloads for Israel
+ *
+ *  Value: "REGIONAL_CONTROLS_PREMIUM_ISR"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAssuredworkloads_GoogleCloudAssuredworkloadsV1Workload_ComplianceRegime_RegionalControlsPremiumIsr;
+/**
+ *  Assured Workloads for Japan Regions
+ *
+ *  Value: "REGIONAL_CONTROLS_PREMIUM_JP"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAssuredworkloads_GoogleCloudAssuredworkloadsV1Workload_ComplianceRegime_RegionalControlsPremiumJp;
+/**
+ *  Assured Workloads For US Regions data protection controls
+ *
+ *  Value: "REGIONAL_CONTROLS_PREMIUM_US"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAssuredworkloads_GoogleCloudAssuredworkloadsV1Workload_ComplianceRegime_RegionalControlsPremiumUs;
 /**
  *  Assured Workloads For US Regions data protection controls
  *
@@ -849,7 +951,7 @@ FOUNDATION_EXTERN NSString * const kGTLRAssuredworkloads_GoogleCloudAssuredworkl
  *    @arg @c kGTLRAssuredworkloads_GoogleCloudAssuredworkloadsV1CreateWorkloadOperationMetadata_ComplianceRegime_Il5
  *        Information protection as per DoD IL5 requirements. (Value: "IL5")
  *    @arg @c kGTLRAssuredworkloads_GoogleCloudAssuredworkloadsV1CreateWorkloadOperationMetadata_ComplianceRegime_IsrRegions
- *        Assured Workloads for Israel (Value: "ISR_REGIONS")
+ *        Assured Workloads for Israel Regions (Value: "ISR_REGIONS")
  *    @arg @c kGTLRAssuredworkloads_GoogleCloudAssuredworkloadsV1CreateWorkloadOperationMetadata_ComplianceRegime_IsrRegionsAndSupport
  *        Assured Workloads for Israel Regions (Value:
  *        "ISR_REGIONS_AND_SUPPORT")
@@ -857,6 +959,28 @@ FOUNDATION_EXTERN NSString * const kGTLRAssuredworkloads_GoogleCloudAssuredworkl
  *        International Traffic in Arms Regulations (Value: "ITAR")
  *    @arg @c kGTLRAssuredworkloads_GoogleCloudAssuredworkloadsV1CreateWorkloadOperationMetadata_ComplianceRegime_JpRegionsAndSupport
  *        Assured Workloads for Japan Regions (Value: "JP_REGIONS_AND_SUPPORT")
+ *    @arg @c kGTLRAssuredworkloads_GoogleCloudAssuredworkloadsV1CreateWorkloadOperationMetadata_ComplianceRegime_KsaRegionsAndSupportWithSovereigntyControls
+ *        KSA R5 Controls. (Value:
+ *        "KSA_REGIONS_AND_SUPPORT_WITH_SOVEREIGNTY_CONTROLS")
+ *    @arg @c kGTLRAssuredworkloads_GoogleCloudAssuredworkloadsV1CreateWorkloadOperationMetadata_ComplianceRegime_RegionalControls
+ *        Assured Workloads for Regional Controls (Value: "REGIONAL_CONTROLS")
+ *    @arg @c kGTLRAssuredworkloads_GoogleCloudAssuredworkloadsV1CreateWorkloadOperationMetadata_ComplianceRegime_RegionalControlsPremiumAu
+ *        Assured Workloads for Australia Regions and Support controls (Value:
+ *        "REGIONAL_CONTROLS_PREMIUM_AU")
+ *    @arg @c kGTLRAssuredworkloads_GoogleCloudAssuredworkloadsV1CreateWorkloadOperationMetadata_ComplianceRegime_RegionalControlsPremiumCa
+ *        Assured Workloads For Canada Regions and Support controls (Value:
+ *        "REGIONAL_CONTROLS_PREMIUM_CA")
+ *    @arg @c kGTLRAssuredworkloads_GoogleCloudAssuredworkloadsV1CreateWorkloadOperationMetadata_ComplianceRegime_RegionalControlsPremiumEu
+ *        Assured Workloads For EU Regions and Support controls (Value:
+ *        "REGIONAL_CONTROLS_PREMIUM_EU")
+ *    @arg @c kGTLRAssuredworkloads_GoogleCloudAssuredworkloadsV1CreateWorkloadOperationMetadata_ComplianceRegime_RegionalControlsPremiumIsr
+ *        Assured Workloads for Israel (Value: "REGIONAL_CONTROLS_PREMIUM_ISR")
+ *    @arg @c kGTLRAssuredworkloads_GoogleCloudAssuredworkloadsV1CreateWorkloadOperationMetadata_ComplianceRegime_RegionalControlsPremiumJp
+ *        Assured Workloads for Japan Regions (Value:
+ *        "REGIONAL_CONTROLS_PREMIUM_JP")
+ *    @arg @c kGTLRAssuredworkloads_GoogleCloudAssuredworkloadsV1CreateWorkloadOperationMetadata_ComplianceRegime_RegionalControlsPremiumUs
+ *        Assured Workloads For US Regions data protection controls (Value:
+ *        "REGIONAL_CONTROLS_PREMIUM_US")
  *    @arg @c kGTLRAssuredworkloads_GoogleCloudAssuredworkloadsV1CreateWorkloadOperationMetadata_ComplianceRegime_UsRegionalAccess
  *        Assured Workloads For US Regions data protection controls (Value:
  *        "US_REGIONAL_ACCESS")
@@ -1240,6 +1364,10 @@ FOUNDATION_EXTERN NSString * const kGTLRAssuredworkloads_GoogleCloudAssuredworkl
  *    @arg @c kGTLRAssuredworkloads_GoogleCloudAssuredworkloadsV1ViolationRemediation_RemediationType_RemediationResourceViolation
  *        Remediation type for resource violation. (Value:
  *        "REMEDIATION_RESOURCE_VIOLATION")
+ *    @arg @c kGTLRAssuredworkloads_GoogleCloudAssuredworkloadsV1ViolationRemediation_RemediationType_RemediationResourceViolationNonCmekServices
+ *        Remediation type for resource violation due to
+ *        gcp.restrictNonCmekServices (Value:
+ *        "REMEDIATION_RESOURCE_VIOLATION_NON_CMEK_SERVICES")
  *    @arg @c kGTLRAssuredworkloads_GoogleCloudAssuredworkloadsV1ViolationRemediation_RemediationType_RemediationRestrictCmekCryptoKeyProjectsOrgPolicyViolation
  *        Remediation type for gcp.restrictCmekCryptoKeyProjects (Value:
  *        "REMEDIATION_RESTRICT_CMEK_CRYPTO_KEY_PROJECTS_ORG_POLICY_VIOLATION")
@@ -1355,7 +1483,7 @@ FOUNDATION_EXTERN NSString * const kGTLRAssuredworkloads_GoogleCloudAssuredworkl
  *    @arg @c kGTLRAssuredworkloads_GoogleCloudAssuredworkloadsV1Workload_ComplianceRegime_Il5
  *        Information protection as per DoD IL5 requirements. (Value: "IL5")
  *    @arg @c kGTLRAssuredworkloads_GoogleCloudAssuredworkloadsV1Workload_ComplianceRegime_IsrRegions
- *        Assured Workloads for Israel (Value: "ISR_REGIONS")
+ *        Assured Workloads for Israel Regions (Value: "ISR_REGIONS")
  *    @arg @c kGTLRAssuredworkloads_GoogleCloudAssuredworkloadsV1Workload_ComplianceRegime_IsrRegionsAndSupport
  *        Assured Workloads for Israel Regions (Value:
  *        "ISR_REGIONS_AND_SUPPORT")
@@ -1363,6 +1491,28 @@ FOUNDATION_EXTERN NSString * const kGTLRAssuredworkloads_GoogleCloudAssuredworkl
  *        International Traffic in Arms Regulations (Value: "ITAR")
  *    @arg @c kGTLRAssuredworkloads_GoogleCloudAssuredworkloadsV1Workload_ComplianceRegime_JpRegionsAndSupport
  *        Assured Workloads for Japan Regions (Value: "JP_REGIONS_AND_SUPPORT")
+ *    @arg @c kGTLRAssuredworkloads_GoogleCloudAssuredworkloadsV1Workload_ComplianceRegime_KsaRegionsAndSupportWithSovereigntyControls
+ *        KSA R5 Controls. (Value:
+ *        "KSA_REGIONS_AND_SUPPORT_WITH_SOVEREIGNTY_CONTROLS")
+ *    @arg @c kGTLRAssuredworkloads_GoogleCloudAssuredworkloadsV1Workload_ComplianceRegime_RegionalControls
+ *        Assured Workloads for Regional Controls (Value: "REGIONAL_CONTROLS")
+ *    @arg @c kGTLRAssuredworkloads_GoogleCloudAssuredworkloadsV1Workload_ComplianceRegime_RegionalControlsPremiumAu
+ *        Assured Workloads for Australia Regions and Support controls (Value:
+ *        "REGIONAL_CONTROLS_PREMIUM_AU")
+ *    @arg @c kGTLRAssuredworkloads_GoogleCloudAssuredworkloadsV1Workload_ComplianceRegime_RegionalControlsPremiumCa
+ *        Assured Workloads For Canada Regions and Support controls (Value:
+ *        "REGIONAL_CONTROLS_PREMIUM_CA")
+ *    @arg @c kGTLRAssuredworkloads_GoogleCloudAssuredworkloadsV1Workload_ComplianceRegime_RegionalControlsPremiumEu
+ *        Assured Workloads For EU Regions and Support controls (Value:
+ *        "REGIONAL_CONTROLS_PREMIUM_EU")
+ *    @arg @c kGTLRAssuredworkloads_GoogleCloudAssuredworkloadsV1Workload_ComplianceRegime_RegionalControlsPremiumIsr
+ *        Assured Workloads for Israel (Value: "REGIONAL_CONTROLS_PREMIUM_ISR")
+ *    @arg @c kGTLRAssuredworkloads_GoogleCloudAssuredworkloadsV1Workload_ComplianceRegime_RegionalControlsPremiumJp
+ *        Assured Workloads for Japan Regions (Value:
+ *        "REGIONAL_CONTROLS_PREMIUM_JP")
+ *    @arg @c kGTLRAssuredworkloads_GoogleCloudAssuredworkloadsV1Workload_ComplianceRegime_RegionalControlsPremiumUs
+ *        Assured Workloads For US Regions data protection controls (Value:
+ *        "REGIONAL_CONTROLS_PREMIUM_US")
  *    @arg @c kGTLRAssuredworkloads_GoogleCloudAssuredworkloadsV1Workload_ComplianceRegime_UsRegionalAccess
  *        Assured Workloads For US Regions data protection controls (Value:
  *        "US_REGIONAL_ACCESS")

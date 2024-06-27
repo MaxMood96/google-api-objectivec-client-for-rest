@@ -13,6 +13,7 @@
 
 // GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1alpha1AnnotatorSelectorSummarizationConfig.summarizationModel
 NSString * const kGTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1alpha1AnnotatorSelectorSummarizationConfig_SummarizationModel_BaselineModel = @"BASELINE_MODEL";
+NSString * const kGTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1alpha1AnnotatorSelectorSummarizationConfig_SummarizationModel_BaselineModelV20 = @"BASELINE_MODEL_V2_0";
 NSString * const kGTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1alpha1AnnotatorSelectorSummarizationConfig_SummarizationModel_SummarizationModelUnspecified = @"SUMMARIZATION_MODEL_UNSPECIFIED";
 
 // GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1alpha1AnswerFeedback.correctnessLevel
@@ -88,6 +89,7 @@ NSString * const kGTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1al
 
 // GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1AnnotatorSelectorSummarizationConfig.summarizationModel
 NSString * const kGTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1AnnotatorSelectorSummarizationConfig_SummarizationModel_BaselineModel = @"BASELINE_MODEL";
+NSString * const kGTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1AnnotatorSelectorSummarizationConfig_SummarizationModel_BaselineModelV20 = @"BASELINE_MODEL_V2_0";
 NSString * const kGTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1AnnotatorSelectorSummarizationConfig_SummarizationModel_SummarizationModelUnspecified = @"SUMMARIZATION_MODEL_UNSPECIFIED";
 
 // GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1AnswerFeedback.correctnessLevel
@@ -209,7 +211,7 @@ NSString * const kGTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1Ph
 
 @implementation GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1alpha1AnalysisResultCallAnalysisMetadata
 @dynamic annotations, entities, intents, issueModelResult, phraseMatchers,
-         sentiments;
+         sentiments, silence;
 
 + (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
   NSDictionary<NSString *, Class> *map = @{
@@ -504,6 +506,16 @@ NSString * const kGTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1Ph
 
 @implementation GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1alpha1ConversationLevelSentiment
 @dynamic channelTag, sentimentData;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1alpha1ConversationLevelSilence
+//
+
+@implementation GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1alpha1ConversationLevelSilence
+@dynamic silenceDuration, silencePercentage;
 @end
 
 
@@ -988,8 +1000,8 @@ NSString * const kGTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1Ph
 //
 
 @implementation GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1alpha1IngestConversationsRequest
-@dynamic conversationConfig, gcsSource, parent, redactionConfig, speechConfig,
-         transcriptObjectConfig;
+@dynamic conversationConfig, gcsSource, parent, redactionConfig, sampleSize,
+         speechConfig, transcriptObjectConfig;
 @end
 
 
@@ -1196,7 +1208,17 @@ NSString * const kGTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1Ph
 @dynamic annotationId, answerFeedback, articleSuggestion,
          conversationSummarizationSuggestion, createTime, dialogflowInteraction,
          endBoundary, faqAnswer, smartComposeSuggestion, smartReply,
-         startBoundary;
+         startBoundary, userInput;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1alpha1RuntimeAnnotationUserInput
+//
+
+@implementation GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1alpha1RuntimeAnnotationUserInput
+@dynamic generatorName, query;
 @end
 
 
@@ -1354,7 +1376,7 @@ NSString * const kGTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1Ph
 
 @implementation GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1AnalysisResultCallAnalysisMetadata
 @dynamic annotations, entities, intents, issueModelResult, phraseMatchers,
-         sentiments;
+         sentiments, silence;
 
 + (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
   NSDictionary<NSString *, Class> *map = @{
@@ -1755,6 +1777,16 @@ NSString * const kGTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1Ph
 
 @implementation GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1ConversationLevelSentiment
 @dynamic channelTag, sentimentData;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1ConversationLevelSilence
+//
+
+@implementation GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1ConversationLevelSilence
+@dynamic silenceDuration, silencePercentage;
 @end
 
 
@@ -2249,8 +2281,8 @@ NSString * const kGTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1Ph
 //
 
 @implementation GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1IngestConversationsRequest
-@dynamic conversationConfig, gcsSource, parent, redactionConfig, speechConfig,
-         transcriptObjectConfig;
+@dynamic conversationConfig, gcsSource, parent, redactionConfig, sampleSize,
+         speechConfig, transcriptObjectConfig;
 @end
 
 
@@ -2657,7 +2689,17 @@ NSString * const kGTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1Ph
 @dynamic annotationId, answerFeedback, articleSuggestion,
          conversationSummarizationSuggestion, createTime, dialogflowInteraction,
          endBoundary, faqAnswer, smartComposeSuggestion, smartReply,
-         startBoundary;
+         startBoundary, userInput;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1RuntimeAnnotationUserInput
+//
+
+@implementation GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1RuntimeAnnotationUserInput
+@dynamic generatorName, query;
 @end
 
 

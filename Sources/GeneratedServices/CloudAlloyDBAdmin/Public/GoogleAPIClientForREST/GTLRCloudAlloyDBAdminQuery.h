@@ -538,47 +538,6 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudAlloyDBAdminViewInstanceViewUnspeci
 @end
 
 /**
- *  Generate a client certificate signed by a Cluster CA. The sole purpose of
- *  this endpoint is to support AlloyDB connectors and the Auth Proxy client.
- *  The endpoint's behavior is subject to change without notice, so do not rely
- *  on its behavior remaining constant. Future changes will not break AlloyDB
- *  connectors or the Auth Proxy client.
- *
- *  Method: alloydb.projects.locations.clusters.generateClientCertificate
- *
- *  Authorization scope(s):
- *    @c kGTLRAuthScopeCloudAlloyDBAdminCloudPlatform
- */
-@interface GTLRCloudAlloyDBAdminQuery_ProjectsLocationsClustersGenerateClientCertificate : GTLRCloudAlloyDBAdminQuery
-
-/**
- *  Required. The name of the parent resource. The required format is: *
- *  projects/{project}/locations/{location}/clusters/{cluster}
- */
-@property(nonatomic, copy, nullable) NSString *parent;
-
-/**
- *  Fetches a @c GTLRCloudAlloyDBAdmin_GenerateClientCertificateResponse.
- *
- *  Generate a client certificate signed by a Cluster CA. The sole purpose of
- *  this endpoint is to support AlloyDB connectors and the Auth Proxy client.
- *  The endpoint's behavior is subject to change without notice, so do not rely
- *  on its behavior remaining constant. Future changes will not break AlloyDB
- *  connectors or the Auth Proxy client.
- *
- *  @param object The @c GTLRCloudAlloyDBAdmin_GenerateClientCertificateRequest
- *    to include in the query.
- *  @param parent Required. The name of the parent resource. The required format
- *    is: * projects/{project}/locations/{location}/clusters/{cluster}
- *
- *  @return GTLRCloudAlloyDBAdminQuery_ProjectsLocationsClustersGenerateClientCertificate
- */
-+ (instancetype)queryWithObject:(GTLRCloudAlloyDBAdmin_GenerateClientCertificateRequest *)object
-                         parent:(NSString *)parent;
-
-@end
-
-/**
  *  Gets details of a single Cluster.
  *
  *  Method: alloydb.projects.locations.clusters.get
@@ -1336,6 +1295,43 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudAlloyDBAdminViewInstanceViewUnspeci
  */
 + (instancetype)queryWithObject:(GTLRCloudAlloyDBAdmin_RestoreClusterRequest *)object
                          parent:(NSString *)parent;
+
+@end
+
+/**
+ *  Switches the role of PRIMARY and SECONDARY cluster without any data loss.
+ *  This promotes the SECONDARY cluster to PRIMARY and sets up original PRIMARY
+ *  cluster to replicate from this newly promoted cluster.
+ *
+ *  Method: alloydb.projects.locations.clusters.switchover
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeCloudAlloyDBAdminCloudPlatform
+ */
+@interface GTLRCloudAlloyDBAdminQuery_ProjectsLocationsClustersSwitchover : GTLRCloudAlloyDBAdminQuery
+
+/**
+ *  Required. The name of the resource. For the required format, see the comment
+ *  on the Cluster.name field
+ */
+@property(nonatomic, copy, nullable) NSString *name;
+
+/**
+ *  Fetches a @c GTLRCloudAlloyDBAdmin_Operation.
+ *
+ *  Switches the role of PRIMARY and SECONDARY cluster without any data loss.
+ *  This promotes the SECONDARY cluster to PRIMARY and sets up original PRIMARY
+ *  cluster to replicate from this newly promoted cluster.
+ *
+ *  @param object The @c GTLRCloudAlloyDBAdmin_SwitchoverClusterRequest to
+ *    include in the query.
+ *  @param name Required. The name of the resource. For the required format, see
+ *    the comment on the Cluster.name field
+ *
+ *  @return GTLRCloudAlloyDBAdminQuery_ProjectsLocationsClustersSwitchover
+ */
++ (instancetype)queryWithObject:(GTLRCloudAlloyDBAdmin_SwitchoverClusterRequest *)object
+                           name:(NSString *)name;
 
 @end
 

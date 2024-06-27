@@ -409,7 +409,7 @@ FOUNDATION_EXTERN NSString * const kGTLRArtifactRegistryViewVersionViewUnspecifi
 /** The field to order the results by. */
 @property(nonatomic, copy, nullable) NSString *orderBy;
 
-/** The maximum number of artifacts to return. */
+/** The maximum number of artifacts to return. Maximum page size is 1,000. */
 @property(nonatomic, assign) NSInteger pageSize;
 
 /**
@@ -438,6 +438,74 @@ FOUNDATION_EXTERN NSString * const kGTLRArtifactRegistryViewVersionViewUnspecifi
  *        information.
  */
 + (instancetype)queryWithParent:(NSString *)parent;
+
+@end
+
+/**
+ *  Deletes a file and all of its content. It is only allowed on generic
+ *  repositories. The returned operation will complete once the file has been
+ *  deleted.
+ *
+ *  Method: artifactregistry.projects.locations.repositories.files.delete
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeArtifactRegistryCloudPlatform
+ */
+@interface GTLRArtifactRegistryQuery_ProjectsLocationsRepositoriesFilesDelete : GTLRArtifactRegistryQuery
+
+/** Required. The name of the file to delete. */
+@property(nonatomic, copy, nullable) NSString *name;
+
+/**
+ *  Fetches a @c GTLRArtifactRegistry_Operation.
+ *
+ *  Deletes a file and all of its content. It is only allowed on generic
+ *  repositories. The returned operation will complete once the file has been
+ *  deleted.
+ *
+ *  @param name Required. The name of the file to delete.
+ *
+ *  @return GTLRArtifactRegistryQuery_ProjectsLocationsRepositoriesFilesDelete
+ */
++ (instancetype)queryWithName:(NSString *)name;
+
+@end
+
+/**
+ *  Download a file.
+ *
+ *  Method: artifactregistry.projects.locations.repositories.files.download
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeArtifactRegistryCloudPlatform
+ *    @c kGTLRAuthScopeArtifactRegistryCloudPlatformReadOnly
+ */
+@interface GTLRArtifactRegistryQuery_ProjectsLocationsRepositoriesFilesDownload : GTLRArtifactRegistryQuery
+
+/** Required. The name of the file to download. */
+@property(nonatomic, copy, nullable) NSString *name;
+
+/**
+ *  Fetches a @c GTLRArtifactRegistry_DownloadFileResponse.
+ *
+ *  Download a file.
+ *
+ *  @param name Required. The name of the file to download.
+ *
+ *  @return GTLRArtifactRegistryQuery_ProjectsLocationsRepositoriesFilesDownload
+ */
++ (instancetype)queryWithName:(NSString *)name;
+
+/**
+ *  Fetches the requested resource data as a @c GTLRDataObject.
+ *
+ *  Download a file.
+ *
+ *  @param name Required. The name of the file to download.
+ *
+ *  @return GTLRArtifactRegistryQuery_ProjectsLocationsRepositoriesFilesDownload
+ */
++ (instancetype)queryForMediaWithName:(NSString *)name;
 
 @end
 
@@ -493,7 +561,7 @@ FOUNDATION_EXTERN NSString * const kGTLRArtifactRegistryViewVersionViewUnspecifi
 /** The field to order the results by. */
 @property(nonatomic, copy, nullable) NSString *orderBy;
 
-/** The maximum number of files to return. */
+/** The maximum number of files to return. Maximum page size is 1,000. */
 @property(nonatomic, assign) NSInteger pageSize;
 
 /**
@@ -522,6 +590,48 @@ FOUNDATION_EXTERN NSString * const kGTLRArtifactRegistryViewVersionViewUnspecifi
  *        information.
  */
 + (instancetype)queryWithParent:(NSString *)parent;
+
+@end
+
+/**
+ *  Directly uploads a Generic artifact. The returned operation will complete
+ *  once the resources are uploaded. Package, version, and file resources are
+ *  created based on the uploaded artifact. Uploaded artifacts that conflict
+ *  with existing resources will raise an `ALREADY_EXISTS` error.
+ *
+ *  Method: artifactregistry.projects.locations.repositories.genericArtifacts.upload
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeArtifactRegistryCloudPlatform
+ */
+@interface GTLRArtifactRegistryQuery_ProjectsLocationsRepositoriesGenericArtifactsUpload : GTLRArtifactRegistryQuery
+
+/**
+ *  The resource name of the repository where the generic artifact will be
+ *  uploaded.
+ */
+@property(nonatomic, copy, nullable) NSString *parent;
+
+/**
+ *  Fetches a @c GTLRArtifactRegistry_UploadGenericArtifactMediaResponse.
+ *
+ *  Directly uploads a Generic artifact. The returned operation will complete
+ *  once the resources are uploaded. Package, version, and file resources are
+ *  created based on the uploaded artifact. Uploaded artifacts that conflict
+ *  with existing resources will raise an `ALREADY_EXISTS` error.
+ *
+ *  @param object The @c GTLRArtifactRegistry_UploadGenericArtifactRequest to
+ *    include in the query.
+ *  @param parent The resource name of the repository where the generic artifact
+ *    will be uploaded.
+ *  @param uploadParameters The media to include in this query. Accepted MIME
+ *    type: * / *
+ *
+ *  @return GTLRArtifactRegistryQuery_ProjectsLocationsRepositoriesGenericArtifactsUpload
+ */
++ (instancetype)queryWithObject:(GTLRArtifactRegistry_UploadGenericArtifactRequest *)object
+                         parent:(NSString *)parent
+               uploadParameters:(nullable GTLRUploadParameters *)uploadParameters;
 
 @end
 
@@ -837,7 +947,7 @@ FOUNDATION_EXTERN NSString * const kGTLRArtifactRegistryViewVersionViewUnspecifi
  */
 @interface GTLRArtifactRegistryQuery_ProjectsLocationsRepositoriesMavenArtifactsList : GTLRArtifactRegistryQuery
 
-/** The maximum number of artifacts to return. */
+/** The maximum number of artifacts to return. Maximum page size is 1,000. */
 @property(nonatomic, assign) NSInteger pageSize;
 
 /**
@@ -907,7 +1017,7 @@ FOUNDATION_EXTERN NSString * const kGTLRArtifactRegistryViewVersionViewUnspecifi
  */
 @interface GTLRArtifactRegistryQuery_ProjectsLocationsRepositoriesNpmPackagesList : GTLRArtifactRegistryQuery
 
-/** The maximum number of artifacts to return. */
+/** The maximum number of artifacts to return. Maximum page size is 1,000. */
 @property(nonatomic, assign) NSInteger pageSize;
 
 /**
@@ -1036,6 +1146,48 @@ FOUNDATION_EXTERN NSString * const kGTLRArtifactRegistryViewVersionViewUnspecifi
 @end
 
 /**
+ *  Updates a package.
+ *
+ *  Method: artifactregistry.projects.locations.repositories.packages.patch
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeArtifactRegistryCloudPlatform
+ */
+@interface GTLRArtifactRegistryQuery_ProjectsLocationsRepositoriesPackagesPatch : GTLRArtifactRegistryQuery
+
+/**
+ *  The name of the package, for example:
+ *  `projects/p1/locations/us-central1/repositories/repo1/packages/pkg1`. If the
+ *  package ID part contains slashes, the slashes are escaped.
+ */
+@property(nonatomic, copy, nullable) NSString *name;
+
+/**
+ *  The update mask applies to the resource. For the `FieldMask` definition, see
+ *  https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#fieldmask
+ *
+ *  String format is a comma-separated list of fields.
+ */
+@property(nonatomic, copy, nullable) NSString *updateMask;
+
+/**
+ *  Fetches a @c GTLRArtifactRegistry_Package.
+ *
+ *  Updates a package.
+ *
+ *  @param object The @c GTLRArtifactRegistry_Package to include in the query.
+ *  @param name The name of the package, for example:
+ *    `projects/p1/locations/us-central1/repositories/repo1/packages/pkg1`. If
+ *    the package ID part contains slashes, the slashes are escaped.
+ *
+ *  @return GTLRArtifactRegistryQuery_ProjectsLocationsRepositoriesPackagesPatch
+ */
++ (instancetype)queryWithObject:(GTLRArtifactRegistry_Package *)object
+                           name:(NSString *)name;
+
+@end
+
+/**
  *  Creates a tag.
  *
  *  Method: artifactregistry.projects.locations.repositories.packages.tags.create
@@ -1135,11 +1287,17 @@ FOUNDATION_EXTERN NSString * const kGTLRArtifactRegistryViewVersionViewUnspecifi
  *  case insensitive. The fields eligible for filtering are: * `version` An
  *  example of using a filter: *
  *  `version="projects/p1/locations/us-central1/repositories/repo1/packages/pkg1/versions/1.0"`
- *  --> Tags that are applied to the version `1.0` in package `pkg1`.
+ *  --> Tags that are applied to the version `1.0` in package `pkg1`. *
+ *  `name="projects/p1/locations/us-central1/repositories/repo1/packages/pkg1/tags/a%2Fb%2F*"`
+ *  --> tags with an ID starting with "a/b/". *
+ *  `name="projects/p1/locations/us-central1/repositories/repo1/packages/pkg1/tags/
+ *  *%2Fb%2Fc"` --> tags with an ID ending with "/b/c". *
+ *  `name="projects/p1/locations/us-central1/repositories/repo1/packages/pkg1/tags/
+ *  *%2Fb%2F*"` --> tags with an ID containing "/b/".
  */
 @property(nonatomic, copy, nullable) NSString *filter;
 
-/** The maximum number of tags to return. Maximum page size is 10,000. */
+/** The maximum number of tags to return. Maximum page size is 1,000. */
 @property(nonatomic, assign) NSInteger pageSize;
 
 /**
@@ -1390,7 +1548,8 @@ FOUNDATION_EXTERN NSString * const kGTLRArtifactRegistryViewVersionViewUnspecifi
 
 /**
  *  The name of the repository, for example:
- *  `projects/p1/locations/us-central1/repositories/repo1`.
+ *  `projects/p1/locations/us-central1/repositories/repo1`. For each location in
+ *  a project, repository names must be unique.
  */
 @property(nonatomic, copy, nullable) NSString *name;
 
@@ -1410,7 +1569,8 @@ FOUNDATION_EXTERN NSString * const kGTLRArtifactRegistryViewVersionViewUnspecifi
  *  @param object The @c GTLRArtifactRegistry_Repository to include in the
  *    query.
  *  @param name The name of the repository, for example:
- *    `projects/p1/locations/us-central1/repositories/repo1`.
+ *    `projects/p1/locations/us-central1/repositories/repo1`. For each location
+ *    in a project, repository names must be unique.
  *
  *  @return GTLRArtifactRegistryQuery_ProjectsLocationsRepositoriesPatch
  */
@@ -1457,7 +1617,7 @@ FOUNDATION_EXTERN NSString * const kGTLRArtifactRegistryViewVersionViewUnspecifi
  */
 @interface GTLRArtifactRegistryQuery_ProjectsLocationsRepositoriesPythonPackagesList : GTLRArtifactRegistryQuery
 
-/** The maximum number of artifacts to return. */
+/** The maximum number of artifacts to return. Maximum page size is 1,000. */
 @property(nonatomic, assign) NSInteger pageSize;
 
 /**

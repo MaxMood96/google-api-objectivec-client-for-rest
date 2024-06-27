@@ -4,9 +4,11 @@
 // API:
 //   Identity and Access Management (IAM) API (iam/v2)
 // Description:
-//   Manages identity and access control for Google Cloud Platform resources,
-//   including the creation of service accounts, which you can use to
-//   authenticate to Google and make API calls.
+//   Manages identity and access control for Google Cloud resources, including
+//   the creation of service accounts, which you can use to authenticate to
+//   Google and make API calls. Enabling this API also enables the IAM Service
+//   Account Credentials API (iamcredentials.googleapis.com). However, disabling
+//   this API doesn't disable the IAM Service Account Credentials API.
 // Documentation:
 //   https://cloud.google.com/iam/
 
@@ -40,6 +42,33 @@ NS_ASSUME_NONNULL_BEGIN
 // Constants - For some of the classes' properties below.
 
 // ----------------------------------------------------------------------------
+// GTLRIam_CloudControl2SharedOperationsReconciliationOperationMetadata.exclusiveAction
+
+/**
+ *  The resource has to be deleted. When using this bit, the CLH should fail the
+ *  operation. DEPRECATED. Instead use DELETE_RESOURCE OperationSignal in
+ *  SideChannel.
+ *
+ *  Value: "DELETE"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRIam_CloudControl2SharedOperationsReconciliationOperationMetadata_ExclusiveAction_Delete GTLR_DEPRECATED;
+/**
+ *  This resource could not be repaired but the repair should be tried again at
+ *  a later time. This can happen if there is a dependency that needs to be
+ *  resolved first- e.g. if a parent resource must be repaired before a child
+ *  resource.
+ *
+ *  Value: "RETRY"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRIam_CloudControl2SharedOperationsReconciliationOperationMetadata_ExclusiveAction_Retry;
+/**
+ *  Unknown repair action.
+ *
+ *  Value: "UNKNOWN_REPAIR_ACTION"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRIam_CloudControl2SharedOperationsReconciliationOperationMetadata_ExclusiveAction_UnknownRepairAction;
+
+// ----------------------------------------------------------------------------
 // GTLRIam_GoogleIamV1BindingDelta.action
 
 /**
@@ -60,6 +89,39 @@ FOUNDATION_EXTERN NSString * const kGTLRIam_GoogleIamV1BindingDelta_Action_Add;
  *  Value: "REMOVE"
  */
 FOUNDATION_EXTERN NSString * const kGTLRIam_GoogleIamV1BindingDelta_Action_Remove;
+
+/**
+ *  Operation metadata returned by the CLH during resource state reconciliation.
+ */
+@interface GTLRIam_CloudControl2SharedOperationsReconciliationOperationMetadata : GTLRObject
+
+/**
+ *  DEPRECATED. Use exclusive_action instead.
+ *
+ *  Uses NSNumber of boolValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *deleteResource GTLR_DEPRECATED;
+
+/**
+ *  Excluisive action returned by the CLH.
+ *
+ *  Likely values:
+ *    @arg @c kGTLRIam_CloudControl2SharedOperationsReconciliationOperationMetadata_ExclusiveAction_Delete
+ *        The resource has to be deleted. When using this bit, the CLH should
+ *        fail the operation. DEPRECATED. Instead use DELETE_RESOURCE
+ *        OperationSignal in SideChannel. (Value: "DELETE")
+ *    @arg @c kGTLRIam_CloudControl2SharedOperationsReconciliationOperationMetadata_ExclusiveAction_Retry
+ *        This resource could not be repaired but the repair should be tried
+ *        again at a later time. This can happen if there is a dependency that
+ *        needs to be resolved first- e.g. if a parent resource must be repaired
+ *        before a child resource. (Value: "RETRY")
+ *    @arg @c kGTLRIam_CloudControl2SharedOperationsReconciliationOperationMetadata_ExclusiveAction_UnknownRepairAction
+ *        Unknown repair action. (Value: "UNKNOWN_REPAIR_ACTION")
+ */
+@property(nonatomic, copy, nullable) NSString *exclusiveAction;
+
+@end
+
 
 /**
  *  Represents the metadata of the long-running operation.
@@ -432,6 +494,150 @@ FOUNDATION_EXTERN NSString * const kGTLRIam_GoogleIamV1BindingDelta_Action_Remov
  *  Remapped to 'descriptionProperty' to avoid NSObject's 'description'.
  */
 @property(nonatomic, copy, nullable) NSString *descriptionProperty;
+
+@end
+
+
+/**
+ *  Represents the metadata of the long-running operation.
+ */
+@interface GTLRIam_GoogleIamV3alphaOperationMetadata : GTLRObject
+
+/** Output only. API version used to start the operation. */
+@property(nonatomic, copy, nullable) NSString *apiVersion;
+
+/** Output only. The time the operation was created. */
+@property(nonatomic, strong, nullable) GTLRDateTime *createTime;
+
+/** Output only. The time the operation finished running. */
+@property(nonatomic, strong, nullable) GTLRDateTime *endTime;
+
+/**
+ *  Output only. Identifies whether the user has requested cancellation of the
+ *  operation. Operations that have successfully been cancelled have
+ *  Operation.error value with a google.rpc.Status.code of 1, corresponding to
+ *  `Code.CANCELLED`.
+ *
+ *  Uses NSNumber of boolValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *requestedCancellation;
+
+/** Output only. Human-readable status of the operation, if any. */
+@property(nonatomic, copy, nullable) NSString *statusMessage;
+
+/** Output only. Server-defined resource path for the target of the */
+@property(nonatomic, copy, nullable) NSString *target;
+
+/** Output only. Name of the verb executed by the operation. */
+@property(nonatomic, copy, nullable) NSString *verb;
+
+@end
+
+
+/**
+ *  Represents the metadata of the long-running operation.
+ */
+@interface GTLRIam_GoogleIamV3betaOperationMetadata : GTLRObject
+
+/** Output only. API version used to start the operation. */
+@property(nonatomic, copy, nullable) NSString *apiVersion;
+
+/** Output only. The time the operation was created. */
+@property(nonatomic, strong, nullable) GTLRDateTime *createTime;
+
+/** Output only. The time the operation finished running. */
+@property(nonatomic, strong, nullable) GTLRDateTime *endTime;
+
+/**
+ *  Output only. Identifies whether the user has requested cancellation of the
+ *  operation. Operations that have successfully been cancelled have
+ *  Operation.error value with a google.rpc.Status.code of 1, corresponding to
+ *  `Code.CANCELLED`.
+ *
+ *  Uses NSNumber of boolValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *requestedCancellation;
+
+/** Output only. Human-readable status of the operation, if any. */
+@property(nonatomic, copy, nullable) NSString *statusMessage;
+
+/** Output only. Server-defined resource path for the target of the */
+@property(nonatomic, copy, nullable) NSString *target;
+
+/** Output only. Name of the verb executed by the operation. */
+@property(nonatomic, copy, nullable) NSString *verb;
+
+@end
+
+
+/**
+ *  Represents the metadata of the long-running operation.
+ */
+@interface GTLRIam_GoogleIamV3mainOperationMetadata : GTLRObject
+
+/** Output only. API version used to start the operation. */
+@property(nonatomic, copy, nullable) NSString *apiVersion;
+
+/** Output only. The time the operation was created. */
+@property(nonatomic, strong, nullable) GTLRDateTime *createTime;
+
+/** Output only. The time the operation finished running. */
+@property(nonatomic, strong, nullable) GTLRDateTime *endTime;
+
+/**
+ *  Output only. Identifies whether the user has requested cancellation of the
+ *  operation. Operations that have successfully been cancelled have
+ *  Operation.error value with a google.rpc.Status.code of 1, corresponding to
+ *  `Code.CANCELLED`.
+ *
+ *  Uses NSNumber of boolValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *requestedCancellation;
+
+/** Output only. Human-readable status of the operation, if any. */
+@property(nonatomic, copy, nullable) NSString *statusMessage;
+
+/** Output only. Server-defined resource path for the target of the */
+@property(nonatomic, copy, nullable) NSString *target;
+
+/** Output only. Name of the verb executed by the operation. */
+@property(nonatomic, copy, nullable) NSString *verb;
+
+@end
+
+
+/**
+ *  Represents the metadata of the long-running operation.
+ */
+@interface GTLRIam_GoogleIamV3OperationMetadata : GTLRObject
+
+/** Output only. API version used to start the operation. */
+@property(nonatomic, copy, nullable) NSString *apiVersion;
+
+/** Output only. The time the operation was created. */
+@property(nonatomic, strong, nullable) GTLRDateTime *createTime;
+
+/** Output only. The time the operation finished running. */
+@property(nonatomic, strong, nullable) GTLRDateTime *endTime;
+
+/**
+ *  Output only. Identifies whether the user has requested cancellation of the
+ *  operation. Operations that have successfully been cancelled have
+ *  Operation.error value with a google.rpc.Status.code of 1, corresponding to
+ *  `Code.CANCELLED`.
+ *
+ *  Uses NSNumber of boolValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *requestedCancellation;
+
+/** Output only. Human-readable status of the operation, if any. */
+@property(nonatomic, copy, nullable) NSString *statusMessage;
+
+/** Output only. Server-defined resource path for the target of the */
+@property(nonatomic, copy, nullable) NSString *target;
+
+/** Output only. Name of the verb executed by the operation. */
+@property(nonatomic, copy, nullable) NSString *verb;
 
 @end
 

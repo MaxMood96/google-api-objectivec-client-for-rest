@@ -72,6 +72,198 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 /**
+ *  Accepts an App Attest assertion and an artifact previously obtained from
+ *  ExchangeAppAttestAttestation and verifies those with Apple. If valid,
+ *  returns an AppCheckToken.
+ *
+ *  Method: firebaseappcheck.oauthClients.exchangeAppAttestAssertion
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeFirebaseappcheckCloudPlatform
+ *    @c kGTLRAuthScopeFirebaseappcheckFirebase
+ */
+@interface GTLRFirebaseappcheckQuery_OauthClientsExchangeAppAttestAssertion : GTLRFirebaseappcheckQuery
+
+/**
+ *  Required. The relative resource name of the iOS app, in the format: ```
+ *  projects/{project_number}/apps/{app_id} ``` If necessary, the
+ *  `project_number` element can be replaced with the project ID of the Firebase
+ *  project. Learn more about using project identifiers in Google's [AIP
+ *  2510](https://google.aip.dev/cloud/2510) standard.
+ */
+@property(nonatomic, copy, nullable) NSString *app;
+
+/**
+ *  Fetches a @c GTLRFirebaseappcheck_GoogleFirebaseAppcheckV1AppCheckToken.
+ *
+ *  Accepts an App Attest assertion and an artifact previously obtained from
+ *  ExchangeAppAttestAttestation and verifies those with Apple. If valid,
+ *  returns an AppCheckToken.
+ *
+ *  @param object The @c
+ *    GTLRFirebaseappcheck_GoogleFirebaseAppcheckV1ExchangeAppAttestAssertionRequest
+ *    to include in the query.
+ *  @param app Required. The relative resource name of the iOS app, in the
+ *    format: ``` projects/{project_number}/apps/{app_id} ``` If necessary, the
+ *    `project_number` element can be replaced with the project ID of the
+ *    Firebase project. Learn more about using project identifiers in Google's
+ *    [AIP 2510](https://google.aip.dev/cloud/2510) standard.
+ *
+ *  @return GTLRFirebaseappcheckQuery_OauthClientsExchangeAppAttestAssertion
+ */
++ (instancetype)queryWithObject:(GTLRFirebaseappcheck_GoogleFirebaseAppcheckV1ExchangeAppAttestAssertionRequest *)object
+                            app:(NSString *)app;
+
+@end
+
+/**
+ *  Accepts an App Attest CBOR attestation and verifies it with Apple using your
+ *  preconfigured team and bundle IDs. If valid, returns an attestation artifact
+ *  that can later be exchanged for an AppCheckToken using
+ *  ExchangeAppAttestAssertion. For convenience and performance, this method's
+ *  response object will also contain an AppCheckToken (if the verification is
+ *  successful).
+ *
+ *  Method: firebaseappcheck.oauthClients.exchangeAppAttestAttestation
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeFirebaseappcheckCloudPlatform
+ *    @c kGTLRAuthScopeFirebaseappcheckFirebase
+ */
+@interface GTLRFirebaseappcheckQuery_OauthClientsExchangeAppAttestAttestation : GTLRFirebaseappcheckQuery
+
+/**
+ *  Required. The relative resource name of the iOS app, in the format: ```
+ *  projects/{project_number}/apps/{app_id} ``` If necessary, the
+ *  `project_number` element can be replaced with the project ID of the Firebase
+ *  project. Learn more about using project identifiers in Google's [AIP
+ *  2510](https://google.aip.dev/cloud/2510) standard.
+ */
+@property(nonatomic, copy, nullable) NSString *app;
+
+/**
+ *  Fetches a @c
+ *  GTLRFirebaseappcheck_GoogleFirebaseAppcheckV1ExchangeAppAttestAttestationResponse.
+ *
+ *  Accepts an App Attest CBOR attestation and verifies it with Apple using your
+ *  preconfigured team and bundle IDs. If valid, returns an attestation artifact
+ *  that can later be exchanged for an AppCheckToken using
+ *  ExchangeAppAttestAssertion. For convenience and performance, this method's
+ *  response object will also contain an AppCheckToken (if the verification is
+ *  successful).
+ *
+ *  @param object The @c
+ *    GTLRFirebaseappcheck_GoogleFirebaseAppcheckV1ExchangeAppAttestAttestationRequest
+ *    to include in the query.
+ *  @param app Required. The relative resource name of the iOS app, in the
+ *    format: ``` projects/{project_number}/apps/{app_id} ``` If necessary, the
+ *    `project_number` element can be replaced with the project ID of the
+ *    Firebase project. Learn more about using project identifiers in Google's
+ *    [AIP 2510](https://google.aip.dev/cloud/2510) standard.
+ *
+ *  @return GTLRFirebaseappcheckQuery_OauthClientsExchangeAppAttestAttestation
+ */
++ (instancetype)queryWithObject:(GTLRFirebaseappcheck_GoogleFirebaseAppcheckV1ExchangeAppAttestAttestationRequest *)object
+                            app:(NSString *)app;
+
+@end
+
+/**
+ *  Validates a debug token secret that you have previously created using
+ *  CreateDebugToken. If valid, returns an AppCheckToken. Note that a
+ *  restrictive quota is enforced on this method to prevent accidental exposure
+ *  of the app to abuse.
+ *
+ *  Method: firebaseappcheck.oauthClients.exchangeDebugToken
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeFirebaseappcheckCloudPlatform
+ *    @c kGTLRAuthScopeFirebaseappcheckFirebase
+ */
+@interface GTLRFirebaseappcheckQuery_OauthClientsExchangeDebugToken : GTLRFirebaseappcheckQuery
+
+/**
+ *  Required. The relative resource name of the app, in the format: ```
+ *  projects/{project_number}/apps/{app_id} ``` If necessary, the
+ *  `project_number` element can be replaced with the project ID of the Firebase
+ *  project. Learn more about using project identifiers in Google's [AIP
+ *  2510](https://google.aip.dev/cloud/2510) standard.
+ */
+@property(nonatomic, copy, nullable) NSString *app;
+
+/**
+ *  Fetches a @c GTLRFirebaseappcheck_GoogleFirebaseAppcheckV1AppCheckToken.
+ *
+ *  Validates a debug token secret that you have previously created using
+ *  CreateDebugToken. If valid, returns an AppCheckToken. Note that a
+ *  restrictive quota is enforced on this method to prevent accidental exposure
+ *  of the app to abuse.
+ *
+ *  @param object The @c
+ *    GTLRFirebaseappcheck_GoogleFirebaseAppcheckV1ExchangeDebugTokenRequest to
+ *    include in the query.
+ *  @param app Required. The relative resource name of the app, in the format:
+ *    ``` projects/{project_number}/apps/{app_id} ``` If necessary, the
+ *    `project_number` element can be replaced with the project ID of the
+ *    Firebase project. Learn more about using project identifiers in Google's
+ *    [AIP 2510](https://google.aip.dev/cloud/2510) standard.
+ *
+ *  @return GTLRFirebaseappcheckQuery_OauthClientsExchangeDebugToken
+ */
++ (instancetype)queryWithObject:(GTLRFirebaseappcheck_GoogleFirebaseAppcheckV1ExchangeDebugTokenRequest *)object
+                            app:(NSString *)app;
+
+@end
+
+/**
+ *  Generates a challenge that protects the integrity of an immediately
+ *  following call to ExchangeAppAttestAttestation or
+ *  ExchangeAppAttestAssertion. A challenge should not be reused for multiple
+ *  calls.
+ *
+ *  Method: firebaseappcheck.oauthClients.generateAppAttestChallenge
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeFirebaseappcheckCloudPlatform
+ *    @c kGTLRAuthScopeFirebaseappcheckFirebase
+ */
+@interface GTLRFirebaseappcheckQuery_OauthClientsGenerateAppAttestChallenge : GTLRFirebaseappcheckQuery
+
+/**
+ *  Required. The relative resource name of the iOS app, in the format: ```
+ *  projects/{project_number}/apps/{app_id} ``` If necessary, the
+ *  `project_number` element can be replaced with the project ID of the Firebase
+ *  project. Learn more about using project identifiers in Google's [AIP
+ *  2510](https://google.aip.dev/cloud/2510) standard.
+ */
+@property(nonatomic, copy, nullable) NSString *app;
+
+/**
+ *  Fetches a @c
+ *  GTLRFirebaseappcheck_GoogleFirebaseAppcheckV1GenerateAppAttestChallengeResponse.
+ *
+ *  Generates a challenge that protects the integrity of an immediately
+ *  following call to ExchangeAppAttestAttestation or
+ *  ExchangeAppAttestAssertion. A challenge should not be reused for multiple
+ *  calls.
+ *
+ *  @param object The @c
+ *    GTLRFirebaseappcheck_GoogleFirebaseAppcheckV1GenerateAppAttestChallengeRequest
+ *    to include in the query.
+ *  @param app Required. The relative resource name of the iOS app, in the
+ *    format: ``` projects/{project_number}/apps/{app_id} ``` If necessary, the
+ *    `project_number` element can be replaced with the project ID of the
+ *    Firebase project. Learn more about using project identifiers in Google's
+ *    [AIP 2510](https://google.aip.dev/cloud/2510) standard.
+ *
+ *  @return GTLRFirebaseappcheckQuery_OauthClientsGenerateAppAttestChallenge
+ */
++ (instancetype)queryWithObject:(GTLRFirebaseappcheck_GoogleFirebaseAppcheckV1GenerateAppAttestChallengeRequest *)object
+                            app:(NSString *)app;
+
+@end
+
+/**
  *  Atomically gets the AppAttestConfigs for the specified list of apps.
  *
  *  Method: firebaseappcheck.projects.apps.appAttestConfig.batchGet
@@ -169,7 +361,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  Required. A comma-separated list of names of fields in the AppAttestConfig
- *  Gets to update. Example: `token_ttl`.
+ *  to update. Example: `token_ttl`.
  *
  *  String format is a comma-separated list of fields.
  */
@@ -518,7 +710,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  Required. A comma-separated list of names of fields in the DeviceCheckConfig
- *  Gets to update. Example: `key_id,private_key`.
+ *  to update. Example: `key_id,private_key`.
  *
  *  String format is a comma-separated list of fields.
  */
@@ -1159,7 +1351,7 @@ GTLR_DEPRECATED
 
 /**
  *  Required. A comma-separated list of names of fields in the
- *  PlayIntegrityConfig Gets to update. Example: `token_ttl`.
+ *  PlayIntegrityConfig to update. Example: `token_ttl`.
  *
  *  String format is a comma-separated list of fields.
  */
@@ -1403,7 +1595,7 @@ GTLR_DEPRECATED
 /**
  *  Updates the RecaptchaV3Config for the specified app. While this
  *  configuration is incomplete or invalid, the app will be unable to exchange
- *  reCAPTCHA tokens for App Check tokens. For security reasons, the
+ *  reCAPTCHA V3 tokens for App Check tokens. For security reasons, the
  *  `site_secret` field is never populated in the response.
  *
  *  Method: firebaseappcheck.projects.apps.recaptchaV3Config.patch
@@ -1434,7 +1626,7 @@ GTLR_DEPRECATED
  *
  *  Updates the RecaptchaV3Config for the specified app. While this
  *  configuration is incomplete or invalid, the app will be unable to exchange
- *  reCAPTCHA tokens for App Check tokens. For security reasons, the
+ *  reCAPTCHA V3 tokens for App Check tokens. For security reasons, the
  *  `site_secret` field is never populated in the response.
  *
  *  @param object The @c
@@ -1552,7 +1744,7 @@ GTLR_DEPRECATED
 
 /**
  *  Required. A comma-separated list of names of fields in the SafetyNetConfig
- *  Gets to update. Example: `token_ttl`.
+ *  to update. Example: `token_ttl`.
  *
  *  String format is a comma-separated list of fields.
  */

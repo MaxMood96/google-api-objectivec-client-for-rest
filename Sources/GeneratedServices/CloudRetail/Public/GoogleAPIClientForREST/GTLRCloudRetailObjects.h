@@ -45,7 +45,6 @@
 @class GTLRCloudRetail_GoogleCloudRetailV2betaExportErrorsConfig;
 @class GTLRCloudRetail_GoogleCloudRetailV2betaGcsOutputResult;
 @class GTLRCloudRetail_GoogleCloudRetailV2betaImportErrorsConfig;
-@class GTLRCloudRetail_GoogleCloudRetailV2betaMerchantCenterAccountLinkMerchantCenterFeedFilter;
 @class GTLRCloudRetail_GoogleCloudRetailV2betaModelFrequentlyBoughtTogetherFeaturesConfig;
 @class GTLRCloudRetail_GoogleCloudRetailV2betaModelModelFeaturesConfig;
 @class GTLRCloudRetail_GoogleCloudRetailV2betaModelServingConfigList;
@@ -462,34 +461,6 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudRetail_GoogleCloudRetailV2Attribute
  *  Value: "PRODUCT_LEVEL_ATTRIBUTE_CONFIG"
  */
 FOUNDATION_EXTERN NSString * const kGTLRCloudRetail_GoogleCloudRetailV2AttributesConfig_AttributeConfigLevel_ProductLevelAttributeConfig;
-
-// ----------------------------------------------------------------------------
-// GTLRCloudRetail_GoogleCloudRetailV2betaMerchantCenterAccountLink.state
-
-/**
- *  Link is active.
- *
- *  Value: "ACTIVE"
- */
-FOUNDATION_EXTERN NSString * const kGTLRCloudRetail_GoogleCloudRetailV2betaMerchantCenterAccountLink_State_Active;
-/**
- *  Link creation failed.
- *
- *  Value: "FAILED"
- */
-FOUNDATION_EXTERN NSString * const kGTLRCloudRetail_GoogleCloudRetailV2betaMerchantCenterAccountLink_State_Failed;
-/**
- *  Link is created and LRO is not complete.
- *
- *  Value: "PENDING"
- */
-FOUNDATION_EXTERN NSString * const kGTLRCloudRetail_GoogleCloudRetailV2betaMerchantCenterAccountLink_State_Pending;
-/**
- *  Default value.
- *
- *  Value: "STATE_UNSPECIFIED"
- */
-FOUNDATION_EXTERN NSString * const kGTLRCloudRetail_GoogleCloudRetailV2betaMerchantCenterAccountLink_State_StateUnspecified;
 
 // ----------------------------------------------------------------------------
 // GTLRCloudRetail_GoogleCloudRetailV2betaModel.dataState
@@ -2836,23 +2807,6 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudRetail_GoogleCloudRetailV2ServingCo
 
 
 /**
- *  Common metadata related to the progress of the operations.
- */
-@interface GTLRCloudRetail_GoogleCloudRetailV2betaCreateMerchantCenterAccountLinkMetadata : GTLRObject
-
-/** Operation create time. */
-@property(nonatomic, strong, nullable) GTLRDateTime *createTime;
-
-/**
- *  Operation last update time. If the operation is done, this is also the
- *  finish time.
- */
-@property(nonatomic, strong, nullable) GTLRDateTime *updateTime;
-
-@end
-
-
-/**
  *  Metadata associated with a create operation.
  */
 @interface GTLRCloudRetail_GoogleCloudRetailV2betaCreateModelMetadata : GTLRObject
@@ -3078,119 +3032,6 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudRetail_GoogleCloudRetailV2ServingCo
 
 /** Aggregated statistics of user event import status. */
 @property(nonatomic, strong, nullable) GTLRCloudRetail_GoogleCloudRetailV2betaUserEventImportSummary *importSummary;
-
-@end
-
-
-/**
- *  Represents a link between a Merchant Center account and a branch. After a
- *  link is established, products from the linked Merchant Center account are
- *  streamed to the linked branch.
- */
-@interface GTLRCloudRetail_GoogleCloudRetailV2betaMerchantCenterAccountLink : GTLRObject
-
-/**
- *  Required. The branch ID (e.g. 0/1/2) within the catalog that products from
- *  merchant_center_account_id are streamed to. When updating this field, an
- *  empty value will use the currently configured default branch. However,
- *  changing the default branch later on won't change the linked branch here. A
- *  single branch ID can only have one linked Merchant Center account ID.
- */
-@property(nonatomic, copy, nullable) NSString *branchId;
-
-/**
- *  Criteria for the Merchant Center feeds to be ingested via the link. All
- *  offers will be ingested if the list is empty. Otherwise the offers will be
- *  ingested from selected feeds.
- */
-@property(nonatomic, strong, nullable) NSArray<GTLRCloudRetail_GoogleCloudRetailV2betaMerchantCenterAccountLinkMerchantCenterFeedFilter *> *feedFilters;
-
-/**
- *  The FeedLabel used to perform filtering. Note: this replaces
- *  [region_id](https://developers.google.com/shopping-content/reference/rest/v2.1/products#Product.FIELDS.feed_label).
- *  Example value: `US`. Example value: `FeedLabel1`.
- */
-@property(nonatomic, copy, nullable) NSString *feedLabel;
-
-/**
- *  Output only. Immutable. MerchantCenterAccountLink identifier, which is the
- *  final component of name. This field is auto generated and follows the
- *  convention: `BranchId_MerchantCenterAccountId`. `projects/ *
- *  /locations/global/catalogs/default_catalog/merchantCenterAccountLinks/id_1`.
- *
- *  identifier property maps to 'id' in JSON (to avoid Objective C's 'id').
- */
-@property(nonatomic, copy, nullable) NSString *identifier;
-
-/**
- *  Language of the title/description and other string attributes. Use language
- *  tags defined by [BCP 47](https://www.rfc-editor.org/rfc/bcp/bcp47.txt). ISO
- *  639-1. This specifies the language of offers in Merchant Center that will be
- *  accepted. If empty, no language filtering will be performed. Example value:
- *  `en`.
- */
-@property(nonatomic, copy, nullable) NSString *languageCode;
-
-/**
- *  Required. The linked [Merchant center account
- *  id](https://developers.google.com/shopping-content/guides/accountstatuses).
- *  The account must be a standalone account or a sub-account of a MCA.
- *
- *  Uses NSNumber of longLongValue.
- */
-@property(nonatomic, strong, nullable) NSNumber *merchantCenterAccountId;
-
-/**
- *  Output only. Immutable. Full resource name of the Merchant Center Account
- *  Link, such as `projects/ *
- *  /locations/global/catalogs/default_catalog/merchantCenterAccountLinks/merchant_center_account_link`.
- */
-@property(nonatomic, copy, nullable) NSString *name;
-
-/** Output only. Google Cloud project ID. */
-@property(nonatomic, copy, nullable) NSString *projectId;
-
-/**
- *  Optional. An optional arbitrary string that could be used as a tag for
- *  tracking link source.
- */
-@property(nonatomic, copy, nullable) NSString *source;
-
-/**
- *  Output only. Represents the state of the link.
- *
- *  Likely values:
- *    @arg @c kGTLRCloudRetail_GoogleCloudRetailV2betaMerchantCenterAccountLink_State_Active
- *        Link is active. (Value: "ACTIVE")
- *    @arg @c kGTLRCloudRetail_GoogleCloudRetailV2betaMerchantCenterAccountLink_State_Failed
- *        Link creation failed. (Value: "FAILED")
- *    @arg @c kGTLRCloudRetail_GoogleCloudRetailV2betaMerchantCenterAccountLink_State_Pending
- *        Link is created and LRO is not complete. (Value: "PENDING")
- *    @arg @c kGTLRCloudRetail_GoogleCloudRetailV2betaMerchantCenterAccountLink_State_StateUnspecified
- *        Default value. (Value: "STATE_UNSPECIFIED")
- */
-@property(nonatomic, copy, nullable) NSString *state;
-
-@end
-
-
-/**
- *  Merchant Center Feed filter criterion.
- */
-@interface GTLRCloudRetail_GoogleCloudRetailV2betaMerchantCenterAccountLinkMerchantCenterFeedFilter : GTLRObject
-
-/**
- *  Merchant Center primary feed ID.
- *
- *  Uses NSNumber of longLongValue.
- */
-@property(nonatomic, strong, nullable) NSNumber *primaryFeedId;
-
-/**
- *  Merchant Center primary feed name. The name is used for the display purposes
- *  only.
- */
-@property(nonatomic, copy, nullable) NSString *primaryFeedName;
 
 @end
 
@@ -4518,8 +4359,9 @@ GTLR_DEPRECATED
 
 /**
  *  The fully qualified resource name of the serving config
- *  VariantArm.serving_config_id responsible for generating the search response.
- *  For example: `projects/ * /locations/ * /catalogs/ * /servingConfigs/ *`.
+ *  Experiment.VariantArm.serving_config_id responsible for generating the
+ *  search response. For example: `projects/ * /locations/ * /catalogs/ *
+ *  /servingConfigs/ *`.
  */
 @property(nonatomic, copy, nullable) NSString *experimentServingConfig;
 
@@ -5902,10 +5744,10 @@ GTLR_DEPRECATED
  *  represented as: "categories": [ "Shoes & Accessories > Shoes", "Sports &
  *  Fitness > Athletic Clothing > Shoes" ] Must be set for Type.PRIMARY Product
  *  otherwise an INVALID_ARGUMENT error is returned. At most 250 values are
- *  allowed per Product unless overridden via pantheon UI. Empty values are not
- *  allowed. Each value must be a UTF-8 encoded string with a length limit of
- *  5,000 characters. Otherwise, an INVALID_ARGUMENT error is returned.
- *  Corresponding properties: Google Merchant Center property
+ *  allowed per Product unless overridden through the Google Cloud console.
+ *  Empty values are not allowed. Each value must be a UTF-8 encoded string with
+ *  a length limit of 5,000 characters. Otherwise, an INVALID_ARGUMENT error is
+ *  returned. Corresponding properties: Google Merchant Center property
  *  google_product_category. Schema.org property [Product.category]
  *  (https://schema.org/category). [mc_google_product_category]:
  *  https://support.google.com/merchants/answer/6324436
@@ -8076,6 +7918,14 @@ GTLR_DEPRECATED
 @property(nonatomic, strong, nullable) NSArray<NSString *> *ignoreControlIds;
 
 /**
+ *  When the flag is enabled, the products in the denylist will not be filtered
+ *  out in the recommendation filtering results.
+ *
+ *  Uses NSNumber of boolValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *ignoreRecsDenylist;
+
+/**
  *  The id of the model in the same Catalog to use at serving time. Currently
  *  only RecommendationModels are supported:
  *  https://cloud.google.com/retail/recommendations-ai/docs/create-models Can be
@@ -8369,8 +8219,9 @@ GTLR_DEPRECATED
 
 /**
  *  Required. User event type. Allowed values are: * `add-to-cart`: Products
- *  being added to cart. * `category-page-view`: Special pages such as sale or
- *  promotion pages viewed. * `detail-page-view`: Products detail page viewed. *
+ *  being added to cart. * `remove-from-cart`: Products being removed from cart.
+ *  * `category-page-view`: Special pages such as sale or promotion pages
+ *  viewed. * `detail-page-view`: Products detail page viewed. *
  *  `home-page-view`: Homepage viewed. * `promotion-offered`: Promotion is
  *  offered to a user. * `promotion-not-offered`: Promotion is not offered to a
  *  user. * `purchase-complete`: User finishing a purchase. * `search`: Product

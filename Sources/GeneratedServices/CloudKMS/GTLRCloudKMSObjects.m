@@ -50,6 +50,7 @@ NSString * const kGTLRCloudKMS_CryptoKeyVersion_Algorithm_Aes256Cbc = @"AES_256_
 NSString * const kGTLRCloudKMS_CryptoKeyVersion_Algorithm_Aes256Ctr = @"AES_256_CTR";
 NSString * const kGTLRCloudKMS_CryptoKeyVersion_Algorithm_Aes256Gcm = @"AES_256_GCM";
 NSString * const kGTLRCloudKMS_CryptoKeyVersion_Algorithm_CryptoKeyVersionAlgorithmUnspecified = @"CRYPTO_KEY_VERSION_ALGORITHM_UNSPECIFIED";
+NSString * const kGTLRCloudKMS_CryptoKeyVersion_Algorithm_EcSignEd25519 = @"EC_SIGN_ED25519";
 NSString * const kGTLRCloudKMS_CryptoKeyVersion_Algorithm_EcSignP256Sha256 = @"EC_SIGN_P256_SHA256";
 NSString * const kGTLRCloudKMS_CryptoKeyVersion_Algorithm_EcSignP384Sha384 = @"EC_SIGN_P384_SHA384";
 NSString * const kGTLRCloudKMS_CryptoKeyVersion_Algorithm_EcSignSecp256k1Sha256 = @"EC_SIGN_SECP256K1_SHA256";
@@ -107,6 +108,7 @@ NSString * const kGTLRCloudKMS_CryptoKeyVersionTemplate_Algorithm_Aes256Cbc = @"
 NSString * const kGTLRCloudKMS_CryptoKeyVersionTemplate_Algorithm_Aes256Ctr = @"AES_256_CTR";
 NSString * const kGTLRCloudKMS_CryptoKeyVersionTemplate_Algorithm_Aes256Gcm = @"AES_256_GCM";
 NSString * const kGTLRCloudKMS_CryptoKeyVersionTemplate_Algorithm_CryptoKeyVersionAlgorithmUnspecified = @"CRYPTO_KEY_VERSION_ALGORITHM_UNSPECIFIED";
+NSString * const kGTLRCloudKMS_CryptoKeyVersionTemplate_Algorithm_EcSignEd25519 = @"EC_SIGN_ED25519";
 NSString * const kGTLRCloudKMS_CryptoKeyVersionTemplate_Algorithm_EcSignP256Sha256 = @"EC_SIGN_P256_SHA256";
 NSString * const kGTLRCloudKMS_CryptoKeyVersionTemplate_Algorithm_EcSignP384Sha384 = @"EC_SIGN_P384_SHA384";
 NSString * const kGTLRCloudKMS_CryptoKeyVersionTemplate_Algorithm_EcSignSecp256k1Sha256 = @"EC_SIGN_SECP256K1_SHA256";
@@ -177,6 +179,7 @@ NSString * const kGTLRCloudKMS_ImportCryptoKeyVersionRequest_Algorithm_Aes256Cbc
 NSString * const kGTLRCloudKMS_ImportCryptoKeyVersionRequest_Algorithm_Aes256Ctr = @"AES_256_CTR";
 NSString * const kGTLRCloudKMS_ImportCryptoKeyVersionRequest_Algorithm_Aes256Gcm = @"AES_256_GCM";
 NSString * const kGTLRCloudKMS_ImportCryptoKeyVersionRequest_Algorithm_CryptoKeyVersionAlgorithmUnspecified = @"CRYPTO_KEY_VERSION_ALGORITHM_UNSPECIFIED";
+NSString * const kGTLRCloudKMS_ImportCryptoKeyVersionRequest_Algorithm_EcSignEd25519 = @"EC_SIGN_ED25519";
 NSString * const kGTLRCloudKMS_ImportCryptoKeyVersionRequest_Algorithm_EcSignP256Sha256 = @"EC_SIGN_P256_SHA256";
 NSString * const kGTLRCloudKMS_ImportCryptoKeyVersionRequest_Algorithm_EcSignP384Sha384 = @"EC_SIGN_P384_SHA384";
 NSString * const kGTLRCloudKMS_ImportCryptoKeyVersionRequest_Algorithm_EcSignSecp256k1Sha256 = @"EC_SIGN_SECP256K1_SHA256";
@@ -228,6 +231,20 @@ NSString * const kGTLRCloudKMS_ImportJob_State_Expired         = @"EXPIRED";
 NSString * const kGTLRCloudKMS_ImportJob_State_ImportJobStateUnspecified = @"IMPORT_JOB_STATE_UNSPECIFIED";
 NSString * const kGTLRCloudKMS_ImportJob_State_PendingGeneration = @"PENDING_GENERATION";
 
+// GTLRCloudKMS_KeyAccessJustificationsPolicy.allowedAccessReasons
+NSString * const kGTLRCloudKMS_KeyAccessJustificationsPolicy_AllowedAccessReasons_CustomerAuthorizedWorkflowServicing = @"CUSTOMER_AUTHORIZED_WORKFLOW_SERVICING";
+NSString * const kGTLRCloudKMS_KeyAccessJustificationsPolicy_AllowedAccessReasons_CustomerInitiatedAccess = @"CUSTOMER_INITIATED_ACCESS";
+NSString * const kGTLRCloudKMS_KeyAccessJustificationsPolicy_AllowedAccessReasons_CustomerInitiatedSupport = @"CUSTOMER_INITIATED_SUPPORT";
+NSString * const kGTLRCloudKMS_KeyAccessJustificationsPolicy_AllowedAccessReasons_GoogleInitiatedReview = @"GOOGLE_INITIATED_REVIEW";
+NSString * const kGTLRCloudKMS_KeyAccessJustificationsPolicy_AllowedAccessReasons_GoogleInitiatedService = @"GOOGLE_INITIATED_SERVICE";
+NSString * const kGTLRCloudKMS_KeyAccessJustificationsPolicy_AllowedAccessReasons_GoogleInitiatedSystemOperation = @"GOOGLE_INITIATED_SYSTEM_OPERATION";
+NSString * const kGTLRCloudKMS_KeyAccessJustificationsPolicy_AllowedAccessReasons_GoogleResponseToProductionAlert = @"GOOGLE_RESPONSE_TO_PRODUCTION_ALERT";
+NSString * const kGTLRCloudKMS_KeyAccessJustificationsPolicy_AllowedAccessReasons_ModifiedCustomerInitiatedAccess = @"MODIFIED_CUSTOMER_INITIATED_ACCESS";
+NSString * const kGTLRCloudKMS_KeyAccessJustificationsPolicy_AllowedAccessReasons_ModifiedGoogleInitiatedSystemOperation = @"MODIFIED_GOOGLE_INITIATED_SYSTEM_OPERATION";
+NSString * const kGTLRCloudKMS_KeyAccessJustificationsPolicy_AllowedAccessReasons_ReasonNotExpected = @"REASON_NOT_EXPECTED";
+NSString * const kGTLRCloudKMS_KeyAccessJustificationsPolicy_AllowedAccessReasons_ReasonUnspecified = @"REASON_UNSPECIFIED";
+NSString * const kGTLRCloudKMS_KeyAccessJustificationsPolicy_AllowedAccessReasons_ThirdPartyDataRequest = @"THIRD_PARTY_DATA_REQUEST";
+
 // GTLRCloudKMS_KeyOperationAttestation.format
 NSString * const kGTLRCloudKMS_KeyOperationAttestation_Format_AttestationFormatUnspecified = @"ATTESTATION_FORMAT_UNSPECIFIED";
 NSString * const kGTLRCloudKMS_KeyOperationAttestation_Format_CaviumV1Compressed = @"CAVIUM_V1_COMPRESSED";
@@ -255,6 +272,7 @@ NSString * const kGTLRCloudKMS_PublicKey_Algorithm_Aes256Cbc   = @"AES_256_CBC";
 NSString * const kGTLRCloudKMS_PublicKey_Algorithm_Aes256Ctr   = @"AES_256_CTR";
 NSString * const kGTLRCloudKMS_PublicKey_Algorithm_Aes256Gcm   = @"AES_256_GCM";
 NSString * const kGTLRCloudKMS_PublicKey_Algorithm_CryptoKeyVersionAlgorithmUnspecified = @"CRYPTO_KEY_VERSION_ALGORITHM_UNSPECIFIED";
+NSString * const kGTLRCloudKMS_PublicKey_Algorithm_EcSignEd25519 = @"EC_SIGN_ED25519";
 NSString * const kGTLRCloudKMS_PublicKey_Algorithm_EcSignP256Sha256 = @"EC_SIGN_P256_SHA256";
 NSString * const kGTLRCloudKMS_PublicKey_Algorithm_EcSignP384Sha384 = @"EC_SIGN_P384_SHA384";
 NSString * const kGTLRCloudKMS_PublicKey_Algorithm_EcSignSecp256k1Sha256 = @"EC_SIGN_SECP256K1_SHA256";
@@ -384,6 +402,16 @@ NSString * const kGTLRCloudKMS_RawEncryptResponse_ProtectionLevel_Software = @"S
 
 // ----------------------------------------------------------------------------
 //
+//   GTLRCloudKMS_AutokeyConfig
+//
+
+@implementation GTLRCloudKMS_AutokeyConfig
+@dynamic keyProject, name;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
 //   GTLRCloudKMS_Binding
 //
 
@@ -446,8 +474,8 @@ NSString * const kGTLRCloudKMS_RawEncryptResponse_ProtectionLevel_Software = @"S
 
 @implementation GTLRCloudKMS_CryptoKey
 @dynamic createTime, cryptoKeyBackend, destroyScheduledDuration, importOnly,
-         labels, name, nextRotationTime, primary, purpose, rotationPeriod,
-         versionTemplate;
+         keyAccessJustificationsPolicy, labels, name, nextRotationTime, primary,
+         purpose, rotationPeriod, versionTemplate;
 @end
 
 
@@ -651,6 +679,34 @@ NSString * const kGTLRCloudKMS_RawEncryptResponse_ProtectionLevel_Software = @"S
 
 // ----------------------------------------------------------------------------
 //
+//   GTLRCloudKMS_KeyAccessJustificationsPolicy
+//
+
+@implementation GTLRCloudKMS_KeyAccessJustificationsPolicy
+@dynamic allowedAccessReasons;
+
++ (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
+  NSDictionary<NSString *, Class> *map = @{
+    @"allowedAccessReasons" : [NSString class]
+  };
+  return map;
+}
+
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRCloudKMS_KeyHandle
+//
+
+@implementation GTLRCloudKMS_KeyHandle
+@dynamic kmsKey, name, resourceTypeSelector;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
 //   GTLRCloudKMS_KeyOperationAttestation
 //
 
@@ -752,6 +808,24 @@ NSString * const kGTLRCloudKMS_RawEncryptResponse_ProtectionLevel_Software = @"S
 
 + (NSString *)collectionItemsKey {
   return @"importJobs";
+}
+
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRCloudKMS_ListKeyHandlesResponse
+//
+
+@implementation GTLRCloudKMS_ListKeyHandlesResponse
+@dynamic keyHandles;
+
++ (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
+  NSDictionary<NSString *, Class> *map = @{
+    @"keyHandles" : [GTLRCloudKMS_KeyHandle class]
+  };
+  return map;
 }
 
 @end
@@ -892,6 +966,44 @@ NSString * const kGTLRCloudKMS_RawEncryptResponse_ProtectionLevel_Software = @"S
 
 // ----------------------------------------------------------------------------
 //
+//   GTLRCloudKMS_Operation
+//
+
+@implementation GTLRCloudKMS_Operation
+@dynamic done, error, metadata, name, response;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRCloudKMS_Operation_Metadata
+//
+
+@implementation GTLRCloudKMS_Operation_Metadata
+
++ (Class)classForAdditionalProperties {
+  return [NSObject class];
+}
+
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRCloudKMS_Operation_Response
+//
+
+@implementation GTLRCloudKMS_Operation_Response
+
++ (Class)classForAdditionalProperties {
+  return [NSObject class];
+}
+
+@end
+
+
+// ----------------------------------------------------------------------------
+//
 //   GTLRCloudKMS_Policy
 //
 
@@ -1006,6 +1118,48 @@ NSString * const kGTLRCloudKMS_RawEncryptResponse_ProtectionLevel_Software = @"S
 
 @implementation GTLRCloudKMS_SetIamPolicyRequest
 @dynamic policy, updateMask;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRCloudKMS_ShowEffectiveAutokeyConfigResponse
+//
+
+@implementation GTLRCloudKMS_ShowEffectiveAutokeyConfigResponse
+@dynamic keyProject;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRCloudKMS_Status
+//
+
+@implementation GTLRCloudKMS_Status
+@dynamic code, details, message;
+
++ (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
+  NSDictionary<NSString *, Class> *map = @{
+    @"details" : [GTLRCloudKMS_Status_Details_Item class]
+  };
+  return map;
+}
+
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRCloudKMS_Status_Details_Item
+//
+
+@implementation GTLRCloudKMS_Status_Details_Item
+
++ (Class)classForAdditionalProperties {
+  return [NSObject class];
+}
+
 @end
 
 

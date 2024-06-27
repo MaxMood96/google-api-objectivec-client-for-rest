@@ -64,6 +64,80 @@ FOUNDATION_EXTERN NSString * const kGTLROSConfigViewInventoryViewUnspecified;
 @end
 
 /**
+ *  GetProjectFeatureSettings returns the VM Manager feature settings for a
+ *  project.
+ *
+ *  Method: osconfig.projects.locations.global.getProjectFeatureSettings
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeOSConfigCloudPlatform
+ */
+@interface GTLROSConfigQuery_ProjectsLocationsGlobalGetProjectFeatureSettings : GTLROSConfigQuery
+
+/**
+ *  Required. Name specifies the URL for the ProjectFeatureSettings resource:
+ *  projects/project_id/locations/global/projectFeatureSettings.
+ */
+@property(nonatomic, copy, nullable) NSString *name;
+
+/**
+ *  Fetches a @c GTLROSConfig_ProjectFeatureSettings.
+ *
+ *  GetProjectFeatureSettings returns the VM Manager feature settings for a
+ *  project.
+ *
+ *  @param name Required. Name specifies the URL for the ProjectFeatureSettings
+ *    resource: projects/project_id/locations/global/projectFeatureSettings.
+ *
+ *  @return GTLROSConfigQuery_ProjectsLocationsGlobalGetProjectFeatureSettings
+ */
++ (instancetype)queryWithName:(NSString *)name;
+
+@end
+
+/**
+ *  UpdateProjectFeatureSettings sets the VM Manager features for a project.
+ *
+ *  Method: osconfig.projects.locations.global.updateProjectFeatureSettings
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeOSConfigCloudPlatform
+ */
+@interface GTLROSConfigQuery_ProjectsLocationsGlobalUpdateProjectFeatureSettings : GTLROSConfigQuery
+
+/**
+ *  Required. Immutable. Name specifies the URL for the ProjectFeatureSettings
+ *  resource: projects/project_id/locations/global/projectFeatureSettings.
+ */
+@property(nonatomic, copy, nullable) NSString *name;
+
+/**
+ *  Optional. Field mask that controls which fields of the
+ *  ProjectFeatureSettings should be updated.
+ *
+ *  String format is a comma-separated list of fields.
+ */
+@property(nonatomic, copy, nullable) NSString *updateMask;
+
+/**
+ *  Fetches a @c GTLROSConfig_ProjectFeatureSettings.
+ *
+ *  UpdateProjectFeatureSettings sets the VM Manager features for a project.
+ *
+ *  @param object The @c GTLROSConfig_ProjectFeatureSettings to include in the
+ *    query.
+ *  @param name Required. Immutable. Name specifies the URL for the
+ *    ProjectFeatureSettings resource:
+ *    projects/project_id/locations/global/projectFeatureSettings.
+ *
+ *  @return GTLROSConfigQuery_ProjectsLocationsGlobalUpdateProjectFeatureSettings
+ */
++ (instancetype)queryWithObject:(GTLROSConfig_ProjectFeatureSettings *)object
+                           name:(NSString *)name;
+
+@end
+
+/**
  *  Get inventory data for the specified VM instance. If the VM has no
  *  associated inventory, the message `NOT_FOUND` is returned.
  *
@@ -429,6 +503,13 @@ FOUNDATION_EXTERN NSString * const kGTLROSConfigViewInventoryViewUnspecified;
 @property(nonatomic, copy, nullable) NSString *parent;
 
 /**
+ *  Optional. A unique identifier for this request. Restricted to 36 ASCII
+ *  characters. A random UUID is recommended. This request is only idempotent if
+ *  a `request_id` is provided.
+ */
+@property(nonatomic, copy, nullable) NSString *requestId;
+
+/**
  *  Fetches a @c GTLROSConfig_Operation.
  *
  *  Create an OS policy assignment. This method also creates the first revision
@@ -468,6 +549,13 @@ FOUNDATION_EXTERN NSString * const kGTLROSConfigViewInventoryViewUnspecified;
 
 /** Required. The name of the OS policy assignment to be deleted */
 @property(nonatomic, copy, nullable) NSString *name;
+
+/**
+ *  Optional. A unique identifier for this request. Restricted to 36 ASCII
+ *  characters. A random UUID is recommended. This request is only idempotent if
+ *  a `request_id` is provided.
+ */
+@property(nonatomic, copy, nullable) NSString *requestId;
 
 /**
  *  Fetches a @c GTLROSConfig_Operation.
@@ -695,11 +783,25 @@ FOUNDATION_EXTERN NSString * const kGTLROSConfigViewInventoryViewUnspecified;
 @interface GTLROSConfigQuery_ProjectsLocationsOsPolicyAssignmentsPatch : GTLROSConfigQuery
 
 /**
+ *  Optional. If set to true, and the OS policy assignment is not found, a new
+ *  OS policy assignment will be created. In this situation, `update_mask` is
+ *  ignored.
+ */
+@property(nonatomic, assign) BOOL allowMissing;
+
+/**
  *  Resource name. Format:
  *  `projects/{project_number}/locations/{location}/osPolicyAssignments/{os_policy_assignment_id}`
  *  This field is ignored when you create an OS policy assignment.
  */
 @property(nonatomic, copy, nullable) NSString *name;
+
+/**
+ *  Optional. A unique identifier for this request. Restricted to 36 ASCII
+ *  characters. A random UUID is recommended. This request is only idempotent if
+ *  a `request_id` is provided.
+ */
+@property(nonatomic, copy, nullable) NSString *requestId;
 
 /**
  *  Optional. Field mask that controls which fields of the assignment should be

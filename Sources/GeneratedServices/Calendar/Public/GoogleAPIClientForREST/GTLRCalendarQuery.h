@@ -42,6 +42,12 @@ FOUNDATION_EXTERN NSString * const kGTLRCalendarEventTypesDefault;
  */
 FOUNDATION_EXTERN NSString * const kGTLRCalendarEventTypesFocusTime;
 /**
+ *  Events from Gmail.
+ *
+ *  Value: "fromGmail"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRCalendarEventTypesFromGmail;
+/**
  *  Out of office events.
  *
  *  Value: "outOfOffice"
@@ -1177,7 +1183,11 @@ FOUNDATION_EXTERN NSString * const kGTLRCalendarSendUpdatesNone;
 
 /**
  *  Imports an event. This operation is used to add a private copy of an
- *  existing event to a calendar.
+ *  existing event to a calendar. Only events with an eventType of default may
+ *  be imported.
+ *  Deprecated behavior: If a non-default event is imported, its type will be
+ *  changed to default and any event-type-specific properties it may have will
+ *  be dropped.
  *
  *  Method: calendar.events.import
  *
@@ -1215,7 +1225,11 @@ FOUNDATION_EXTERN NSString * const kGTLRCalendarSendUpdatesNone;
  *  Fetches a @c GTLRCalendar_Event.
  *
  *  Imports an event. This operation is used to add a private copy of an
- *  existing event to a calendar.
+ *  existing event to a calendar. Only events with an eventType of default may
+ *  be imported.
+ *  Deprecated behavior: If a non-default event is imported, its type will be
+ *  changed to default and any event-type-specific properties it may have will
+ *  be dropped.
  *
  *  @param object The @c GTLRCalendar_Event to include in the query.
  *  @param calendarId Calendar identifier. To retrieve calendar IDs call the
@@ -1435,13 +1449,15 @@ FOUNDATION_EXTERN NSString * const kGTLRCalendarSendUpdatesNone;
 
 /**
  *  Event types to return. Optional. This parameter can be repeated multiple
- *  times to return events of different types. The default is ["default",
- *  "focusTime", "outOfOffice"].
+ *  times to return events of different types. If unset, returns all event
+ *  types.
  *
  *  Likely values:
  *    @arg @c kGTLRCalendarEventTypesDefault Regular events. (Value: "default")
  *    @arg @c kGTLRCalendarEventTypesFocusTime Focus time events. (Value:
  *        "focusTime")
+ *    @arg @c kGTLRCalendarEventTypesFromGmail Events from Gmail. (Value:
+ *        "fromGmail")
  *    @arg @c kGTLRCalendarEventTypesOutOfOffice Out of office events. (Value:
  *        "outOfOffice")
  *    @arg @c kGTLRCalendarEventTypesWorkingLocation Working location events.
@@ -1628,8 +1644,8 @@ FOUNDATION_EXTERN NSString * const kGTLRCalendarSendUpdatesNone;
 
 /**
  *  Moves an event to another calendar, i.e. changes an event's organizer. Note
- *  that only default events can be moved; outOfOffice, focusTime and
- *  workingLocation events cannot be moved.
+ *  that only default events can be moved; outOfOffice, focusTime,
+ *  workingLocation and fromGmail events cannot be moved.
  *
  *  Method: calendar.events.move
  *
@@ -1680,8 +1696,8 @@ FOUNDATION_EXTERN NSString * const kGTLRCalendarSendUpdatesNone;
  *  Fetches a @c GTLRCalendar_Event.
  *
  *  Moves an event to another calendar, i.e. changes an event's organizer. Note
- *  that only default events can be moved; outOfOffice, focusTime and
- *  workingLocation events cannot be moved.
+ *  that only default events can be moved; outOfOffice, focusTime,
+ *  workingLocation and fromGmail events cannot be moved.
  *
  *  @param calendarId Calendar identifier of the source calendar where the event
  *    currently is on.
@@ -1970,13 +1986,15 @@ FOUNDATION_EXTERN NSString * const kGTLRCalendarSendUpdatesNone;
 
 /**
  *  Event types to return. Optional. This parameter can be repeated multiple
- *  times to return events of different types. The default is ["default",
- *  "focusTime", "outOfOffice"].
+ *  times to return events of different types. If unset, returns all event
+ *  types.
  *
  *  Likely values:
  *    @arg @c kGTLRCalendarEventTypesDefault Regular events. (Value: "default")
  *    @arg @c kGTLRCalendarEventTypesFocusTime Focus time events. (Value:
  *        "focusTime")
+ *    @arg @c kGTLRCalendarEventTypesFromGmail Events from Gmail. (Value:
+ *        "fromGmail")
  *    @arg @c kGTLRCalendarEventTypesOutOfOffice Out of office events. (Value:
  *        "outOfOffice")
  *    @arg @c kGTLRCalendarEventTypesWorkingLocation Working location events.

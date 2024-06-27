@@ -264,6 +264,53 @@ NSString * const kGTLRArtifactRegistryViewVersionViewUnspecified = @"VERSION_VIE
 
 @end
 
+@implementation GTLRArtifactRegistryQuery_ProjectsLocationsRepositoriesFilesDelete
+
+@dynamic name;
+
++ (instancetype)queryWithName:(NSString *)name {
+  NSArray *pathParams = @[ @"name" ];
+  NSString *pathURITemplate = @"v1/{+name}";
+  GTLRArtifactRegistryQuery_ProjectsLocationsRepositoriesFilesDelete *query =
+    [[self alloc] initWithPathURITemplate:pathURITemplate
+                               HTTPMethod:@"DELETE"
+                       pathParameterNames:pathParams];
+  query.name = name;
+  query.expectedObjectClass = [GTLRArtifactRegistry_Operation class];
+  query.loggingName = @"artifactregistry.projects.locations.repositories.files.delete";
+  return query;
+}
+
+@end
+
+@implementation GTLRArtifactRegistryQuery_ProjectsLocationsRepositoriesFilesDownload
+
+@dynamic name;
+
++ (instancetype)queryWithName:(NSString *)name {
+  NSArray *pathParams = @[ @"name" ];
+  NSString *pathURITemplate = @"v1/{+name}:download";
+  GTLRArtifactRegistryQuery_ProjectsLocationsRepositoriesFilesDownload *query =
+    [[self alloc] initWithPathURITemplate:pathURITemplate
+                               HTTPMethod:nil
+                       pathParameterNames:pathParams];
+  query.name = name;
+  query.expectedObjectClass = [GTLRArtifactRegistry_DownloadFileResponse class];
+  query.loggingName = @"artifactregistry.projects.locations.repositories.files.download";
+  return query;
+}
+
++ (instancetype)queryForMediaWithName:(NSString *)name {
+  GTLRArtifactRegistryQuery_ProjectsLocationsRepositoriesFilesDownload *query =
+    [self queryWithName:name];
+  query.downloadAsDataObjectType = @"media";
+  query.useMediaDownloadService = YES;
+  query.loggingName = @"Download artifactregistry.projects.locations.repositories.files.download";
+  return query;
+}
+
+@end
+
 @implementation GTLRArtifactRegistryQuery_ProjectsLocationsRepositoriesFilesGet
 
 @dynamic name;
@@ -297,6 +344,35 @@ NSString * const kGTLRArtifactRegistryViewVersionViewUnspecified = @"VERSION_VIE
   query.parent = parent;
   query.expectedObjectClass = [GTLRArtifactRegistry_ListFilesResponse class];
   query.loggingName = @"artifactregistry.projects.locations.repositories.files.list";
+  return query;
+}
+
+@end
+
+@implementation GTLRArtifactRegistryQuery_ProjectsLocationsRepositoriesGenericArtifactsUpload
+
+@dynamic parent;
+
++ (instancetype)queryWithObject:(GTLRArtifactRegistry_UploadGenericArtifactRequest *)object
+                         parent:(NSString *)parent
+               uploadParameters:(GTLRUploadParameters *)uploadParameters {
+  if (object == nil) {
+#if defined(DEBUG) && DEBUG
+    NSAssert(object != nil, @"Got a nil object");
+#endif
+    return nil;
+  }
+  NSArray *pathParams = @[ @"parent" ];
+  NSString *pathURITemplate = @"v1/{+parent}/genericArtifacts:create";
+  GTLRArtifactRegistryQuery_ProjectsLocationsRepositoriesGenericArtifactsUpload *query =
+    [[self alloc] initWithPathURITemplate:pathURITemplate
+                               HTTPMethod:@"POST"
+                       pathParameterNames:pathParams];
+  query.bodyObject = object;
+  query.parent = parent;
+  query.uploadParameters = uploadParameters;
+  query.expectedObjectClass = [GTLRArtifactRegistry_UploadGenericArtifactMediaResponse class];
+  query.loggingName = @"artifactregistry.projects.locations.repositories.genericArtifacts.upload";
   return query;
 }
 
@@ -605,6 +681,33 @@ NSString * const kGTLRArtifactRegistryViewVersionViewUnspecified = @"VERSION_VIE
   query.parent = parent;
   query.expectedObjectClass = [GTLRArtifactRegistry_ListPackagesResponse class];
   query.loggingName = @"artifactregistry.projects.locations.repositories.packages.list";
+  return query;
+}
+
+@end
+
+@implementation GTLRArtifactRegistryQuery_ProjectsLocationsRepositoriesPackagesPatch
+
+@dynamic name, updateMask;
+
++ (instancetype)queryWithObject:(GTLRArtifactRegistry_Package *)object
+                           name:(NSString *)name {
+  if (object == nil) {
+#if defined(DEBUG) && DEBUG
+    NSAssert(object != nil, @"Got a nil object");
+#endif
+    return nil;
+  }
+  NSArray *pathParams = @[ @"name" ];
+  NSString *pathURITemplate = @"v1/{+name}";
+  GTLRArtifactRegistryQuery_ProjectsLocationsRepositoriesPackagesPatch *query =
+    [[self alloc] initWithPathURITemplate:pathURITemplate
+                               HTTPMethod:@"PATCH"
+                       pathParameterNames:pathParams];
+  query.bodyObject = object;
+  query.name = name;
+  query.expectedObjectClass = [GTLRArtifactRegistry_Package class];
+  query.loggingName = @"artifactregistry.projects.locations.repositories.packages.patch";
   return query;
 }
 

@@ -57,6 +57,11 @@ NSString * const kGTLRRecaptchaEnterprise_GoogleCloudRecaptchaenterpriseV1Annota
 NSString * const kGTLRRecaptchaEnterprise_GoogleCloudRecaptchaenterpriseV1AnnotateAssessmentRequest_Reasons_TransactionAccepted = @"TRANSACTION_ACCEPTED";
 NSString * const kGTLRRecaptchaEnterprise_GoogleCloudRecaptchaenterpriseV1AnnotateAssessmentRequest_Reasons_TransactionDeclined = @"TRANSACTION_DECLINED";
 
+// GTLRRecaptchaEnterprise_GoogleCloudRecaptchaenterpriseV1Event.fraudPrevention
+NSString * const kGTLRRecaptchaEnterprise_GoogleCloudRecaptchaenterpriseV1Event_FraudPrevention_Disabled = @"DISABLED";
+NSString * const kGTLRRecaptchaEnterprise_GoogleCloudRecaptchaenterpriseV1Event_FraudPrevention_Enabled = @"ENABLED";
+NSString * const kGTLRRecaptchaEnterprise_GoogleCloudRecaptchaenterpriseV1Event_FraudPrevention_FraudPreventionUnspecified = @"FRAUD_PREVENTION_UNSPECIFIED";
+
 // GTLRRecaptchaEnterprise_GoogleCloudRecaptchaenterpriseV1FraudSignalsCardSignals.cardLabels
 NSString * const kGTLRRecaptchaEnterprise_GoogleCloudRecaptchaenterpriseV1FraudSignalsCardSignals_CardLabels_CardLabelUnspecified = @"CARD_LABEL_UNSPECIFIED";
 NSString * const kGTLRRecaptchaEnterprise_GoogleCloudRecaptchaenterpriseV1FraudSignalsCardSignals_CardLabels_Prepaid = @"PREPAID";
@@ -72,6 +77,10 @@ NSString * const kGTLRRecaptchaEnterprise_GoogleCloudRecaptchaenterpriseV1RiskAn
 NSString * const kGTLRRecaptchaEnterprise_GoogleCloudRecaptchaenterpriseV1RiskAnalysis_Reasons_TooMuchTraffic = @"TOO_MUCH_TRAFFIC";
 NSString * const kGTLRRecaptchaEnterprise_GoogleCloudRecaptchaenterpriseV1RiskAnalysis_Reasons_UnexpectedEnvironment = @"UNEXPECTED_ENVIRONMENT";
 NSString * const kGTLRRecaptchaEnterprise_GoogleCloudRecaptchaenterpriseV1RiskAnalysis_Reasons_UnexpectedUsagePatterns = @"UNEXPECTED_USAGE_PATTERNS";
+
+// GTLRRecaptchaEnterprise_GoogleCloudRecaptchaenterpriseV1SmsTollFraudVerdict.reasons
+NSString * const kGTLRRecaptchaEnterprise_GoogleCloudRecaptchaenterpriseV1SmsTollFraudVerdict_Reasons_InvalidPhoneNumber = @"INVALID_PHONE_NUMBER";
+NSString * const kGTLRRecaptchaEnterprise_GoogleCloudRecaptchaenterpriseV1SmsTollFraudVerdict_Reasons_SmsTollFraudReasonUnspecified = @"SMS_TOLL_FRAUD_REASON_UNSPECIFIED";
 
 // GTLRRecaptchaEnterprise_GoogleCloudRecaptchaenterpriseV1TestingOptions.testingChallenge
 NSString * const kGTLRRecaptchaEnterprise_GoogleCloudRecaptchaenterpriseV1TestingOptions_TestingChallenge_Nocaptcha = @"NOCAPTCHA";
@@ -233,7 +242,8 @@ NSString * const kGTLRRecaptchaEnterprise_GoogleCloudRecaptchaenterpriseV1WebKey
 @implementation GTLRRecaptchaEnterprise_GoogleCloudRecaptchaenterpriseV1Assessment
 @dynamic accountDefenderAssessment, accountVerification, event,
          firewallPolicyAssessment, fraudPreventionAssessment, fraudSignals,
-         name, privatePasswordLeakVerification, riskAnalysis, tokenProperties;
+         name, phoneFraudAssessment, privatePasswordLeakVerification,
+         riskAnalysis, tokenProperties;
 @end
 
 
@@ -263,9 +273,10 @@ NSString * const kGTLRRecaptchaEnterprise_GoogleCloudRecaptchaenterpriseV1WebKey
 //
 
 @implementation GTLRRecaptchaEnterprise_GoogleCloudRecaptchaenterpriseV1Event
-@dynamic expectedAction, express, firewallPolicyEvaluation, hashedAccountId,
-         headers, ja3, requestedUri, siteKey, token, transactionData, userAgent,
-         userInfo, userIpAddress, wafTokenAssessment;
+@dynamic expectedAction, express, firewallPolicyEvaluation, fraudPrevention,
+         hashedAccountId, headers, ja3, requestedUri, siteKey, token,
+         transactionData, userAgent, userInfo, userIpAddress,
+         wafTokenAssessment;
 
 + (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
   NSDictionary<NSString *, Class> *map = @{
@@ -616,6 +627,16 @@ NSString * const kGTLRRecaptchaEnterprise_GoogleCloudRecaptchaenterpriseV1WebKey
 
 // ----------------------------------------------------------------------------
 //
+//   GTLRRecaptchaEnterprise_GoogleCloudRecaptchaenterpriseV1PhoneFraudAssessment
+//
+
+@implementation GTLRRecaptchaEnterprise_GoogleCloudRecaptchaenterpriseV1PhoneFraudAssessment
+@dynamic smsTollFraudVerdict;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
 //   GTLRRecaptchaEnterprise_GoogleCloudRecaptchaenterpriseV1PrivatePasswordLeakVerification
 //
 
@@ -784,6 +805,24 @@ NSString * const kGTLRRecaptchaEnterprise_GoogleCloudRecaptchaenterpriseV1WebKey
 
 + (NSString *)collectionItemsKey {
   return @"relatedAccountGroupMemberships";
+}
+
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRRecaptchaEnterprise_GoogleCloudRecaptchaenterpriseV1SmsTollFraudVerdict
+//
+
+@implementation GTLRRecaptchaEnterprise_GoogleCloudRecaptchaenterpriseV1SmsTollFraudVerdict
+@dynamic reasons, risk;
+
++ (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
+  NSDictionary<NSString *, Class> *map = @{
+    @"reasons" : [NSString class]
+  };
+  return map;
 }
 
 @end

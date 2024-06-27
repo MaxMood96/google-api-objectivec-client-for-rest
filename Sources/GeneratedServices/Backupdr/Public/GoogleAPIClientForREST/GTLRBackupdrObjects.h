@@ -523,6 +523,12 @@ FOUNDATION_EXTERN NSString * const kGTLRBackupdr_NetworkConfig_PeeringMode_Priva
  */
 @interface GTLRBackupdr_ManagementServer : GTLRObject
 
+/**
+ *  Output only. The hostname or ip address of the exposed AGM endpoints, used
+ *  by BAs to connect to BA proxy.
+ */
+@property(nonatomic, strong, nullable) NSArray<NSString *> *baProxyUri;
+
 /** Output only. The time when the instance was created. */
 @property(nonatomic, strong, nullable) GTLRDateTime *createTime;
 
@@ -553,7 +559,7 @@ FOUNDATION_EXTERN NSString * const kGTLRBackupdr_NetworkConfig_PeeringMode_Priva
  */
 @property(nonatomic, strong, nullable) GTLRBackupdr_ManagementURI *managementUri;
 
-/** Output only. The resource name. */
+/** Output only. Identifier. The resource name. */
 @property(nonatomic, copy, nullable) NSString *name;
 
 /**
@@ -570,6 +576,20 @@ FOUNDATION_EXTERN NSString * const kGTLRBackupdr_NetworkConfig_PeeringMode_Priva
  *  https://openid.net/specs/openid-connect-core-1_0.html#IDToken).
  */
 @property(nonatomic, copy, nullable) NSString *oauth2ClientId;
+
+/**
+ *  Output only. Reserved for future use.
+ *
+ *  Uses NSNumber of boolValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *satisfiesPzi;
+
+/**
+ *  Output only. Reserved for future use.
+ *
+ *  Uses NSNumber of boolValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *satisfiesPzs;
 
 /**
  *  Output only. The ManagementServer state.

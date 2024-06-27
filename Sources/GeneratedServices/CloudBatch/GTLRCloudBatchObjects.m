@@ -4,7 +4,7 @@
 // API:
 //   Batch API (batch/v1)
 // Description:
-//   An API to manage the running of batch resources on Google Cloud Platform.
+//   An API to manage the running of Batch resources on Google Cloud Platform.
 // Documentation:
 //   https://cloud.google.com/batch/
 
@@ -231,7 +231,8 @@ NSString * const kGTLRCloudBatch_TaskStatus_State_Unexecuted   = @"UNEXECUTED";
 
 @implementation GTLRCloudBatch_AgentMetadata
 @dynamic creationTime, creator, imageVersion, instance, instanceId,
-         instancePreemptionNoticeReceived, osRelease, version, zoneProperty;
+         instancePreemptionNoticeReceived, machineType, osRelease, version,
+         zoneProperty;
 
 + (NSDictionary<NSString *, NSString *> *)propertyToJSONKeyMap {
   return @{ @"zoneProperty" : @"zone" };
@@ -529,7 +530,7 @@ NSString * const kGTLRCloudBatch_TaskStatus_State_Unexecuted   = @"UNEXECUTED";
 //
 
 @implementation GTLRCloudBatch_InstancePolicyOrTemplate
-@dynamic installGpuDrivers, instanceTemplate, policy;
+@dynamic installGpuDrivers, installOpsAgent, instanceTemplate, policy;
 @end
 
 

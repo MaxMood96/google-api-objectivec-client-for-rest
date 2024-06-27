@@ -4,7 +4,7 @@
 // API:
 //   Batch API (batch/v1)
 // Description:
-//   An API to manage the running of batch resources on Google Cloud Platform.
+//   An API to manage the running of Batch resources on Google Cloud Platform.
 // Documentation:
 //   https://cloud.google.com/batch/
 
@@ -790,6 +790,9 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudBatch_TaskStatus_State_Unexecuted;
  */
 @property(nonatomic, strong, nullable) NSNumber *instancePreemptionNoticeReceived;
 
+/** Optional. machine type of the VM */
+@property(nonatomic, copy, nullable) NSString *machineType;
+
 /** parsed contents of /etc/os-release */
 @property(nonatomic, strong, nullable) GTLRCloudBatch_AgentMetadata_OsRelease *osRelease;
 
@@ -1001,8 +1004,14 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudBatch_TaskStatus_State_Unexecuted;
 @property(nonatomic, strong, nullable) GTLRCloudBatch_AgentEnvironment *environment;
 
 /**
- *  Maximum duration the task should run. The task will be killed and marked as
- *  FAILED if over this limit.
+ *  Maximum duration the task should run before being automatically retried (if
+ *  enabled) or automatically failed. Format the value of this field as a time
+ *  limit in seconds followed by `s`—for example, `3600s` for 1 hour. The field
+ *  accepts any value between 0 and the maximum listed for the `Duration` field
+ *  type at https://protobuf.dev/reference/protobuf/google.protobuf/#duration;
+ *  however, the actual maximum run time for a job will be limited to the
+ *  maximum run time for a job listed at
+ *  https://cloud.google.com/batch/quotas#max-job-duration.
  */
 @property(nonatomic, strong, nullable) GTLRDuration *maxRunDuration;
 
@@ -1094,7 +1103,17 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudBatch_TaskStatus_State_Unexecuted;
 /** The placement policy. */
 @property(nonatomic, strong, nullable) GTLRCloudBatch_PlacementPolicy *placement;
 
-/** Service account that VMs will run as. */
+/**
+ *  Defines the service account for Batch-created VMs. If omitted, the [default
+ *  Compute Engine service
+ *  account](https://cloud.google.com/compute/docs/access/service-accounts#default_service_account)
+ *  is used. Must match the service account specified in any used instance
+ *  template configured in the Batch job. Includes the following fields: *
+ *  email: The service account's email address. If not set, the default Compute
+ *  Engine service account is used. * scopes: Additional OAuth scopes to grant
+ *  the service account, beyond the default cloud-platform scope. (list of
+ *  strings)
+ */
 @property(nonatomic, strong, nullable) GTLRCloudBatch_ServiceAccount *serviceAccount;
 
 /**
@@ -1397,7 +1416,9 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudBatch_TaskStatus_State_Unexecuted;
 /**
  *  Disk type as shown in `gcloud compute disk-types list`. For example, local
  *  SSD uses type "local-ssd". Persistent disks and boot disks use
- *  "pd-balanced", "pd-extreme", "pd-ssd" or "pd-standard".
+ *  "pd-balanced", "pd-extreme", "pd-ssd" or "pd-standard". If not specified,
+ *  "pd-standard" will be used as the default type for non-boot disks,
+ *  "pd-balanced" will be used as the default type for boot disks.
  */
 @property(nonatomic, copy, nullable) NSString *type;
 
@@ -1547,17 +1568,26 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudBatch_TaskStatus_State_Unexecuted;
 @interface GTLRCloudBatch_InstancePolicyOrTemplate : GTLRObject
 
 /**
- *  Set this field true if users want Batch to help fetch drivers from a third
- *  party location and install them for GPUs specified in policy.accelerators or
- *  instance_template on their behalf. Default is false. For Container-Optimized
- *  Image cases, Batch will install the accelerator driver following milestones
- *  of https://cloud.google.com/container-optimized-os/docs/release-notes. For
- *  non Container-Optimized Image cases, following
+ *  Set this field true if you want Batch to help fetch drivers from a third
+ *  party location and install them for GPUs specified in `policy.accelerators`
+ *  or `instance_template` on your behalf. Default is false. For
+ *  Container-Optimized Image cases, Batch will install the accelerator driver
+ *  following milestones of
+ *  https://cloud.google.com/container-optimized-os/docs/release-notes. For non
+ *  Container-Optimized Image cases, following
  *  https://github.com/GoogleCloudPlatform/compute-gpu-installation/blob/main/linux/install_gpu_driver.py.
  *
  *  Uses NSNumber of boolValue.
  */
 @property(nonatomic, strong, nullable) NSNumber *installGpuDrivers;
+
+/**
+ *  Optional. Set this field true if you want Batch to install Ops Agent on your
+ *  behalf. Default is false.
+ *
+ *  Uses NSNumber of boolValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *installOpsAgent;
 
 /**
  *  Name of an instance template used to create VMs. Named the field as
@@ -1695,10 +1725,15 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudBatch_TaskStatus_State_Unexecuted;
 @property(nonatomic, strong, nullable) GTLRCloudBatch_Message *message;
 
 /**
- *  The Pub/Sub topic where notifications like the job state changes will be
- *  published. The topic must exist in the same project as the job and billings
- *  will be charged to this project. If not specified, no Pub/Sub messages will
- *  be sent. Topic format: `projects/{project}/topics/{topic}`.
+ *  The Pub/Sub topic where notifications for the job, like state changes, will
+ *  be published. If undefined, no Pub/Sub notifications are sent for this job.
+ *  Specify the topic using the following format:
+ *  `projects/{project}/topics/{topic}`. Notably, if you want to specify a
+ *  Pub/Sub topic that is in a different project than the job, your
+ *  administrator must grant your project's Batch service agent permission to
+ *  publish to that topic. For more information about configuring Pub/Sub
+ *  notifications for a job, see
+ *  https://cloud.google.com/batch/docs/enable-notifications.
  */
 @property(nonatomic, copy, nullable) NSString *pubsubTopic;
 
@@ -1982,11 +2017,11 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudBatch_TaskStatus_State_Unexecuted;
  *  can be a region or a zone. Only one region or multiple zones in one region
  *  is supported now. For example, ["regions/us-central1"] allow VMs in any
  *  zones in region us-central1. ["zones/us-central1-a", "zones/us-central1-c"]
- *  only allow VMs in zones us-central1-a and us-central1-c. All locations end
- *  up in different regions would cause errors. For example,
+ *  only allow VMs in zones us-central1-a and us-central1-c. Mixing locations
+ *  from different regions would cause errors. For example,
  *  ["regions/us-central1", "zones/us-central1-a", "zones/us-central1-b",
- *  "zones/us-west1-a"] contains 2 regions "us-central1" and "us-west1". An
- *  error is expected in this case.
+ *  "zones/us-west1-a"] contains locations from two distinct regions:
+ *  us-central1 and us-west1. This combination will trigger an error.
  */
 @property(nonatomic, strong, nullable) NSArray<NSString *> *allowedLocations;
 
@@ -2465,18 +2500,10 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudBatch_TaskStatus_State_Unexecuted;
  */
 @interface GTLRCloudBatch_ServiceAccount : GTLRObject
 
-/**
- *  Email address of the service account. If not specified, the default Compute
- *  Engine service account for the project will be used. If instance template is
- *  being used, the service account has to be specified in the instance template
- *  and it has to match the email field here.
- */
+/** Email address of the service account. */
 @property(nonatomic, copy, nullable) NSString *email;
 
-/**
- *  List of scopes to be enabled for this service account on the VM, in addition
- *  to the cloud-platform API scope that will be added by default.
- */
+/** List of scopes to be enabled for this service account. */
 @property(nonatomic, strong, nullable) NSArray<NSString *> *scopes;
 
 @end
@@ -2597,8 +2624,14 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudBatch_TaskStatus_State_Unexecuted;
 @interface GTLRCloudBatch_TaskExecution : GTLRObject
 
 /**
- *  When task is completed as the status of FAILED or SUCCEEDED, exit code is
- *  for one task execution result, default is 0 as success.
+ *  The exit code of a finished task. If the task succeeded, the exit code will
+ *  be 0. If the task failed but not due to the following reasons, the exit code
+ *  will be 50000. Otherwise, it can be from different sources: * Batch known
+ *  failures:
+ *  https://cloud.google.com/batch/docs/troubleshooting#reserved-exit-codes. *
+ *  Batch runnable execution failures; you can rely on Batch logs to further
+ *  diagnose: https://cloud.google.com/batch/docs/analyze-job-using-logs. If
+ *  there are multiple runnables failures, Batch only exposes the first error.
  *
  *  Uses NSNumber of intValue.
  */
@@ -2770,8 +2803,14 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudBatch_TaskStatus_State_Unexecuted;
 @property(nonatomic, strong, nullable) NSNumber *maxRetryCount;
 
 /**
- *  Maximum duration the task should run. The task will be killed and marked as
- *  FAILED if over this limit.
+ *  Maximum duration the task should run before being automatically retried (if
+ *  enabled) or automatically failed. Format the value of this field as a time
+ *  limit in seconds followed by `s`—for example, `3600s` for 1 hour. The field
+ *  accepts any value between 0 and the maximum listed for the `Duration` field
+ *  type at https://protobuf.dev/reference/protobuf/google.protobuf/#duration;
+ *  however, the actual maximum run time for a job will be limited to the
+ *  maximum run time for a job listed at
+ *  https://cloud.google.com/batch/quotas#max-job-duration.
  */
 @property(nonatomic, strong, nullable) GTLRDuration *maxRunDuration;
 
@@ -2856,15 +2895,15 @@ GTLR_DEPRECATED
 @property(nonatomic, strong, nullable) GTLRCloudBatch_GCS *gcs;
 
 /**
- *  For Google Cloud Storage (GCS), mount options are the options supported by
- *  the gcsfuse tool (https://github.com/GoogleCloudPlatform/gcsfuse). For
- *  existing persistent disks, mount options provided by the mount command
- *  (https://man7.org/linux/man-pages/man8/mount.8.html) except writing are
- *  supported. This is due to restrictions of multi-writer mode
- *  (https://cloud.google.com/compute/docs/disks/sharing-disks-between-vms). For
- *  other attached disks and Network File System (NFS), mount options are these
- *  supported by the mount command
- *  (https://man7.org/linux/man-pages/man8/mount.8.html).
+ *  Mount options vary based on the type of storage volume: * For a Cloud
+ *  Storage bucket, all the mount options provided by the [`gcsfuse`
+ *  tool](https://cloud.google.com/storage/docs/gcsfuse-cli) are supported. *
+ *  For an existing persistent disk, all mount options provided by the [`mount`
+ *  command](https://man7.org/linux/man-pages/man8/mount.8.html) except writing
+ *  are supported. This is due to restrictions of [multi-writer
+ *  mode](https://cloud.google.com/compute/docs/disks/sharing-disks-between-vms).
+ *  * For any other disk or a Network File System (NFS), all the mount options
+ *  provided by the `mount` command are supported.
  */
 @property(nonatomic, strong, nullable) NSArray<NSString *> *mountOptions;
 

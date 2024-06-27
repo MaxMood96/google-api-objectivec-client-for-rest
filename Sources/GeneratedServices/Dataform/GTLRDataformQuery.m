@@ -132,6 +132,106 @@
 
 @end
 
+@implementation GTLRDataformQuery_ProjectsLocationsRepositoriesCommentThreadsCommentsGetIamPolicy
+
+@dynamic optionsRequestedPolicyVersion, resource;
+
++ (NSDictionary<NSString *, NSString *> *)parameterNameMap {
+  return @{ @"optionsRequestedPolicyVersion" : @"options.requestedPolicyVersion" };
+}
+
++ (instancetype)queryWithResource:(NSString *)resource {
+  NSArray *pathParams = @[ @"resource" ];
+  NSString *pathURITemplate = @"v1beta1/{+resource}:getIamPolicy";
+  GTLRDataformQuery_ProjectsLocationsRepositoriesCommentThreadsCommentsGetIamPolicy *query =
+    [[self alloc] initWithPathURITemplate:pathURITemplate
+                               HTTPMethod:nil
+                       pathParameterNames:pathParams];
+  query.resource = resource;
+  query.expectedObjectClass = [GTLRDataform_Policy class];
+  query.loggingName = @"dataform.projects.locations.repositories.commentThreads.comments.getIamPolicy";
+  return query;
+}
+
+@end
+
+@implementation GTLRDataformQuery_ProjectsLocationsRepositoriesCommentThreadsCommentsSetIamPolicy
+
+@dynamic resource;
+
++ (instancetype)queryWithObject:(GTLRDataform_SetIamPolicyRequest *)object
+                       resource:(NSString *)resource {
+  if (object == nil) {
+#if defined(DEBUG) && DEBUG
+    NSAssert(object != nil, @"Got a nil object");
+#endif
+    return nil;
+  }
+  NSArray *pathParams = @[ @"resource" ];
+  NSString *pathURITemplate = @"v1beta1/{+resource}:setIamPolicy";
+  GTLRDataformQuery_ProjectsLocationsRepositoriesCommentThreadsCommentsSetIamPolicy *query =
+    [[self alloc] initWithPathURITemplate:pathURITemplate
+                               HTTPMethod:@"POST"
+                       pathParameterNames:pathParams];
+  query.bodyObject = object;
+  query.resource = resource;
+  query.expectedObjectClass = [GTLRDataform_Policy class];
+  query.loggingName = @"dataform.projects.locations.repositories.commentThreads.comments.setIamPolicy";
+  return query;
+}
+
+@end
+
+@implementation GTLRDataformQuery_ProjectsLocationsRepositoriesCommentThreadsGetIamPolicy
+
+@dynamic optionsRequestedPolicyVersion, resource;
+
++ (NSDictionary<NSString *, NSString *> *)parameterNameMap {
+  return @{ @"optionsRequestedPolicyVersion" : @"options.requestedPolicyVersion" };
+}
+
++ (instancetype)queryWithResource:(NSString *)resource {
+  NSArray *pathParams = @[ @"resource" ];
+  NSString *pathURITemplate = @"v1beta1/{+resource}:getIamPolicy";
+  GTLRDataformQuery_ProjectsLocationsRepositoriesCommentThreadsGetIamPolicy *query =
+    [[self alloc] initWithPathURITemplate:pathURITemplate
+                               HTTPMethod:nil
+                       pathParameterNames:pathParams];
+  query.resource = resource;
+  query.expectedObjectClass = [GTLRDataform_Policy class];
+  query.loggingName = @"dataform.projects.locations.repositories.commentThreads.getIamPolicy";
+  return query;
+}
+
+@end
+
+@implementation GTLRDataformQuery_ProjectsLocationsRepositoriesCommentThreadsSetIamPolicy
+
+@dynamic resource;
+
++ (instancetype)queryWithObject:(GTLRDataform_SetIamPolicyRequest *)object
+                       resource:(NSString *)resource {
+  if (object == nil) {
+#if defined(DEBUG) && DEBUG
+    NSAssert(object != nil, @"Got a nil object");
+#endif
+    return nil;
+  }
+  NSArray *pathParams = @[ @"resource" ];
+  NSString *pathURITemplate = @"v1beta1/{+resource}:setIamPolicy";
+  GTLRDataformQuery_ProjectsLocationsRepositoriesCommentThreadsSetIamPolicy *query =
+    [[self alloc] initWithPathURITemplate:pathURITemplate
+                               HTTPMethod:@"POST"
+                       pathParameterNames:pathParams];
+  query.bodyObject = object;
+  query.resource = resource;
+  query.expectedObjectClass = [GTLRDataform_Policy class];
+  query.loggingName = @"dataform.projects.locations.repositories.commentThreads.setIamPolicy";
+  return query;
+}
+
+@end
+
 @implementation GTLRDataformQuery_ProjectsLocationsRepositoriesCommit
 
 @dynamic name;
@@ -152,7 +252,7 @@
                        pathParameterNames:pathParams];
   query.bodyObject = object;
   query.name = name;
-  query.expectedObjectClass = [GTLRDataform_Empty class];
+  query.expectedObjectClass = [GTLRDataform_CommitRepositoryChangesResponse class];
   query.loggingName = @"dataform.projects.locations.repositories.commit";
   return query;
 }
@@ -207,7 +307,7 @@
 
 @implementation GTLRDataformQuery_ProjectsLocationsRepositoriesCompilationResultsList
 
-@dynamic filter, pageSize, pageToken, parent;
+@dynamic filter, orderBy, pageSize, pageToken, parent;
 
 + (instancetype)queryWithParent:(NSString *)parent {
   NSArray *pathParams = @[ @"parent" ];

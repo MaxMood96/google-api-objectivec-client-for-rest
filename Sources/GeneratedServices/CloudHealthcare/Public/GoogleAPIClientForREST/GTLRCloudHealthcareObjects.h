@@ -39,6 +39,7 @@
 @class GTLRCloudHealthcare_DicomFilterConfig;
 @class GTLRCloudHealthcare_DicomStore;
 @class GTLRCloudHealthcare_DicomStore_Labels;
+@class GTLRCloudHealthcare_EncryptionSpec;
 @class GTLRCloudHealthcare_Entity;
 @class GTLRCloudHealthcare_EntityMention;
 @class GTLRCloudHealthcare_EntityMentionRelationship;
@@ -740,7 +741,8 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudHealthcare_RollbackFhirResourcesReq
  *  `Parameters.parameter.resource`, `Bundle.entry.resource`, and
  *  `Bundle.entry.response.outcome`. Analytics schema does not gracefully handle
  *  extensions with one or more occurrences, anaytics schema also does not
- *  handle contained resource.
+ *  handle contained resource. Additionally, extensions with a URL ending in
+ *  "/{existing_resource_field_name}" may cause undefined behavior.
  *
  *  Value: "ANALYTICS"
  */
@@ -748,9 +750,11 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudHealthcare_SchemaConfig_SchemaType_
 /**
  *  Analytics V2, similar to schema defined by the FHIR community, with added
  *  support for extensions with one or more occurrences and contained resources
- *  in stringified JSON. Analytics V2 uses more space in the destination table
- *  than Analytics V1. It is generally recommended to use Analytics V2 over
- *  Analytics.
+ *  in stringified JSON. Extensions with a URL ending in
+ *  "/{existing_resource_field_name}" will cause conflict and prevent the
+ *  resource from being sent to BigQuery. Analytics V2 uses more space in the
+ *  destination table than Analytics V1. It is generally recommended to use
+ *  Analytics V2 over Analytics.
  *
  *  Value: "ANALYTICS_V2"
  */
@@ -1646,16 +1650,23 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudHealthcare_Type_Primitive_Varies;
 @interface GTLRCloudHealthcare_Dataset : GTLRObject
 
 /**
+ *  Optional. Customer-managed encryption key spec for a Dataset. If set, this
+ *  Dataset and all of its sub-resources will be secured by this key. If empty,
+ *  the Dataset is secured by the default Google encryption key.
+ */
+@property(nonatomic, strong, nullable) GTLRCloudHealthcare_EncryptionSpec *encryptionSpec;
+
+/**
  *  Identifier. Resource name of the dataset, of the form
  *  `projects/{project_id}/locations/{location_id}/datasets/{dataset_id}`.
  */
 @property(nonatomic, copy, nullable) NSString *name;
 
 /**
- *  The default timezone used by this dataset. Must be a either a valid IANA
- *  time zone name such as "America/New_York" or empty, which defaults to UTC.
- *  This is used for parsing times in resources, such as HL7 messages, where no
- *  explicit timezone is specified.
+ *  Optional. The default timezone used by this dataset. Must be a either a
+ *  valid IANA time zone name such as "America/New_York" or empty, which
+ *  defaults to UTC. This is used for parsing times in resources, such as HL7
+ *  messages, where no explicit timezone is specified.
  */
 @property(nonatomic, copy, nullable) NSString *timeZone;
 
@@ -2070,6 +2081,23 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudHealthcare_Type_Primitive_Varies;
 
 
 /**
+ *  Represents a customer-managed encryption key spec that can be applied to a
+ *  resource.
+ */
+@interface GTLRCloudHealthcare_EncryptionSpec : GTLRObject
+
+/**
+ *  Required. The resource name of customer-managed encryption key that is used
+ *  to secure a resource and its sub-resources. Only the key in the same
+ *  location as this Dataset is allowed to be used for encryption. Format is:
+ *  `projects/{project}/locations/{location}/keyRings/{keyRing}/cryptoKeys/{key}`
+ */
+@property(nonatomic, copy, nullable) NSString *kmsKeyName;
+
+@end
+
+
+/**
  *  The candidate entities that an entity mention could link to.
  */
 @interface GTLRCloudHealthcare_Entity : GTLRObject
@@ -2351,43 +2379,44 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudHealthcare_Type_Primitive_Varies;
 
 /**
  *  Restricts messages exported to those matching a filter, only applicable to
- *  PubsubDestination. The following syntax is available: * A string field value
- *  can be written as text inside quotation marks, for example `"query text"`.
- *  The only valid relational operation for text fields is equality (`=`), where
- *  text is searched within the field, rather than having the field be equal to
- *  the text. For example, `"Comment = great"` returns messages with `great` in
- *  the comment field. * A number field value can be written as an integer, a
- *  decimal, or an exponential. The valid relational operators for number fields
- *  are the equality operator (`=`), along with the less than/greater than
- *  operators (`<`, `<=`, `>`, `>=`). Note that there is no inequality (`!=`)
- *  operator. You can prepend the `NOT` operator to an expression to negate it.
- *  * A date field value must be written in the `yyyy-mm-dd` format. Fields with
- *  date and time use the RFC3339 time format. Leading zeros are required for
- *  one-digit months and days. The valid relational operators for date fields
- *  are the equality operator (`=`) , along with the less than/greater than
- *  operators (`<`, `<=`, `>`, `>=`). Note that there is no inequality (`!=`)
- *  operator. You can prepend the `NOT` operator to an expression to negate it.
- *  * Multiple field query expressions can be combined in one query by adding
- *  `AND` or `OR` operators between the expressions. If a boolean operator
- *  appears within a quoted string, it is not treated as special, and is just
- *  another part of the character string to be matched. You can prepend the
- *  `NOT` operator to an expression to negate it. The following fields and
- *  functions are available for filtering: * `message_type`, from the MSH-9.1
- *  field. For example, `NOT message_type = "ADT"`. * `send_date` or `sendDate`,
- *  the `yyyy-mm-dd` date the message was sent in the dataset's time_zone, from
- *  the MSH-7 segment. For example, `send_date < "2017-01-02"`. * `send_time`,
- *  the timestamp when the message was sent, using the RFC3339 time format for
- *  comparisons, from the MSH-7 segment. For example, `send_time <
- *  "2017-01-02T00:00:00-05:00"`. * `create_time`, the timestamp when the
- *  message was created in the HL7v2 store. Use the RFC3339 time format for
- *  comparisons. For example, `create_time < "2017-01-02T00:00:00-05:00"`. *
- *  `send_facility`, the care center that the message came from, from the MSH-4
- *  segment. For example, `send_facility = "ABC"`. Note: The filter will be
- *  applied to every message in the HL7v2 store whose `send_time` lies in the
- *  range defined by the `start_time` and the `end_time`. Even if the filter
- *  only matches a small set of messages, the export operation can still take a
- *  long time to finish when a lot of messages are between the specified
- *  `start_time` and `end_time` range.
+ *  PubsubDestination and GcsDestination. The following syntax is available: * A
+ *  string field value can be written as text inside quotation marks, for
+ *  example `"query text"`. The only valid relational operation for text fields
+ *  is equality (`=`), where text is searched within the field, rather than
+ *  having the field be equal to the text. For example, `"Comment = great"`
+ *  returns messages with `great` in the comment field. * A number field value
+ *  can be written as an integer, a decimal, or an exponential. The valid
+ *  relational operators for number fields are the equality operator (`=`),
+ *  along with the less than/greater than operators (`<`, `<=`, `>`, `>=`). Note
+ *  that there is no inequality (`!=`) operator. You can prepend the `NOT`
+ *  operator to an expression to negate it. * A date field value must be written
+ *  in the `yyyy-mm-dd` format. Fields with date and time use the RFC3339 time
+ *  format. Leading zeros are required for one-digit months and days. The valid
+ *  relational operators for date fields are the equality operator (`=`) , along
+ *  with the less than/greater than operators (`<`, `<=`, `>`, `>=`). Note that
+ *  there is no inequality (`!=`) operator. You can prepend the `NOT` operator
+ *  to an expression to negate it. * Multiple field query expressions can be
+ *  combined in one query by adding `AND` or `OR` operators between the
+ *  expressions. If a boolean operator appears within a quoted string, it is not
+ *  treated as special, and is just another part of the character string to be
+ *  matched. You can prepend the `NOT` operator to an expression to negate it.
+ *  The following fields and functions are available for filtering: *
+ *  `message_type`, from the MSH-9.1 field. For example, `NOT message_type =
+ *  "ADT"`. * `send_date` or `sendDate`, the `yyyy-mm-dd` date the message was
+ *  sent in the dataset's time_zone, from the MSH-7 segment. For example,
+ *  `send_date < "2017-01-02"`. * `send_time`, the timestamp when the message
+ *  was sent, using the RFC3339 time format for comparisons, from the MSH-7
+ *  segment. For example, `send_time < "2017-01-02T00:00:00-05:00"`. *
+ *  `create_time`, the timestamp when the message was created in the HL7v2
+ *  store. Use the RFC3339 time format for comparisons. For example,
+ *  `create_time < "2017-01-02T00:00:00-05:00"`. * `send_facility`, the care
+ *  center that the message came from, from the MSH-4 segment. For example,
+ *  `send_facility = "ABC"`. Note: The filter will be applied to every message
+ *  in the HL7v2 store whose `send_time` lies in the range defined by the
+ *  `start_time` and the `end_time`. Even if the filter only matches a small set
+ *  of messages, the export operation can still take a long time to finish when
+ *  a lot of messages are between the specified `start_time` and `end_time`
+ *  range.
  */
 @property(nonatomic, copy, nullable) NSString *filter;
 
@@ -2720,7 +2749,7 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudHealthcare_Type_Primitive_Varies;
 
 /**
  *  Output only. Identifier. Resource name of the FHIR store, of the form
- *  `projects/{project_id}/datasets/{dataset_id}/fhirStores/{fhir_store_id}`.
+ *  `projects/{project_id}/locations/{location}/datasets/{dataset_id}/fhirStores/{fhir_store_id}`.
  */
 @property(nonatomic, copy, nullable) NSString *name;
 
@@ -4970,8 +4999,8 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudHealthcare_Type_Primitive_Varies;
 @property(nonatomic, strong, nullable) NSNumber *force;
 
 /**
- *  Optional. GCS object containing list of {resourceType}/{resourceId} lines,
- *  identifying resources to be reverted
+ *  Optional. Cloud Storage object containing list of
+ *  {resourceType}/{resourceId} lines, identifying resources to be reverted
  */
 @property(nonatomic, copy, nullable) NSString *inputGcsObject;
 
@@ -5039,13 +5068,17 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudHealthcare_Type_Primitive_Varies;
  *        are `Parameters.parameter.resource`, `Bundle.entry.resource`, and
  *        `Bundle.entry.response.outcome`. Analytics schema does not gracefully
  *        handle extensions with one or more occurrences, anaytics schema also
- *        does not handle contained resource. (Value: "ANALYTICS")
+ *        does not handle contained resource. Additionally, extensions with a
+ *        URL ending in "/{existing_resource_field_name}" may cause undefined
+ *        behavior. (Value: "ANALYTICS")
  *    @arg @c kGTLRCloudHealthcare_SchemaConfig_SchemaType_AnalyticsV2 Analytics
  *        V2, similar to schema defined by the FHIR community, with added
  *        support for extensions with one or more occurrences and contained
- *        resources in stringified JSON. Analytics V2 uses more space in the
- *        destination table than Analytics V1. It is generally recommended to
- *        use Analytics V2 over Analytics. (Value: "ANALYTICS_V2")
+ *        resources in stringified JSON. Extensions with a URL ending in
+ *        "/{existing_resource_field_name}" will cause conflict and prevent the
+ *        resource from being sent to BigQuery. Analytics V2 uses more space in
+ *        the destination table than Analytics V1. It is generally recommended
+ *        to use Analytics V2 over Analytics. (Value: "ANALYTICS_V2")
  *    @arg @c kGTLRCloudHealthcare_SchemaConfig_SchemaType_SchemaTypeUnspecified
  *        No schema type specified. This type is unsupported. (Value:
  *        "SCHEMA_TYPE_UNSPECIFIED")

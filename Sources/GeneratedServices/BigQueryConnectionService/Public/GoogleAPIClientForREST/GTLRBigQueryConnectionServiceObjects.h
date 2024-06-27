@@ -26,8 +26,11 @@
 @class GTLRBigQueryConnectionService_CloudSqlProperties;
 @class GTLRBigQueryConnectionService_Connection;
 @class GTLRBigQueryConnectionService_ConnectorConfiguration;
+@class GTLRBigQueryConnectionService_ConnectorConfigurationAsset;
 @class GTLRBigQueryConnectionService_ConnectorConfigurationAuthentication;
 @class GTLRBigQueryConnectionService_ConnectorConfigurationEndpoint;
+@class GTLRBigQueryConnectionService_ConnectorConfigurationNetwork;
+@class GTLRBigQueryConnectionService_ConnectorConfigurationPrivateServiceConnect;
 @class GTLRBigQueryConnectionService_ConnectorConfigurationSecret;
 @class GTLRBigQueryConnectionService_ConnectorConfigurationUsernamePassword;
 @class GTLRBigQueryConnectionService_Expr;
@@ -547,6 +550,9 @@ FOUNDATION_EXTERN NSString * const kGTLRBigQueryConnectionService_ConnectorConfi
  */
 @interface GTLRBigQueryConnectionService_ConnectorConfiguration : GTLRObject
 
+/** Data asset. */
+@property(nonatomic, strong, nullable) GTLRBigQueryConnectionService_ConnectorConfigurationAsset *asset;
+
 /** Client authentication. */
 @property(nonatomic, strong, nullable) GTLRBigQueryConnectionService_ConnectorConfigurationAuthentication *authentication;
 
@@ -561,6 +567,28 @@ FOUNDATION_EXTERN NSString * const kGTLRBigQueryConnectionService_ConnectorConfi
  */
 @property(nonatomic, strong, nullable) GTLRBigQueryConnectionService_ConnectorConfigurationEndpoint *endpoint;
 
+/** Networking configuration. */
+@property(nonatomic, strong, nullable) GTLRBigQueryConnectionService_ConnectorConfigurationNetwork *network;
+
+@end
+
+
+/**
+ *  Data Asset - a resource within instance of the system, reachable under
+ *  specified endpoint. For example a database name in a SQL DB.
+ */
+@interface GTLRBigQueryConnectionService_ConnectorConfigurationAsset : GTLRObject
+
+/** Name of the database. */
+@property(nonatomic, copy, nullable) NSString *database;
+
+/**
+ *  Full Google Cloud resource name -
+ *  https://cloud.google.com/apis/design/resource_names#full_resource_name.
+ *  Example: `//library.googleapis.com/shelves/shelf1/books/book2`
+ */
+@property(nonatomic, copy, nullable) NSString *googleCloudResource;
+
 @end
 
 
@@ -568,6 +596,15 @@ FOUNDATION_EXTERN NSString * const kGTLRBigQueryConnectionService_ConnectorConfi
  *  Client authentication.
  */
 @interface GTLRBigQueryConnectionService_ConnectorConfigurationAuthentication : GTLRObject
+
+/**
+ *  Output only. Google-managed service account associated with this connection,
+ *  e.g.,
+ *  `service-{project_number}\@gcp-sa-bigqueryconnection.iam.gserviceaccount.com`.
+ *  BigQuery jobs using this connection will act as `service_account` identity
+ *  while connecting to the datasource.
+ */
+@property(nonatomic, copy, nullable) NSString *serviceAccount;
 
 /** Username/password authentication. */
 @property(nonatomic, strong, nullable) GTLRBigQueryConnectionService_ConnectorConfigurationUsernamePassword *usernamePassword;
@@ -586,6 +623,31 @@ FOUNDATION_EXTERN NSString * const kGTLRBigQueryConnectionService_ConnectorConfi
  *  https://www.ietf.org/rfc/rfc3986.html#section-3.2.3.
  */
 @property(nonatomic, copy, nullable) NSString *hostPort;
+
+@end
+
+
+/**
+ *  Network related configuration.
+ */
+@interface GTLRBigQueryConnectionService_ConnectorConfigurationNetwork : GTLRObject
+
+/** Private Service Connect networking configuration. */
+@property(nonatomic, strong, nullable) GTLRBigQueryConnectionService_ConnectorConfigurationPrivateServiceConnect *privateServiceConnect;
+
+@end
+
+
+/**
+ *  Private Service Connect configuration.
+ */
+@interface GTLRBigQueryConnectionService_ConnectorConfigurationPrivateServiceConnect : GTLRObject
+
+/**
+ *  Required. Network Attachment name in the format of
+ *  `projects/{project}/regions/{region}/networkAttachments/{networkattachment}`.
+ */
+@property(nonatomic, copy, nullable) NSString *networkAttachment;
 
 @end
 

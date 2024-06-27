@@ -108,6 +108,37 @@ FOUNDATION_EXTERN NSString * const kGTLRAccessApproval_EnrolledService_Enrollmen
 FOUNDATION_EXTERN NSString * const kGTLRAccessApproval_EnrolledService_EnrollmentLevel_EnrollmentLevelUnspecified;
 
 // ----------------------------------------------------------------------------
+// GTLRAccessApproval_Settings.requestScopeMaxWidthPreference
+
+/**
+ *  Customer allows the scope of Access Approval requests as broad as the Folder
+ *  level.
+ *
+ *  Value: "FOLDER"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAccessApproval_Settings_RequestScopeMaxWidthPreference_Folder;
+/**
+ *  This is the widest scope possible. It means the customer has no scope
+ *  restriction when it comes to Access Approval requests.
+ *
+ *  Value: "ORGANIZATION"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAccessApproval_Settings_RequestScopeMaxWidthPreference_Organization;
+/**
+ *  Customer allows the scope of Access Approval requests as broad as the
+ *  Project level.
+ *
+ *  Value: "PROJECT"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAccessApproval_Settings_RequestScopeMaxWidthPreference_Project;
+/**
+ *  Default value for proto, shouldn't be used.
+ *
+ *  Value: "REQUEST_SCOPE_MAX_WIDTH_PREFERENCE_UNSPECIFIED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAccessApproval_Settings_RequestScopeMaxWidthPreference_RequestScopeMaxWidthPreferenceUnspecified;
+
+// ----------------------------------------------------------------------------
 // GTLRAccessApproval_SignatureInfo.googleKeyAlgorithm
 
 /**
@@ -152,6 +183,12 @@ FOUNDATION_EXTERN NSString * const kGTLRAccessApproval_SignatureInfo_GoogleKeyAl
  *  Value: "CRYPTO_KEY_VERSION_ALGORITHM_UNSPECIFIED"
  */
 FOUNDATION_EXTERN NSString * const kGTLRAccessApproval_SignatureInfo_GoogleKeyAlgorithm_CryptoKeyVersionAlgorithmUnspecified;
+/**
+ *  EdDSA on the Curve25519 in pure mode (taking data as input).
+ *
+ *  Value: "EC_SIGN_ED25519"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRAccessApproval_SignatureInfo_GoogleKeyAlgorithm_EcSignEd25519;
 /**
  *  ECDSA on the NIST P-256 curve with a SHA256 digest. Other hash functions can
  *  also be used:
@@ -751,6 +788,35 @@ FOUNDATION_EXTERN NSString * const kGTLRAccessApproval_SignatureInfo_GoogleKeyAl
  */
 @property(nonatomic, strong, nullable) NSNumber *preferredRequestExpirationDays;
 
+/**
+ *  Optional. A setting to indicate the maximum width of an Access Approval
+ *  request.
+ *
+ *  Likely values:
+ *    @arg @c kGTLRAccessApproval_Settings_RequestScopeMaxWidthPreference_Folder
+ *        Customer allows the scope of Access Approval requests as broad as the
+ *        Folder level. (Value: "FOLDER")
+ *    @arg @c kGTLRAccessApproval_Settings_RequestScopeMaxWidthPreference_Organization
+ *        This is the widest scope possible. It means the customer has no scope
+ *        restriction when it comes to Access Approval requests. (Value:
+ *        "ORGANIZATION")
+ *    @arg @c kGTLRAccessApproval_Settings_RequestScopeMaxWidthPreference_Project
+ *        Customer allows the scope of Access Approval requests as broad as the
+ *        Project level. (Value: "PROJECT")
+ *    @arg @c kGTLRAccessApproval_Settings_RequestScopeMaxWidthPreference_RequestScopeMaxWidthPreferenceUnspecified
+ *        Default value for proto, shouldn't be used. (Value:
+ *        "REQUEST_SCOPE_MAX_WIDTH_PREFERENCE_UNSPECIFIED")
+ */
+@property(nonatomic, copy, nullable) NSString *requestScopeMaxWidthPreference;
+
+/**
+ *  Optional. A setting to require approval request justifications to be
+ *  customer visible.
+ *
+ *  Uses NSNumber of boolValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *requireCustomerVisibleJustification;
+
 @end
 
 
@@ -785,6 +851,9 @@ FOUNDATION_EXTERN NSString * const kGTLRAccessApproval_SignatureInfo_GoogleKeyAl
  *        "AES_256_GCM")
  *    @arg @c kGTLRAccessApproval_SignatureInfo_GoogleKeyAlgorithm_CryptoKeyVersionAlgorithmUnspecified
  *        Not specified. (Value: "CRYPTO_KEY_VERSION_ALGORITHM_UNSPECIFIED")
+ *    @arg @c kGTLRAccessApproval_SignatureInfo_GoogleKeyAlgorithm_EcSignEd25519
+ *        EdDSA on the Curve25519 in pure mode (taking data as input). (Value:
+ *        "EC_SIGN_ED25519")
  *    @arg @c kGTLRAccessApproval_SignatureInfo_GoogleKeyAlgorithm_EcSignP256Sha256
  *        ECDSA on the NIST P-256 curve with a SHA256 digest. Other hash
  *        functions can also be used:

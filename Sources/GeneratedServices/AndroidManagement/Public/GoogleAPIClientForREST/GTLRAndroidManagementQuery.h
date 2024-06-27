@@ -176,7 +176,10 @@ FOUNDATION_EXTERN NSString * const kGTLRAndroidManagementWipeDataFlagsWipeExtern
 @end
 
 /**
- *  Deletes an enterprise. Only available for EMM-managed enterprises.
+ *  Permanently deletes an enterprise and all accounts and data associated with
+ *  it. Warning: this will result in a cascaded deletion of all AM API devices
+ *  associated with the deleted enterprise. Only available for EMM-managed
+ *  enterprises.
  *
  *  Method: androidmanagement.enterprises.delete
  *
@@ -191,7 +194,10 @@ FOUNDATION_EXTERN NSString * const kGTLRAndroidManagementWipeDataFlagsWipeExtern
 /**
  *  Fetches a @c GTLRAndroidManagement_Empty.
  *
- *  Deletes an enterprise. Only available for EMM-managed enterprises.
+ *  Permanently deletes an enterprise and all accounts and data associated with
+ *  it. Warning: this will result in a cascaded deletion of all AM API devices
+ *  associated with the deleted enterprise. Only available for EMM-managed
+ *  enterprises.
  *
  *  @param name The name of the enterprise in the form
  *    enterprises/{enterpriseId}.
@@ -592,12 +598,12 @@ FOUNDATION_EXTERN NSString * const kGTLRAndroidManagementWipeDataFlagsWipeExtern
 @end
 
 /**
- *  Gets an active, unexpired enrollment token. Only a partial view of
- *  EnrollmentToken is returned: all the fields but name and
- *  expiration_timestamp are empty. This method is meant to help manage active
- *  enrollment tokens lifecycle. For security reasons, it's recommended to
- *  delete active enrollment tokens as soon as they're not intended to be used
- *  anymore.
+ *  Gets an active, unexpired enrollment token. A partial view of the enrollment
+ *  token is returned. Only the following fields are populated: name,
+ *  expirationTimestamp, allowPersonalUsage, value, qrCode. This method is meant
+ *  to help manage active enrollment tokens lifecycle. For security reasons,
+ *  it's recommended to delete active enrollment tokens as soon as they're not
+ *  intended to be used anymore.
  *
  *  Method: androidmanagement.enterprises.enrollmentTokens.get
  *
@@ -615,12 +621,12 @@ FOUNDATION_EXTERN NSString * const kGTLRAndroidManagementWipeDataFlagsWipeExtern
 /**
  *  Fetches a @c GTLRAndroidManagement_EnrollmentToken.
  *
- *  Gets an active, unexpired enrollment token. Only a partial view of
- *  EnrollmentToken is returned: all the fields but name and
- *  expiration_timestamp are empty. This method is meant to help manage active
- *  enrollment tokens lifecycle. For security reasons, it's recommended to
- *  delete active enrollment tokens as soon as they're not intended to be used
- *  anymore.
+ *  Gets an active, unexpired enrollment token. A partial view of the enrollment
+ *  token is returned. Only the following fields are populated: name,
+ *  expirationTimestamp, allowPersonalUsage, value, qrCode. This method is meant
+ *  to help manage active enrollment tokens lifecycle. For security reasons,
+ *  it's recommended to delete active enrollment tokens as soon as they're not
+ *  intended to be used anymore.
  *
  *  @param name Required. The name of the enrollment token in the form
  *    enterprises/{enterpriseId}/enrollmentTokens/{enrollmentTokenId}.
@@ -633,8 +639,9 @@ FOUNDATION_EXTERN NSString * const kGTLRAndroidManagementWipeDataFlagsWipeExtern
 
 /**
  *  Lists active, unexpired enrollment tokens for a given enterprise. The list
- *  items contain only a partial view of EnrollmentToken: all the fields but
- *  name and expiration_timestamp are empty. This method is meant to help manage
+ *  items contain only a partial view of EnrollmentToken object. Only the
+ *  following fields are populated: name, expirationTimestamp,
+ *  allowPersonalUsage, value, qrCode. This method is meant to help manage
  *  active enrollment tokens lifecycle. For security reasons, it's recommended
  *  to delete active enrollment tokens as soon as they're not intended to be
  *  used anymore.
@@ -665,8 +672,9 @@ FOUNDATION_EXTERN NSString * const kGTLRAndroidManagementWipeDataFlagsWipeExtern
  *  Fetches a @c GTLRAndroidManagement_ListEnrollmentTokensResponse.
  *
  *  Lists active, unexpired enrollment tokens for a given enterprise. The list
- *  items contain only a partial view of EnrollmentToken: all the fields but
- *  name and expiration_timestamp are empty. This method is meant to help manage
+ *  items contain only a partial view of EnrollmentToken object. Only the
+ *  following fields are populated: name, expirationTimestamp,
+ *  allowPersonalUsage, value, qrCode. This method is meant to help manage
  *  active enrollment tokens lifecycle. For security reasons, it's recommended
  *  to delete active enrollment tokens as soon as they're not intended to be
  *  used anymore.
@@ -764,7 +772,9 @@ FOUNDATION_EXTERN NSString * const kGTLRAndroidManagementWipeDataFlagsWipeExtern
 /**
  *  Creates a migration token, to migrate an existing device from being managed
  *  by the EMM's Device Policy Controller (DPC) to being managed by the Android
- *  Management API.
+ *  Management API. See the guide
+ *  (https://developers.google.com/android/management/dpc-migration) for more
+ *  details.
  *
  *  Method: androidmanagement.enterprises.migrationTokens.create
  *
@@ -774,7 +784,8 @@ FOUNDATION_EXTERN NSString * const kGTLRAndroidManagementWipeDataFlagsWipeExtern
 @interface GTLRAndroidManagementQuery_EnterprisesMigrationTokensCreate : GTLRAndroidManagementQuery
 
 /**
- *  Required. The enterprise in which this migration token will be created.
+ *  Required. The enterprise in which this migration token is created. This must
+ *  be the same enterprise which already manages the device in the Play EMM API.
  *  Format: enterprises/{enterprise}
  */
 @property(nonatomic, copy, nullable) NSString *parent;
@@ -784,12 +795,15 @@ FOUNDATION_EXTERN NSString * const kGTLRAndroidManagementWipeDataFlagsWipeExtern
  *
  *  Creates a migration token, to migrate an existing device from being managed
  *  by the EMM's Device Policy Controller (DPC) to being managed by the Android
- *  Management API.
+ *  Management API. See the guide
+ *  (https://developers.google.com/android/management/dpc-migration) for more
+ *  details.
  *
  *  @param object The @c GTLRAndroidManagement_MigrationToken to include in the
  *    query.
- *  @param parent Required. The enterprise in which this migration token will be
- *    created. Format: enterprises/{enterprise}
+ *  @param parent Required. The enterprise in which this migration token is
+ *    created. This must be the same enterprise which already manages the device
+ *    in the Play EMM API. Format: enterprises/{enterprise}
  *
  *  @return GTLRAndroidManagementQuery_EnterprisesMigrationTokensCreate
  */
@@ -1298,6 +1312,12 @@ FOUNDATION_EXTERN NSString * const kGTLRAndroidManagementWipeDataFlagsWipeExtern
  *    @c kGTLRAuthScopeAndroidManagement
  */
 @interface GTLRAndroidManagementQuery_SignupUrlsCreate : GTLRAndroidManagementQuery
+
+/**
+ *  Optional. Email address used to prefill the admin field of the enterprise
+ *  signup form. This value is a hint only and can be altered by the user.
+ */
+@property(nonatomic, copy, nullable) NSString *adminEmail;
 
 /**
  *  The callback URL that the admin will be redirected to after successfully

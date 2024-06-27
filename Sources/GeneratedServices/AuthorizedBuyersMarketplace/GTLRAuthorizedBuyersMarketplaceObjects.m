@@ -274,8 +274,9 @@ NSString * const kGTLRAuthorizedBuyersMarketplace_VideoTargeting_TargetedPositio
 //
 
 @implementation GTLRAuthorizedBuyersMarketplace_AuctionPackage
-@dynamic createTime, creator, descriptionProperty, displayName, name,
-         subscribedClients, updateTime;
+@dynamic createTime, creator, descriptionProperty, displayName, eligibleSeatIds,
+         name, subscribedBuyers, subscribedClients, subscribedMediaPlanners,
+         updateTime;
 
 + (NSDictionary<NSString *, NSString *> *)propertyToJSONKeyMap {
   return @{ @"descriptionProperty" : @"description" };
@@ -283,7 +284,10 @@ NSString * const kGTLRAuthorizedBuyersMarketplace_VideoTargeting_TargetedPositio
 
 + (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
   NSDictionary<NSString *, Class> *map = @{
-    @"subscribedClients" : [NSString class]
+    @"eligibleSeatIds" : [NSString class],
+    @"subscribedBuyers" : [NSString class],
+    @"subscribedClients" : [NSString class],
+    @"subscribedMediaPlanners" : [GTLRAuthorizedBuyersMarketplace_MediaPlanner class]
   };
   return map;
 }
@@ -450,13 +454,21 @@ NSString * const kGTLRAuthorizedBuyersMarketplace_VideoTargeting_TargetedPositio
 
 @implementation GTLRAuthorizedBuyersMarketplace_Deal
 @dynamic billedBuyer, buyer, client, createTime, creativeRequirements, dealType,
-         deliveryControl, descriptionProperty, displayName, estimatedGrossSpend,
-         flightEndTime, flightStartTime, name, preferredDealTerms,
-         privateAuctionTerms, programmaticGuaranteedTerms, proposalRevision,
-         publisherProfile, sellerTimeZone, targeting, updateTime;
+         deliveryControl, descriptionProperty, displayName, eligibleSeatIds,
+         estimatedGrossSpend, flightEndTime, flightStartTime, mediaPlanner,
+         name, preferredDealTerms, privateAuctionTerms,
+         programmaticGuaranteedTerms, proposalRevision, publisherProfile,
+         sellerTimeZone, targeting, updateTime;
 
 + (NSDictionary<NSString *, NSString *> *)propertyToJSONKeyMap {
   return @{ @"descriptionProperty" : @"description" };
+}
+
++ (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
+  NSDictionary<NSString *, Class> *map = @{
+    @"eligibleSeatIds" : [NSString class]
+  };
+  return map;
 }
 
 @end
@@ -737,9 +749,28 @@ NSString * const kGTLRAuthorizedBuyersMarketplace_VideoTargeting_TargetedPositio
 //
 
 @implementation GTLRAuthorizedBuyersMarketplace_MarketplaceTargeting
-@dynamic daypartTargeting, geoTargeting, inventorySizeTargeting,
-         inventoryTypeTargeting, placementTargeting, technologyTargeting,
-         userListTargeting, videoTargeting;
+@dynamic daypartTargeting, excludedSensitiveCategoryIds, geoTargeting,
+         inventorySizeTargeting, inventoryTypeTargeting, placementTargeting,
+         technologyTargeting, userListTargeting, verticalTargeting,
+         videoTargeting;
+
++ (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
+  NSDictionary<NSString *, Class> *map = @{
+    @"excludedSensitiveCategoryIds" : [NSNumber class]
+  };
+  return map;
+}
+
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRAuthorizedBuyersMarketplace_MediaPlanner
+//
+
+@implementation GTLRAuthorizedBuyersMarketplace_MediaPlanner
+@dynamic accountId;
 @end
 
 

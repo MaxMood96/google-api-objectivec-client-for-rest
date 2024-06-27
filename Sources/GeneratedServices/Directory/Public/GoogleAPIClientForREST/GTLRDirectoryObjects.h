@@ -18,6 +18,7 @@
 
 @class GTLRDirectory_Asp;
 @class GTLRDirectory_AuxiliaryMessage;
+@class GTLRDirectory_BacklightInfo;
 @class GTLRDirectory_Building;
 @class GTLRDirectory_BuildingAddress;
 @class GTLRDirectory_BuildingCoordinates;
@@ -47,6 +48,7 @@
 @class GTLRDirectory_DomainAlias;
 @class GTLRDirectory_Domains;
 @class GTLRDirectory_FailureInfo;
+@class GTLRDirectory_FanInfo;
 @class GTLRDirectory_Feature;
 @class GTLRDirectory_Group;
 @class GTLRDirectory_Member;
@@ -233,6 +235,28 @@ FOUNDATION_EXTERN NSString * const kGTLRDirectory_BatchChangeChromeOsDeviceStatu
  *  Value: "DEPROVISION_REASON_UPGRADE_TRANSFER"
  */
 FOUNDATION_EXTERN NSString * const kGTLRDirectory_BatchChangeChromeOsDeviceStatusRequest_DeprovisionReason_DeprovisionReasonUpgradeTransfer;
+
+// ----------------------------------------------------------------------------
+// GTLRDirectory_ChromeOsDevice.chromeOsType
+
+/**
+ *  Chrome OS Type Chrome OS.
+ *
+ *  Value: "chromeOs"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRDirectory_ChromeOsDevice_ChromeOsType_ChromeOs;
+/**
+ *  Chrome OS Type Chrome OS Flex.
+ *
+ *  Value: "chromeOsFlex"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRDirectory_ChromeOsDevice_ChromeOsType_ChromeOsFlex;
+/**
+ *  Chrome OS Type unspecified.
+ *
+ *  Value: "chromeOsTypeUnspecified"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRDirectory_ChromeOsDevice_ChromeOsType_ChromeOsTypeUnspecified;
 
 // ----------------------------------------------------------------------------
 // GTLRDirectory_ChromeOsDevice.deprovisionReason
@@ -422,8 +446,18 @@ FOUNDATION_EXTERN NSString * const kGTLRDirectory_ChromeosdevicesCommand_Type_Co
  */
 FOUNDATION_EXTERN NSString * const kGTLRDirectory_ChromeosdevicesCommand_Type_DeviceStartCrdSession;
 /**
- *  Reboot the device. Can only be issued to Kiosk and managed guest session
- *  devices.
+ *  Fetch support packet from a device remotely. Support packet is a zip archive
+ *  that contains various system logs and debug data from a ChromeOS device. The
+ *  support packet can be downloaded from the downloadURL link present in the
+ *  `deviceFiles` field of
+ *  [`chromeosdevices`](https://developers.google.com/admin-sdk/directory/reference/rest/v1/chromeosdevices)
+ *
+ *  Value: "FETCH_SUPPORT_PACKET"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRDirectory_ChromeosdevicesCommand_Type_FetchSupportPacket;
+/**
+ *  Reboot the device. Can be issued to Kiosk and managed guest session devices,
+ *  and regular devices running ChromeOS version 113 or later.
  *
  *  Value: "REBOOT"
  */
@@ -513,8 +547,18 @@ FOUNDATION_EXTERN NSString * const kGTLRDirectory_ChromeosdevicesIssueCommandReq
  */
 FOUNDATION_EXTERN NSString * const kGTLRDirectory_ChromeosdevicesIssueCommandRequest_CommandType_DeviceStartCrdSession;
 /**
- *  Reboot the device. Can only be issued to Kiosk and managed guest session
- *  devices.
+ *  Fetch support packet from a device remotely. Support packet is a zip archive
+ *  that contains various system logs and debug data from a ChromeOS device. The
+ *  support packet can be downloaded from the downloadURL link present in the
+ *  `deviceFiles` field of
+ *  [`chromeosdevices`](https://developers.google.com/admin-sdk/directory/reference/rest/v1/chromeosdevices)
+ *
+ *  Value: "FETCH_SUPPORT_PACKET"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRDirectory_ChromeosdevicesIssueCommandRequest_CommandType_FetchSupportPacket;
+/**
+ *  Reboot the device. Can be issued to Kiosk and managed guest session devices,
+ *  and regular devices running ChromeOS version 113 or later.
  *
  *  Value: "REBOOT"
  */
@@ -1073,6 +1117,35 @@ FOUNDATION_EXTERN NSString * const kGTLRDirectory_RoleAssignment_AssigneeType_Us
  *        of severity: warning. (Value: "SEVERITY_WARNING")
  */
 @property(nonatomic, copy, nullable) NSString *severity;
+
+@end
+
+
+/**
+ *  Information about the device's backlights.
+ */
+@interface GTLRDirectory_BacklightInfo : GTLRObject
+
+/**
+ *  Output only. Current brightness of the backlight, between 0 and
+ *  max_brightness.
+ *
+ *  Uses NSNumber of intValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *brightness;
+
+/**
+ *  Output only. Maximum brightness for the backlight.
+ *
+ *  Uses NSNumber of intValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *maxBrightness;
+
+/**
+ *  Output only. Path to this backlight on the system. Useful if the caller
+ *  needs to correlate with other information.
+ */
+@property(nonatomic, copy, nullable) NSString *path;
 
 @end
 
@@ -1690,11 +1763,20 @@ FOUNDATION_EXTERN NSString * const kGTLRDirectory_RoleAssignment_AssigneeType_Us
 
 /**
  *  (Read-only) The timestamp after which the device will stop receiving Chrome
- *  updates or support
+ *  updates or support. Please use "autoUpdateThrough" instead.
  *
  *  Uses NSNumber of longLongValue.
  */
-@property(nonatomic, strong, nullable) NSNumber *autoUpdateExpiration;
+@property(nonatomic, strong, nullable) NSNumber *autoUpdateExpiration GTLR_DEPRECATED;
+
+/**
+ *  Output only. The timestamp after which the device will stop receiving Chrome
+ *  updates or support.
+ */
+@property(nonatomic, copy, nullable) NSString *autoUpdateThrough;
+
+/** Output only. Contains backlight information for the device. */
+@property(nonatomic, strong, nullable) NSArray<GTLRDirectory_BacklightInfo *> *backlightInfo;
 
 /**
  *  The boot mode for the device. The possible values are: * `Verified`: The
@@ -1705,6 +1787,19 @@ FOUNDATION_EXTERN NSString * const kGTLRDirectory_RoleAssignment_AssigneeType_Us
  *  information](https://www.chromium.org/chromium-os/developer-information-for-chrome-os-devices/samsung-series-5-chromebook#TOC-Developer-switch).
  */
 @property(nonatomic, copy, nullable) NSString *bootMode;
+
+/**
+ *  Output only. Chrome OS type of the device.
+ *
+ *  Likely values:
+ *    @arg @c kGTLRDirectory_ChromeOsDevice_ChromeOsType_ChromeOs Chrome OS Type
+ *        Chrome OS. (Value: "chromeOs")
+ *    @arg @c kGTLRDirectory_ChromeOsDevice_ChromeOsType_ChromeOsFlex Chrome OS
+ *        Type Chrome OS Flex. (Value: "chromeOsFlex")
+ *    @arg @c kGTLRDirectory_ChromeOsDevice_ChromeOsType_ChromeOsTypeUnspecified
+ *        Chrome OS Type unspecified. (Value: "chromeOsTypeUnspecified")
+ */
+@property(nonatomic, copy, nullable) NSString *chromeOsType;
 
 /** Information regarding CPU specs in the device. */
 @property(nonatomic, strong, nullable) NSArray<GTLRDirectory_ChromeOsDevice_CpuInfo_Item *> *cpuInfo;
@@ -1812,6 +1907,29 @@ FOUNDATION_EXTERN NSString * const kGTLRDirectory_RoleAssignment_AssigneeType_Us
  *  relevant for some devices.
  */
 @property(nonatomic, copy, nullable) NSString *ethernetMacAddress0;
+
+/**
+ *  Output only. Whether or not the device requires the extended support opt in.
+ *
+ *  Uses NSNumber of boolValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *extendedSupportEligible;
+
+/**
+ *  Output only. Whether extended support policy is enabled on the device.
+ *
+ *  Uses NSNumber of boolValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *extendedSupportEnabled;
+
+/**
+ *  Output only. Date of the device when extended support policy for automatic
+ *  updates starts.
+ */
+@property(nonatomic, copy, nullable) NSString *extendedSupportStart;
+
+/** Output only. Fan information for the device. */
+@property(nonatomic, strong, nullable) NSArray<GTLRDirectory_FanInfo *> *fanInfo;
 
 /** The Chrome device's firmware version. */
 @property(nonatomic, copy, nullable) NSString *firmwareVersion;
@@ -2364,9 +2482,17 @@ FOUNDATION_EXTERN NSString * const kGTLRDirectory_RoleAssignment_AssigneeType_Us
  *    @arg @c kGTLRDirectory_ChromeosdevicesCommand_Type_DeviceStartCrdSession
  *        Starts a Chrome Remote Desktop session. (Value:
  *        "DEVICE_START_CRD_SESSION")
+ *    @arg @c kGTLRDirectory_ChromeosdevicesCommand_Type_FetchSupportPacket
+ *        Fetch support packet from a device remotely. Support packet is a zip
+ *        archive that contains various system logs and debug data from a
+ *        ChromeOS device. The support packet can be downloaded from the
+ *        downloadURL link present in the `deviceFiles` field of
+ *        [`chromeosdevices`](https://developers.google.com/admin-sdk/directory/reference/rest/v1/chromeosdevices)
+ *        (Value: "FETCH_SUPPORT_PACKET")
  *    @arg @c kGTLRDirectory_ChromeosdevicesCommand_Type_Reboot Reboot the
- *        device. Can only be issued to Kiosk and managed guest session devices.
- *        (Value: "REBOOT")
+ *        device. Can be issued to Kiosk and managed guest session devices, and
+ *        regular devices running ChromeOS version 113 or later. (Value:
+ *        "REBOOT")
  *    @arg @c kGTLRDirectory_ChromeosdevicesCommand_Type_RemotePowerwash Wipes
  *        the device by performing a power wash. Executing this command in the
  *        device will remove all data including user policies, device policies
@@ -2450,9 +2576,17 @@ FOUNDATION_EXTERN NSString * const kGTLRDirectory_RoleAssignment_AssigneeType_Us
  *    @arg @c kGTLRDirectory_ChromeosdevicesIssueCommandRequest_CommandType_DeviceStartCrdSession
  *        Starts a Chrome Remote Desktop session. (Value:
  *        "DEVICE_START_CRD_SESSION")
+ *    @arg @c kGTLRDirectory_ChromeosdevicesIssueCommandRequest_CommandType_FetchSupportPacket
+ *        Fetch support packet from a device remotely. Support packet is a zip
+ *        archive that contains various system logs and debug data from a
+ *        ChromeOS device. The support packet can be downloaded from the
+ *        downloadURL link present in the `deviceFiles` field of
+ *        [`chromeosdevices`](https://developers.google.com/admin-sdk/directory/reference/rest/v1/chromeosdevices)
+ *        (Value: "FETCH_SUPPORT_PACKET")
  *    @arg @c kGTLRDirectory_ChromeosdevicesIssueCommandRequest_CommandType_Reboot
- *        Reboot the device. Can only be issued to Kiosk and managed guest
- *        session devices. (Value: "REBOOT")
+ *        Reboot the device. Can be issued to Kiosk and managed guest session
+ *        devices, and regular devices running ChromeOS version 113 or later.
+ *        (Value: "REBOOT")
  *    @arg @c kGTLRDirectory_ChromeosdevicesIssueCommandRequest_CommandType_RemotePowerwash
  *        Wipes the device by performing a power wash. Executing this command in
  *        the device will remove all data including user policies, device
@@ -2481,7 +2615,23 @@ FOUNDATION_EXTERN NSString * const kGTLRDirectory_RoleAssignment_AssigneeType_Us
  *  optionally a stringified JSON object in the form: { "ackedUserPresence":
  *  true }. `ackedUserPresence` is a boolean. By default, `ackedUserPresence` is
  *  set to `false`. To start a Chrome Remote Desktop session for an active
- *  device, set `ackedUserPresence` to `true`.
+ *  device, set `ackedUserPresence` to `true`. * `REBOOT`: Payload is a
+ *  stringified JSON object in the form: { "user_session_delay_seconds": 300 }.
+ *  The delay has to be in the range [0, 300]. * `FETCH_SUPPORT_PACKET`: Payload
+ *  is optionally a stringified JSON object in the form:
+ *  {"supportPacketDetails":{ "issueCaseId": optional_support_case_id_string,
+ *  "issueDescription": optional_issue_description_string,
+ *  "requestedDataCollectors": []}} The list of available `data_collector_enums`
+ *  are as following: Chrome System Information (1), Crash IDs (2), Memory
+ *  Details (3), UI Hierarchy (4), Additional ChromeOS Platform Logs (5), Device
+ *  Event (6), Intel WiFi NICs Debug Dump (7), Touch Events (8), Lacros (9),
+ *  Lacros System Information (10), ChromeOS Flex Logs (11), DBus Details (12),
+ *  ChromeOS Network Routes (13), ChromeOS Shill (Connection Manager) Logs (14),
+ *  Policies (15), ChromeOS System State and Logs (16), ChromeOS System Logs
+ *  (17), ChromeOS Chrome User Logs (18), ChromeOS Bluetooth (19), ChromeOS
+ *  Connected Input Devices (20), ChromeOS Traffic Counters (21), ChromeOS
+ *  Virtual Keyboard (22), ChromeOS Network Health (23). See more details in
+ *  [help article](https://support.google.com/chrome/a?p=remote-log).
  */
 @property(nonatomic, copy, nullable) NSString *payload;
 
@@ -2904,6 +3054,21 @@ FOUNDATION_EXTERN NSString * const kGTLRDirectory_RoleAssignment_AssigneeType_Us
 
 /** Id of a failed printer. */
 @property(nonatomic, copy, nullable) NSString *printerId;
+
+@end
+
+
+/**
+ *  Information about the device's fan.
+ */
+@interface GTLRDirectory_FanInfo : GTLRObject
+
+/**
+ *  Output only. Fan speed in RPM.
+ *
+ *  Uses NSNumber of intValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *speedRpm;
 
 @end
 

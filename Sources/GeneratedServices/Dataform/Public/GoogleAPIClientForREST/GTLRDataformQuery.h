@@ -243,6 +243,184 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 /**
+ *  Gets the access control policy for a resource. Returns an empty policy if
+ *  the resource exists and does not have a policy set.
+ *
+ *  Method: dataform.projects.locations.repositories.commentThreads.comments.getIamPolicy
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeDataformCloudPlatform
+ */
+@interface GTLRDataformQuery_ProjectsLocationsRepositoriesCommentThreadsCommentsGetIamPolicy : GTLRDataformQuery
+
+/**
+ *  Optional. The maximum policy version that will be used to format the policy.
+ *  Valid values are 0, 1, and 3. Requests specifying an invalid value will be
+ *  rejected. Requests for policies with any conditional role bindings must
+ *  specify version 3. Policies with no conditional role bindings may specify
+ *  any valid value or leave the field unset. The policy in the response might
+ *  use the policy version that you specified, or it might use a lower policy
+ *  version. For example, if you specify version 3, but the policy has no
+ *  conditional role bindings, the response uses version 1. To learn which
+ *  resources support conditions in their IAM policies, see the [IAM
+ *  documentation](https://cloud.google.com/iam/help/conditions/resource-policies).
+ */
+@property(nonatomic, assign) NSInteger optionsRequestedPolicyVersion;
+
+/**
+ *  REQUIRED: The resource for which the policy is being requested. See
+ *  [Resource names](https://cloud.google.com/apis/design/resource_names) for
+ *  the appropriate value for this field.
+ */
+@property(nonatomic, copy, nullable) NSString *resource;
+
+/**
+ *  Fetches a @c GTLRDataform_Policy.
+ *
+ *  Gets the access control policy for a resource. Returns an empty policy if
+ *  the resource exists and does not have a policy set.
+ *
+ *  @param resource REQUIRED: The resource for which the policy is being
+ *    requested. See [Resource
+ *    names](https://cloud.google.com/apis/design/resource_names) for the
+ *    appropriate value for this field.
+ *
+ *  @return GTLRDataformQuery_ProjectsLocationsRepositoriesCommentThreadsCommentsGetIamPolicy
+ */
++ (instancetype)queryWithResource:(NSString *)resource;
+
+@end
+
+/**
+ *  Sets the access control policy on the specified resource. Replaces any
+ *  existing policy. Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and
+ *  `PERMISSION_DENIED` errors.
+ *
+ *  Method: dataform.projects.locations.repositories.commentThreads.comments.setIamPolicy
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeDataformCloudPlatform
+ */
+@interface GTLRDataformQuery_ProjectsLocationsRepositoriesCommentThreadsCommentsSetIamPolicy : GTLRDataformQuery
+
+/**
+ *  REQUIRED: The resource for which the policy is being specified. See
+ *  [Resource names](https://cloud.google.com/apis/design/resource_names) for
+ *  the appropriate value for this field.
+ */
+@property(nonatomic, copy, nullable) NSString *resource;
+
+/**
+ *  Fetches a @c GTLRDataform_Policy.
+ *
+ *  Sets the access control policy on the specified resource. Replaces any
+ *  existing policy. Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and
+ *  `PERMISSION_DENIED` errors.
+ *
+ *  @param object The @c GTLRDataform_SetIamPolicyRequest to include in the
+ *    query.
+ *  @param resource REQUIRED: The resource for which the policy is being
+ *    specified. See [Resource
+ *    names](https://cloud.google.com/apis/design/resource_names) for the
+ *    appropriate value for this field.
+ *
+ *  @return GTLRDataformQuery_ProjectsLocationsRepositoriesCommentThreadsCommentsSetIamPolicy
+ */
++ (instancetype)queryWithObject:(GTLRDataform_SetIamPolicyRequest *)object
+                       resource:(NSString *)resource;
+
+@end
+
+/**
+ *  Gets the access control policy for a resource. Returns an empty policy if
+ *  the resource exists and does not have a policy set.
+ *
+ *  Method: dataform.projects.locations.repositories.commentThreads.getIamPolicy
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeDataformCloudPlatform
+ */
+@interface GTLRDataformQuery_ProjectsLocationsRepositoriesCommentThreadsGetIamPolicy : GTLRDataformQuery
+
+/**
+ *  Optional. The maximum policy version that will be used to format the policy.
+ *  Valid values are 0, 1, and 3. Requests specifying an invalid value will be
+ *  rejected. Requests for policies with any conditional role bindings must
+ *  specify version 3. Policies with no conditional role bindings may specify
+ *  any valid value or leave the field unset. The policy in the response might
+ *  use the policy version that you specified, or it might use a lower policy
+ *  version. For example, if you specify version 3, but the policy has no
+ *  conditional role bindings, the response uses version 1. To learn which
+ *  resources support conditions in their IAM policies, see the [IAM
+ *  documentation](https://cloud.google.com/iam/help/conditions/resource-policies).
+ */
+@property(nonatomic, assign) NSInteger optionsRequestedPolicyVersion;
+
+/**
+ *  REQUIRED: The resource for which the policy is being requested. See
+ *  [Resource names](https://cloud.google.com/apis/design/resource_names) for
+ *  the appropriate value for this field.
+ */
+@property(nonatomic, copy, nullable) NSString *resource;
+
+/**
+ *  Fetches a @c GTLRDataform_Policy.
+ *
+ *  Gets the access control policy for a resource. Returns an empty policy if
+ *  the resource exists and does not have a policy set.
+ *
+ *  @param resource REQUIRED: The resource for which the policy is being
+ *    requested. See [Resource
+ *    names](https://cloud.google.com/apis/design/resource_names) for the
+ *    appropriate value for this field.
+ *
+ *  @return GTLRDataformQuery_ProjectsLocationsRepositoriesCommentThreadsGetIamPolicy
+ */
++ (instancetype)queryWithResource:(NSString *)resource;
+
+@end
+
+/**
+ *  Sets the access control policy on the specified resource. Replaces any
+ *  existing policy. Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and
+ *  `PERMISSION_DENIED` errors.
+ *
+ *  Method: dataform.projects.locations.repositories.commentThreads.setIamPolicy
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeDataformCloudPlatform
+ */
+@interface GTLRDataformQuery_ProjectsLocationsRepositoriesCommentThreadsSetIamPolicy : GTLRDataformQuery
+
+/**
+ *  REQUIRED: The resource for which the policy is being specified. See
+ *  [Resource names](https://cloud.google.com/apis/design/resource_names) for
+ *  the appropriate value for this field.
+ */
+@property(nonatomic, copy, nullable) NSString *resource;
+
+/**
+ *  Fetches a @c GTLRDataform_Policy.
+ *
+ *  Sets the access control policy on the specified resource. Replaces any
+ *  existing policy. Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and
+ *  `PERMISSION_DENIED` errors.
+ *
+ *  @param object The @c GTLRDataform_SetIamPolicyRequest to include in the
+ *    query.
+ *  @param resource REQUIRED: The resource for which the policy is being
+ *    specified. See [Resource
+ *    names](https://cloud.google.com/apis/design/resource_names) for the
+ *    appropriate value for this field.
+ *
+ *  @return GTLRDataformQuery_ProjectsLocationsRepositoriesCommentThreadsSetIamPolicy
+ */
++ (instancetype)queryWithObject:(GTLRDataform_SetIamPolicyRequest *)object
+                       resource:(NSString *)resource;
+
+@end
+
+/**
  *  Applies a Git commit to a Repository. The Repository must not have a value
  *  for `git_remote_settings.url`.
  *
@@ -257,7 +435,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, copy, nullable) NSString *name;
 
 /**
- *  Fetches a @c GTLRDataform_Empty.
+ *  Fetches a @c GTLRDataform_CommitRepositoryChangesResponse.
  *
  *  Applies a Git commit to a Repository. The Repository must not have a value
  *  for `git_remote_settings.url`.
@@ -344,6 +522,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 /** Optional. Filter for the returned list. */
 @property(nonatomic, copy, nullable) NSString *filter;
+
+/**
+ *  Optional. This field only supports ordering by `name` and `create_time`. If
+ *  unspecified, the server will choose the ordering. If specified, the default
+ *  order is ascending for the `name` field.
+ */
+@property(nonatomic, copy, nullable) NSString *orderBy;
 
 /**
  *  Optional. Maximum number of compilation results to return. The server may
@@ -750,7 +935,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface GTLRDataformQuery_ProjectsLocationsRepositoriesPatch : GTLRDataformQuery
 
-/** Output only. The repository's name. */
+/** Identifier. The repository's name. */
 @property(nonatomic, copy, nullable) NSString *name;
 
 /**
@@ -767,7 +952,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  Updates a single Repository.
  *
  *  @param object The @c GTLRDataform_Repository to include in the query.
- *  @param name Output only. The repository's name.
+ *  @param name Identifier. The repository's name.
  *
  *  @return GTLRDataformQuery_ProjectsLocationsRepositoriesPatch
  */
@@ -1025,7 +1210,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface GTLRDataformQuery_ProjectsLocationsRepositoriesReleaseConfigsPatch : GTLRDataformQuery
 
-/** Output only. The release config's name. */
+/** Identifier. The release config's name. */
 @property(nonatomic, copy, nullable) NSString *name;
 
 /**
@@ -1042,7 +1227,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  Updates a single ReleaseConfig.
  *
  *  @param object The @c GTLRDataform_ReleaseConfig to include in the query.
- *  @param name Output only. The release config's name.
+ *  @param name Identifier. The release config's name.
  *
  *  @return GTLRDataformQuery_ProjectsLocationsRepositoriesReleaseConfigsPatch
  */
@@ -1285,7 +1470,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface GTLRDataformQuery_ProjectsLocationsRepositoriesWorkflowConfigsPatch : GTLRDataformQuery
 
-/** Output only. The workflow config's name. */
+/** Identifier. The workflow config's name. */
 @property(nonatomic, copy, nullable) NSString *name;
 
 /**
@@ -1302,7 +1487,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  Updates a single WorkflowConfig.
  *
  *  @param object The @c GTLRDataform_WorkflowConfig to include in the query.
- *  @param name Output only. The workflow config's name.
+ *  @param name Identifier. The workflow config's name.
  *
  *  @return GTLRDataformQuery_ProjectsLocationsRepositoriesWorkflowConfigsPatch
  */

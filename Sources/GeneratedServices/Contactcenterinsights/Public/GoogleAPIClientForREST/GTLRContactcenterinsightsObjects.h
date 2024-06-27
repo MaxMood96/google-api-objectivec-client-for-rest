@@ -33,6 +33,7 @@
 @class GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1alpha1ConversationCallMetadata;
 @class GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1alpha1ConversationDataSource;
 @class GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1alpha1ConversationLevelSentiment;
+@class GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1alpha1ConversationLevelSilence;
 @class GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1alpha1ConversationParticipant;
 @class GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1alpha1ConversationQualityMetadata;
 @class GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1alpha1ConversationQualityMetadataAgentInfo;
@@ -81,6 +82,7 @@
 @class GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1alpha1PhraseMatchData;
 @class GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1alpha1RedactionConfig;
 @class GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1alpha1RuntimeAnnotation;
+@class GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1alpha1RuntimeAnnotationUserInput;
 @class GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1alpha1SentimentData;
 @class GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1alpha1SilenceData;
 @class GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1alpha1SmartComposeSuggestionData;
@@ -117,6 +119,7 @@
 @class GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1ConversationCallMetadata;
 @class GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1ConversationDataSource;
 @class GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1ConversationLevelSentiment;
+@class GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1ConversationLevelSilence;
 @class GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1ConversationParticipant;
 @class GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1ConversationQualityMetadata;
 @class GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1ConversationQualityMetadataAgentInfo;
@@ -171,6 +174,7 @@
 @class GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1PhraseMatchRuleGroup;
 @class GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1RedactionConfig;
 @class GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1RuntimeAnnotation;
+@class GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1RuntimeAnnotationUserInput;
 @class GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1SentimentData;
 @class GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1Settings_PubsubNotificationSettings;
 @class GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1SettingsAnalysisConfig;
@@ -209,6 +213,12 @@ NS_ASSUME_NONNULL_BEGIN
  *  Value: "BASELINE_MODEL"
  */
 FOUNDATION_EXTERN NSString * const kGTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1alpha1AnnotatorSelectorSummarizationConfig_SummarizationModel_BaselineModel;
+/**
+ *  The CCAI baseline model, V2.0.
+ *
+ *  Value: "BASELINE_MODEL_V2_0"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1alpha1AnnotatorSelectorSummarizationConfig_SummarizationModel_BaselineModelV20;
 /**
  *  Unspecified summarization model.
  *
@@ -579,6 +589,12 @@ FOUNDATION_EXTERN NSString * const kGTLRContactcenterinsights_GoogleCloudContact
  *  Value: "BASELINE_MODEL"
  */
 FOUNDATION_EXTERN NSString * const kGTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1AnnotatorSelectorSummarizationConfig_SummarizationModel_BaselineModel;
+/**
+ *  The CCAI baseline model, V2.0.
+ *
+ *  Value: "BASELINE_MODEL_V2_0"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1AnnotatorSelectorSummarizationConfig_SummarizationModel_BaselineModelV20;
 /**
  *  Unspecified summarization model.
  *
@@ -1090,6 +1106,9 @@ FOUNDATION_EXTERN NSString * const kGTLRContactcenterinsights_GoogleCloudContact
 /** Overall conversation-level sentiment for each channel of the call. */
 @property(nonatomic, strong, nullable) NSArray<GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1alpha1ConversationLevelSentiment *> *sentiments;
 
+/** Overall conversation-level silence during the call. */
+@property(nonatomic, strong, nullable) GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1alpha1ConversationLevelSilence *silence;
+
 @end
 
 
@@ -1259,6 +1278,8 @@ FOUNDATION_EXTERN NSString * const kGTLRContactcenterinsights_GoogleCloudContact
  *  Likely values:
  *    @arg @c kGTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1alpha1AnnotatorSelectorSummarizationConfig_SummarizationModel_BaselineModel
  *        The CCAI baseline model. (Value: "BASELINE_MODEL")
+ *    @arg @c kGTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1alpha1AnnotatorSelectorSummarizationConfig_SummarizationModel_BaselineModelV20
+ *        The CCAI baseline model, V2.0. (Value: "BASELINE_MODEL_V2_0")
  *    @arg @c kGTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1alpha1AnnotatorSelectorSummarizationConfig_SummarizationModel_SummarizationModelUnspecified
  *        Unspecified summarization model. (Value:
  *        "SUMMARIZATION_MODEL_UNSPECIFIED")
@@ -1758,6 +1779,24 @@ FOUNDATION_EXTERN NSString * const kGTLRContactcenterinsights_GoogleCloudContact
 
 /** Data specifying sentiment. */
 @property(nonatomic, strong, nullable) GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1alpha1SentimentData *sentimentData;
+
+@end
+
+
+/**
+ *  Conversation-level silence data.
+ */
+@interface GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1alpha1ConversationLevelSilence : GTLRObject
+
+/** Amount of time calculated to be in silence. */
+@property(nonatomic, strong, nullable) GTLRDuration *silenceDuration;
+
+/**
+ *  Percentage of the total conversation spent in silence.
+ *
+ *  Uses NSNumber of floatValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *silencePercentage;
 
 @end
 
@@ -2457,10 +2496,10 @@ FOUNDATION_EXTERN NSString * const kGTLRContactcenterinsights_GoogleCloudContact
  */
 @interface GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1alpha1ExportIssueModelRequest : GTLRObject
 
-/** Google Cloud Storage URI to export the Issue Model to. */
+/** Google Cloud Storage URI to export the issue model to. */
 @property(nonatomic, strong, nullable) GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1alpha1ExportIssueModelRequestGcsDestination *gcsDestination;
 
-/** Required. The issue model to export */
+/** Required. The issue model to export. */
 @property(nonatomic, copy, nullable) NSString *name;
 
 @end
@@ -2588,9 +2627,9 @@ FOUNDATION_EXTERN NSString * const kGTLRContactcenterinsights_GoogleCloudContact
 @interface GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1alpha1ImportIssueModelRequest : GTLRObject
 
 /**
- *  Optional. If set to true, will create a new issue model from the imported
- *  file with randomly generated IDs for the issue model and corresponding
- *  issues. Otherwise, replaces an existing model with the same ID as the file.
+ *  Optional. If set to true, will create an issue model from the imported file
+ *  with randomly generated IDs for the issue model and corresponding issues.
+ *  Otherwise, replaces an existing model with the same ID as the file.
  *
  *  Uses NSNumber of boolValue.
  */
@@ -2712,6 +2751,16 @@ FOUNDATION_EXTERN NSString * const kGTLRContactcenterinsights_GoogleCloudContact
 @property(nonatomic, strong, nullable) GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1alpha1RedactionConfig *redactionConfig;
 
 /**
+ *  Optional. If set, this fields indicates the number of objects to ingest from
+ *  the Cloud Storage bucket. If empty, the entire bucket will be ingested.
+ *  Unless they are first deleted, conversations produced through sampling won't
+ *  be ingested by subsequent ingest requests.
+ *
+ *  Uses NSNumber of intValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *sampleSize;
+
+/**
  *  Optional. Default Speech-to-Text configuration. Optional, will default to
  *  the config specified in Settings.
  */
@@ -2738,8 +2787,9 @@ FOUNDATION_EXTERN NSString * const kGTLRContactcenterinsights_GoogleCloudContact
 @property(nonatomic, strong, nullable) NSNumber *agentChannel;
 
 /**
- *  An opaque, user-specified string representing the human agent who handled
- *  the conversations.
+ *  Optional. An opaque, user-specified string representing a human agent who
+ *  handled all conversations in the import. Note that this will be overridden
+ *  if per-conversation metadata is provided through the `metadata_bucket_uri`.
  */
 @property(nonatomic, copy, nullable) NSString *agentId;
 
@@ -2785,10 +2835,12 @@ FOUNDATION_EXTERN NSString * const kGTLRContactcenterinsights_GoogleCloudContact
 @property(nonatomic, strong, nullable) NSArray<NSString *> *customMetadataKeys;
 
 /**
- *  Optional. The Cloud Storage path to the source object metadata. Note that:
- *  [1] metadata files are expected to be in JSON format [2] metadata and source
- *  objects must be in separate buckets [3] a source object's metadata object
- *  must share the same name to be properly ingested
+ *  Optional. The Cloud Storage path to the conversation metadata. Note that:
+ *  [1] Metadata files are expected to be in JSON format. [2] Metadata and
+ *  source files (transcripts or audio) must be in separate buckets. [3] A
+ *  source file and its corresponding metadata file must share the same name to
+ *  be properly ingested, E.g. `gs://bucket/audio/conversation1.mp3` and
+ *  `gs://bucket/metadata/conversation1.json`.
  */
 @property(nonatomic, copy, nullable) NSString *metadataBucketUri;
 
@@ -3114,7 +3166,13 @@ FOUNDATION_EXTERN NSString * const kGTLRContactcenterinsights_GoogleCloudContact
 
 
 /**
- *  DLP resources used for redaction while ingesting conversations.
+ *  DLP resources used for redaction while ingesting conversations. DLP settings
+ *  are applied to conversations ingested from the `UploadConversation` and
+ *  `IngestConversations` endpoints, including conversation coming from CCAI
+ *  Platform. They are not applied to conversations ingested from the
+ *  `CreateConversation` endpoint or the Dialogflow / Agent Assist runtime
+ *  integrations. When using Dialogflow / Agent Assist runtime integrations,
+ *  redaction should be performed in Dialogflow / Agent Assist.
  */
 @interface GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1alpha1RedactionConfig : GTLRObject
 
@@ -3175,6 +3233,29 @@ FOUNDATION_EXTERN NSString * const kGTLRContactcenterinsights_GoogleCloudContact
  *  The boundary in the conversation where the annotation starts, inclusive.
  */
 @property(nonatomic, strong, nullable) GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1alpha1AnnotationBoundary *startBoundary;
+
+/** Explicit input used for generating the answer */
+@property(nonatomic, strong, nullable) GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1alpha1RuntimeAnnotationUserInput *userInput;
+
+@end
+
+
+/**
+ *  Explicit input used for generating the answer
+ */
+@interface GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1alpha1RuntimeAnnotationUserInput : GTLRObject
+
+/**
+ *  The resource name of associated generator. Format:
+ *  `projects//locations//generators/`
+ */
+@property(nonatomic, copy, nullable) NSString *generatorName;
+
+/**
+ *  Query text. Article Search uses this to store the input query used to
+ *  generate the search results.
+ */
+@property(nonatomic, copy, nullable) NSString *query;
 
 @end
 
@@ -3300,7 +3381,11 @@ FOUNDATION_EXTERN NSString * const kGTLRContactcenterinsights_GoogleCloudContact
 
 
 /**
- *  Speech-to-Text configuration.
+ *  Speech-to-Text configuration. Speech-to-Text settings are applied to
+ *  conversations ingested from the `UploadConversation` and
+ *  `IngestConversations` endpoints, including conversation coming from CCAI
+ *  Platform. They are not applied to conversations ingested from the
+ *  `CreateConversation` endpoint.
  */
 @interface GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1alpha1SpeechConfig : GTLRObject
 
@@ -3349,7 +3434,7 @@ FOUNDATION_EXTERN NSString * const kGTLRContactcenterinsights_GoogleCloudContact
 
 
 /**
- *  The metadata for an UploadConversation operation.
+ *  The metadata for an `UploadConversation` operation.
  */
 @interface GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1alpha1UploadConversationMetadata : GTLRObject
 
@@ -3480,6 +3565,9 @@ FOUNDATION_EXTERN NSString * const kGTLRContactcenterinsights_GoogleCloudContact
 
 /** Overall conversation-level sentiment for each channel of the call. */
 @property(nonatomic, strong, nullable) NSArray<GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1ConversationLevelSentiment *> *sentiments;
+
+/** Overall conversation-level silence during the call. */
+@property(nonatomic, strong, nullable) GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1ConversationLevelSilence *silence;
 
 @end
 
@@ -3650,6 +3738,8 @@ FOUNDATION_EXTERN NSString * const kGTLRContactcenterinsights_GoogleCloudContact
  *  Likely values:
  *    @arg @c kGTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1AnnotatorSelectorSummarizationConfig_SummarizationModel_BaselineModel
  *        The CCAI baseline model. (Value: "BASELINE_MODEL")
+ *    @arg @c kGTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1AnnotatorSelectorSummarizationConfig_SummarizationModel_BaselineModelV20
+ *        The CCAI baseline model, V2.0. (Value: "BASELINE_MODEL_V2_0")
  *    @arg @c kGTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1AnnotatorSelectorSummarizationConfig_SummarizationModel_SummarizationModelUnspecified
  *        Unspecified summarization model. (Value:
  *        "SUMMARIZATION_MODEL_UNSPECIFIED")
@@ -4317,6 +4407,24 @@ GTLR_DEPRECATED
 
 /** Data specifying sentiment. */
 @property(nonatomic, strong, nullable) GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1SentimentData *sentimentData;
+
+@end
+
+
+/**
+ *  Conversation-level silence data.
+ */
+@interface GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1ConversationLevelSilence : GTLRObject
+
+/** Amount of time calculated to be in silence. */
+@property(nonatomic, strong, nullable) GTLRDuration *silenceDuration;
+
+/**
+ *  Percentage of the total conversation spent in silence.
+ *
+ *  Uses NSNumber of floatValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *silencePercentage;
 
 @end
 
@@ -5031,10 +5139,10 @@ GTLR_DEPRECATED
  */
 @interface GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1ExportIssueModelRequest : GTLRObject
 
-/** Google Cloud Storage URI to export the Issue Model to. */
+/** Google Cloud Storage URI to export the issue model to. */
 @property(nonatomic, strong, nullable) GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1ExportIssueModelRequestGcsDestination *gcsDestination;
 
-/** Required. The issue model to export */
+/** Required. The issue model to export. */
 @property(nonatomic, copy, nullable) NSString *name;
 
 @end
@@ -5162,9 +5270,9 @@ GTLR_DEPRECATED
 @interface GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1ImportIssueModelRequest : GTLRObject
 
 /**
- *  Optional. If set to true, will create a new issue model from the imported
- *  file with randomly generated IDs for the issue model and corresponding
- *  issues. Otherwise, replaces an existing model with the same ID as the file.
+ *  Optional. If set to true, will create an issue model from the imported file
+ *  with randomly generated IDs for the issue model and corresponding issues.
+ *  Otherwise, replaces an existing model with the same ID as the file.
  *
  *  Uses NSNumber of boolValue.
  */
@@ -5286,6 +5394,16 @@ GTLR_DEPRECATED
 @property(nonatomic, strong, nullable) GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1RedactionConfig *redactionConfig;
 
 /**
+ *  Optional. If set, this fields indicates the number of objects to ingest from
+ *  the Cloud Storage bucket. If empty, the entire bucket will be ingested.
+ *  Unless they are first deleted, conversations produced through sampling won't
+ *  be ingested by subsequent ingest requests.
+ *
+ *  Uses NSNumber of intValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *sampleSize;
+
+/**
  *  Optional. Default Speech-to-Text configuration. Optional, will default to
  *  the config specified in Settings.
  */
@@ -5312,8 +5430,9 @@ GTLR_DEPRECATED
 @property(nonatomic, strong, nullable) NSNumber *agentChannel;
 
 /**
- *  An opaque, user-specified string representing the human agent who handled
- *  the conversations.
+ *  Optional. An opaque, user-specified string representing a human agent who
+ *  handled all conversations in the import. Note that this will be overridden
+ *  if per-conversation metadata is provided through the `metadata_bucket_uri`.
  */
 @property(nonatomic, copy, nullable) NSString *agentId;
 
@@ -5359,10 +5478,12 @@ GTLR_DEPRECATED
 @property(nonatomic, strong, nullable) NSArray<NSString *> *customMetadataKeys;
 
 /**
- *  Optional. The Cloud Storage path to the source object metadata. Note that:
- *  [1] metadata files are expected to be in JSON format [2] metadata and source
- *  objects must be in separate buckets [3] a source object's metadata object
- *  must share the same name to be properly ingested
+ *  Optional. The Cloud Storage path to the conversation metadata. Note that:
+ *  [1] Metadata files are expected to be in JSON format. [2] Metadata and
+ *  source files (transcripts or audio) must be in separate buckets. [3] A
+ *  source file and its corresponding metadata file must share the same name to
+ *  be properly ingested, E.g. `gs://bucket/audio/conversation1.mp3` and
+ *  `gs://bucket/metadata/conversation1.json`.
  */
 @property(nonatomic, copy, nullable) NSString *metadataBucketUri;
 
@@ -6003,7 +6124,13 @@ GTLR_DEPRECATED
 
 
 /**
- *  DLP resources used for redaction while ingesting conversations.
+ *  DLP resources used for redaction while ingesting conversations. DLP settings
+ *  are applied to conversations ingested from the `UploadConversation` and
+ *  `IngestConversations` endpoints, including conversation coming from CCAI
+ *  Platform. They are not applied to conversations ingested from the
+ *  `CreateConversation` endpoint or the Dialogflow / Agent Assist runtime
+ *  integrations. When using Dialogflow / Agent Assist runtime integrations,
+ *  redaction should be performed in Dialogflow / Agent Assist.
  */
 @interface GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1RedactionConfig : GTLRObject
 
@@ -6065,6 +6192,29 @@ GTLR_DEPRECATED
  */
 @property(nonatomic, strong, nullable) GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1AnnotationBoundary *startBoundary;
 
+/** Explicit input used for generating the answer */
+@property(nonatomic, strong, nullable) GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1RuntimeAnnotationUserInput *userInput;
+
+@end
+
+
+/**
+ *  Explicit input used for generating the answer
+ */
+@interface GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1RuntimeAnnotationUserInput : GTLRObject
+
+/**
+ *  The resource name of associated generator. Format:
+ *  `projects//locations//generators/`
+ */
+@property(nonatomic, copy, nullable) NSString *generatorName;
+
+/**
+ *  Query text. Article Search uses this to store the input query used to
+ *  generate the search results.
+ */
+@property(nonatomic, copy, nullable) NSString *query;
+
 @end
 
 
@@ -6092,7 +6242,11 @@ GTLR_DEPRECATED
 
 
 /**
- *  The settings resource.
+ *  The CCAI Insights project wide settings. Use these settings to configure the
+ *  behavior of Insights. View these settings with
+ *  [`getsettings`](https://cloud.google.com/contact-center/insights/docs/reference/rest/v1/projects.locations/getSettings)
+ *  and change the settings with
+ *  [`updateSettings`](https://cloud.google.com/contact-center/insights/docs/reference/rest/v1/projects.locations/updateSettings).
  */
 @interface GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1Settings : GTLRObject
 
@@ -6130,20 +6284,29 @@ GTLR_DEPRECATED
  *  Notify each time any of the supported triggers occurs. * "create-analysis":
  *  Notify each time an analysis is created. * "create-conversation": Notify
  *  each time a conversation is created. * "export-insights-data": Notify each
- *  time an export is complete. * "update-conversation": Notify each time a
- *  conversation is updated via UpdateConversation. Values are Pub/Sub topics.
- *  The format of each Pub/Sub topic is: projects/{project}/topics/{topic}
+ *  time an export is complete. * "ingest-conversations": Notify each time an
+ *  IngestConversations LRO is complete. * "update-conversation": Notify each
+ *  time a conversation is updated via UpdateConversation. *
+ *  "upload-conversation": Notify when an UploadConversation LRO is complete.
+ *  Values are Pub/Sub topics. The format of each Pub/Sub topic is:
+ *  projects/{project}/topics/{topic}
  */
 @property(nonatomic, strong, nullable) GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1Settings_PubsubNotificationSettings *pubsubNotificationSettings;
 
 /**
  *  Default DLP redaction resources to be applied while ingesting conversations.
+ *  This applies to conversations ingested from the `UploadConversation` and
+ *  `IngestConversations` endpoints, including conversations coming from CCAI
+ *  Platform.
  */
 @property(nonatomic, strong, nullable) GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1RedactionConfig *redactionConfig;
 
 /**
- *  Optional. Default Speech-to-Text resources to be used while ingesting audio
- *  files. Optional, CCAI Insights will create a default if not provided.
+ *  Optional. Default Speech-to-Text resources to use while ingesting audio
+ *  files. Optional, CCAI Insights will create a default if not provided. This
+ *  applies to conversations ingested from the `UploadConversation` and
+ *  `IngestConversations` endpoints, including conversations coming from CCAI
+ *  Platform.
  */
 @property(nonatomic, strong, nullable) GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1SpeechConfig *speechConfig;
 
@@ -6160,9 +6323,12 @@ GTLR_DEPRECATED
  *  Notify each time any of the supported triggers occurs. * "create-analysis":
  *  Notify each time an analysis is created. * "create-conversation": Notify
  *  each time a conversation is created. * "export-insights-data": Notify each
- *  time an export is complete. * "update-conversation": Notify each time a
- *  conversation is updated via UpdateConversation. Values are Pub/Sub topics.
- *  The format of each Pub/Sub topic is: projects/{project}/topics/{topic}
+ *  time an export is complete. * "ingest-conversations": Notify each time an
+ *  IngestConversations LRO is complete. * "update-conversation": Notify each
+ *  time a conversation is updated via UpdateConversation. *
+ *  "upload-conversation": Notify when an UploadConversation LRO is complete.
+ *  Values are Pub/Sub topics. The format of each Pub/Sub topic is:
+ *  projects/{project}/topics/{topic}
  *
  *  @note This class is documented as having more properties of NSString. Use @c
  *        -additionalJSONKeys and @c -additionalPropertyForName: to get the list
@@ -6301,7 +6467,11 @@ GTLR_DEPRECATED
 
 
 /**
- *  Speech-to-Text configuration.
+ *  Speech-to-Text configuration. Speech-to-Text settings are applied to
+ *  conversations ingested from the `UploadConversation` and
+ *  `IngestConversations` endpoints, including conversation coming from CCAI
+ *  Platform. They are not applied to conversations ingested from the
+ *  `CreateConversation` endpoint.
  */
 @interface GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1SpeechConfig : GTLRObject
 
@@ -6350,7 +6520,7 @@ GTLR_DEPRECATED
 
 
 /**
- *  The metadata for an UploadConversation operation.
+ *  The metadata for an `UploadConversation` operation.
  */
 @interface GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1UploadConversationMetadata : GTLRObject
 

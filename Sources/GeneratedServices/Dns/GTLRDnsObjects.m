@@ -117,7 +117,7 @@ NSString * const kGTLRDns_RRSetRoutingPolicyLoadBalancerTarget_LoadBalancerType_
 //
 
 @implementation GTLRDns_ChangesListResponse
-@dynamic changes, header, kind, nextPageToken;
+@dynamic changes, kind, nextPageToken;
 
 + (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
   NSDictionary<NSString *, Class> *map = @{
@@ -166,7 +166,7 @@ NSString * const kGTLRDns_RRSetRoutingPolicyLoadBalancerTarget_LoadBalancerType_
 //
 
 @implementation GTLRDns_DnsKeysListResponse
-@dynamic dnsKeys, header, kind, nextPageToken;
+@dynamic dnsKeys, kind, nextPageToken;
 
 + (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
   NSDictionary<NSString *, Class> *map = @{
@@ -465,7 +465,7 @@ NSString * const kGTLRDns_RRSetRoutingPolicyLoadBalancerTarget_LoadBalancerType_
 //
 
 @implementation GTLRDns_ManagedZoneOperationsListResponse
-@dynamic header, kind, nextPageToken, operations;
+@dynamic kind, nextPageToken, operations;
 
 + (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
   NSDictionary<NSString *, Class> *map = @{
@@ -581,7 +581,7 @@ NSString * const kGTLRDns_RRSetRoutingPolicyLoadBalancerTarget_LoadBalancerType_
 //
 
 @implementation GTLRDns_ManagedZonesListResponse
-@dynamic header, kind, managedZones, nextPageToken;
+@dynamic kind, managedZones, nextPageToken;
 
 + (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
   NSDictionary<NSString *, Class> *map = @{
@@ -639,7 +639,7 @@ NSString * const kGTLRDns_RRSetRoutingPolicyLoadBalancerTarget_LoadBalancerType_
 //
 
 @implementation GTLRDns_PoliciesListResponse
-@dynamic header, kind, nextPageToken, policies;
+@dynamic kind, nextPageToken, policies;
 
 + (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
   NSDictionary<NSString *, Class> *map = @{
@@ -661,7 +661,7 @@ NSString * const kGTLRDns_RRSetRoutingPolicyLoadBalancerTarget_LoadBalancerType_
 //
 
 @implementation GTLRDns_PoliciesPatchResponse
-@dynamic header, policy;
+@dynamic policy;
 @end
 
 
@@ -671,7 +671,7 @@ NSString * const kGTLRDns_RRSetRoutingPolicyLoadBalancerTarget_LoadBalancerType_
 //
 
 @implementation GTLRDns_PoliciesUpdateResponse
-@dynamic header, policy;
+@dynamic policy;
 @end
 
 
@@ -765,10 +765,11 @@ NSString * const kGTLRDns_RRSetRoutingPolicyLoadBalancerTarget_LoadBalancerType_
 @dynamic dnsKeysPerManagedZone, gkeClustersPerManagedZone, gkeClustersPerPolicy,
          gkeClustersPerResponsePolicy, itemsPerRoutingPolicy, kind,
          managedZones, managedZonesPerGkeCluster, managedZonesPerNetwork,
-         networksPerManagedZone, networksPerPolicy, networksPerResponsePolicy,
-         peeringZonesPerTargetNetwork, policies, resourceRecordsPerRrset,
-         responsePolicies, responsePolicyRulesPerResponsePolicy,
-         rrsetAdditionsPerChange, rrsetDeletionsPerChange, rrsetsPerManagedZone,
+         nameserversPerDelegation, networksPerManagedZone, networksPerPolicy,
+         networksPerResponsePolicy, peeringZonesPerTargetNetwork, policies,
+         resourceRecordsPerRrset, responsePolicies,
+         responsePolicyRulesPerResponsePolicy, rrsetAdditionsPerChange,
+         rrsetDeletionsPerChange, rrsetsPerManagedZone,
          targetNameServersPerManagedZone, targetNameServersPerPolicy,
          totalRrdataSizePerChange, whitelistedKeySpecs;
 
@@ -816,7 +817,7 @@ NSString * const kGTLRDns_RRSetRoutingPolicyLoadBalancerTarget_LoadBalancerType_
 //
 
 @implementation GTLRDns_ResourceRecordSetsListResponse
-@dynamic header, kind, nextPageToken, rrsets;
+@dynamic kind, nextPageToken, rrsets;
 
 + (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
   NSDictionary<NSString *, Class> *map = @{
@@ -834,21 +835,11 @@ NSString * const kGTLRDns_RRSetRoutingPolicyLoadBalancerTarget_LoadBalancerType_
 
 // ----------------------------------------------------------------------------
 //
-//   GTLRDns_ResponseHeader
-//
-
-@implementation GTLRDns_ResponseHeader
-@dynamic operationId;
-@end
-
-
-// ----------------------------------------------------------------------------
-//
 //   GTLRDns_ResponsePoliciesListResponse
 //
 
 @implementation GTLRDns_ResponsePoliciesListResponse
-@dynamic header, nextPageToken, responsePolicies;
+@dynamic nextPageToken, responsePolicies;
 
 + (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
   NSDictionary<NSString *, Class> *map = @{
@@ -870,7 +861,7 @@ NSString * const kGTLRDns_RRSetRoutingPolicyLoadBalancerTarget_LoadBalancerType_
 //
 
 @implementation GTLRDns_ResponsePoliciesPatchResponse
-@dynamic header, responsePolicy;
+@dynamic responsePolicy;
 @end
 
 
@@ -880,7 +871,7 @@ NSString * const kGTLRDns_RRSetRoutingPolicyLoadBalancerTarget_LoadBalancerType_
 //
 
 @implementation GTLRDns_ResponsePoliciesUpdateResponse
-@dynamic header, responsePolicy;
+@dynamic responsePolicy;
 @end
 
 
@@ -980,7 +971,7 @@ NSString * const kGTLRDns_RRSetRoutingPolicyLoadBalancerTarget_LoadBalancerType_
 //
 
 @implementation GTLRDns_ResponsePolicyRulesListResponse
-@dynamic header, nextPageToken, responsePolicyRules;
+@dynamic nextPageToken, responsePolicyRules;
 
 + (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
   NSDictionary<NSString *, Class> *map = @{
@@ -1002,7 +993,7 @@ NSString * const kGTLRDns_RRSetRoutingPolicyLoadBalancerTarget_LoadBalancerType_
 //
 
 @implementation GTLRDns_ResponsePolicyRulesPatchResponse
-@dynamic header, responsePolicyRule;
+@dynamic responsePolicyRule;
 @end
 
 
@@ -1012,7 +1003,7 @@ NSString * const kGTLRDns_RRSetRoutingPolicyLoadBalancerTarget_LoadBalancerType_
 //
 
 @implementation GTLRDns_ResponsePolicyRulesUpdateResponse
-@dynamic header, responsePolicyRule;
+@dynamic responsePolicyRule;
 @end
 
 
@@ -1022,7 +1013,7 @@ NSString * const kGTLRDns_RRSetRoutingPolicyLoadBalancerTarget_LoadBalancerType_
 //
 
 @implementation GTLRDns_RRSetRoutingPolicy
-@dynamic geo, healthCheck, kind, primaryBackup, wrr;
+@dynamic geo, kind, primaryBackup, wrr;
 @end
 
 
@@ -1069,11 +1060,10 @@ NSString * const kGTLRDns_RRSetRoutingPolicyLoadBalancerTarget_LoadBalancerType_
 //
 
 @implementation GTLRDns_RRSetRoutingPolicyHealthCheckTargets
-@dynamic externalEndpoints, internalLoadBalancers;
+@dynamic internalLoadBalancers;
 
 + (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
   NSDictionary<NSString *, Class> *map = @{
-    @"externalEndpoints" : [NSString class],
     @"internalLoadBalancers" : [GTLRDns_RRSetRoutingPolicyLoadBalancerTarget class]
   };
   return map;

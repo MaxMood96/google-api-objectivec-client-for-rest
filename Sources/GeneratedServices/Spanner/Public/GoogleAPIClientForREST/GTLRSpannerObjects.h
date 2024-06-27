@@ -21,6 +21,7 @@
 @class GTLRSpanner_Backup;
 @class GTLRSpanner_BackupInfo;
 @class GTLRSpanner_Binding;
+@class GTLRSpanner_ChangeQuorumRequest;
 @class GTLRSpanner_ChildLink;
 @class GTLRSpanner_CommitStats;
 @class GTLRSpanner_ContextValue;
@@ -32,6 +33,7 @@
 @class GTLRSpanner_DerivedMetric;
 @class GTLRSpanner_DiagnosticMessage;
 @class GTLRSpanner_DirectedReadOptions;
+@class GTLRSpanner_DualRegionQuorum;
 @class GTLRSpanner_EncryptionConfig;
 @class GTLRSpanner_EncryptionInfo;
 @class GTLRSpanner_ExcludeReplicas;
@@ -52,6 +54,7 @@
 @class GTLRSpanner_InstanceConfig;
 @class GTLRSpanner_InstanceConfig_Labels;
 @class GTLRSpanner_InstanceOperationProgress;
+@class GTLRSpanner_InstancePartition;
 @class GTLRSpanner_KeyRange;
 @class GTLRSpanner_KeyRangeInfo;
 @class GTLRSpanner_KeyRangeInfos;
@@ -82,6 +85,8 @@
 @class GTLRSpanner_QueryAdvisorResult;
 @class GTLRSpanner_QueryOptions;
 @class GTLRSpanner_QueryPlan;
+@class GTLRSpanner_QuorumInfo;
+@class GTLRSpanner_QuorumType;
 @class GTLRSpanner_ReadOnly;
 @class GTLRSpanner_ReadWrite;
 @class GTLRSpanner_ReplicaInfo;
@@ -100,6 +105,7 @@
 @class GTLRSpanner_Session_Labels;
 @class GTLRSpanner_ShortRepresentation;
 @class GTLRSpanner_ShortRepresentation_Subqueries;
+@class GTLRSpanner_SingleRegionQuorum;
 @class GTLRSpanner_Statement;
 @class GTLRSpanner_Statement_Params;
 @class GTLRSpanner_Statement_ParamTypes;
@@ -556,6 +562,40 @@ FOUNDATION_EXTERN NSString * const kGTLRSpanner_InstanceConfig_FreeInstanceAvail
 FOUNDATION_EXTERN NSString * const kGTLRSpanner_InstanceConfig_FreeInstanceAvailability_Unsupported;
 
 // ----------------------------------------------------------------------------
+// GTLRSpanner_InstanceConfig.quorumType
+
+/**
+ *  An instance configuration tagged with DUAL_REGION quorum type forms a write
+ *  quorums with exactly two read-write regions in a multi-region configuration.
+ *  This instance configurations requires reconfiguration in the event of
+ *  regional failures.
+ *
+ *  Value: "DUAL_REGION"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRSpanner_InstanceConfig_QuorumType_DualRegion;
+/**
+ *  An instance configuration tagged with MULTI_REGION quorum type forms a write
+ *  quorums from replicas are spread across more than one region in a
+ *  multi-region configuration.
+ *
+ *  Value: "MULTI_REGION"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRSpanner_InstanceConfig_QuorumType_MultiRegion;
+/**
+ *  Not specified.
+ *
+ *  Value: "QUORUM_TYPE_UNSPECIFIED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRSpanner_InstanceConfig_QuorumType_QuorumTypeUnspecified;
+/**
+ *  An instance configuration tagged with REGION quorum type forms a write
+ *  quorum in a single region.
+ *
+ *  Value: "REGION"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRSpanner_InstanceConfig_QuorumType_Region;
+
+// ----------------------------------------------------------------------------
 // GTLRSpanner_InstanceConfig.state
 
 /**
@@ -577,6 +617,31 @@ FOUNDATION_EXTERN NSString * const kGTLRSpanner_InstanceConfig_State_Ready;
  *  Value: "STATE_UNSPECIFIED"
  */
 FOUNDATION_EXTERN NSString * const kGTLRSpanner_InstanceConfig_State_StateUnspecified;
+
+// ----------------------------------------------------------------------------
+// GTLRSpanner_InstancePartition.state
+
+/**
+ *  The instance partition is still being created. Resources may not be
+ *  available yet, and operations such as creating placements using this
+ *  instance partition may not work.
+ *
+ *  Value: "CREATING"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRSpanner_InstancePartition_State_Creating;
+/**
+ *  The instance partition is fully created and ready to do work such as
+ *  creating placements and using in databases.
+ *
+ *  Value: "READY"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRSpanner_InstancePartition_State_Ready;
+/**
+ *  Not specified.
+ *
+ *  Value: "STATE_UNSPECIFIED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRSpanner_InstancePartition_State_StateUnspecified;
 
 // ----------------------------------------------------------------------------
 // GTLRSpanner_Metric.aggregation
@@ -626,6 +691,101 @@ FOUNDATION_EXTERN NSString * const kGTLRSpanner_PlanNode_Kind_Relational;
  *  Value: "SCALAR"
  */
 FOUNDATION_EXTERN NSString * const kGTLRSpanner_PlanNode_Kind_Scalar;
+
+// ----------------------------------------------------------------------------
+// GTLRSpanner_QuorumInfo.initiator
+
+/**
+ *  ChangeQuorum initiated by Google.
+ *
+ *  Value: "GOOGLE"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRSpanner_QuorumInfo_Initiator_Google;
+/**
+ *  Unspecified.
+ *
+ *  Value: "INITIATOR_UNSPECIFIED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRSpanner_QuorumInfo_Initiator_InitiatorUnspecified;
+/**
+ *  ChangeQuorum initiated by User.
+ *
+ *  Value: "USER"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRSpanner_QuorumInfo_Initiator_User;
+
+// ----------------------------------------------------------------------------
+// GTLRSpanner_ReadRequest.lockHint
+
+/**
+ *  Acquire exclusive locks. Requesting exclusive locks is beneficial if you
+ *  observe high write contention, which means you notice that multiple
+ *  transactions are concurrently trying to read and write to the same data,
+ *  resulting in a large number of aborts. This problem occurs when two
+ *  transactions initially acquire shared locks and then both try to upgrade to
+ *  exclusive locks at the same time. In this situation both transactions are
+ *  waiting for the other to give up their lock, resulting in a deadlocked
+ *  situation. Spanner is able to detect this occurring and force one of the
+ *  transactions to abort. However, this is a slow and expensive operation and
+ *  results in lower performance. In this case it makes sense to acquire
+ *  exclusive locks at the start of the transaction because then when multiple
+ *  transactions try to act on the same data, they automatically get serialized.
+ *  Each transaction waits its turn to acquire the lock and avoids getting into
+ *  deadlock situations. Because the exclusive lock hint is just a hint, it
+ *  should not be considered equivalent to a mutex. In other words, you should
+ *  not use Spanner exclusive locks as a mutual exclusion mechanism for the
+ *  execution of code outside of Spanner. **Note:** Request exclusive locks
+ *  judiciously because they block others from reading that data for the entire
+ *  transaction, rather than just when the writes are being performed. Unless
+ *  you observe high write contention, you should use the default of shared read
+ *  locks so you don't prematurely block other clients from reading the data
+ *  that you're writing to.
+ *
+ *  Value: "LOCK_HINT_EXCLUSIVE"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRSpanner_ReadRequest_LockHint_LockHintExclusive;
+/**
+ *  Acquire shared locks. By default when you perform a read as part of a
+ *  read-write transaction, Spanner acquires shared read locks, which allows
+ *  other reads to still access the data until your transaction is ready to
+ *  commit. When your transaction is committing and writes are being applied,
+ *  the transaction attempts to upgrade to an exclusive lock for any data you
+ *  are writing. For more information about locks, see [Lock
+ *  modes](https://cloud.google.com/spanner/docs/introspection/lock-statistics#explain-lock-modes).
+ *
+ *  Value: "LOCK_HINT_SHARED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRSpanner_ReadRequest_LockHint_LockHintShared;
+/**
+ *  Default value. LOCK_HINT_UNSPECIFIED is equivalent to LOCK_HINT_SHARED.
+ *
+ *  Value: "LOCK_HINT_UNSPECIFIED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRSpanner_ReadRequest_LockHint_LockHintUnspecified;
+
+// ----------------------------------------------------------------------------
+// GTLRSpanner_ReadRequest.orderBy
+
+/**
+ *  Read rows are returned in any order.
+ *
+ *  Value: "ORDER_BY_NO_ORDER"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRSpanner_ReadRequest_OrderBy_OrderByNoOrder;
+/**
+ *  Read rows are returned in primary key order. In the event that this option
+ *  is used in conjunction with the `partition_token` field, the API will return
+ *  an `INVALID_ARGUMENT` error.
+ *
+ *  Value: "ORDER_BY_PRIMARY_KEY"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRSpanner_ReadRequest_OrderBy_OrderByPrimaryKey;
+/**
+ *  Default value. ORDER_BY_UNSPECIFIED is equivalent to ORDER_BY_PRIMARY_KEY.
+ *
+ *  Value: "ORDER_BY_UNSPECIFIED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRSpanner_ReadRequest_OrderBy_OrderByUnspecified;
 
 // ----------------------------------------------------------------------------
 // GTLRSpanner_ReadWrite.readLockMode
@@ -1107,6 +1267,16 @@ FOUNDATION_EXTERN NSString * const kGTLRSpanner_VisualizationData_KeyUnit_KeyUni
 @property(nonatomic, strong, nullable) GTLRSpanner_EncryptionInfo *encryptionInfo;
 
 /**
+ *  Output only. The encryption information for the backup, whether it is
+ *  protected by one or more KMS keys. The information includes all Cloud KMS
+ *  key versions used to encrypt the backup. The `encryption_status' field
+ *  inside of each `EncryptionInfo` is not populated. At least one of the key
+ *  versions must be available for the backup to be restored. If a key version
+ *  is revoked in the middle of a restore, the restore behavior is undefined.
+ */
+@property(nonatomic, strong, nullable) NSArray<GTLRSpanner_EncryptionInfo *> *encryptionInformation;
+
+/**
  *  Required for the CreateBackup operation. The expiration time of the backup,
  *  with microseconds granularity that must be at least 6 hours and at most 366
  *  days from the time the CreateBackup request is processed. Once the
@@ -1249,6 +1419,23 @@ FOUNDATION_EXTERN NSString * const kGTLRSpanner_VisualizationData_KeyUnit_KeyUni
  */
 @interface GTLRSpanner_BatchWriteRequest : GTLRObject
 
+/**
+ *  Optional. When `exclude_txn_from_change_streams` is set to `true`: *
+ *  Modifications from all transactions in this batch write operation will not
+ *  be recorded in change streams with DDL option `allow_txn_exclusion=true`
+ *  that are tracking columns modified by these transactions. * Modifications
+ *  from all transactions in this batch write operation will be recorded in
+ *  change streams with DDL option `allow_txn_exclusion=false or not set` that
+ *  are tracking columns modified by these transactions. When
+ *  `exclude_txn_from_change_streams` is set to `false` or not set,
+ *  Modifications from all transactions in this batch write operation will be
+ *  recorded in all change streams that are tracking columns modified by these
+ *  transactions.
+ *
+ *  Uses NSNumber of boolValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *excludeTxnFromChangeStreams;
+
 /** Required. The groups of mutations to be applied. */
 @property(nonatomic, strong, nullable) NSArray<GTLRSpanner_MutationGroup *> *mutationGroups;
 
@@ -1389,6 +1576,52 @@ FOUNDATION_EXTERN NSString * const kGTLRSpanner_VisualizationData_KeyUnit_KeyUni
 
 
 /**
+ *  Metadata type for the long-running operation returned by ChangeQuorum.
+ */
+@interface GTLRSpanner_ChangeQuorumMetadata : GTLRObject
+
+/**
+ *  If set, the time at which this operation failed or was completed
+ *  successfully.
+ */
+@property(nonatomic, strong, nullable) GTLRDateTime *endTime;
+
+/** The request for ChangeQuorum. */
+@property(nonatomic, strong, nullable) GTLRSpanner_ChangeQuorumRequest *request;
+
+/** Time the request was received. */
+@property(nonatomic, strong, nullable) GTLRDateTime *startTime;
+
+@end
+
+
+/**
+ *  The request for ChangeQuorum.
+ */
+@interface GTLRSpanner_ChangeQuorumRequest : GTLRObject
+
+/**
+ *  Optional. The etag is the hash of the QuorumInfo. The ChangeQuorum operation
+ *  will only be performed if the etag matches that of the QuorumInfo in the
+ *  current database resource. Otherwise the API will return an `ABORTED` error.
+ *  The etag is used for optimistic concurrency control as a way to help prevent
+ *  simultaneous change quorum requests that could create a race condition.
+ */
+@property(nonatomic, copy, nullable) NSString *ETag;
+
+/**
+ *  Required. Name of the database in which to apply the ChangeQuorum. Values
+ *  are of the form `projects//instances//databases/`.
+ */
+@property(nonatomic, copy, nullable) NSString *name;
+
+/** Required. The type of this Quorum. */
+@property(nonatomic, strong, nullable) GTLRSpanner_QuorumType *quorumType;
+
+@end
+
+
+/**
  *  Metadata associated with a parent-child relationship appearing in a
  *  PlanNode.
  */
@@ -1429,10 +1662,10 @@ FOUNDATION_EXTERN NSString * const kGTLRSpanner_VisualizationData_KeyUnit_KeyUni
 @interface GTLRSpanner_CommitRequest : GTLRObject
 
 /**
- *  Optional. The amount of latency this request is willing to incur in order to
- *  improve throughput. If this field is not set, Spanner assumes requests are
- *  relatively latency sensitive and automatically determines an appropriate
- *  delay time. You can specify a batching delay value between 0 and 500 ms.
+ *  Optional. The amount of latency this request is configured to incur in order
+ *  to improve throughput. If this field is not set, Spanner assumes requests
+ *  are relatively latency sensitive and automatically determines an appropriate
+ *  delay time. You can specify a commit delay value between 0 and 500 ms.
  */
 @property(nonatomic, strong, nullable) GTLRDuration *maxCommitDelay;
 
@@ -1584,6 +1817,22 @@ FOUNDATION_EXTERN NSString * const kGTLRSpanner_VisualizationData_KeyUnit_KeyUni
  *  `projects//locations//keyRings//cryptoKeys/`.
  */
 @property(nonatomic, copy, nullable) NSString *kmsKeyName;
+
+/**
+ *  Optional. Specifies the KMS configuration for the one or more keys used to
+ *  protect the backup. Values are of the form
+ *  `projects//locations//keyRings//cryptoKeys/`. Kms keys specified can be in
+ *  any order. The keys referenced by kms_key_names must fully cover all regions
+ *  of the backup's instance configuration. Some examples: * For single region
+ *  instance configs, specify a single regional location KMS key. * For
+ *  multi-regional instance configs of type GOOGLE_MANAGED, either specify a
+ *  multi-regional location KMS key or multiple regional location KMS keys that
+ *  cover all regions in the instance config. * For an instance config of type
+ *  USER_MANAGED, please specify only regional location KMS keys to cover each
+ *  region in the instance config. Multi-regional location KMS keys are not
+ *  supported for USER_MANAGED instance configs.
+ */
+@property(nonatomic, strong, nullable) NSArray<NSString *> *kmsKeyNames;
 
 @end
 
@@ -1856,6 +2105,51 @@ FOUNDATION_EXTERN NSString * const kGTLRSpanner_VisualizationData_KeyUnit_KeyUni
 
 
 /**
+ *  Metadata type for the operation returned by CreateInstancePartition.
+ */
+@interface GTLRSpanner_CreateInstancePartitionMetadata : GTLRObject
+
+/**
+ *  The time at which this operation was cancelled. If set, this operation is in
+ *  the process of undoing itself (which is guaranteed to succeed) and cannot be
+ *  cancelled again.
+ */
+@property(nonatomic, strong, nullable) GTLRDateTime *cancelTime;
+
+/** The time at which this operation failed or was completed successfully. */
+@property(nonatomic, strong, nullable) GTLRDateTime *endTime;
+
+/** The instance partition being created. */
+@property(nonatomic, strong, nullable) GTLRSpanner_InstancePartition *instancePartition;
+
+/** The time at which the CreateInstancePartition request was received. */
+@property(nonatomic, strong, nullable) GTLRDateTime *startTime;
+
+@end
+
+
+/**
+ *  The request for CreateInstancePartition.
+ */
+@interface GTLRSpanner_CreateInstancePartitionRequest : GTLRObject
+
+/**
+ *  Required. The instance partition to create. The instance_partition.name may
+ *  be omitted, but if specified must be `/instancePartitions/`.
+ */
+@property(nonatomic, strong, nullable) GTLRSpanner_InstancePartition *instancePartition;
+
+/**
+ *  Required. The ID of the instance partition to create. Valid identifiers are
+ *  of the form `a-z*[a-z0-9]` and must be between 2 and 64 characters in
+ *  length.
+ */
+@property(nonatomic, copy, nullable) NSString *instancePartitionId;
+
+@end
+
+
+/**
  *  The request for CreateInstance.
  */
 @interface GTLRSpanner_CreateInstanceRequest : GTLRObject
@@ -1962,6 +2256,12 @@ FOUNDATION_EXTERN NSString * const kGTLRSpanner_VisualizationData_KeyUnit_KeyUni
  *  identify the database.
  */
 @property(nonatomic, copy, nullable) NSString *name;
+
+/**
+ *  Output only. Applicable only for databases that use dual region instance
+ *  configurations. Contains information about the quorum.
+ */
+@property(nonatomic, strong, nullable) GTLRSpanner_QuorumInfo *quorumInfo;
 
 /**
  *  Output only. If true, the database is being updated. If false, there are no
@@ -2162,6 +2462,13 @@ FOUNDATION_EXTERN NSString * const kGTLRSpanner_VisualizationData_KeyUnit_KeyUni
 
 
 /**
+ *  Message type for a dual-region quorum. Currently this type has no options.
+ */
+@interface GTLRSpanner_DualRegionQuorum : GTLRObject
+@end
+
+
+/**
  *  A generic empty message that you can re-use to avoid defining duplicated
  *  empty messages in your APIs. A typical example is to use it as the request
  *  or the response type of an API method. For instance: service Foo { rpc
@@ -2181,6 +2488,22 @@ FOUNDATION_EXTERN NSString * const kGTLRSpanner_VisualizationData_KeyUnit_KeyUni
  *  Values are of the form `projects//locations//keyRings//cryptoKeys/`.
  */
 @property(nonatomic, copy, nullable) NSString *kmsKeyName;
+
+/**
+ *  Specifies the KMS configuration for the one or more keys used to encrypt the
+ *  database. Values are of the form
+ *  `projects//locations//keyRings//cryptoKeys/`. The keys referenced by
+ *  kms_key_names must fully cover all regions of the database instance
+ *  configuration. Some examples: * For single region database instance configs,
+ *  specify a single regional location KMS key. * For multi-regional database
+ *  instance configs of type GOOGLE_MANAGED, either specify a multi-regional
+ *  location KMS key or multiple regional location KMS keys that cover all
+ *  regions in the instance config. * For a database instance config of type
+ *  USER_MANAGED, please specify only regional location KMS keys to cover each
+ *  region in the instance config. Multi-regional location KMS keys are not
+ *  supported for USER_MANAGED instance configs.
+ */
+@property(nonatomic, strong, nullable) NSArray<NSString *> *kmsKeyNames;
 
 @end
 
@@ -2828,8 +3151,10 @@ FOUNDATION_EXTERN NSString * const kGTLRSpanner_VisualizationData_KeyUnit_KeyUni
  *  The number of nodes allocated to this instance. At most one of either
  *  node_count or processing_units should be present in the message. Users can
  *  set the node_count field to specify the target number of nodes allocated to
- *  the instance. This may be zero in API responses for instances that are not
- *  yet in state `READY`. See [the
+ *  the instance. If autoscaling is enabled, node_count is treated as an
+ *  OUTPUT_ONLY field and reflects the current number of nodes allocated to the
+ *  instance. This may be zero in API responses for instances that are not yet
+ *  in state `READY`. See [the
  *  documentation](https://cloud.google.com/spanner/docs/compute-capacity) for
  *  more information about nodes and processing units.
  *
@@ -2841,8 +3166,10 @@ FOUNDATION_EXTERN NSString * const kGTLRSpanner_VisualizationData_KeyUnit_KeyUni
  *  The number of processing units allocated to this instance. At most one of
  *  processing_units or node_count should be present in the message. Users can
  *  set the processing_units field to specify the target number of processing
- *  units allocated to the instance. This may be zero in API responses for
- *  instances that are not yet in state `READY`. See [the
+ *  units allocated to the instance. If autoscaling is enabled, processing_units
+ *  is treated as an OUTPUT_ONLY field and reflects the current number of
+ *  processing units allocated to the instance. This may be zero in API
+ *  responses for instances that are not yet in state `READY`. See [the
  *  documentation](https://cloud.google.com/spanner/docs/compute-capacity) for
  *  more information about nodes and processing units.
  *
@@ -2994,7 +3321,8 @@ FOUNDATION_EXTERN NSString * const kGTLRSpanner_VisualizationData_KeyUnit_KeyUni
 
 /**
  *  A unique identifier for the instance configuration. Values are of the form
- *  `projects//instanceConfigs/a-z*`.
+ *  `projects//instanceConfigs/a-z*`. User instance config must start with
+ *  `custom-`.
  */
 @property(nonatomic, copy, nullable) NSString *name;
 
@@ -3003,6 +3331,27 @@ FOUNDATION_EXTERN NSString * const kGTLRSpanner_VisualizationData_KeyUnit_KeyUni
  *  configurations. Populated for Google managed configurations.
  */
 @property(nonatomic, strong, nullable) NSArray<GTLRSpanner_ReplicaInfo *> *optionalReplicas;
+
+/**
+ *  Output only. The `QuorumType` of the instance configuration.
+ *
+ *  Likely values:
+ *    @arg @c kGTLRSpanner_InstanceConfig_QuorumType_DualRegion An instance
+ *        configuration tagged with DUAL_REGION quorum type forms a write
+ *        quorums with exactly two read-write regions in a multi-region
+ *        configuration. This instance configurations requires reconfiguration
+ *        in the event of regional failures. (Value: "DUAL_REGION")
+ *    @arg @c kGTLRSpanner_InstanceConfig_QuorumType_MultiRegion An instance
+ *        configuration tagged with MULTI_REGION quorum type forms a write
+ *        quorums from replicas are spread across more than one region in a
+ *        multi-region configuration. (Value: "MULTI_REGION")
+ *    @arg @c kGTLRSpanner_InstanceConfig_QuorumType_QuorumTypeUnspecified Not
+ *        specified. (Value: "QUORUM_TYPE_UNSPECIFIED")
+ *    @arg @c kGTLRSpanner_InstanceConfig_QuorumType_Region An instance
+ *        configuration tagged with REGION quorum type forms a write quorum in a
+ *        single region. (Value: "REGION")
+ */
+@property(nonatomic, copy, nullable) NSString *quorumType;
 
 /**
  *  Output only. If true, the instance config is being created or updated. If
@@ -3014,7 +3363,10 @@ FOUNDATION_EXTERN NSString * const kGTLRSpanner_VisualizationData_KeyUnit_KeyUni
 
 /**
  *  The geographic placement of nodes in this instance configuration and their
- *  replication properties.
+ *  replication properties. To create user managed configurations, input
+ *  `replicas` must include all replicas in `replicas` of the `base_config` and
+ *  include one or more replicas in the `optional_replicas` of the
+ *  `base_config`.
  */
 @property(nonatomic, strong, nullable) NSArray<GTLRSpanner_ReplicaInfo *> *replicas;
 
@@ -3091,6 +3443,112 @@ FOUNDATION_EXTERN NSString * const kGTLRSpanner_VisualizationData_KeyUnit_KeyUni
 
 /** Time the request was received. */
 @property(nonatomic, strong, nullable) GTLRDateTime *startTime;
+
+@end
+
+
+/**
+ *  An isolated set of Cloud Spanner resources that databases can define
+ *  placements on.
+ */
+@interface GTLRSpanner_InstancePartition : GTLRObject
+
+/**
+ *  Required. The name of the instance partition's configuration. Values are of
+ *  the form `projects//instanceConfigs/`. See also InstanceConfig and
+ *  ListInstanceConfigs.
+ */
+@property(nonatomic, copy, nullable) NSString *config;
+
+/** Output only. The time at which the instance partition was created. */
+@property(nonatomic, strong, nullable) GTLRDateTime *createTime;
+
+/**
+ *  Required. The descriptive name for this instance partition as it appears in
+ *  UIs. Must be unique per project and between 4 and 30 characters in length.
+ */
+@property(nonatomic, copy, nullable) NSString *displayName;
+
+/**
+ *  Used for optimistic concurrency control as a way to help prevent
+ *  simultaneous updates of a instance partition from overwriting each other. It
+ *  is strongly suggested that systems make use of the etag in the
+ *  read-modify-write cycle to perform instance partition updates in order to
+ *  avoid race conditions: An etag is returned in the response which contains
+ *  instance partitions, and systems are expected to put that etag in the
+ *  request to update instance partitions to ensure that their change will be
+ *  applied to the same version of the instance partition. If no etag is
+ *  provided in the call to update instance partition, then the existing
+ *  instance partition is overwritten blindly.
+ */
+@property(nonatomic, copy, nullable) NSString *ETag;
+
+/**
+ *  Required. A unique identifier for the instance partition. Values are of the
+ *  form `projects//instances//instancePartitions/a-z*[a-z0-9]`. The final
+ *  segment of the name must be between 2 and 64 characters in length. An
+ *  instance partition's name cannot be changed after the instance partition is
+ *  created.
+ */
+@property(nonatomic, copy, nullable) NSString *name;
+
+/**
+ *  The number of nodes allocated to this instance partition. Users can set the
+ *  node_count field to specify the target number of nodes allocated to the
+ *  instance partition. This may be zero in API responses for instance
+ *  partitions that are not yet in state `READY`.
+ *
+ *  Uses NSNumber of intValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *nodeCount;
+
+/**
+ *  The number of processing units allocated to this instance partition. Users
+ *  can set the processing_units field to specify the target number of
+ *  processing units allocated to the instance partition. This may be zero in
+ *  API responses for instance partitions that are not yet in state `READY`.
+ *
+ *  Uses NSNumber of intValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *processingUnits;
+
+/**
+ *  Output only. The names of the backups that reference this instance
+ *  partition. Referencing backups should share the parent instance. The
+ *  existence of any referencing backup prevents the instance partition from
+ *  being deleted.
+ */
+@property(nonatomic, strong, nullable) NSArray<NSString *> *referencingBackups;
+
+/**
+ *  Output only. The names of the databases that reference this instance
+ *  partition. Referencing databases should share the parent instance. The
+ *  existence of any referencing database prevents the instance partition from
+ *  being deleted.
+ */
+@property(nonatomic, strong, nullable) NSArray<NSString *> *referencingDatabases;
+
+/**
+ *  Output only. The current instance partition state.
+ *
+ *  Likely values:
+ *    @arg @c kGTLRSpanner_InstancePartition_State_Creating The instance
+ *        partition is still being created. Resources may not be available yet,
+ *        and operations such as creating placements using this instance
+ *        partition may not work. (Value: "CREATING")
+ *    @arg @c kGTLRSpanner_InstancePartition_State_Ready The instance partition
+ *        is fully created and ready to do work such as creating placements and
+ *        using in databases. (Value: "READY")
+ *    @arg @c kGTLRSpanner_InstancePartition_State_StateUnspecified Not
+ *        specified. (Value: "STATE_UNSPECIFIED")
+ */
+@property(nonatomic, copy, nullable) NSString *state;
+
+/**
+ *  Output only. The time at which the instance partition was most recently
+ *  updated.
+ */
+@property(nonatomic, strong, nullable) GTLRDateTime *updateTime;
 
 @end
 
@@ -3481,6 +3939,77 @@ FOUNDATION_EXTERN NSString * const kGTLRSpanner_VisualizationData_KeyUnit_KeyUni
 
 
 /**
+ *  The response for ListInstancePartitionOperations.
+ *
+ *  @note This class supports NSFastEnumeration and indexed subscripting over
+ *        its "operations" property. If returned as the result of a query, it
+ *        should support automatic pagination (when @c shouldFetchNextPages is
+ *        enabled).
+ */
+@interface GTLRSpanner_ListInstancePartitionOperationsResponse : GTLRCollectionObject
+
+/**
+ *  `next_page_token` can be sent in a subsequent
+ *  ListInstancePartitionOperations call to fetch more of the matching metadata.
+ */
+@property(nonatomic, copy, nullable) NSString *nextPageToken;
+
+/**
+ *  The list of matching instance partition long-running operations. Each
+ *  operation's name will be prefixed by the instance partition's name. The
+ *  operation's metadata field type `metadata.type_url` describes the type of
+ *  the metadata.
+ *
+ *  @note This property is used to support NSFastEnumeration and indexed
+ *        subscripting on this class.
+ */
+@property(nonatomic, strong, nullable) NSArray<GTLRSpanner_Operation *> *operations;
+
+/**
+ *  The list of unreachable instance partitions. It includes the names of
+ *  instance partitions whose operation metadata could not be retrieved within
+ *  instance_partition_deadline.
+ */
+@property(nonatomic, strong, nullable) NSArray<NSString *> *unreachableInstancePartitions;
+
+@end
+
+
+/**
+ *  The response for ListInstancePartitions.
+ *
+ *  @note This class supports NSFastEnumeration and indexed subscripting over
+ *        its "instancePartitions" property. If returned as the result of a
+ *        query, it should support automatic pagination (when @c
+ *        shouldFetchNextPages is enabled).
+ */
+@interface GTLRSpanner_ListInstancePartitionsResponse : GTLRCollectionObject
+
+/**
+ *  The list of requested instancePartitions.
+ *
+ *  @note This property is used to support NSFastEnumeration and indexed
+ *        subscripting on this class.
+ */
+@property(nonatomic, strong, nullable) NSArray<GTLRSpanner_InstancePartition *> *instancePartitions;
+
+/**
+ *  `next_page_token` can be sent in a subsequent ListInstancePartitions call to
+ *  fetch more of the matching instance partitions.
+ */
+@property(nonatomic, copy, nullable) NSString *nextPageToken;
+
+/**
+ *  The list of unreachable instances or instance partitions. It includes the
+ *  names of instances or instance partitions whose metadata could not be
+ *  retrieved within instance_partition_deadline.
+ */
+@property(nonatomic, strong, nullable) NSArray<NSString *> *unreachable;
+
+@end
+
+
+/**
  *  The response for ListInstances.
  *
  *  @note This class supports NSFastEnumeration and indexed subscripting over
@@ -3762,6 +4291,20 @@ FOUNDATION_EXTERN NSString * const kGTLRSpanner_VisualizationData_KeyUnit_KeyUni
  *  Uses NSNumber of floatValue.
  */
 @property(nonatomic, strong, nullable) NSArray<NSNumber *> *cols;
+
+@end
+
+
+/**
+ *  The request for MoveInstance.
+ */
+@interface GTLRSpanner_MoveInstanceRequest : GTLRObject
+
+/**
+ *  Required. The target instance config for the instance to move. Values are of
+ *  the form `projects//instanceConfigs/`.
+ */
+@property(nonatomic, copy, nullable) NSString *targetConfig;
 
 @end
 
@@ -4534,6 +5077,58 @@ FOUNDATION_EXTERN NSString * const kGTLRSpanner_VisualizationData_KeyUnit_KeyUni
 
 
 /**
+ *  Information about the dual region quorum.
+ */
+@interface GTLRSpanner_QuorumInfo : GTLRObject
+
+/**
+ *  Output only. The etag is used for optimistic concurrency control as a way to
+ *  help prevent simultaneous ChangeQuorum requests that could create a race
+ *  condition.
+ */
+@property(nonatomic, copy, nullable) NSString *ETag;
+
+/**
+ *  Output only. Whether this ChangeQuorum is a Google or User initiated.
+ *
+ *  Likely values:
+ *    @arg @c kGTLRSpanner_QuorumInfo_Initiator_Google ChangeQuorum initiated by
+ *        Google. (Value: "GOOGLE")
+ *    @arg @c kGTLRSpanner_QuorumInfo_Initiator_InitiatorUnspecified
+ *        Unspecified. (Value: "INITIATOR_UNSPECIFIED")
+ *    @arg @c kGTLRSpanner_QuorumInfo_Initiator_User ChangeQuorum initiated by
+ *        User. (Value: "USER")
+ */
+@property(nonatomic, copy, nullable) NSString *initiator;
+
+/**
+ *  Output only. The type of this quorum. See QuorumType for more information
+ *  about quorum type specifications.
+ */
+@property(nonatomic, strong, nullable) GTLRSpanner_QuorumType *quorumType;
+
+/** Output only. The timestamp when the request was triggered. */
+@property(nonatomic, strong, nullable) GTLRDateTime *startTime;
+
+@end
+
+
+/**
+ *  Information about the database quorum type. this applies only for dual
+ *  region instance configs.
+ */
+@interface GTLRSpanner_QuorumType : GTLRObject
+
+/** Dual region quorum type. */
+@property(nonatomic, strong, nullable) GTLRSpanner_DualRegionQuorum *dualRegion;
+
+/** Single region quorum type. */
+@property(nonatomic, strong, nullable) GTLRSpanner_SingleRegionQuorum *singleRegion;
+
+@end
+
+
+/**
  *  Message type to initiate a read-only transaction.
  */
 @interface GTLRSpanner_ReadOnly : GTLRObject
@@ -4652,6 +5247,72 @@ FOUNDATION_EXTERN NSString * const kGTLRSpanner_VisualizationData_KeyUnit_KeyUni
  *  Uses NSNumber of longLongValue.
  */
 @property(nonatomic, strong, nullable) NSNumber *limit;
+
+/**
+ *  Optional. Lock Hint for the request, it can only be used with read-write
+ *  transactions.
+ *
+ *  Likely values:
+ *    @arg @c kGTLRSpanner_ReadRequest_LockHint_LockHintExclusive Acquire
+ *        exclusive locks. Requesting exclusive locks is beneficial if you
+ *        observe high write contention, which means you notice that multiple
+ *        transactions are concurrently trying to read and write to the same
+ *        data, resulting in a large number of aborts. This problem occurs when
+ *        two transactions initially acquire shared locks and then both try to
+ *        upgrade to exclusive locks at the same time. In this situation both
+ *        transactions are waiting for the other to give up their lock,
+ *        resulting in a deadlocked situation. Spanner is able to detect this
+ *        occurring and force one of the transactions to abort. However, this is
+ *        a slow and expensive operation and results in lower performance. In
+ *        this case it makes sense to acquire exclusive locks at the start of
+ *        the transaction because then when multiple transactions try to act on
+ *        the same data, they automatically get serialized. Each transaction
+ *        waits its turn to acquire the lock and avoids getting into deadlock
+ *        situations. Because the exclusive lock hint is just a hint, it should
+ *        not be considered equivalent to a mutex. In other words, you should
+ *        not use Spanner exclusive locks as a mutual exclusion mechanism for
+ *        the execution of code outside of Spanner. **Note:** Request exclusive
+ *        locks judiciously because they block others from reading that data for
+ *        the entire transaction, rather than just when the writes are being
+ *        performed. Unless you observe high write contention, you should use
+ *        the default of shared read locks so you don't prematurely block other
+ *        clients from reading the data that you're writing to. (Value:
+ *        "LOCK_HINT_EXCLUSIVE")
+ *    @arg @c kGTLRSpanner_ReadRequest_LockHint_LockHintShared Acquire shared
+ *        locks. By default when you perform a read as part of a read-write
+ *        transaction, Spanner acquires shared read locks, which allows other
+ *        reads to still access the data until your transaction is ready to
+ *        commit. When your transaction is committing and writes are being
+ *        applied, the transaction attempts to upgrade to an exclusive lock for
+ *        any data you are writing. For more information about locks, see [Lock
+ *        modes](https://cloud.google.com/spanner/docs/introspection/lock-statistics#explain-lock-modes).
+ *        (Value: "LOCK_HINT_SHARED")
+ *    @arg @c kGTLRSpanner_ReadRequest_LockHint_LockHintUnspecified Default
+ *        value. LOCK_HINT_UNSPECIFIED is equivalent to LOCK_HINT_SHARED.
+ *        (Value: "LOCK_HINT_UNSPECIFIED")
+ */
+@property(nonatomic, copy, nullable) NSString *lockHint;
+
+/**
+ *  Optional. Order for the returned rows. By default, Spanner will return
+ *  result rows in primary key order except for PartitionRead requests. For
+ *  applications that do not require rows to be returned in primary key
+ *  (`ORDER_BY_PRIMARY_KEY`) order, setting `ORDER_BY_NO_ORDER` option allows
+ *  Spanner to optimize row retrieval, resulting in lower latencies in certain
+ *  cases (e.g. bulk point lookups).
+ *
+ *  Likely values:
+ *    @arg @c kGTLRSpanner_ReadRequest_OrderBy_OrderByNoOrder Read rows are
+ *        returned in any order. (Value: "ORDER_BY_NO_ORDER")
+ *    @arg @c kGTLRSpanner_ReadRequest_OrderBy_OrderByPrimaryKey Read rows are
+ *        returned in primary key order. In the event that this option is used
+ *        in conjunction with the `partition_token` field, the API will return
+ *        an `INVALID_ARGUMENT` error. (Value: "ORDER_BY_PRIMARY_KEY")
+ *    @arg @c kGTLRSpanner_ReadRequest_OrderBy_OrderByUnspecified Default value.
+ *        ORDER_BY_UNSPECIFIED is equivalent to ORDER_BY_PRIMARY_KEY. (Value:
+ *        "ORDER_BY_UNSPECIFIED")
+ */
+@property(nonatomic, copy, nullable) NSString *orderBy;
 
 /**
  *  If present, results will be restricted to the specified partition previously
@@ -4874,6 +5535,22 @@ FOUNDATION_EXTERN NSString * const kGTLRSpanner_VisualizationData_KeyUnit_KeyUni
  *  `projects//locations//keyRings//cryptoKeys/`.
  */
 @property(nonatomic, copy, nullable) NSString *kmsKeyName;
+
+/**
+ *  Optional. Specifies the KMS configuration for the one or more keys used to
+ *  encrypt the database. Values are of the form
+ *  `projects//locations//keyRings//cryptoKeys/`. The keys referenced by
+ *  kms_key_names must fully cover all regions of the database instance
+ *  configuration. Some examples: * For single region database instance configs,
+ *  specify a single regional location KMS key. * For multi-regional database
+ *  instance configs of type GOOGLE_MANAGED, either specify a multi-regional
+ *  location KMS key or multiple regional location KMS keys that cover all
+ *  regions in the instance config. * For a database instance config of type
+ *  USER_MANAGED, please specify only regional location KMS keys to cover each
+ *  region in the instance config. Multi-regional location KMS keys are not
+ *  supported for USER_MANAGED instance configs.
+ */
+@property(nonatomic, strong, nullable) NSArray<NSString *> *kmsKeyNames;
 
 @end
 
@@ -5212,6 +5889,18 @@ FOUNDATION_EXTERN NSString * const kGTLRSpanner_VisualizationData_KeyUnit_KeyUni
  */
 @property(nonatomic, strong, nullable) GTLRSpanner_Session_Labels *labels;
 
+/**
+ *  Optional. If true, specifies a multiplexed session. Use a multiplexed
+ *  session for multiple, concurrent read-only operations. Don't use them for
+ *  read-write transactions, partitioned reads, or partitioned queries. Use
+ *  CreateSession to create multiplexed sessions. Don't use BatchCreateSessions
+ *  to create a multiplexed session. You can't delete or list multiplexed
+ *  sessions.
+ *
+ *  Uses NSNumber of boolValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *multiplexed;
+
 /** Output only. The name of the session. This is always system-assigned. */
 @property(nonatomic, copy, nullable) NSString *name;
 
@@ -5287,6 +5976,23 @@ FOUNDATION_EXTERN NSString * const kGTLRSpanner_VisualizationData_KeyUnit_KeyUni
  *        fetch them; or @c -additionalProperties to fetch them all at once.
  */
 @interface GTLRSpanner_ShortRepresentation_Subqueries : GTLRObject
+@end
+
+
+/**
+ *  Message type for a single-region quorum.
+ */
+@interface GTLRSpanner_SingleRegionQuorum : GTLRObject
+
+/**
+ *  Required. The location of the serving region, e.g. "us-central1". The
+ *  location must be one of the regions within the dual region instance
+ *  configuration of your database. The list of valid locations is available via
+ *  [GetInstanceConfig[InstanceAdmin.GetInstanceConfig] API. This should only be
+ *  used if you plan to change quorum in single-region quorum type.
+ */
+@property(nonatomic, copy, nullable) NSString *servingLocation;
+
 @end
 
 
@@ -5493,7 +6199,7 @@ FOUNDATION_EXTERN NSString * const kGTLRSpanner_VisualizationData_KeyUnit_KeyUni
  *  see the effects of all transactions that have committed before the start of
  *  the read). Snapshot read-only transactions do not need to be committed.
  *  Queries on change streams must be performed with the snapshot read-only
- *  transaction mode, specifying a strong read. Please see
+ *  transaction mode, specifying a strong read. See
  *  TransactionOptions.ReadOnly.strong for more details. 3. Partitioned DML.
  *  This type of transaction is used to execute a single Partitioned DML
  *  statement. Partitioned DML partitions the key space and runs the DML
@@ -5530,59 +6236,64 @@ FOUNDATION_EXTERN NSString * const kGTLRSpanner_VisualizationData_KeyUnit_KeyUni
  *  successfully committing the retry, the client should execute the retry in
  *  the same session as the original attempt. The original session's lock
  *  priority increases with each consecutive abort, meaning that each attempt
- *  has a slightly better chance of success than the previous. Under some
- *  circumstances (for example, many transactions attempting to modify the same
- *  row(s)), a transaction can abort many times in a short period before
- *  successfully committing. Thus, it is not a good idea to cap the number of
- *  retries a transaction can attempt; instead, it is better to limit the total
- *  amount of time spent retrying. Idle transactions: A transaction is
- *  considered idle if it has no outstanding reads or SQL queries and has not
- *  started a read or SQL query within the last 10 seconds. Idle transactions
- *  can be aborted by Cloud Spanner so that they don't hold on to locks
- *  indefinitely. If an idle transaction is aborted, the commit will fail with
- *  error `ABORTED`. If this behavior is undesirable, periodically executing a
- *  simple SQL query in the transaction (for example, `SELECT 1`) prevents the
- *  transaction from becoming idle. Snapshot read-only transactions: Snapshot
- *  read-only transactions provides a simpler method than locking read-write
- *  transactions for doing several consistent reads. However, this type of
- *  transaction does not support writes. Snapshot transactions do not take
- *  locks. Instead, they work by choosing a Cloud Spanner timestamp, then
- *  executing all reads at that timestamp. Since they do not acquire locks, they
- *  do not block concurrent read-write transactions. Unlike locking read-write
- *  transactions, snapshot read-only transactions never abort. They can fail if
- *  the chosen read timestamp is garbage collected; however, the default garbage
- *  collection policy is generous enough that most applications do not need to
- *  worry about this in practice. Snapshot read-only transactions do not need to
- *  call Commit or Rollback (and in fact are not permitted to do so). To execute
- *  a snapshot transaction, the client specifies a timestamp bound, which tells
- *  Cloud Spanner how to choose a read timestamp. The types of timestamp bound
- *  are: - Strong (the default). - Bounded staleness. - Exact staleness. If the
- *  Cloud Spanner database to be read is geographically distributed, stale
- *  read-only transactions can execute more quickly than strong or read-write
- *  transactions, because they are able to execute far from the leader replica.
- *  Each type of timestamp bound is discussed in detail below. Strong: Strong
- *  reads are guaranteed to see the effects of all transactions that have
- *  committed before the start of the read. Furthermore, all rows yielded by a
- *  single read are consistent with each other -- if any part of the read
- *  observes a transaction, all parts of the read see the transaction. Strong
- *  reads are not repeatable: two consecutive strong read-only transactions
- *  might return inconsistent results if there are concurrent writes. If
- *  consistency across reads is required, the reads should be executed within a
- *  transaction or at an exact read timestamp. Queries on change streams (see
- *  below for more details) must also specify the strong read timestamp bound.
- *  See TransactionOptions.ReadOnly.strong. Exact staleness: These timestamp
- *  bounds execute reads at a user-specified timestamp. Reads at a timestamp are
- *  guaranteed to see a consistent prefix of the global transaction history:
- *  they observe modifications done by all transactions with a commit timestamp
- *  less than or equal to the read timestamp, and observe none of the
- *  modifications done by transactions with a larger commit timestamp. They will
- *  block until all conflicting transactions that may be assigned commit
- *  timestamps <= the read timestamp have finished. The timestamp can either be
- *  expressed as an absolute Cloud Spanner commit timestamp or a staleness
- *  relative to the current time. These modes do not require a "negotiation
- *  phase" to pick a timestamp. As a result, they execute slightly faster than
- *  the equivalent boundedly stale concurrency modes. On the other hand,
- *  boundedly stale reads usually return fresher results. See
+ *  has a slightly better chance of success than the previous. Note that the
+ *  lock priority is preserved per session (not per transaction). Lock priority
+ *  is set by the first read or write in the first attempt of a read-write
+ *  transaction. If the application starts a new session to retry the whole
+ *  transaction, the transaction loses its original lock priority. Moreover, the
+ *  lock priority is only preserved if the transaction fails with an `ABORTED`
+ *  error. Under some circumstances (for example, many transactions attempting
+ *  to modify the same row(s)), a transaction can abort many times in a short
+ *  period before successfully committing. Thus, it is not a good idea to cap
+ *  the number of retries a transaction can attempt; instead, it is better to
+ *  limit the total amount of time spent retrying. Idle transactions: A
+ *  transaction is considered idle if it has no outstanding reads or SQL queries
+ *  and has not started a read or SQL query within the last 10 seconds. Idle
+ *  transactions can be aborted by Cloud Spanner so that they don't hold on to
+ *  locks indefinitely. If an idle transaction is aborted, the commit will fail
+ *  with error `ABORTED`. If this behavior is undesirable, periodically
+ *  executing a simple SQL query in the transaction (for example, `SELECT 1`)
+ *  prevents the transaction from becoming idle. Snapshot read-only
+ *  transactions: Snapshot read-only transactions provides a simpler method than
+ *  locking read-write transactions for doing several consistent reads. However,
+ *  this type of transaction does not support writes. Snapshot transactions do
+ *  not take locks. Instead, they work by choosing a Cloud Spanner timestamp,
+ *  then executing all reads at that timestamp. Since they do not acquire locks,
+ *  they do not block concurrent read-write transactions. Unlike locking
+ *  read-write transactions, snapshot read-only transactions never abort. They
+ *  can fail if the chosen read timestamp is garbage collected; however, the
+ *  default garbage collection policy is generous enough that most applications
+ *  do not need to worry about this in practice. Snapshot read-only transactions
+ *  do not need to call Commit or Rollback (and in fact are not permitted to do
+ *  so). To execute a snapshot transaction, the client specifies a timestamp
+ *  bound, which tells Cloud Spanner how to choose a read timestamp. The types
+ *  of timestamp bound are: - Strong (the default). - Bounded staleness. - Exact
+ *  staleness. If the Cloud Spanner database to be read is geographically
+ *  distributed, stale read-only transactions can execute more quickly than
+ *  strong or read-write transactions, because they are able to execute far from
+ *  the leader replica. Each type of timestamp bound is discussed in detail
+ *  below. Strong: Strong reads are guaranteed to see the effects of all
+ *  transactions that have committed before the start of the read. Furthermore,
+ *  all rows yielded by a single read are consistent with each other -- if any
+ *  part of the read observes a transaction, all parts of the read see the
+ *  transaction. Strong reads are not repeatable: two consecutive strong
+ *  read-only transactions might return inconsistent results if there are
+ *  concurrent writes. If consistency across reads is required, the reads should
+ *  be executed within a transaction or at an exact read timestamp. Queries on
+ *  change streams (see below for more details) must also specify the strong
+ *  read timestamp bound. See TransactionOptions.ReadOnly.strong. Exact
+ *  staleness: These timestamp bounds execute reads at a user-specified
+ *  timestamp. Reads at a timestamp are guaranteed to see a consistent prefix of
+ *  the global transaction history: they observe modifications done by all
+ *  transactions with a commit timestamp less than or equal to the read
+ *  timestamp, and observe none of the modifications done by transactions with a
+ *  larger commit timestamp. They will block until all conflicting transactions
+ *  that may be assigned commit timestamps <= the read timestamp have finished.
+ *  The timestamp can either be expressed as an absolute Cloud Spanner commit
+ *  timestamp or a staleness relative to the current time. These modes do not
+ *  require a "negotiation phase" to pick a timestamp. As a result, they execute
+ *  slightly faster than the equivalent boundedly stale concurrency modes. On
+ *  the other hand, boundedly stale reads usually return fresher results. See
  *  TransactionOptions.ReadOnly.read_timestamp and
  *  TransactionOptions.ReadOnly.exact_staleness. Bounded staleness: Bounded
  *  staleness modes allow Cloud Spanner to pick the read timestamp, subject to a
@@ -5651,9 +6362,9 @@ FOUNDATION_EXTERN NSString * const kGTLRSpanner_VisualizationData_KeyUnit_KeyUni
  *  atomically to partitions of the table, in independent transactions.
  *  Secondary index rows are updated atomically with the base table rows. -
  *  Partitioned DML does not guarantee exactly-once execution semantics against
- *  a partition. The statement will be applied at least once to each partition.
- *  It is strongly recommended that the DML statement should be idempotent to
- *  avoid unexpected results. For instance, it is potentially dangerous to run a
+ *  a partition. The statement is applied at least once to each partition. It is
+ *  strongly recommended that the DML statement should be idempotent to avoid
+ *  unexpected results. For instance, it is potentially dangerous to run a
  *  statement such as `UPDATE table SET column = column + 1` as it could be run
  *  multiple times against some rows. - The partitions are committed
  *  automatically - there is no support for Commit or Rollback. If the call
@@ -5672,6 +6383,24 @@ FOUNDATION_EXTERN NSString * const kGTLRSpanner_VisualizationData_KeyUnit_KeyUni
  *  deleting old rows from a very large table.
  */
 @interface GTLRSpanner_TransactionOptions : GTLRObject
+
+/**
+ *  When `exclude_txn_from_change_streams` is set to `true`: * Modifications
+ *  from this transaction will not be recorded in change streams with DDL option
+ *  `allow_txn_exclusion=true` that are tracking columns modified by these
+ *  transactions. * Modifications from this transaction will be recorded in
+ *  change streams with DDL option `allow_txn_exclusion=false or not set` that
+ *  are tracking columns modified by these transactions. When
+ *  `exclude_txn_from_change_streams` is set to `false` or not set,
+ *  Modifications from this transaction will be recorded in all change streams
+ *  that are tracking columns modified by these transactions.
+ *  `exclude_txn_from_change_streams` may only be specified for read-write or
+ *  partitioned-dml transactions, otherwise the API will return an
+ *  `INVALID_ARGUMENT` error.
+ *
+ *  Uses NSNumber of boolValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *excludeTxnFromChangeStreams;
 
 /**
  *  Partitioned DML transaction. Authorization to begin a Partitioned DML
@@ -6062,6 +6791,55 @@ FOUNDATION_EXTERN NSString * const kGTLRSpanner_VisualizationData_KeyUnit_KeyUni
 
 /** The time at which UpdateInstance request was received. */
 @property(nonatomic, strong, nullable) GTLRDateTime *startTime;
+
+@end
+
+
+/**
+ *  Metadata type for the operation returned by UpdateInstancePartition.
+ */
+@interface GTLRSpanner_UpdateInstancePartitionMetadata : GTLRObject
+
+/**
+ *  The time at which this operation was cancelled. If set, this operation is in
+ *  the process of undoing itself (which is guaranteed to succeed) and cannot be
+ *  cancelled again.
+ */
+@property(nonatomic, strong, nullable) GTLRDateTime *cancelTime;
+
+/** The time at which this operation failed or was completed successfully. */
+@property(nonatomic, strong, nullable) GTLRDateTime *endTime;
+
+/** The desired end state of the update. */
+@property(nonatomic, strong, nullable) GTLRSpanner_InstancePartition *instancePartition;
+
+/** The time at which UpdateInstancePartition request was received. */
+@property(nonatomic, strong, nullable) GTLRDateTime *startTime;
+
+@end
+
+
+/**
+ *  The request for UpdateInstancePartition.
+ */
+@interface GTLRSpanner_UpdateInstancePartitionRequest : GTLRObject
+
+/**
+ *  Required. A mask specifying which fields in InstancePartition should be
+ *  updated. The field mask must always be specified; this prevents any future
+ *  fields in InstancePartition from being erased accidentally by clients that
+ *  do not know about them.
+ *
+ *  String format is a comma-separated list of fields.
+ */
+@property(nonatomic, copy, nullable) NSString *fieldMask;
+
+/**
+ *  Required. The instance partition to update, which must always include the
+ *  instance partition name. Otherwise, only fields mentioned in field_mask need
+ *  be included.
+ */
+@property(nonatomic, strong, nullable) GTLRSpanner_InstancePartition *instancePartition;
 
 @end
 

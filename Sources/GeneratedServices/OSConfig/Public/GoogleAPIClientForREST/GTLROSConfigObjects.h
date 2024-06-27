@@ -1042,6 +1042,28 @@ FOUNDATION_EXTERN NSString * const kGTLROSConfig_PatchRollout_Mode_ModeUnspecifi
 FOUNDATION_EXTERN NSString * const kGTLROSConfig_PatchRollout_Mode_ZoneByZone;
 
 // ----------------------------------------------------------------------------
+// GTLROSConfig_ProjectFeatureSettings.patchAndConfigFeatureSet
+
+/**
+ *  Enables only the basic set of VM Manager features in the project.
+ *
+ *  Value: "OSCONFIG_B"
+ */
+FOUNDATION_EXTERN NSString * const kGTLROSConfig_ProjectFeatureSettings_PatchAndConfigFeatureSet_OsconfigB;
+/**
+ *  Enables all VM Manager features in the project.
+ *
+ *  Value: "OSCONFIG_C"
+ */
+FOUNDATION_EXTERN NSString * const kGTLROSConfig_ProjectFeatureSettings_PatchAndConfigFeatureSet_OsconfigC;
+/**
+ *  Not specified placeholder
+ *
+ *  Value: "PATCH_AND_CONFIG_FEATURE_SET_UNSPECIFIED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLROSConfig_ProjectFeatureSettings_PatchAndConfigFeatureSet_PatchAndConfigFeatureSetUnspecified;
+
+// ----------------------------------------------------------------------------
 // GTLROSConfig_RecurringSchedule.frequency
 
 /**
@@ -2827,7 +2849,9 @@ FOUNDATION_EXTERN NSString * const kGTLROSConfig_WindowsUpdateSettings_Classific
  *  working on a different task. This mostly happens when the agent or VM
  *  unexpectedly restarts while applying OS policies. *
  *  `internal-service-errors`: Internal service errors were encountered while
- *  attempting to apply the policy.
+ *  attempting to apply the policy. * `os-policy-execution-pending`: OS policy
+ *  was assigned to the given VM, but was not executed yet. Typically this is a
+ *  transient condition that will go away after the next policy execution cycle.
  */
 @property(nonatomic, copy, nullable) NSString *complianceStateReason;
 
@@ -2873,7 +2897,8 @@ FOUNDATION_EXTERN NSString * const kGTLROSConfig_WindowsUpdateSettings_Classific
  *  while executing prior resources in the OS policy. *
  *  `os-policy-execution-attempt-failed`: The execution of the OS policy
  *  containing this resource failed and the compliance state couldn't be
- *  determined.
+ *  determined. * `os-policy-execution-pending`: OS policy that owns this
+ *  resource was assigned to the given VM, but was not executed yet.
  */
 @property(nonatomic, copy, nullable) NSString *complianceStateReason;
 
@@ -4106,6 +4131,36 @@ FOUNDATION_EXTERN NSString * const kGTLROSConfig_WindowsUpdateSettings_Classific
  *  A request message for pausing a patch deployment.
  */
 @interface GTLROSConfig_PausePatchDeploymentRequest : GTLRObject
+@end
+
+
+/**
+ *  ProjectFeatureSettings represents the VM Manager feature settings in a
+ *  project. For more information, see Enable full VM Manager functionality.
+ */
+@interface GTLROSConfig_ProjectFeatureSettings : GTLRObject
+
+/**
+ *  Required. Immutable. Name specifies the URL for the ProjectFeatureSettings
+ *  resource: projects/project_id/locations/global/projectFeatureSettings.
+ */
+@property(nonatomic, copy, nullable) NSString *name;
+
+/**
+ *  Set PatchAndConfigFeatureSet for the project.
+ *
+ *  Likely values:
+ *    @arg @c kGTLROSConfig_ProjectFeatureSettings_PatchAndConfigFeatureSet_OsconfigB
+ *        Enables only the basic set of VM Manager features in the project.
+ *        (Value: "OSCONFIG_B")
+ *    @arg @c kGTLROSConfig_ProjectFeatureSettings_PatchAndConfigFeatureSet_OsconfigC
+ *        Enables all VM Manager features in the project. (Value: "OSCONFIG_C")
+ *    @arg @c kGTLROSConfig_ProjectFeatureSettings_PatchAndConfigFeatureSet_PatchAndConfigFeatureSetUnspecified
+ *        Not specified placeholder (Value:
+ *        "PATCH_AND_CONFIG_FEATURE_SET_UNSPECIFIED")
+ */
+@property(nonatomic, copy, nullable) NSString *patchAndConfigFeatureSet;
+
 @end
 
 

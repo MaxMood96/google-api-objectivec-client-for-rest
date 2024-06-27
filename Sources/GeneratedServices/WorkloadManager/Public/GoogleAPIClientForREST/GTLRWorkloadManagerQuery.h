@@ -95,6 +95,12 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface GTLRWorkloadManagerQuery_ProjectsLocationsEvaluationsDelete : GTLRWorkloadManagerQuery
 
+/**
+ *  Optional. Followed the best practice from
+ *  https://aip.dev/135#cascading-delete
+ */
+@property(nonatomic, assign) BOOL force;
+
 /** Required. Name of the resource */
 @property(nonatomic, copy, nullable) NSString *name;
 
@@ -245,7 +251,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 /**
- *  List the running result of a single Execution.
+ *  Lists the result of a single evaluation.
  *
  *  Method: workloadmanager.projects.locations.evaluations.executions.results.list
  *
@@ -275,7 +281,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Fetches a @c GTLRWorkloadManager_ListExecutionResultsResponse.
  *
- *  List the running result of a single Execution.
+ *  Lists the result of a single evaluation.
  *
  *  @param parent Required. The execution results. Format: {parent}/evaluations/
  *    * /executions/ * /results
@@ -409,7 +415,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface GTLRWorkloadManagerQuery_ProjectsLocationsEvaluationsList : GTLRWorkloadManagerQuery
 
-/** Filtering results */
+/** Filter to be applied when listing the evaluation results. */
 @property(nonatomic, copy, nullable) NSString *filter;
 
 /** Hint for how to order the results */
@@ -742,77 +748,6 @@ NS_ASSUME_NONNULL_BEGIN
  *    pre-defined rules are global available to all projects and all regions
  *
  *  @return GTLRWorkloadManagerQuery_ProjectsLocationsRulesList
- *
- *  @note Automatic pagination will be done when @c shouldFetchNextPages is
- *        enabled. See @c shouldFetchNextPages on @c GTLRService for more
- *        information.
- */
-+ (instancetype)queryWithParent:(NSString *)parent;
-
-@end
-
-/**
- *  Gets details of a single workload.
- *
- *  Method: workloadmanager.projects.locations.workloadProfiles.get
- *
- *  Authorization scope(s):
- *    @c kGTLRAuthScopeWorkloadManagerCloudPlatform
- */
-@interface GTLRWorkloadManagerQuery_ProjectsLocationsWorkloadProfilesGet : GTLRWorkloadManagerQuery
-
-/** Required. Name of the resource */
-@property(nonatomic, copy, nullable) NSString *name;
-
-/**
- *  Fetches a @c GTLRWorkloadManager_WorkloadProfile.
- *
- *  Gets details of a single workload.
- *
- *  @param name Required. Name of the resource
- *
- *  @return GTLRWorkloadManagerQuery_ProjectsLocationsWorkloadProfilesGet
- */
-+ (instancetype)queryWithName:(NSString *)name;
-
-@end
-
-/**
- *  List workloads
- *
- *  Method: workloadmanager.projects.locations.workloadProfiles.list
- *
- *  Authorization scope(s):
- *    @c kGTLRAuthScopeWorkloadManagerCloudPlatform
- */
-GTLR_DEPRECATED
-@interface GTLRWorkloadManagerQuery_ProjectsLocationsWorkloadProfilesList : GTLRWorkloadManagerQuery
-
-/** Optional. Filtering results */
-@property(nonatomic, copy, nullable) NSString *filter;
-
-/**
- *  Optional. Requested page size. Server may return fewer items than requested.
- *  If unspecified, server will pick an appropriate default.
- */
-@property(nonatomic, assign) NSInteger pageSize;
-
-/**
- *  Optional. A token identifying a page of results the server should return.
- */
-@property(nonatomic, copy, nullable) NSString *pageToken;
-
-/** Required. Parent value for ListWorkloadRequest */
-@property(nonatomic, copy, nullable) NSString *parent;
-
-/**
- *  Fetches a @c GTLRWorkloadManager_ListWorkloadProfilesResponse.
- *
- *  List workloads
- *
- *  @param parent Required. Parent value for ListWorkloadRequest
- *
- *  @return GTLRWorkloadManagerQuery_ProjectsLocationsWorkloadProfilesList
  *
  *  @note Automatic pagination will be done when @c shouldFetchNextPages is
  *        enabled. See @c shouldFetchNextPages on @c GTLRService for more

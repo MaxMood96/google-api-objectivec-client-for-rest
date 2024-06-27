@@ -284,6 +284,7 @@ NSString * const kGTLRSheets_CutPasteRequest_PasteType_PasteValues = @"PASTE_VAL
 
 // GTLRSheets_DataExecutionStatus.errorCode
 NSString * const kGTLRSheets_DataExecutionStatus_ErrorCode_ConcurrentQuery = @"CONCURRENT_QUERY";
+NSString * const kGTLRSheets_DataExecutionStatus_ErrorCode_DataExecutionCancelled = @"DATA_EXECUTION_CANCELLED";
 NSString * const kGTLRSheets_DataExecutionStatus_ErrorCode_DataExecutionErrorCodeUnspecified = @"DATA_EXECUTION_ERROR_CODE_UNSPECIFIED";
 NSString * const kGTLRSheets_DataExecutionStatus_ErrorCode_DataNotFound = @"DATA_NOT_FOUND";
 NSString * const kGTLRSheets_DataExecutionStatus_ErrorCode_DuplicateColumnNames = @"DUPLICATE_COLUMN_NAMES";
@@ -304,6 +305,7 @@ NSString * const kGTLRSheets_DataExecutionStatus_ErrorCode_TooManyRows = @"TOO_M
 NSString * const kGTLRSheets_DataExecutionStatus_ErrorCode_UnsupportedDataType = @"UNSUPPORTED_DATA_TYPE";
 
 // GTLRSheets_DataExecutionStatus.state
+NSString * const kGTLRSheets_DataExecutionStatus_State_Cancelling = @"CANCELLING";
 NSString * const kGTLRSheets_DataExecutionStatus_State_DataExecutionStateUnspecified = @"DATA_EXECUTION_STATE_UNSPECIFIED";
 NSString * const kGTLRSheets_DataExecutionStatus_State_Failed  = @"FAILED";
 NSString * const kGTLRSheets_DataExecutionStatus_State_NotStarted = @"NOT_STARTED";
@@ -517,6 +519,7 @@ NSString * const kGTLRSheets_PivotValue_SummarizeFunction_Custom = @"CUSTOM";
 NSString * const kGTLRSheets_PivotValue_SummarizeFunction_Max  = @"MAX";
 NSString * const kGTLRSheets_PivotValue_SummarizeFunction_Median = @"MEDIAN";
 NSString * const kGTLRSheets_PivotValue_SummarizeFunction_Min  = @"MIN";
+NSString * const kGTLRSheets_PivotValue_SummarizeFunction_None = @"NONE";
 NSString * const kGTLRSheets_PivotValue_SummarizeFunction_PivotStandardValueFunctionUnspecified = @"PIVOT_STANDARD_VALUE_FUNCTION_UNSPECIFIED";
 NSString * const kGTLRSheets_PivotValue_SummarizeFunction_Product = @"PRODUCT";
 NSString * const kGTLRSheets_PivotValue_SummarizeFunction_Stdev = @"STDEV";
@@ -535,6 +538,19 @@ NSString * const kGTLRSheets_PointStyle_Shape_Square           = @"SQUARE";
 NSString * const kGTLRSheets_PointStyle_Shape_Star             = @"STAR";
 NSString * const kGTLRSheets_PointStyle_Shape_Triangle         = @"TRIANGLE";
 NSString * const kGTLRSheets_PointStyle_Shape_XMark            = @"X_MARK";
+
+// GTLRSheets_RefreshCancellationStatus.errorCode
+NSString * const kGTLRSheets_RefreshCancellationStatus_ErrorCode_CancelOtherError = @"CANCEL_OTHER_ERROR";
+NSString * const kGTLRSheets_RefreshCancellationStatus_ErrorCode_CancelPermissionDenied = @"CANCEL_PERMISSION_DENIED";
+NSString * const kGTLRSheets_RefreshCancellationStatus_ErrorCode_ConcurrentCancellation = @"CONCURRENT_CANCELLATION";
+NSString * const kGTLRSheets_RefreshCancellationStatus_ErrorCode_ExecutionNotFound = @"EXECUTION_NOT_FOUND";
+NSString * const kGTLRSheets_RefreshCancellationStatus_ErrorCode_QueryExecutionCompleted = @"QUERY_EXECUTION_COMPLETED";
+NSString * const kGTLRSheets_RefreshCancellationStatus_ErrorCode_RefreshCancellationErrorCodeUnspecified = @"REFRESH_CANCELLATION_ERROR_CODE_UNSPECIFIED";
+
+// GTLRSheets_RefreshCancellationStatus.state
+NSString * const kGTLRSheets_RefreshCancellationStatus_State_CancelFailed = @"CANCEL_FAILED";
+NSString * const kGTLRSheets_RefreshCancellationStatus_State_CancelSucceeded = @"CANCEL_SUCCEEDED";
+NSString * const kGTLRSheets_RefreshCancellationStatus_State_RefreshCancellationStateUnspecified = @"REFRESH_CANCELLATION_STATE_UNSPECIFIED";
 
 // GTLRSheets_ScorecardChartSpec.aggregateType
 NSString * const kGTLRSheets_ScorecardChartSpec_AggregateType_Average = @"AVERAGE";
@@ -1343,6 +1359,44 @@ NSString * const kGTLRSheets_WaterfallChartSpec_StackedType_WaterfallStackedType
 @dynamic bubbleBorderColor, bubbleBorderColorStyle, bubbleLabels,
          bubbleMaxRadiusSize, bubbleMinRadiusSize, bubbleOpacity, bubbleSizes,
          bubbleTextStyle, domain, groupIds, legendPosition, series;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRSheets_CancelDataSourceRefreshRequest
+//
+
+@implementation GTLRSheets_CancelDataSourceRefreshRequest
+@dynamic dataSourceId, isAll, references;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRSheets_CancelDataSourceRefreshResponse
+//
+
+@implementation GTLRSheets_CancelDataSourceRefreshResponse
+@dynamic statuses;
+
++ (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
+  NSDictionary<NSString *, Class> *map = @{
+    @"statuses" : [GTLRSheets_CancelDataSourceRefreshStatus class]
+  };
+  return map;
+}
+
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRSheets_CancelDataSourceRefreshStatus
+//
+
+@implementation GTLRSheets_CancelDataSourceRefreshStatus
+@dynamic reference, refreshCancellationStatus;
 @end
 
 
@@ -2960,6 +3014,16 @@ NSString * const kGTLRSheets_WaterfallChartSpec_StackedType_WaterfallStackedType
 
 // ----------------------------------------------------------------------------
 //
+//   GTLRSheets_RefreshCancellationStatus
+//
+
+@implementation GTLRSheets_RefreshCancellationStatus
+@dynamic errorCode, state;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
 //   GTLRSheets_RefreshDataSourceObjectExecutionStatus
 //
 
@@ -3015,8 +3079,8 @@ NSString * const kGTLRSheets_WaterfallChartSpec_StackedType_WaterfallStackedType
 @dynamic addBanding, addChart, addConditionalFormatRule, addDataSource,
          addDimensionGroup, addFilterView, addNamedRange, addProtectedRange,
          addSheet, addSlicer, appendCells, appendDimension, autoFill,
-         autoResizeDimensions, clearBasicFilter, copyPaste,
-         createDeveloperMetadata, cutPaste, deleteBanding,
+         autoResizeDimensions, cancelDataSourceRefresh, clearBasicFilter,
+         copyPaste, createDeveloperMetadata, cutPaste, deleteBanding,
          deleteConditionalFormatRule, deleteDataSource, deleteDeveloperMetadata,
          deleteDimension, deleteDimensionGroup, deleteDuplicates,
          deleteEmbeddedObject, deleteFilterView, deleteNamedRange,
@@ -3042,11 +3106,12 @@ NSString * const kGTLRSheets_WaterfallChartSpec_StackedType_WaterfallStackedType
 @implementation GTLRSheets_Response
 @dynamic addBanding, addChart, addDataSource, addDimensionGroup, addFilterView,
          addNamedRange, addProtectedRange, addSheet, addSlicer,
-         createDeveloperMetadata, deleteConditionalFormatRule,
-         deleteDeveloperMetadata, deleteDimensionGroup, deleteDuplicates,
-         duplicateFilterView, duplicateSheet, findReplace, refreshDataSource,
-         trimWhitespace, updateConditionalFormatRule, updateDataSource,
-         updateDeveloperMetadata, updateEmbeddedObjectPosition;
+         cancelDataSourceRefresh, createDeveloperMetadata,
+         deleteConditionalFormatRule, deleteDeveloperMetadata,
+         deleteDimensionGroup, deleteDuplicates, duplicateFilterView,
+         duplicateSheet, findReplace, refreshDataSource, trimWhitespace,
+         updateConditionalFormatRule, updateDataSource, updateDeveloperMetadata,
+         updateEmbeddedObjectPosition;
 @end
 
 
@@ -3266,8 +3331,9 @@ NSString * const kGTLRSheets_WaterfallChartSpec_StackedType_WaterfallStackedType
 //
 
 @implementation GTLRSheets_SpreadsheetProperties
-@dynamic autoRecalc, defaultFormat, iterativeCalculationSettings, locale,
-         spreadsheetTheme, timeZone, title;
+@dynamic autoRecalc, defaultFormat, importFunctionsExternalUrlAccessAllowed,
+         iterativeCalculationSettings, locale, spreadsheetTheme, timeZone,
+         title;
 @end
 
 

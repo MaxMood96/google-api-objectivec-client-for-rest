@@ -297,13 +297,15 @@ FOUNDATION_EXTERN NSString * const kGTLRContactcenterinsightsViewFull;
 @end
 
 /**
- *  Creates a conversation.
+ *  Creates a conversation. Does not support audio transcription or DLP
+ *  redaction. Use `conversations.upload` instead.
  *
  *  Method: contactcenterinsights.projects.locations.conversations.create
  *
  *  Authorization scope(s):
  *    @c kGTLRAuthScopeContactcenterinsightsCloudPlatform
  */
+GTLR_DEPRECATED
 @interface GTLRContactcenterinsightsQuery_ProjectsLocationsConversationsCreate : GTLRContactcenterinsightsQuery
 
 /**
@@ -322,7 +324,8 @@ FOUNDATION_EXTERN NSString * const kGTLRContactcenterinsightsViewFull;
  *  Fetches a @c
  *  GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1Conversation.
  *
- *  Creates a conversation.
+ *  Creates a conversation. Does not support audio transcription or DLP
+ *  redaction. Use `conversations.upload` instead.
  *
  *  @param object The @c
  *    GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1Conversation
@@ -465,8 +468,8 @@ FOUNDATION_EXTERN NSString * const kGTLRContactcenterinsightsViewFull;
  *  values are one of the following: * create_time *
  *  customer_satisfaction_rating * duration * latest_analysis * start_time *
  *  turn_count The default sort order is ascending. To specify order, append
- *  `asc` or `desc`, i.e. `create_time desc`. See
- *  https://google.aip.dev/132#ordering for more details.
+ *  `asc` or `desc` (`create_time desc`). For more details, see [Google AIPs
+ *  Ordering](https://google.aip.dev/132#ordering).
  */
 @property(nonatomic, copy, nullable) NSString *orderBy;
 
@@ -538,7 +541,12 @@ FOUNDATION_EXTERN NSString * const kGTLRContactcenterinsightsViewFull;
 @property(nonatomic, copy, nullable) NSString *name;
 
 /**
- *  The list of fields to be updated.
+ *  The list of fields to be updated. All possible fields can be updated by
+ *  passing `*`, or a subset of the following updateable fields can be provided:
+ *  * `agent_id` * `language_code` * `labels` * `metadata` * `quality_metadata`
+ *  * `call_metadata` * `start_time` * `expire_time` or `ttl` *
+ *  `data_source.gcs_source.audio_uri` or
+ *  `data_source.dialogflow_source.audio_uri`
  *
  *  String format is a comma-separated list of fields.
  */
@@ -564,8 +572,8 @@ FOUNDATION_EXTERN NSString * const kGTLRContactcenterinsightsViewFull;
 @end
 
 /**
- *  Create a longrunning conversation upload operation. This method differs from
- *  CreateConversation by allowing audio transcription and optional DLP
+ *  Create a long-running conversation upload operation. This method differs
+ *  from `CreateConversation` by allowing audio transcription and optional DLP
  *  redaction.
  *
  *  Method: contactcenterinsights.projects.locations.conversations.upload
@@ -581,8 +589,8 @@ FOUNDATION_EXTERN NSString * const kGTLRContactcenterinsightsViewFull;
 /**
  *  Fetches a @c GTLRContactcenterinsights_GoogleLongrunningOperation.
  *
- *  Create a longrunning conversation upload operation. This method differs from
- *  CreateConversation by allowing audio transcription and optional DLP
+ *  Create a long-running conversation upload operation. This method differs
+ *  from `CreateConversation` by allowing audio transcription and optional DLP
  *  redaction.
  *
  *  @param object The @c
@@ -780,7 +788,7 @@ FOUNDATION_EXTERN NSString * const kGTLRContactcenterinsightsViewFull;
  */
 @interface GTLRContactcenterinsightsQuery_ProjectsLocationsIssueModelsExport : GTLRContactcenterinsightsQuery
 
-/** Required. The issue model to export */
+/** Required. The issue model to export. */
 @property(nonatomic, copy, nullable) NSString *name;
 
 /**
@@ -791,7 +799,7 @@ FOUNDATION_EXTERN NSString * const kGTLRContactcenterinsightsViewFull;
  *  @param object The @c
  *    GTLRContactcenterinsights_GoogleCloudContactcenterinsightsV1ExportIssueModelRequest
  *    to include in the query.
- *  @param name Required. The issue model to export
+ *  @param name Required. The issue model to export.
  *
  *  @return GTLRContactcenterinsightsQuery_ProjectsLocationsIssueModelsExport
  */

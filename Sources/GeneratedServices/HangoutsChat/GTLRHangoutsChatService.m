@@ -4,8 +4,9 @@
 // API:
 //   Google Chat API (chat/v1)
 // Description:
-//   Enables apps to fetch information and perform actions in Google Chat.
-//   Authentication is a prerequisite for using the Google Chat REST API.
+//   The Google Chat API lets you build Chat apps to integrate your services
+//   with Google Chat and manage Chat resources such as spaces, members, and
+//   messages.
 // Documentation:
 //   https://developers.google.com/hangouts/chat
 
@@ -14,6 +15,11 @@
 // ----------------------------------------------------------------------------
 // Authorization scopes
 
+NSString * const kGTLRAuthScopeHangoutsChatAdminDelete         = @"https://www.googleapis.com/auth/chat.admin.delete";
+NSString * const kGTLRAuthScopeHangoutsChatAdminMemberships    = @"https://www.googleapis.com/auth/chat.admin.memberships";
+NSString * const kGTLRAuthScopeHangoutsChatAdminMembershipsReadonly = @"https://www.googleapis.com/auth/chat.admin.memberships.readonly";
+NSString * const kGTLRAuthScopeHangoutsChatAdminSpaces         = @"https://www.googleapis.com/auth/chat.admin.spaces";
+NSString * const kGTLRAuthScopeHangoutsChatAdminSpacesReadonly = @"https://www.googleapis.com/auth/chat.admin.spaces.readonly";
 NSString * const kGTLRAuthScopeHangoutsChatBot                 = @"https://www.googleapis.com/auth/chat.bot";
 NSString * const kGTLRAuthScopeHangoutsChatDelete              = @"https://www.googleapis.com/auth/chat.delete";
 NSString * const kGTLRAuthScopeHangoutsChatImport              = @"https://www.googleapis.com/auth/chat.import";
@@ -29,6 +35,8 @@ NSString * const kGTLRAuthScopeHangoutsChatMessagesReadonly    = @"https://www.g
 NSString * const kGTLRAuthScopeHangoutsChatSpaces              = @"https://www.googleapis.com/auth/chat.spaces";
 NSString * const kGTLRAuthScopeHangoutsChatSpacesCreate        = @"https://www.googleapis.com/auth/chat.spaces.create";
 NSString * const kGTLRAuthScopeHangoutsChatSpacesReadonly      = @"https://www.googleapis.com/auth/chat.spaces.readonly";
+NSString * const kGTLRAuthScopeHangoutsChatUsersReadstate      = @"https://www.googleapis.com/auth/chat.users.readstate";
+NSString * const kGTLRAuthScopeHangoutsChatUsersReadstateReadonly = @"https://www.googleapis.com/auth/chat.users.readstate.readonly";
 
 // ----------------------------------------------------------------------------
 //   GTLRHangoutsChatService

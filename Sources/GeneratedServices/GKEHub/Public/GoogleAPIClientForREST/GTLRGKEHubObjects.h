@@ -94,9 +94,18 @@
 @class GTLRGKEHub_IdentityServiceAuthMethod;
 @class GTLRGKEHub_IdentityServiceAzureADConfig;
 @class GTLRGKEHub_IdentityServiceGoogleConfig;
+@class GTLRGKEHub_IdentityServiceGroupConfig;
+@class GTLRGKEHub_IdentityServiceIdentityServiceOptions;
+@class GTLRGKEHub_IdentityServiceLdapConfig;
 @class GTLRGKEHub_IdentityServiceMembershipSpec;
 @class GTLRGKEHub_IdentityServiceMembershipState;
 @class GTLRGKEHub_IdentityServiceOidcConfig;
+@class GTLRGKEHub_IdentityServiceSamlConfig;
+@class GTLRGKEHub_IdentityServiceSamlConfig_AttributeMapping;
+@class GTLRGKEHub_IdentityServiceServerConfig;
+@class GTLRGKEHub_IdentityServiceServiceAccountConfig;
+@class GTLRGKEHub_IdentityServiceSimpleBindCredentials;
+@class GTLRGKEHub_IdentityServiceUserConfig;
 @class GTLRGKEHub_KubernetesMetadata;
 @class GTLRGKEHub_KubernetesResource;
 @class GTLRGKEHub_Location;
@@ -155,6 +164,7 @@
 @class GTLRGKEHub_ScopeFeatureState;
 @class GTLRGKEHub_ScopeLifecycleState;
 @class GTLRGKEHub_SecurityPostureConfig;
+@class GTLRGKEHub_ServiceMeshCondition;
 @class GTLRGKEHub_ServiceMeshControlPlaneManagement;
 @class GTLRGKEHub_ServiceMeshDataPlaneManagement;
 @class GTLRGKEHub_ServiceMeshMembershipSpec;
@@ -1689,6 +1699,12 @@ FOUNDATION_EXTERN NSString * const kGTLRGKEHub_SecurityPostureConfig_Mode_Basic;
  */
 FOUNDATION_EXTERN NSString * const kGTLRGKEHub_SecurityPostureConfig_Mode_Disabled;
 /**
+ *  Applies the Security Posture off cluster Enterprise level features.
+ *
+ *  Value: "ENTERPRISE"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRGKEHub_SecurityPostureConfig_Mode_Enterprise;
+/**
  *  Default value not specified.
  *
  *  Value: "MODE_UNSPECIFIED"
@@ -1723,6 +1739,229 @@ FOUNDATION_EXTERN NSString * const kGTLRGKEHub_SecurityPostureConfig_Vulnerabili
  *  Value: "VULNERABILITY_MODE_UNSPECIFIED"
  */
 FOUNDATION_EXTERN NSString * const kGTLRGKEHub_SecurityPostureConfig_VulnerabilityMode_VulnerabilityModeUnspecified;
+
+// ----------------------------------------------------------------------------
+// GTLRGKEHub_ServiceMeshCondition.code
+
+/**
+ *  CNI config unsupported error code
+ *
+ *  Value: "CNI_CONFIG_UNSUPPORTED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRGKEHub_ServiceMeshCondition_Code_CniConfigUnsupported;
+/**
+ *  CNI installation failed error code
+ *
+ *  Value: "CNI_INSTALLATION_FAILED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRGKEHub_ServiceMeshCondition_Code_CniInstallationFailed;
+/**
+ *  CNI pod unschedulable error code
+ *
+ *  Value: "CNI_POD_UNSCHEDULABLE"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRGKEHub_ServiceMeshCondition_Code_CniPodUnschedulable;
+/**
+ *  Default Unspecified code
+ *
+ *  Value: "CODE_UNSPECIFIED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRGKEHub_ServiceMeshCondition_Code_CodeUnspecified;
+/**
+ *  Configuration (Istio/k8s resources) failed to apply due to internal error.
+ *
+ *  Value: "CONFIG_APPLY_INTERNAL_ERROR"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRGKEHub_ServiceMeshCondition_Code_ConfigApplyInternalError;
+/**
+ *  Configuration failed to be applied due to being invalid.
+ *
+ *  Value: "CONFIG_VALIDATION_ERROR"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRGKEHub_ServiceMeshCondition_Code_ConfigValidationError;
+/**
+ *  Encountered configuration(s) with possible unintended behavior or invalid
+ *  configuration. These configs may not have been applied.
+ *
+ *  Value: "CONFIG_VALIDATION_WARNING"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRGKEHub_ServiceMeshCondition_Code_ConfigValidationWarning;
+/**
+ *  GKE sandbox unsupported error code
+ *
+ *  Value: "GKE_SANDBOX_UNSUPPORTED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRGKEHub_ServiceMeshCondition_Code_GkeSandboxUnsupported;
+/**
+ *  Mesh IAM permission denied error code
+ *
+ *  Value: "MESH_IAM_PERMISSION_DENIED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRGKEHub_ServiceMeshCondition_Code_MeshIamPermissionDenied;
+/**
+ *  Nodepool workload identity federation required error code
+ *
+ *  Value: "NODEPOOL_WORKLOAD_IDENTITY_FEDERATION_REQUIRED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRGKEHub_ServiceMeshCondition_Code_NodepoolWorkloadIdentityFederationRequired;
+/**
+ *  BackendService quota exceeded error code.
+ *
+ *  Value: "QUOTA_EXCEEDED_BACKEND_SERVICES"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRGKEHub_ServiceMeshCondition_Code_QuotaExceededBackendServices;
+/**
+ *  ClientTLSPolicy quota exceeded error code.
+ *
+ *  Value: "QUOTA_EXCEEDED_CLIENT_TLS_POLICIES"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRGKEHub_ServiceMeshCondition_Code_QuotaExceededClientTlsPolicies;
+/**
+ *  EndpointPolicy quota exceeded error code.
+ *
+ *  Value: "QUOTA_EXCEEDED_ENDPOINT_POLICIES"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRGKEHub_ServiceMeshCondition_Code_QuotaExceededEndpointPolicies;
+/**
+ *  Gateway quota exceeded error code.
+ *
+ *  Value: "QUOTA_EXCEEDED_GATEWAYS"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRGKEHub_ServiceMeshCondition_Code_QuotaExceededGateways;
+/**
+ *  HealthCheck quota exceeded error code.
+ *
+ *  Value: "QUOTA_EXCEEDED_HEALTH_CHECKS"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRGKEHub_ServiceMeshCondition_Code_QuotaExceededHealthChecks;
+/**
+ *  HTTPFilter quota exceeded error code.
+ *
+ *  Value: "QUOTA_EXCEEDED_HTTP_FILTERS"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRGKEHub_ServiceMeshCondition_Code_QuotaExceededHttpFilters;
+/**
+ *  HTTPRoute quota exceeded error code.
+ *
+ *  Value: "QUOTA_EXCEEDED_HTTP_ROUTES"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRGKEHub_ServiceMeshCondition_Code_QuotaExceededHttpRoutes;
+/**
+ *  Mesh quota exceeded error code.
+ *
+ *  Value: "QUOTA_EXCEEDED_MESHES"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRGKEHub_ServiceMeshCondition_Code_QuotaExceededMeshes;
+/**
+ *  NetworkEndpointGroup quota exceeded error code.
+ *
+ *  Value: "QUOTA_EXCEEDED_NETWORK_ENDPOINT_GROUPS"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRGKEHub_ServiceMeshCondition_Code_QuotaExceededNetworkEndpointGroups;
+/**
+ *  ServerTLSPolicy quota exceeded error code.
+ *
+ *  Value: "QUOTA_EXCEEDED_SERVER_TLS_POLICIES"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRGKEHub_ServiceMeshCondition_Code_QuotaExceededServerTlsPolicies;
+/**
+ *  ServiceLBPolicy quota exceeded error code.
+ *
+ *  Value: "QUOTA_EXCEEDED_SERVICE_LB_POLICIES"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRGKEHub_ServiceMeshCondition_Code_QuotaExceededServiceLbPolicies;
+/**
+ *  TCPFilter quota exceeded error code.
+ *
+ *  Value: "QUOTA_EXCEEDED_TCP_FILTERS"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRGKEHub_ServiceMeshCondition_Code_QuotaExceededTcpFilters;
+/**
+ *  TCPRoute quota exceeded error code.
+ *
+ *  Value: "QUOTA_EXCEEDED_TCP_ROUTES"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRGKEHub_ServiceMeshCondition_Code_QuotaExceededTcpRoutes;
+/**
+ *  TLS routes quota exceeded error code.
+ *
+ *  Value: "QUOTA_EXCEEDED_TLS_ROUTES"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRGKEHub_ServiceMeshCondition_Code_QuotaExceededTlsRoutes;
+/**
+ *  TrafficPolicy quota exceeded error code.
+ *
+ *  Value: "QUOTA_EXCEEDED_TRAFFIC_POLICIES"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRGKEHub_ServiceMeshCondition_Code_QuotaExceededTrafficPolicies;
+/**
+ *  Multiple control planes unsupported error code
+ *
+ *  Value: "UNSUPPORTED_MULTIPLE_CONTROL_PLANES"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRGKEHub_ServiceMeshCondition_Code_UnsupportedMultipleControlPlanes;
+/**
+ *  VPC-SC GA is supported for this control plane.
+ *
+ *  Value: "VPCSC_GA_SUPPORTED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRGKEHub_ServiceMeshCondition_Code_VpcscGaSupported;
+
+// ----------------------------------------------------------------------------
+// GTLRGKEHub_ServiceMeshCondition.severity
+
+/**
+ *  Indicates an issue that prevents the mesh from operating correctly
+ *
+ *  Value: "ERROR"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRGKEHub_ServiceMeshCondition_Severity_Error;
+/**
+ *  An informational message, not requiring any action
+ *
+ *  Value: "INFO"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRGKEHub_ServiceMeshCondition_Severity_Info;
+/**
+ *  Unspecified severity
+ *
+ *  Value: "SEVERITY_UNSPECIFIED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRGKEHub_ServiceMeshCondition_Severity_SeverityUnspecified;
+/**
+ *  Indicates a setting is likely wrong, but the mesh is still able to operate
+ *
+ *  Value: "WARNING"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRGKEHub_ServiceMeshCondition_Severity_Warning;
+
+// ----------------------------------------------------------------------------
+// GTLRGKEHub_ServiceMeshControlPlaneManagement.implementation
+
+/**
+ *  Unspecified
+ *
+ *  Value: "IMPLEMENTATION_UNSPECIFIED"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRGKEHub_ServiceMeshControlPlaneManagement_Implementation_ImplementationUnspecified;
+/**
+ *  A Google build of istiod is used for the managed control plane.
+ *
+ *  Value: "ISTIOD"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRGKEHub_ServiceMeshControlPlaneManagement_Implementation_Istiod;
+/**
+ *  Traffic director is used for the managed control plane.
+ *
+ *  Value: "TRAFFIC_DIRECTOR"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRGKEHub_ServiceMeshControlPlaneManagement_Implementation_TrafficDirector;
+/**
+ *  The control plane implementation is being updated.
+ *
+ *  Value: "UPDATING"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRGKEHub_ServiceMeshControlPlaneManagement_Implementation_Updating;
 
 // ----------------------------------------------------------------------------
 // GTLRGKEHub_ServiceMeshControlPlaneManagement.state
@@ -4186,6 +4425,9 @@ FOUNDATION_EXTERN NSString * const kGTLRGKEHub_Status_Code_Unknown;
 /** GoogleConfig specific configuration. */
 @property(nonatomic, strong, nullable) GTLRGKEHub_IdentityServiceGoogleConfig *googleConfig;
 
+/** LDAP specific configuration. */
+@property(nonatomic, strong, nullable) GTLRGKEHub_IdentityServiceLdapConfig *ldapConfig;
+
 /** Identifier for auth config. */
 @property(nonatomic, copy, nullable) NSString *name;
 
@@ -4194,6 +4436,9 @@ FOUNDATION_EXTERN NSString * const kGTLRGKEHub_Status_Code_Unknown;
 
 /** Proxy server address to use for auth method. */
 @property(nonatomic, copy, nullable) NSString *proxy;
+
+/** SAML specific configuration. */
+@property(nonatomic, strong, nullable) GTLRGKEHub_IdentityServiceSamlConfig *samlConfig;
 
 @end
 
@@ -4223,6 +4468,9 @@ FOUNDATION_EXTERN NSString * const kGTLRGKEHub_Status_Code_Unknown;
  */
 @property(nonatomic, copy, nullable) NSString *encryptedClientSecret;
 
+/** Optional. Format of the AzureAD groups that the client wants for auth. */
+@property(nonatomic, copy, nullable) NSString *groupFormat;
+
 /** The redirect URL that kubectl uses for authorization. */
 @property(nonatomic, copy, nullable) NSString *kubectlRedirectUri;
 
@@ -4231,6 +4479,9 @@ FOUNDATION_EXTERN NSString * const kGTLRGKEHub_Status_Code_Unknown;
  *  accounts belonging to a specific tenant.
  */
 @property(nonatomic, copy, nullable) NSString *tenant;
+
+/** Optional. Claim in the AzureAD ID Token that holds the user details. */
+@property(nonatomic, copy, nullable) NSString *userClaim;
 
 @end
 
@@ -4251,12 +4502,88 @@ FOUNDATION_EXTERN NSString * const kGTLRGKEHub_Status_Code_Unknown;
 
 
 /**
+ *  Contains the properties for locating and authenticating groups in the
+ *  directory.
+ */
+@interface GTLRGKEHub_IdentityServiceGroupConfig : GTLRObject
+
+/**
+ *  Required. The location of the subtree in the LDAP directory to search for
+ *  group entries.
+ */
+@property(nonatomic, copy, nullable) NSString *baseDn;
+
+/**
+ *  Optional. Optional filter to be used when searching for groups a user
+ *  belongs to. This can be used to explicitly match only certain groups in
+ *  order to reduce the amount of groups returned for each user. This defaults
+ *  to "(objectClass=Group)".
+ */
+@property(nonatomic, copy, nullable) NSString *filter;
+
+/**
+ *  Optional. The identifying name of each group a user belongs to. For example,
+ *  if this is set to "distinguishedName" then RBACs and other group
+ *  expectations should be written as full DNs. This defaults to
+ *  "distinguishedName".
+ */
+@property(nonatomic, copy, nullable) NSString *idAttribute;
+
+@end
+
+
+/**
+ *  Holds non-protocol-related configuration options.
+ */
+@interface GTLRGKEHub_IdentityServiceIdentityServiceOptions : GTLRObject
+
+/**
+ *  Optional. Determines the lifespan of STS tokens issued by Anthos Identity
+ *  Service.
+ */
+@property(nonatomic, strong, nullable) GTLRDuration *sessionDuration;
+
+@end
+
+
+/**
+ *  Configuration for the LDAP Auth flow.
+ */
+@interface GTLRGKEHub_IdentityServiceLdapConfig : GTLRObject
+
+/**
+ *  Optional. Contains the properties for locating and authenticating groups in
+ *  the directory.
+ */
+@property(nonatomic, strong, nullable) GTLRGKEHub_IdentityServiceGroupConfig *group;
+
+/** Required. Server settings for the external LDAP server. */
+@property(nonatomic, strong, nullable) GTLRGKEHub_IdentityServiceServerConfig *server;
+
+/**
+ *  Required. Contains the credentials of the service account which is
+ *  authorized to perform the LDAP search in the directory. The credentials can
+ *  be supplied by the combination of the DN and password or the client
+ *  certificate.
+ */
+@property(nonatomic, strong, nullable) GTLRGKEHub_IdentityServiceServiceAccountConfig *serviceAccount;
+
+/** Required. Defines where users exist in the LDAP directory. */
+@property(nonatomic, strong, nullable) GTLRGKEHub_IdentityServiceUserConfig *user;
+
+@end
+
+
+/**
  *  **Anthos Identity Service**: Configuration for a single Membership.
  */
 @interface GTLRGKEHub_IdentityServiceMembershipSpec : GTLRObject
 
 /** A member may support multiple auth methods. */
 @property(nonatomic, strong, nullable) NSArray<GTLRGKEHub_IdentityServiceAuthMethod *> *authMethods;
+
+/** Optional. non-protocol-related configuration options. */
+@property(nonatomic, strong, nullable) GTLRGKEHub_IdentityServiceIdentityServiceOptions *identityServiceOptions;
 
 @end
 
@@ -4369,6 +4696,183 @@ FOUNDATION_EXTERN NSString * const kGTLRGKEHub_Status_Code_Unknown;
 
 
 /**
+ *  Configuration for the SAML Auth flow.
+ */
+@interface GTLRGKEHub_IdentityServiceSamlConfig : GTLRObject
+
+/**
+ *  Optional. The mapping of additional user attributes like nickname, birthday
+ *  and address etc.. `key` is the name of this additional attribute. `value` is
+ *  a string presenting as CEL(common expression language, go/cel) used for
+ *  getting the value from the resources. Take nickname as an example, in this
+ *  case, `key` is "attribute.nickname" and `value` is "assertion.nickname".
+ */
+@property(nonatomic, strong, nullable) GTLRGKEHub_IdentityServiceSamlConfig_AttributeMapping *attributeMapping;
+
+/** Optional. Prefix to prepend to group name. */
+@property(nonatomic, copy, nullable) NSString *groupPrefix;
+
+/**
+ *  Optional. The SAML attribute to read groups from. This value is expected to
+ *  be a string and will be passed along as-is (with the option of being
+ *  prefixed by the `group_prefix`).
+ */
+@property(nonatomic, copy, nullable) NSString *groupsAttribute;
+
+/**
+ *  Required. The list of IdP certificates to validate the SAML response
+ *  against.
+ */
+@property(nonatomic, strong, nullable) NSArray<NSString *> *identityProviderCertificates;
+
+/** Required. The entity ID of the SAML IdP. */
+@property(nonatomic, copy, nullable) NSString *identityProviderId;
+
+/** Required. The URI where the SAML IdP exposes the SSO service. */
+@property(nonatomic, copy, nullable) NSString *identityProviderSsoUri;
+
+/**
+ *  Optional. The SAML attribute to read username from. If unspecified, the
+ *  username will be read from the NameID element of the assertion in SAML
+ *  response. This value is expected to be a string and will be passed along
+ *  as-is (with the option of being prefixed by the `user_prefix`).
+ */
+@property(nonatomic, copy, nullable) NSString *userAttribute;
+
+/** Optional. Prefix to prepend to user name. */
+@property(nonatomic, copy, nullable) NSString *userPrefix;
+
+@end
+
+
+/**
+ *  Optional. The mapping of additional user attributes like nickname, birthday
+ *  and address etc.. `key` is the name of this additional attribute. `value` is
+ *  a string presenting as CEL(common expression language, go/cel) used for
+ *  getting the value from the resources. Take nickname as an example, in this
+ *  case, `key` is "attribute.nickname" and `value` is "assertion.nickname".
+ *
+ *  @note This class is documented as having more properties of NSString. Use @c
+ *        -additionalJSONKeys and @c -additionalPropertyForName: to get the list
+ *        of properties and then fetch them; or @c -additionalProperties to
+ *        fetch them all at once.
+ */
+@interface GTLRGKEHub_IdentityServiceSamlConfig_AttributeMapping : GTLRObject
+@end
+
+
+/**
+ *  Server settings for the external LDAP server.
+ */
+@interface GTLRGKEHub_IdentityServiceServerConfig : GTLRObject
+
+/**
+ *  Optional. Contains a Base64 encoded, PEM formatted certificate authority
+ *  certificate for the LDAP server. This must be provided for the "ldaps" and
+ *  "startTLS" connections.
+ *
+ *  Contains encoded binary data; GTLRBase64 can encode/decode (probably
+ *  web-safe format).
+ */
+@property(nonatomic, copy, nullable) NSString *certificateAuthorityData;
+
+/**
+ *  Optional. Defines the connection type to communicate with the LDAP server.
+ *  If `starttls` or `ldaps` is specified, the certificate_authority_data should
+ *  not be empty.
+ */
+@property(nonatomic, copy, nullable) NSString *connectionType;
+
+/**
+ *  Required. Defines the hostname or IP of the LDAP server. Port is optional
+ *  and will default to 389, if unspecified. For example, "ldap.server.example"
+ *  or "10.10.10.10:389".
+ */
+@property(nonatomic, copy, nullable) NSString *host;
+
+@end
+
+
+/**
+ *  Contains the credentials of the service account which is authorized to
+ *  perform the LDAP search in the directory. The credentials can be supplied by
+ *  the combination of the DN and password or the client certificate.
+ */
+@interface GTLRGKEHub_IdentityServiceServiceAccountConfig : GTLRObject
+
+/** Credentials for basic auth. */
+@property(nonatomic, strong, nullable) GTLRGKEHub_IdentityServiceSimpleBindCredentials *simpleBindCredentials;
+
+@end
+
+
+/**
+ *  The structure holds the LDAP simple binding credential.
+ */
+@interface GTLRGKEHub_IdentityServiceSimpleBindCredentials : GTLRObject
+
+/**
+ *  Required. The distinguished name(DN) of the service account object/user.
+ */
+@property(nonatomic, copy, nullable) NSString *dn;
+
+/**
+ *  Output only. The encrypted password of the service account object/user.
+ *
+ *  Contains encoded binary data; GTLRBase64 can encode/decode (probably
+ *  web-safe format).
+ */
+@property(nonatomic, copy, nullable) NSString *encryptedPassword;
+
+/** Required. Input only. The password of the service account object/user. */
+@property(nonatomic, copy, nullable) NSString *password;
+
+@end
+
+
+/**
+ *  Defines where users exist in the LDAP directory.
+ */
+@interface GTLRGKEHub_IdentityServiceUserConfig : GTLRObject
+
+/**
+ *  Required. The location of the subtree in the LDAP directory to search for
+ *  user entries.
+ */
+@property(nonatomic, copy, nullable) NSString *baseDn;
+
+/**
+ *  Optional. Filter to apply when searching for the user. This can be used to
+ *  further restrict the user accounts which are allowed to login. This defaults
+ *  to "(objectClass=User)".
+ */
+@property(nonatomic, copy, nullable) NSString *filter;
+
+/**
+ *  Optional. Determines which attribute to use as the user's identity after
+ *  they are authenticated. This is distinct from the loginAttribute field to
+ *  allow users to login with a username, but then have their actual identifier
+ *  be an email address or full Distinguished Name (DN). For example, setting
+ *  loginAttribute to "sAMAccountName" and identifierAttribute to
+ *  "userPrincipalName" would allow a user to login as "bsmith", but actual RBAC
+ *  policies for the user would be written as "bsmith\@example.com". Using
+ *  "userPrincipalName" is recommended since this will be unique for each user.
+ *  This defaults to "userPrincipalName".
+ */
+@property(nonatomic, copy, nullable) NSString *idAttribute;
+
+/**
+ *  Optional. The name of the attribute which matches against the input
+ *  username. This is used to find the user in the LDAP database e.g. "(=)" and
+ *  is combined with the optional filter field. This defaults to
+ *  "userPrincipalName".
+ */
+@property(nonatomic, copy, nullable) NSString *loginAttribute;
+
+@end
+
+
+/**
  *  KubernetesMetadata provides informational metadata for Memberships
  *  representing Kubernetes clusters.
  */
@@ -4459,6 +4963,37 @@ FOUNDATION_EXTERN NSString * const kGTLRGKEHub_Status_Code_Unknown;
 
 /** Optional. Options for Kubernetes resource generation. */
 @property(nonatomic, strong, nullable) GTLRGKEHub_ResourceOptions *resourceOptions;
+
+@end
+
+
+/**
+ *  List of Memberships bound to a Scope.
+ *
+ *  @note This class supports NSFastEnumeration and indexed subscripting over
+ *        its "memberships" property. If returned as the result of a query, it
+ *        should support automatic pagination (when @c shouldFetchNextPages is
+ *        enabled).
+ */
+@interface GTLRGKEHub_ListBoundMembershipsResponse : GTLRCollectionObject
+
+/**
+ *  The list of Memberships bound to the given Scope.
+ *
+ *  @note This property is used to support NSFastEnumeration and indexed
+ *        subscripting on this class.
+ */
+@property(nonatomic, strong, nullable) NSArray<GTLRGKEHub_Membership *> *memberships;
+
+/**
+ *  A token to request the next page of resources from the
+ *  `ListBoundMemberships` method. The value of an empty string means that there
+ *  are no more resources to return.
+ */
+@property(nonatomic, copy, nullable) NSString *nextPageToken;
+
+/** List of locations that could not be reached while fetching this list. */
+@property(nonatomic, strong, nullable) NSArray<NSString *> *unreachable;
 
 @end
 
@@ -4568,6 +5103,9 @@ FOUNDATION_EXTERN NSString * const kGTLRGKEHub_Status_Code_Unknown;
  */
 @property(nonatomic, copy, nullable) NSString *nextPageToken;
 
+/** List of locations that could not be reached while fetching this list. */
+@property(nonatomic, strong, nullable) NSArray<NSString *> *unreachable;
+
 @end
 
 
@@ -4622,6 +5160,34 @@ FOUNDATION_EXTERN NSString * const kGTLRGKEHub_Status_Code_Unknown;
  *        subscripting on this class.
  */
 @property(nonatomic, strong, nullable) NSArray<GTLRGKEHub_Operation *> *operations;
+
+@end
+
+
+/**
+ *  List of permitted Scopes.
+ *
+ *  @note This class supports NSFastEnumeration and indexed subscripting over
+ *        its "scopes" property. If returned as the result of a query, it should
+ *        support automatic pagination (when @c shouldFetchNextPages is
+ *        enabled).
+ */
+@interface GTLRGKEHub_ListPermittedScopesResponse : GTLRCollectionObject
+
+/**
+ *  A token to request the next page of resources from the `ListPermittedScopes`
+ *  method. The value of an empty string means that there are no more resources
+ *  to return.
+ */
+@property(nonatomic, copy, nullable) NSString *nextPageToken;
+
+/**
+ *  The list of permitted Scopes
+ *
+ *  @note This property is used to support NSFastEnumeration and indexed
+ *        subscripting on this class.
+ */
+@property(nonatomic, strong, nullable) NSArray<GTLRGKEHub_Scope *> *scopes;
 
 @end
 
@@ -6351,6 +6917,9 @@ FOUNDATION_EXTERN NSString * const kGTLRGKEHub_Status_Code_Unknown;
  *        Posture features on the cluster. (Value: "BASIC")
  *    @arg @c kGTLRGKEHub_SecurityPostureConfig_Mode_Disabled Disables Security
  *        Posture features on the cluster. (Value: "DISABLED")
+ *    @arg @c kGTLRGKEHub_SecurityPostureConfig_Mode_Enterprise Applies the
+ *        Security Posture off cluster Enterprise level features. (Value:
+ *        "ENTERPRISE")
  *    @arg @c kGTLRGKEHub_SecurityPostureConfig_Mode_ModeUnspecified Default
  *        value not specified. (Value: "MODE_UNSPECIFIED")
  */
@@ -6378,12 +6947,139 @@ FOUNDATION_EXTERN NSString * const kGTLRGKEHub_Status_Code_Unknown;
 
 
 /**
+ *  Condition being reported.
+ */
+@interface GTLRGKEHub_ServiceMeshCondition : GTLRObject
+
+/**
+ *  Unique identifier of the condition which describes the condition
+ *  recognizable to the user.
+ *
+ *  Likely values:
+ *    @arg @c kGTLRGKEHub_ServiceMeshCondition_Code_CniConfigUnsupported CNI
+ *        config unsupported error code (Value: "CNI_CONFIG_UNSUPPORTED")
+ *    @arg @c kGTLRGKEHub_ServiceMeshCondition_Code_CniInstallationFailed CNI
+ *        installation failed error code (Value: "CNI_INSTALLATION_FAILED")
+ *    @arg @c kGTLRGKEHub_ServiceMeshCondition_Code_CniPodUnschedulable CNI pod
+ *        unschedulable error code (Value: "CNI_POD_UNSCHEDULABLE")
+ *    @arg @c kGTLRGKEHub_ServiceMeshCondition_Code_CodeUnspecified Default
+ *        Unspecified code (Value: "CODE_UNSPECIFIED")
+ *    @arg @c kGTLRGKEHub_ServiceMeshCondition_Code_ConfigApplyInternalError
+ *        Configuration (Istio/k8s resources) failed to apply due to internal
+ *        error. (Value: "CONFIG_APPLY_INTERNAL_ERROR")
+ *    @arg @c kGTLRGKEHub_ServiceMeshCondition_Code_ConfigValidationError
+ *        Configuration failed to be applied due to being invalid. (Value:
+ *        "CONFIG_VALIDATION_ERROR")
+ *    @arg @c kGTLRGKEHub_ServiceMeshCondition_Code_ConfigValidationWarning
+ *        Encountered configuration(s) with possible unintended behavior or
+ *        invalid configuration. These configs may not have been applied.
+ *        (Value: "CONFIG_VALIDATION_WARNING")
+ *    @arg @c kGTLRGKEHub_ServiceMeshCondition_Code_GkeSandboxUnsupported GKE
+ *        sandbox unsupported error code (Value: "GKE_SANDBOX_UNSUPPORTED")
+ *    @arg @c kGTLRGKEHub_ServiceMeshCondition_Code_MeshIamPermissionDenied Mesh
+ *        IAM permission denied error code (Value: "MESH_IAM_PERMISSION_DENIED")
+ *    @arg @c kGTLRGKEHub_ServiceMeshCondition_Code_NodepoolWorkloadIdentityFederationRequired
+ *        Nodepool workload identity federation required error code (Value:
+ *        "NODEPOOL_WORKLOAD_IDENTITY_FEDERATION_REQUIRED")
+ *    @arg @c kGTLRGKEHub_ServiceMeshCondition_Code_QuotaExceededBackendServices
+ *        BackendService quota exceeded error code. (Value:
+ *        "QUOTA_EXCEEDED_BACKEND_SERVICES")
+ *    @arg @c kGTLRGKEHub_ServiceMeshCondition_Code_QuotaExceededClientTlsPolicies
+ *        ClientTLSPolicy quota exceeded error code. (Value:
+ *        "QUOTA_EXCEEDED_CLIENT_TLS_POLICIES")
+ *    @arg @c kGTLRGKEHub_ServiceMeshCondition_Code_QuotaExceededEndpointPolicies
+ *        EndpointPolicy quota exceeded error code. (Value:
+ *        "QUOTA_EXCEEDED_ENDPOINT_POLICIES")
+ *    @arg @c kGTLRGKEHub_ServiceMeshCondition_Code_QuotaExceededGateways
+ *        Gateway quota exceeded error code. (Value: "QUOTA_EXCEEDED_GATEWAYS")
+ *    @arg @c kGTLRGKEHub_ServiceMeshCondition_Code_QuotaExceededHealthChecks
+ *        HealthCheck quota exceeded error code. (Value:
+ *        "QUOTA_EXCEEDED_HEALTH_CHECKS")
+ *    @arg @c kGTLRGKEHub_ServiceMeshCondition_Code_QuotaExceededHttpFilters
+ *        HTTPFilter quota exceeded error code. (Value:
+ *        "QUOTA_EXCEEDED_HTTP_FILTERS")
+ *    @arg @c kGTLRGKEHub_ServiceMeshCondition_Code_QuotaExceededHttpRoutes
+ *        HTTPRoute quota exceeded error code. (Value:
+ *        "QUOTA_EXCEEDED_HTTP_ROUTES")
+ *    @arg @c kGTLRGKEHub_ServiceMeshCondition_Code_QuotaExceededMeshes Mesh
+ *        quota exceeded error code. (Value: "QUOTA_EXCEEDED_MESHES")
+ *    @arg @c kGTLRGKEHub_ServiceMeshCondition_Code_QuotaExceededNetworkEndpointGroups
+ *        NetworkEndpointGroup quota exceeded error code. (Value:
+ *        "QUOTA_EXCEEDED_NETWORK_ENDPOINT_GROUPS")
+ *    @arg @c kGTLRGKEHub_ServiceMeshCondition_Code_QuotaExceededServerTlsPolicies
+ *        ServerTLSPolicy quota exceeded error code. (Value:
+ *        "QUOTA_EXCEEDED_SERVER_TLS_POLICIES")
+ *    @arg @c kGTLRGKEHub_ServiceMeshCondition_Code_QuotaExceededServiceLbPolicies
+ *        ServiceLBPolicy quota exceeded error code. (Value:
+ *        "QUOTA_EXCEEDED_SERVICE_LB_POLICIES")
+ *    @arg @c kGTLRGKEHub_ServiceMeshCondition_Code_QuotaExceededTcpFilters
+ *        TCPFilter quota exceeded error code. (Value:
+ *        "QUOTA_EXCEEDED_TCP_FILTERS")
+ *    @arg @c kGTLRGKEHub_ServiceMeshCondition_Code_QuotaExceededTcpRoutes
+ *        TCPRoute quota exceeded error code. (Value:
+ *        "QUOTA_EXCEEDED_TCP_ROUTES")
+ *    @arg @c kGTLRGKEHub_ServiceMeshCondition_Code_QuotaExceededTlsRoutes TLS
+ *        routes quota exceeded error code. (Value: "QUOTA_EXCEEDED_TLS_ROUTES")
+ *    @arg @c kGTLRGKEHub_ServiceMeshCondition_Code_QuotaExceededTrafficPolicies
+ *        TrafficPolicy quota exceeded error code. (Value:
+ *        "QUOTA_EXCEEDED_TRAFFIC_POLICIES")
+ *    @arg @c kGTLRGKEHub_ServiceMeshCondition_Code_UnsupportedMultipleControlPlanes
+ *        Multiple control planes unsupported error code (Value:
+ *        "UNSUPPORTED_MULTIPLE_CONTROL_PLANES")
+ *    @arg @c kGTLRGKEHub_ServiceMeshCondition_Code_VpcscGaSupported VPC-SC GA
+ *        is supported for this control plane. (Value: "VPCSC_GA_SUPPORTED")
+ */
+@property(nonatomic, copy, nullable) NSString *code;
+
+/** A short summary about the issue. */
+@property(nonatomic, copy, nullable) NSString *details;
+
+/** Links contains actionable information. */
+@property(nonatomic, copy, nullable) NSString *documentationLink;
+
+/**
+ *  Severity level of the condition.
+ *
+ *  Likely values:
+ *    @arg @c kGTLRGKEHub_ServiceMeshCondition_Severity_Error Indicates an issue
+ *        that prevents the mesh from operating correctly (Value: "ERROR")
+ *    @arg @c kGTLRGKEHub_ServiceMeshCondition_Severity_Info An informational
+ *        message, not requiring any action (Value: "INFO")
+ *    @arg @c kGTLRGKEHub_ServiceMeshCondition_Severity_SeverityUnspecified
+ *        Unspecified severity (Value: "SEVERITY_UNSPECIFIED")
+ *    @arg @c kGTLRGKEHub_ServiceMeshCondition_Severity_Warning Indicates a
+ *        setting is likely wrong, but the mesh is still able to operate (Value:
+ *        "WARNING")
+ */
+@property(nonatomic, copy, nullable) NSString *severity;
+
+@end
+
+
+/**
  *  Status of control plane management.
  */
 @interface GTLRGKEHub_ServiceMeshControlPlaneManagement : GTLRObject
 
 /** Explanation of state. */
 @property(nonatomic, strong, nullable) NSArray<GTLRGKEHub_ServiceMeshStatusDetails *> *details;
+
+/**
+ *  Output only. Implementation of managed control plane.
+ *
+ *  Likely values:
+ *    @arg @c kGTLRGKEHub_ServiceMeshControlPlaneManagement_Implementation_ImplementationUnspecified
+ *        Unspecified (Value: "IMPLEMENTATION_UNSPECIFIED")
+ *    @arg @c kGTLRGKEHub_ServiceMeshControlPlaneManagement_Implementation_Istiod
+ *        A Google build of istiod is used for the managed control plane.
+ *        (Value: "ISTIOD")
+ *    @arg @c kGTLRGKEHub_ServiceMeshControlPlaneManagement_Implementation_TrafficDirector
+ *        Traffic director is used for the managed control plane. (Value:
+ *        "TRAFFIC_DIRECTOR")
+ *    @arg @c kGTLRGKEHub_ServiceMeshControlPlaneManagement_Implementation_Updating
+ *        The control plane implementation is being updated. (Value: "UPDATING")
+ */
+@property(nonatomic, copy, nullable) NSString *implementation;
 
 /**
  *  LifecycleState of control plane management.
@@ -6503,6 +7199,9 @@ FOUNDATION_EXTERN NSString * const kGTLRGKEHub_Status_Code_Unknown;
  *  Mesh Hub Controller.
  */
 @interface GTLRGKEHub_ServiceMeshMembershipState : GTLRObject
+
+/** Output only. List of conditions reported for this membership. */
+@property(nonatomic, strong, nullable) NSArray<GTLRGKEHub_ServiceMeshCondition *> *conditions;
 
 /** Output only. Status of control plane management */
 @property(nonatomic, strong, nullable) GTLRGKEHub_ServiceMeshControlPlaneManagement *controlPlaneManagement;

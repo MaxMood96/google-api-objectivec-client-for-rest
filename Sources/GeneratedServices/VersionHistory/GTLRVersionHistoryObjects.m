@@ -41,6 +41,7 @@ NSString * const kGTLRVersionHistory_Platform_PlatformType_PlatformTypeUnspecifi
 NSString * const kGTLRVersionHistory_Platform_PlatformType_Webview = @"WEBVIEW";
 NSString * const kGTLRVersionHistory_Platform_PlatformType_Win = @"WIN";
 NSString * const kGTLRVersionHistory_Platform_PlatformType_Win64 = @"WIN64";
+NSString * const kGTLRVersionHistory_Platform_PlatformType_WinArm64 = @"WIN_ARM64";
 
 // ----------------------------------------------------------------------------
 //
@@ -166,7 +167,7 @@ NSString * const kGTLRVersionHistory_Platform_PlatformType_Win64 = @"WIN64";
 //
 
 @implementation GTLRVersionHistory_Release
-@dynamic fraction, fractionGroup, name, serving, version;
+@dynamic fraction, fractionGroup, name, pinnable, serving, version;
 @end
 
 

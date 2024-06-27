@@ -107,48 +107,7 @@
 //
 
 @implementation GTLRCloudSecurityToken_GoogleIdentityStsV1betaOptions
-@dynamic accessBoundary, audiences, userProject;
-
-+ (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
-  NSDictionary<NSString *, Class> *map = @{
-    @"audiences" : [NSString class]
-  };
-  return map;
-}
-
-@end
-
-
-// ----------------------------------------------------------------------------
-//
-//   GTLRCloudSecurityToken_GoogleIdentityStsV1ExchangeOauthTokenRequest
-//
-
-@implementation GTLRCloudSecurityToken_GoogleIdentityStsV1ExchangeOauthTokenRequest
-@dynamic clientId, code, codeVerifier, grantType, redirectUri, refreshToken,
-         scope;
-@end
-
-
-// ----------------------------------------------------------------------------
-//
-//   GTLRCloudSecurityToken_GoogleIdentityStsV1ExchangeOauthTokenResponse
-//
-
-@implementation GTLRCloudSecurityToken_GoogleIdentityStsV1ExchangeOauthTokenResponse
-@dynamic accessToken, expiresIn, idToken, refreshToken, scope, tokenType;
-
-+ (NSDictionary<NSString *, NSString *> *)propertyToJSONKeyMap {
-  NSDictionary<NSString *, NSString *> *map = @{
-    @"accessToken" : @"access_token",
-    @"expiresIn" : @"expires_in",
-    @"idToken" : @"id_token",
-    @"refreshToken" : @"refresh_token",
-    @"tokenType" : @"token_type"
-  };
-  return map;
-}
-
+@dynamic accessBoundary, userProject;
 @end
 
 
@@ -186,44 +145,11 @@
 
 // ----------------------------------------------------------------------------
 //
-//   GTLRCloudSecurityToken_GoogleIdentityStsV1IntrospectTokenRequest
-//
-
-@implementation GTLRCloudSecurityToken_GoogleIdentityStsV1IntrospectTokenRequest
-@dynamic token, tokenTypeHint;
-@end
-
-
-// ----------------------------------------------------------------------------
-//
-//   GTLRCloudSecurityToken_GoogleIdentityStsV1IntrospectTokenResponse
-//
-
-@implementation GTLRCloudSecurityToken_GoogleIdentityStsV1IntrospectTokenResponse
-@dynamic active, clientId, exp, iat, iss, scope, sub, username;
-
-+ (NSDictionary<NSString *, NSString *> *)propertyToJSONKeyMap {
-  return @{ @"clientId" : @"client_id" };
-}
-
-@end
-
-
-// ----------------------------------------------------------------------------
-//
 //   GTLRCloudSecurityToken_GoogleIdentityStsV1Options
 //
 
 @implementation GTLRCloudSecurityToken_GoogleIdentityStsV1Options
-@dynamic accessBoundary, audiences, userProject;
-
-+ (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
-  NSDictionary<NSString *, Class> *map = @{
-    @"audiences" : [NSString class]
-  };
-  return map;
-}
-
+@dynamic accessBoundary, userProject;
 @end
 
 

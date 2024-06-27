@@ -543,6 +543,53 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 /**
+ *  Acquire a lease for the setup of SQL Server Reporting Services (SSRS).
+ *
+ *  Method: sql.instances.acquireSsrsLease
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeSQLAdminCloudPlatform
+ *    @c kGTLRAuthScopeSQLAdminSqlserviceAdmin
+ */
+@interface GTLRSQLAdminQuery_InstancesAcquireSsrsLease : GTLRSQLAdminQuery
+
+/**
+ *  Required. Cloud SQL instance ID. This doesn't include the project ID. It's
+ *  composed of lowercase letters, numbers, and hyphens, and it must start with
+ *  a letter. The total length must be 98 characters or less (Example:
+ *  instance-id).
+ */
+@property(nonatomic, copy, nullable) NSString *instance;
+
+/**
+ *  Required. Project ID of the project that contains the instance (Example:
+ *  project-id).
+ */
+@property(nonatomic, copy, nullable) NSString *project;
+
+/**
+ *  Fetches a @c GTLRSQLAdmin_SqlInstancesAcquireSsrsLeaseResponse.
+ *
+ *  Acquire a lease for the setup of SQL Server Reporting Services (SSRS).
+ *
+ *  @param object The @c GTLRSQLAdmin_InstancesAcquireSsrsLeaseRequest to
+ *    include in the query.
+ *  @param project Required. Project ID of the project that contains the
+ *    instance (Example: project-id).
+ *  @param instance Required. Cloud SQL instance ID. This doesn't include the
+ *    project ID. It's composed of lowercase letters, numbers, and hyphens, and
+ *    it must start with a letter. The total length must be 98 characters or
+ *    less (Example: instance-id).
+ *
+ *  @return GTLRSQLAdminQuery_InstancesAcquireSsrsLease
+ */
++ (instancetype)queryWithObject:(GTLRSQLAdmin_InstancesAcquireSsrsLeaseRequest *)object
+                        project:(NSString *)project
+                       instance:(NSString *)instance;
+
+@end
+
+/**
  *  Adds a new trusted Certificate Authority (CA) version for the specified
  *  instance. Required to prepare for a certificate rotation. If a CA version
  *  was previously added but never used in a certificate rotation, this
@@ -1047,8 +1094,8 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 /**
- *  Promotes the read replica instance to be a stand-alone Cloud SQL instance.
- *  Using this operation might cause your instance to restart.
+ *  Promotes the read replica instance to be an independent Cloud SQL primary
+ *  instance. Using this operation might cause your instance to restart.
  *
  *  Method: sql.instances.promoteReplica
  *
@@ -1059,9 +1106,12 @@ NS_ASSUME_NONNULL_BEGIN
 @interface GTLRSQLAdminQuery_InstancesPromoteReplica : GTLRSQLAdminQuery
 
 /**
- *  Set to true if the promote operation should attempt to re-add the original
- *  primary as a replica when it comes back online. Otherwise, if this value is
- *  false or not set, the original primary will be a standalone instance.
+ *  Set to true to invoke a replica failover to the designated DR replica. As
+ *  part of replica failover, the promote operation attempts to add the original
+ *  primary instance as a replica of the promoted DR replica when the original
+ *  primary instance comes back online. If set to false or not specified, then
+ *  the original primary instance becomes an independent Cloud SQL primary
+ *  instance. Only applicable to MySQL.
  */
 @property(nonatomic, assign) BOOL failover;
 
@@ -1074,8 +1124,8 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Fetches a @c GTLRSQLAdmin_Operation.
  *
- *  Promotes the read replica instance to be a stand-alone Cloud SQL instance.
- *  Using this operation might cause your instance to restart.
+ *  Promotes the read replica instance to be an independent Cloud SQL primary
+ *  instance. Using this operation might cause your instance to restart.
  *
  *  @param project ID of the project that contains the read replica.
  *  @param instance Cloud SQL read replica instance name.
@@ -1119,6 +1169,46 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)queryWithObject:(GTLRSQLAdmin_InstancesReencryptRequest *)object
                         project:(NSString *)project
                        instance:(NSString *)instance;
+
+@end
+
+/**
+ *  Release a lease for the setup of SQL Server Reporting Services (SSRS).
+ *
+ *  Method: sql.instances.releaseSsrsLease
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeSQLAdminCloudPlatform
+ *    @c kGTLRAuthScopeSQLAdminSqlserviceAdmin
+ */
+@interface GTLRSQLAdminQuery_InstancesReleaseSsrsLease : GTLRSQLAdminQuery
+
+/**
+ *  Required. The Cloud SQL instance ID. This doesn't include the project ID.
+ *  The instance ID contains lowercase letters, numbers, and hyphens, and it
+ *  must start with a letter. This ID can have a maximum length of 98
+ *  characters.
+ */
+@property(nonatomic, copy, nullable) NSString *instance;
+
+/** Required. The project ID that contains the instance. */
+@property(nonatomic, copy, nullable) NSString *project;
+
+/**
+ *  Fetches a @c GTLRSQLAdmin_SqlInstancesReleaseSsrsLeaseResponse.
+ *
+ *  Release a lease for the setup of SQL Server Reporting Services (SSRS).
+ *
+ *  @param project Required. The project ID that contains the instance.
+ *  @param instance Required. The Cloud SQL instance ID. This doesn't include
+ *    the project ID. The instance ID contains lowercase letters, numbers, and
+ *    hyphens, and it must start with a letter. This ID can have a maximum
+ *    length of 98 characters.
+ *
+ *  @return GTLRSQLAdminQuery_InstancesReleaseSsrsLease
+ */
++ (instancetype)queryWithProject:(NSString *)project
+                        instance:(NSString *)instance;
 
 @end
 
@@ -1328,7 +1418,8 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 /**
- *  Switches over from the primary instance to the replica instance.
+ *  Switches over from the primary instance to the designated DR replica
+ *  instance.
  *
  *  Method: sql.instances.switchover
  *
@@ -1354,7 +1445,8 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Fetches a @c GTLRSQLAdmin_Operation.
  *
- *  Switches over from the primary instance to the replica instance.
+ *  Switches over from the primary instance to the designated DR replica
+ *  instance.
  *
  *  @param project ID of the project that contains the replica.
  *  @param instance Cloud SQL read replica instance name.

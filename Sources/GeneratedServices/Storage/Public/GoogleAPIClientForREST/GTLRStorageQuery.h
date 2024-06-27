@@ -806,6 +806,44 @@ FOUNDATION_EXTERN NSString * const kGTLRStorageProjectionNoAcl;
 @end
 
 /**
+ *  Returns the storage layout configuration for the specified bucket. Note that
+ *  this operation requires storage.objects.list permission.
+ *
+ *  Method: storage.buckets.getStorageLayout
+ *
+ *  Authorization scope(s):
+ *    @c kGTLRAuthScopeStorageCloudPlatform
+ *    @c kGTLRAuthScopeStorageCloudPlatformReadOnly
+ *    @c kGTLRAuthScopeStorageDevstorageFullControl
+ *    @c kGTLRAuthScopeStorageDevstorageReadOnly
+ *    @c kGTLRAuthScopeStorageDevstorageReadWrite
+ */
+@interface GTLRStorageQuery_BucketsGetStorageLayout : GTLRStorageQuery
+
+/** Name of a bucket. */
+@property(nonatomic, copy, nullable) NSString *bucket;
+
+/**
+ *  An optional prefix used for permission check. It is useful when the caller
+ *  only has storage.objects.list permission under a specific prefix.
+ */
+@property(nonatomic, copy, nullable) NSString *prefix;
+
+/**
+ *  Fetches a @c GTLRStorage_BucketStorageLayout.
+ *
+ *  Returns the storage layout configuration for the specified bucket. Note that
+ *  this operation requires storage.objects.list permission.
+ *
+ *  @param bucket Name of a bucket.
+ *
+ *  @return GTLRStorageQuery_BucketsGetStorageLayout
+ */
++ (instancetype)queryWithBucket:(NSString *)bucket;
+
+@end
+
+/**
  *  Creates a new bucket.
  *
  *  Method: storage.buckets.insert
@@ -1846,6 +1884,13 @@ FOUNDATION_EXTERN NSString * const kGTLRStorageProjectionNoAcl;
  *    @c kGTLRAuthScopeStorageDevstorageReadWrite
  */
 @interface GTLRStorageQuery_ManagedFoldersDelete : GTLRStorageQuery
+
+/**
+ *  Allows the deletion of a managed folder even if it is not empty. A managed
+ *  folder is empty if there are no objects or managed folders that it applies
+ *  to. Callers must have storage.managedFolders.setIamPolicy permission.
+ */
+@property(nonatomic, assign) BOOL allowNonEmpty;
 
 /** Name of the bucket containing the managed folder. */
 @property(nonatomic, copy, nullable) NSString *bucket;
@@ -3632,17 +3677,15 @@ FOUNDATION_EXTERN NSString * const kGTLRStorageProjectionNoAcl;
  *
  *  Restores a soft-deleted object.
  *
- *  @param object The @c GTLRStorage_Object to include in the query.
  *  @param bucket Name of the bucket in which the object resides.
- *  @param object_param Name of the object. For information about how to URL
- *    encode object names to be path safe, see Encoding URI Path Parts.
+ *  @param object Name of the object. For information about how to URL encode
+ *    object names to be path safe, see Encoding URI Path Parts.
  *  @param generation Selects a specific revision of this object.
  *
  *  @return GTLRStorageQuery_ObjectsRestore
  */
-+ (instancetype)queryWithObject:(GTLRStorage_Object *)object
-                         bucket:(NSString *)bucket
-                         object:(NSString *)object_param
++ (instancetype)queryWithBucket:(NSString *)bucket
+                         object:(NSString *)object
                      generation:(long long)generation;
 
 @end

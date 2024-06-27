@@ -101,6 +101,13 @@ FOUNDATION_EXTERN NSString * const kGTLRBlockchainNodeEngine_BlockchainNode_Stat
  */
 FOUNDATION_EXTERN NSString * const kGTLRBlockchainNodeEngine_BlockchainNode_State_StateUnspecified;
 /**
+ *  The node is syncing, which is the process by which it obtains the latest
+ *  block and current global state.
+ *
+ *  Value: "SYNCING"
+ */
+FOUNDATION_EXTERN NSString * const kGTLRBlockchainNodeEngine_BlockchainNode_State_Syncing;
+/**
  *  The node is currently being updated.
  *
  *  Value: "UPDATING"
@@ -176,11 +183,12 @@ FOUNDATION_EXTERN NSString * const kGTLRBlockchainNodeEngine_EthereumDetails_Net
  */
 FOUNDATION_EXTERN NSString * const kGTLRBlockchainNodeEngine_EthereumDetails_Network_NetworkUnspecified;
 /**
- *  The Ethereum Testnet based on Goerli protocol.
+ *  Deprecated: The Ethereum Testnet based on Goerli protocol. Please use
+ *  another test network.
  *
  *  Value: "TESTNET_GOERLI_PRATER"
  */
-FOUNDATION_EXTERN NSString * const kGTLRBlockchainNodeEngine_EthereumDetails_Network_TestnetGoerliPrater;
+FOUNDATION_EXTERN NSString * const kGTLRBlockchainNodeEngine_EthereumDetails_Network_TestnetGoerliPrater GTLR_DEPRECATED;
 /**
  *  The Ethereum Testnet based on Holesky specification. See
  *  https://github.com/eth-clients/holesky.
@@ -327,6 +335,9 @@ FOUNDATION_EXTERN NSString * const kGTLRBlockchainNodeEngine_GethDetails_Garbage
  *        running and ready for use. (Value: "RUNNING")
  *    @arg @c kGTLRBlockchainNodeEngine_BlockchainNode_State_StateUnspecified
  *        The state has not been specified. (Value: "STATE_UNSPECIFIED")
+ *    @arg @c kGTLRBlockchainNodeEngine_BlockchainNode_State_Syncing The node is
+ *        syncing, which is the process by which it obtains the latest block and
+ *        current global state. (Value: "SYNCING")
  *    @arg @c kGTLRBlockchainNodeEngine_BlockchainNode_State_Updating The node
  *        is currently being updated. (Value: "UPDATING")
  */
@@ -471,8 +482,8 @@ FOUNDATION_EXTERN NSString * const kGTLRBlockchainNodeEngine_GethDetails_Garbage
  *        The network has not been specified, but should be. (Value:
  *        "NETWORK_UNSPECIFIED")
  *    @arg @c kGTLRBlockchainNodeEngine_EthereumDetails_Network_TestnetGoerliPrater
- *        The Ethereum Testnet based on Goerli protocol. (Value:
- *        "TESTNET_GOERLI_PRATER")
+ *        Deprecated: The Ethereum Testnet based on Goerli protocol. Please use
+ *        another test network. (Value: "TESTNET_GOERLI_PRATER")
  *    @arg @c kGTLRBlockchainNodeEngine_EthereumDetails_Network_TestnetHolesky
  *        The Ethereum Testnet based on Holesky specification. See
  *        https://github.com/eth-clients/holesky. (Value: "TESTNET_HOLESKY")

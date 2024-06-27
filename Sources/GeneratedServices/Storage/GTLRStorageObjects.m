@@ -404,6 +404,45 @@
 
 // ----------------------------------------------------------------------------
 //
+//   GTLRStorage_BucketStorageLayout
+//
+
+@implementation GTLRStorage_BucketStorageLayout
+@dynamic bucket, customPlacementConfig, hierarchicalNamespace, kind, location,
+         locationType;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRStorage_BucketStorageLayout_CustomPlacementConfig
+//
+
+@implementation GTLRStorage_BucketStorageLayout_CustomPlacementConfig
+@dynamic dataLocations;
+
++ (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
+  NSDictionary<NSString *, Class> *map = @{
+    @"dataLocations" : [NSString class]
+  };
+  return map;
+}
+
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRStorage_BucketStorageLayout_HierarchicalNamespace
+//
+
+@implementation GTLRStorage_BucketStorageLayout_HierarchicalNamespace
+@dynamic enabled;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
 //   GTLRStorage_BulkRestoreObjectsRequest
 //
 
@@ -554,7 +593,7 @@
 //
 
 @implementation GTLRStorage_GoogleLongrunningListOperationsResponse
-@dynamic nextPageToken, operations;
+@dynamic kind, nextPageToken, operations;
 
 + (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
   NSDictionary<NSString *, Class> *map = @{
@@ -576,7 +615,7 @@
 //
 
 @implementation GTLRStorage_GoogleLongrunningOperation
-@dynamic done, error, metadata, name, response;
+@dynamic done, error, kind, metadata, name, response, selfLink;
 @end
 
 

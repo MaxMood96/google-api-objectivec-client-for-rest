@@ -60,12 +60,14 @@ NSString * const kGTLRDatabaseMigrationService_CloudSqlSettings_DatabaseVersion_
 NSString * const kGTLRDatabaseMigrationService_CloudSqlSettings_DatabaseVersion_Mysql8033 = @"MYSQL_8_0_33";
 NSString * const kGTLRDatabaseMigrationService_CloudSqlSettings_DatabaseVersion_Mysql8034 = @"MYSQL_8_0_34";
 NSString * const kGTLRDatabaseMigrationService_CloudSqlSettings_DatabaseVersion_Mysql8035 = @"MYSQL_8_0_35";
+NSString * const kGTLRDatabaseMigrationService_CloudSqlSettings_DatabaseVersion_Mysql8036 = @"MYSQL_8_0_36";
 NSString * const kGTLRDatabaseMigrationService_CloudSqlSettings_DatabaseVersion_Postgres10 = @"POSTGRES_10";
 NSString * const kGTLRDatabaseMigrationService_CloudSqlSettings_DatabaseVersion_Postgres11 = @"POSTGRES_11";
 NSString * const kGTLRDatabaseMigrationService_CloudSqlSettings_DatabaseVersion_Postgres12 = @"POSTGRES_12";
 NSString * const kGTLRDatabaseMigrationService_CloudSqlSettings_DatabaseVersion_Postgres13 = @"POSTGRES_13";
 NSString * const kGTLRDatabaseMigrationService_CloudSqlSettings_DatabaseVersion_Postgres14 = @"POSTGRES_14";
 NSString * const kGTLRDatabaseMigrationService_CloudSqlSettings_DatabaseVersion_Postgres15 = @"POSTGRES_15";
+NSString * const kGTLRDatabaseMigrationService_CloudSqlSettings_DatabaseVersion_Postgres16 = @"POSTGRES_16";
 NSString * const kGTLRDatabaseMigrationService_CloudSqlSettings_DatabaseVersion_Postgres96 = @"POSTGRES_9_6";
 NSString * const kGTLRDatabaseMigrationService_CloudSqlSettings_DatabaseVersion_SqlDatabaseVersionUnspecified = @"SQL_DATABASE_VERSION_UNSPECIFIED";
 
@@ -101,6 +103,7 @@ NSString * const kGTLRDatabaseMigrationService_DatabaseEngineInfo_Engine_Databas
 NSString * const kGTLRDatabaseMigrationService_DatabaseEngineInfo_Engine_Mysql = @"MYSQL";
 NSString * const kGTLRDatabaseMigrationService_DatabaseEngineInfo_Engine_Oracle = @"ORACLE";
 NSString * const kGTLRDatabaseMigrationService_DatabaseEngineInfo_Engine_Postgresql = @"POSTGRESQL";
+NSString * const kGTLRDatabaseMigrationService_DatabaseEngineInfo_Engine_Sqlserver = @"SQLSERVER";
 
 // GTLRDatabaseMigrationService_DatabaseEntity.entityType
 NSString * const kGTLRDatabaseMigrationService_DatabaseEntity_EntityType_DatabaseEntityTypeColumn = @"DATABASE_ENTITY_TYPE_COLUMN";
@@ -131,6 +134,7 @@ NSString * const kGTLRDatabaseMigrationService_DatabaseType_Engine_DatabaseEngin
 NSString * const kGTLRDatabaseMigrationService_DatabaseType_Engine_Mysql = @"MYSQL";
 NSString * const kGTLRDatabaseMigrationService_DatabaseType_Engine_Oracle = @"ORACLE";
 NSString * const kGTLRDatabaseMigrationService_DatabaseType_Engine_Postgresql = @"POSTGRESQL";
+NSString * const kGTLRDatabaseMigrationService_DatabaseType_Engine_Sqlserver = @"SQLSERVER";
 
 // GTLRDatabaseMigrationService_DatabaseType.provider
 NSString * const kGTLRDatabaseMigrationService_DatabaseType_Provider_Alloydb = @"ALLOYDB";
@@ -271,12 +275,19 @@ NSString * const kGTLRDatabaseMigrationService_MappingRule_State_Disabled = @"DI
 NSString * const kGTLRDatabaseMigrationService_MappingRule_State_Enabled = @"ENABLED";
 NSString * const kGTLRDatabaseMigrationService_MappingRule_State_StateUnspecified = @"STATE_UNSPECIFIED";
 
+// GTLRDatabaseMigrationService_MigrationJob.dumpType
+NSString * const kGTLRDatabaseMigrationService_MigrationJob_DumpType_DumpTypeUnspecified = @"DUMP_TYPE_UNSPECIFIED";
+NSString * const kGTLRDatabaseMigrationService_MigrationJob_DumpType_Logical = @"LOGICAL";
+NSString * const kGTLRDatabaseMigrationService_MigrationJob_DumpType_Physical = @"PHYSICAL";
+
 // GTLRDatabaseMigrationService_MigrationJob.phase
 NSString * const kGTLRDatabaseMigrationService_MigrationJob_Phase_Cdc = @"CDC";
+NSString * const kGTLRDatabaseMigrationService_MigrationJob_Phase_DiffBackup = @"DIFF_BACKUP";
 NSString * const kGTLRDatabaseMigrationService_MigrationJob_Phase_FullDump = @"FULL_DUMP";
 NSString * const kGTLRDatabaseMigrationService_MigrationJob_Phase_PhaseUnspecified = @"PHASE_UNSPECIFIED";
 NSString * const kGTLRDatabaseMigrationService_MigrationJob_Phase_PreparingTheDump = @"PREPARING_THE_DUMP";
 NSString * const kGTLRDatabaseMigrationService_MigrationJob_Phase_PromoteInProgress = @"PROMOTE_IN_PROGRESS";
+NSString * const kGTLRDatabaseMigrationService_MigrationJob_Phase_ReadyForPromote = @"READY_FOR_PROMOTE";
 NSString * const kGTLRDatabaseMigrationService_MigrationJob_Phase_WaitingForSourceWritesToStop = @"WAITING_FOR_SOURCE_WRITES_TO_STOP";
 
 // GTLRDatabaseMigrationService_MigrationJob.state
@@ -322,6 +333,7 @@ NSString * const kGTLRDatabaseMigrationService_MigrationJobVerificationError_Err
 NSString * const kGTLRDatabaseMigrationService_MigrationJobVerificationError_ErrorCode_ParallelImportInsufficientPrivilege = @"PARALLEL_IMPORT_INSUFFICIENT_PRIVILEGE";
 NSString * const kGTLRDatabaseMigrationService_MigrationJobVerificationError_ErrorCode_PglogicalNodeAlreadyExists = @"PGLOGICAL_NODE_ALREADY_EXISTS";
 NSString * const kGTLRDatabaseMigrationService_MigrationJobVerificationError_ErrorCode_SourceAlreadySetup = @"SOURCE_ALREADY_SETUP";
+NSString * const kGTLRDatabaseMigrationService_MigrationJobVerificationError_ErrorCode_SourceMaxSubscriptions = @"SOURCE_MAX_SUBSCRIPTIONS";
 NSString * const kGTLRDatabaseMigrationService_MigrationJobVerificationError_ErrorCode_SourceSizeExceedsThreshold = @"SOURCE_SIZE_EXCEEDS_THRESHOLD";
 NSString * const kGTLRDatabaseMigrationService_MigrationJobVerificationError_ErrorCode_TablesWithLimitedSupport = @"TABLES_WITH_LIMITED_SUPPORT";
 NSString * const kGTLRDatabaseMigrationService_MigrationJobVerificationError_ErrorCode_UnsupportedDatabaseFdwConfig = @"UNSUPPORTED_DATABASE_FDW_CONFIG";
@@ -683,7 +695,7 @@ NSString * const kGTLRDatabaseMigrationService_ValueListFilter_ValuePresentList_
 
 @implementation GTLRDatabaseMigrationService_ConnectionProfile
 @dynamic alloydb, cloudsql, createTime, displayName, error, labels, mysql, name,
-         oracle, postgresql, provider, state, updateTime;
+         oracle, postgresql, provider, sqlserver, state, updateTime;
 @end
 
 
@@ -1213,11 +1225,13 @@ NSString * const kGTLRDatabaseMigrationService_ValueListFilter_ValuePresentList_
 //
 
 @implementation GTLRDatabaseMigrationService_IndexEntity
-@dynamic customFeatures, name, tableColumns, type, unique;
+@dynamic customFeatures, name, tableColumns, tableColumnsDescending, type,
+         unique;
 
 + (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
   NSDictionary<NSString *, Class> *map = @{
-    @"tableColumns" : [NSString class]
+    @"tableColumns" : [NSString class],
+    @"tableColumnsDescending" : [NSNumber class]
   };
   return map;
 }
@@ -1519,10 +1533,11 @@ NSString * const kGTLRDatabaseMigrationService_ValueListFilter_ValuePresentList_
 
 @implementation GTLRDatabaseMigrationService_MigrationJob
 @dynamic cmekKeyName, conversionWorkspace, createTime, destination,
-         destinationDatabase, displayName, dumpFlags, dumpPath, duration,
-         endTime, error, filter, labels, name, performanceConfig, phase,
-         reverseSshConnectivity, source, sourceDatabase, state,
-         staticIpConnectivity, type, updateTime, vpcPeeringConnectivity;
+         destinationDatabase, displayName, dumpFlags, dumpPath, dumpType,
+         duration, endTime, error, filter, labels, name, performanceConfig,
+         phase, reverseSshConnectivity, source, sourceDatabase,
+         sqlserverHomogeneousMigrationJobConfig, state, staticIpConnectivity,
+         type, updateTime, vpcPeeringConnectivity;
 @end
 
 
@@ -1837,6 +1852,7 @@ NSString * const kGTLRDatabaseMigrationService_ValueListFilter_ValuePresentList_
 //
 
 @implementation GTLRDatabaseMigrationService_ResumeMigrationJobRequest
+@dynamic skipValidation;
 @end
 
 
@@ -2101,6 +2117,66 @@ NSString * const kGTLRDatabaseMigrationService_ValueListFilter_ValuePresentList_
 + (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
   NSDictionary<NSString *, Class> *map = @{
     @"authorizedNetworks" : [GTLRDatabaseMigrationService_SqlAclEntry class]
+  };
+  return map;
+}
+
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRDatabaseMigrationService_SqlServerBackups
+//
+
+@implementation GTLRDatabaseMigrationService_SqlServerBackups
+@dynamic gcsBucket, gcsPrefix;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRDatabaseMigrationService_SqlServerConnectionProfile
+//
+
+@implementation GTLRDatabaseMigrationService_SqlServerConnectionProfile
+@dynamic backups, cloudSqlId, forwardSshConnectivity, host, password,
+         passwordSet, port, privateConnectivity,
+         privateServiceConnectConnectivity, ssl, staticIpConnectivity, username;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRDatabaseMigrationService_SqlServerDatabaseBackup
+//
+
+@implementation GTLRDatabaseMigrationService_SqlServerDatabaseBackup
+@dynamic database, encryptionOptions;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRDatabaseMigrationService_SqlServerEncryptionOptions
+//
+
+@implementation GTLRDatabaseMigrationService_SqlServerEncryptionOptions
+@dynamic certPath, pvkPassword, pvkPath;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRDatabaseMigrationService_SqlServerHomogeneousMigrationJobConfig
+//
+
+@implementation GTLRDatabaseMigrationService_SqlServerHomogeneousMigrationJobConfig
+@dynamic backupFilePattern, databaseBackups, useDiffBackup;
+
++ (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
+  NSDictionary<NSString *, Class> *map = @{
+    @"databaseBackups" : [GTLRDatabaseMigrationService_SqlServerDatabaseBackup class]
   };
   return map;
 }

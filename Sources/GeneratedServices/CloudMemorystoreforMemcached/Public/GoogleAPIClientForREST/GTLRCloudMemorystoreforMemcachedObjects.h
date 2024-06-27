@@ -1339,6 +1339,20 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudMemorystoreforMemcached_WeeklyMaint
 @property(nonatomic, strong, nullable) NSArray<NSString *> *reservedIpRangeId;
 
 /**
+ *  Optional. Output only. Reserved for future use.
+ *
+ *  Uses NSNumber of boolValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *satisfiesPzi;
+
+/**
+ *  Optional. Output only. Reserved for future use.
+ *
+ *  Uses NSNumber of boolValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *satisfiesPzs;
+
+/**
  *  Output only. The state of this Memcached instance.
  *
  *  Likely values:
@@ -1585,7 +1599,7 @@ FOUNDATION_EXTERN NSString * const kGTLRCloudMemorystoreforMemcached_WeeklyMaint
 
 
 /**
- *  LINT.IfChange Defines policies to service maintenance events.
+ *  Defines policies to service maintenance events.
  */
 @interface GTLRCloudMemorystoreforMemcached_MaintenancePolicy : GTLRObject
 

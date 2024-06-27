@@ -324,7 +324,8 @@ NSString * const kGTLRCertificateAuthorityService_RevokedCertificate_RevocationR
 @implementation GTLRCertificateAuthorityService_CertificateAuthority
 @dynamic accessUrls, caCertificateDescriptions, config, createTime, deleteTime,
          expireTime, gcsBucket, keySpec, labels, lifetime, name,
-         pemCaCertificates, state, subordinateConfig, tier, type, updateTime;
+         pemCaCertificates, satisfiesPzi, satisfiesPzs, state,
+         subordinateConfig, tier, type, updateTime;
 
 + (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
   NSDictionary<NSString *, Class> *map = @{
@@ -357,7 +358,17 @@ NSString * const kGTLRCertificateAuthorityService_RevokedCertificate_RevocationR
 //
 
 @implementation GTLRCertificateAuthorityService_CertificateConfig
-@dynamic publicKey, subjectConfig, x509Config;
+@dynamic publicKey, subjectConfig, subjectKeyId, x509Config;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRCertificateAuthorityService_CertificateConfigKeyId
+//
+
+@implementation GTLRCertificateAuthorityService_CertificateConfigKeyId
+@dynamic keyId;
 @end
 
 

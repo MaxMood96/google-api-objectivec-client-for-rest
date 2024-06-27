@@ -186,6 +186,7 @@ NSString * const kGTLRDisplayVideo_AlgorithmRulesComparisonValue_ExchangeValue_E
 NSString * const kGTLRDisplayVideo_AlgorithmRulesComparisonValue_ExchangeValue_ExchangeConnatix = @"EXCHANGE_CONNATIX";
 NSString * const kGTLRDisplayVideo_AlgorithmRulesComparisonValue_ExchangeValue_ExchangeDailymotion = @"EXCHANGE_DAILYMOTION";
 NSString * const kGTLRDisplayVideo_AlgorithmRulesComparisonValue_ExchangeValue_ExchangeDax = @"EXCHANGE_DAX";
+NSString * const kGTLRDisplayVideo_AlgorithmRulesComparisonValue_ExchangeValue_ExchangeDrax = @"EXCHANGE_DRAX";
 NSString * const kGTLRDisplayVideo_AlgorithmRulesComparisonValue_ExchangeValue_ExchangeFive = @"EXCHANGE_FIVE";
 NSString * const kGTLRDisplayVideo_AlgorithmRulesComparisonValue_ExchangeValue_ExchangeFluct = @"EXCHANGE_FLUCT";
 NSString * const kGTLRDisplayVideo_AlgorithmRulesComparisonValue_ExchangeValue_ExchangeFreewheel = @"EXCHANGE_FREEWHEEL";
@@ -291,10 +292,12 @@ NSString * const kGTLRDisplayVideo_AppAssignedTargetingOptionDetails_AppPlatform
 NSString * const kGTLRDisplayVideo_AppAssignedTargetingOptionDetails_AppPlatform_AppPlatformAppleTv = @"APP_PLATFORM_APPLE_TV";
 NSString * const kGTLRDisplayVideo_AppAssignedTargetingOptionDetails_AppPlatform_AppPlatformGenericCtv = @"APP_PLATFORM_GENERIC_CTV";
 NSString * const kGTLRDisplayVideo_AppAssignedTargetingOptionDetails_AppPlatform_AppPlatformIos = @"APP_PLATFORM_IOS";
+NSString * const kGTLRDisplayVideo_AppAssignedTargetingOptionDetails_AppPlatform_AppPlatformLgTv = @"APP_PLATFORM_LG_TV";
 NSString * const kGTLRDisplayVideo_AppAssignedTargetingOptionDetails_AppPlatform_AppPlatformPlaystation = @"APP_PLATFORM_PLAYSTATION";
 NSString * const kGTLRDisplayVideo_AppAssignedTargetingOptionDetails_AppPlatform_AppPlatformRoku = @"APP_PLATFORM_ROKU";
 NSString * const kGTLRDisplayVideo_AppAssignedTargetingOptionDetails_AppPlatform_AppPlatformSamsungTv = @"APP_PLATFORM_SAMSUNG_TV";
 NSString * const kGTLRDisplayVideo_AppAssignedTargetingOptionDetails_AppPlatform_AppPlatformUnspecified = @"APP_PLATFORM_UNSPECIFIED";
+NSString * const kGTLRDisplayVideo_AppAssignedTargetingOptionDetails_AppPlatform_AppPlatformVizioTv = @"APP_PLATFORM_VIZIO_TV";
 NSString * const kGTLRDisplayVideo_AppAssignedTargetingOptionDetails_AppPlatform_AppPlatformXbox = @"APP_PLATFORM_XBOX";
 
 // GTLRDisplayVideo_AssetAssociation.role
@@ -623,6 +626,7 @@ NSString * const kGTLRDisplayVideo_CreateSdfDownloadTaskRequest_Version_SdfVersi
 NSString * const kGTLRDisplayVideo_CreateSdfDownloadTaskRequest_Version_SdfVersion55 = @"SDF_VERSION_5_5";
 NSString * const kGTLRDisplayVideo_CreateSdfDownloadTaskRequest_Version_SdfVersion6 = @"SDF_VERSION_6";
 NSString * const kGTLRDisplayVideo_CreateSdfDownloadTaskRequest_Version_SdfVersion7 = @"SDF_VERSION_7";
+NSString * const kGTLRDisplayVideo_CreateSdfDownloadTaskRequest_Version_SdfVersion71 = @"SDF_VERSION_7_1";
 NSString * const kGTLRDisplayVideo_CreateSdfDownloadTaskRequest_Version_SdfVersionUnspecified = @"SDF_VERSION_UNSPECIFIED";
 
 // GTLRDisplayVideo_Creative.creativeAttributes
@@ -1002,6 +1006,7 @@ NSString * const kGTLRDisplayVideo_ExchangeAssignedTargetingOptionDetails_Exchan
 NSString * const kGTLRDisplayVideo_ExchangeAssignedTargetingOptionDetails_Exchange_ExchangeConnatix = @"EXCHANGE_CONNATIX";
 NSString * const kGTLRDisplayVideo_ExchangeAssignedTargetingOptionDetails_Exchange_ExchangeDailymotion = @"EXCHANGE_DAILYMOTION";
 NSString * const kGTLRDisplayVideo_ExchangeAssignedTargetingOptionDetails_Exchange_ExchangeDax = @"EXCHANGE_DAX";
+NSString * const kGTLRDisplayVideo_ExchangeAssignedTargetingOptionDetails_Exchange_ExchangeDrax = @"EXCHANGE_DRAX";
 NSString * const kGTLRDisplayVideo_ExchangeAssignedTargetingOptionDetails_Exchange_ExchangeFive = @"EXCHANGE_FIVE";
 NSString * const kGTLRDisplayVideo_ExchangeAssignedTargetingOptionDetails_Exchange_ExchangeFluct = @"EXCHANGE_FLUCT";
 NSString * const kGTLRDisplayVideo_ExchangeAssignedTargetingOptionDetails_Exchange_ExchangeFreewheel = @"EXCHANGE_FREEWHEEL";
@@ -1085,6 +1090,7 @@ NSString * const kGTLRDisplayVideo_ExchangeConfigEnabledExchange_Exchange_Exchan
 NSString * const kGTLRDisplayVideo_ExchangeConfigEnabledExchange_Exchange_ExchangeConnatix = @"EXCHANGE_CONNATIX";
 NSString * const kGTLRDisplayVideo_ExchangeConfigEnabledExchange_Exchange_ExchangeDailymotion = @"EXCHANGE_DAILYMOTION";
 NSString * const kGTLRDisplayVideo_ExchangeConfigEnabledExchange_Exchange_ExchangeDax = @"EXCHANGE_DAX";
+NSString * const kGTLRDisplayVideo_ExchangeConfigEnabledExchange_Exchange_ExchangeDrax = @"EXCHANGE_DRAX";
 NSString * const kGTLRDisplayVideo_ExchangeConfigEnabledExchange_Exchange_ExchangeFive = @"EXCHANGE_FIVE";
 NSString * const kGTLRDisplayVideo_ExchangeConfigEnabledExchange_Exchange_ExchangeFluct = @"EXCHANGE_FLUCT";
 NSString * const kGTLRDisplayVideo_ExchangeConfigEnabledExchange_Exchange_ExchangeFreewheel = @"EXCHANGE_FREEWHEEL";
@@ -1168,6 +1174,7 @@ NSString * const kGTLRDisplayVideo_ExchangeReviewStatus_Exchange_ExchangeChartbo
 NSString * const kGTLRDisplayVideo_ExchangeReviewStatus_Exchange_ExchangeConnatix = @"EXCHANGE_CONNATIX";
 NSString * const kGTLRDisplayVideo_ExchangeReviewStatus_Exchange_ExchangeDailymotion = @"EXCHANGE_DAILYMOTION";
 NSString * const kGTLRDisplayVideo_ExchangeReviewStatus_Exchange_ExchangeDax = @"EXCHANGE_DAX";
+NSString * const kGTLRDisplayVideo_ExchangeReviewStatus_Exchange_ExchangeDrax = @"EXCHANGE_DRAX";
 NSString * const kGTLRDisplayVideo_ExchangeReviewStatus_Exchange_ExchangeFive = @"EXCHANGE_FIVE";
 NSString * const kGTLRDisplayVideo_ExchangeReviewStatus_Exchange_ExchangeFluct = @"EXCHANGE_FLUCT";
 NSString * const kGTLRDisplayVideo_ExchangeReviewStatus_Exchange_ExchangeFreewheel = @"EXCHANGE_FREEWHEEL";
@@ -1257,6 +1264,7 @@ NSString * const kGTLRDisplayVideo_ExchangeTargetingOptionDetails_Exchange_Excha
 NSString * const kGTLRDisplayVideo_ExchangeTargetingOptionDetails_Exchange_ExchangeConnatix = @"EXCHANGE_CONNATIX";
 NSString * const kGTLRDisplayVideo_ExchangeTargetingOptionDetails_Exchange_ExchangeDailymotion = @"EXCHANGE_DAILYMOTION";
 NSString * const kGTLRDisplayVideo_ExchangeTargetingOptionDetails_Exchange_ExchangeDax = @"EXCHANGE_DAX";
+NSString * const kGTLRDisplayVideo_ExchangeTargetingOptionDetails_Exchange_ExchangeDrax = @"EXCHANGE_DRAX";
 NSString * const kGTLRDisplayVideo_ExchangeTargetingOptionDetails_Exchange_ExchangeFive = @"EXCHANGE_FIVE";
 NSString * const kGTLRDisplayVideo_ExchangeTargetingOptionDetails_Exchange_ExchangeFluct = @"EXCHANGE_FLUCT";
 NSString * const kGTLRDisplayVideo_ExchangeTargetingOptionDetails_Exchange_ExchangeFreewheel = @"EXCHANGE_FREEWHEEL";
@@ -1529,6 +1537,7 @@ NSString * const kGTLRDisplayVideo_GuaranteedOrder_Exchange_ExchangeChartboostGb
 NSString * const kGTLRDisplayVideo_GuaranteedOrder_Exchange_ExchangeConnatix = @"EXCHANGE_CONNATIX";
 NSString * const kGTLRDisplayVideo_GuaranteedOrder_Exchange_ExchangeDailymotion = @"EXCHANGE_DAILYMOTION";
 NSString * const kGTLRDisplayVideo_GuaranteedOrder_Exchange_ExchangeDax = @"EXCHANGE_DAX";
+NSString * const kGTLRDisplayVideo_GuaranteedOrder_Exchange_ExchangeDrax = @"EXCHANGE_DRAX";
 NSString * const kGTLRDisplayVideo_GuaranteedOrder_Exchange_ExchangeFive = @"EXCHANGE_FIVE";
 NSString * const kGTLRDisplayVideo_GuaranteedOrder_Exchange_ExchangeFluct = @"EXCHANGE_FLUCT";
 NSString * const kGTLRDisplayVideo_GuaranteedOrder_Exchange_ExchangeFreewheel = @"EXCHANGE_FREEWHEEL";
@@ -1638,6 +1647,14 @@ NSString * const kGTLRDisplayVideo_InsertionOrder_EntityStatus_EntityStatusUnspe
 NSString * const kGTLRDisplayVideo_InsertionOrder_InsertionOrderType_InsertionOrderTypeUnspecified = @"INSERTION_ORDER_TYPE_UNSPECIFIED";
 NSString * const kGTLRDisplayVideo_InsertionOrder_InsertionOrderType_OverTheTop = @"OVER_THE_TOP";
 NSString * const kGTLRDisplayVideo_InsertionOrder_InsertionOrderType_Rtb = @"RTB";
+
+// GTLRDisplayVideo_InsertionOrder.optimizationObjective
+NSString * const kGTLRDisplayVideo_InsertionOrder_OptimizationObjective_BrandAwareness = @"BRAND_AWARENESS";
+NSString * const kGTLRDisplayVideo_InsertionOrder_OptimizationObjective_Click = @"CLICK";
+NSString * const kGTLRDisplayVideo_InsertionOrder_OptimizationObjective_Conversion = @"CONVERSION";
+NSString * const kGTLRDisplayVideo_InsertionOrder_OptimizationObjective_Custom = @"CUSTOM";
+NSString * const kGTLRDisplayVideo_InsertionOrder_OptimizationObjective_NoObjective = @"NO_OBJECTIVE";
+NSString * const kGTLRDisplayVideo_InsertionOrder_OptimizationObjective_OptimizationObjectiveUnspecified = @"OPTIMIZATION_OBJECTIVE_UNSPECIFIED";
 
 // GTLRDisplayVideo_InsertionOrder.reservationType
 NSString * const kGTLRDisplayVideo_InsertionOrder_ReservationType_ReservationTypeInstantReserve = @"RESERVATION_TYPE_INSTANT_RESERVE";
@@ -1756,6 +1773,7 @@ NSString * const kGTLRDisplayVideo_InventorySource_Exchange_ExchangeChartboostGb
 NSString * const kGTLRDisplayVideo_InventorySource_Exchange_ExchangeConnatix = @"EXCHANGE_CONNATIX";
 NSString * const kGTLRDisplayVideo_InventorySource_Exchange_ExchangeDailymotion = @"EXCHANGE_DAILYMOTION";
 NSString * const kGTLRDisplayVideo_InventorySource_Exchange_ExchangeDax = @"EXCHANGE_DAX";
+NSString * const kGTLRDisplayVideo_InventorySource_Exchange_ExchangeDrax = @"EXCHANGE_DRAX";
 NSString * const kGTLRDisplayVideo_InventorySource_Exchange_ExchangeFive = @"EXCHANGE_FIVE";
 NSString * const kGTLRDisplayVideo_InventorySource_Exchange_ExchangeFluct = @"EXCHANGE_FLUCT";
 NSString * const kGTLRDisplayVideo_InventorySource_Exchange_ExchangeFreewheel = @"EXCHANGE_FREEWHEEL";
@@ -1868,12 +1886,18 @@ NSString * const kGTLRDisplayVideo_Kpi_KpiType_KpiTypeAudioCompletionRate = @"KP
 NSString * const kGTLRDisplayVideo_Kpi_KpiType_KpiTypeClickCvr = @"KPI_TYPE_CLICK_CVR";
 NSString * const kGTLRDisplayVideo_Kpi_KpiType_KpiTypeCpa      = @"KPI_TYPE_CPA";
 NSString * const kGTLRDisplayVideo_Kpi_KpiType_KpiTypeCpc      = @"KPI_TYPE_CPC";
+NSString * const kGTLRDisplayVideo_Kpi_KpiType_KpiTypeCpcl     = @"KPI_TYPE_CPCL";
+NSString * const kGTLRDisplayVideo_Kpi_KpiType_KpiTypeCpcv     = @"KPI_TYPE_CPCV";
 NSString * const kGTLRDisplayVideo_Kpi_KpiType_KpiTypeCpe      = @"KPI_TYPE_CPE";
 NSString * const kGTLRDisplayVideo_Kpi_KpiType_KpiTypeCpiavc   = @"KPI_TYPE_CPIAVC";
 NSString * const kGTLRDisplayVideo_Kpi_KpiType_KpiTypeCpm      = @"KPI_TYPE_CPM";
+NSString * const kGTLRDisplayVideo_Kpi_KpiType_KpiTypeCpv      = @"KPI_TYPE_CPV";
 NSString * const kGTLRDisplayVideo_Kpi_KpiType_KpiTypeCtr      = @"KPI_TYPE_CTR";
+NSString * const kGTLRDisplayVideo_Kpi_KpiType_KpiTypeCustomImpressionValueOverCost = @"KPI_TYPE_CUSTOM_IMPRESSION_VALUE_OVER_COST";
 NSString * const kGTLRDisplayVideo_Kpi_KpiType_KpiTypeImpressionCvr = @"KPI_TYPE_IMPRESSION_CVR";
+NSString * const kGTLRDisplayVideo_Kpi_KpiType_KpiTypeMaximizePacing = @"KPI_TYPE_MAXIMIZE_PACING";
 NSString * const kGTLRDisplayVideo_Kpi_KpiType_KpiTypeOther    = @"KPI_TYPE_OTHER";
+NSString * const kGTLRDisplayVideo_Kpi_KpiType_KpiTypeTos10    = @"KPI_TYPE_TOS10";
 NSString * const kGTLRDisplayVideo_Kpi_KpiType_KpiTypeUnspecified = @"KPI_TYPE_UNSPECIFIED";
 NSString * const kGTLRDisplayVideo_Kpi_KpiType_KpiTypeVcpm     = @"KPI_TYPE_VCPM";
 NSString * const kGTLRDisplayVideo_Kpi_KpiType_KpiTypeVideoCompletionRate = @"KPI_TYPE_VIDEO_COMPLETION_RATE";
@@ -2224,6 +2248,7 @@ NSString * const kGTLRDisplayVideo_SdfConfig_Version_SdfVersion54 = @"SDF_VERSIO
 NSString * const kGTLRDisplayVideo_SdfConfig_Version_SdfVersion55 = @"SDF_VERSION_5_5";
 NSString * const kGTLRDisplayVideo_SdfConfig_Version_SdfVersion6 = @"SDF_VERSION_6";
 NSString * const kGTLRDisplayVideo_SdfConfig_Version_SdfVersion7 = @"SDF_VERSION_7";
+NSString * const kGTLRDisplayVideo_SdfConfig_Version_SdfVersion71 = @"SDF_VERSION_7_1";
 NSString * const kGTLRDisplayVideo_SdfConfig_Version_SdfVersionUnspecified = @"SDF_VERSION_UNSPECIFIED";
 
 // GTLRDisplayVideo_SdfDownloadTaskMetadata.version
@@ -2239,6 +2264,7 @@ NSString * const kGTLRDisplayVideo_SdfDownloadTaskMetadata_Version_SdfVersion54 
 NSString * const kGTLRDisplayVideo_SdfDownloadTaskMetadata_Version_SdfVersion55 = @"SDF_VERSION_5_5";
 NSString * const kGTLRDisplayVideo_SdfDownloadTaskMetadata_Version_SdfVersion6 = @"SDF_VERSION_6";
 NSString * const kGTLRDisplayVideo_SdfDownloadTaskMetadata_Version_SdfVersion7 = @"SDF_VERSION_7";
+NSString * const kGTLRDisplayVideo_SdfDownloadTaskMetadata_Version_SdfVersion71 = @"SDF_VERSION_7_1";
 NSString * const kGTLRDisplayVideo_SdfDownloadTaskMetadata_Version_SdfVersionUnspecified = @"SDF_VERSION_UNSPECIFIED";
 
 // GTLRDisplayVideo_SensitiveCategoryAssignedTargetingOptionDetails.excludedSensitiveCategory
@@ -2473,6 +2499,7 @@ NSString * const kGTLRDisplayVideo_YoutubeAndPartnersBiddingStrategy_Type_Youtub
 NSString * const kGTLRDisplayVideo_YoutubeAndPartnersBiddingStrategy_Type_YoutubeAndPartnersBiddingStrategyTypeMaximizeConversions = @"YOUTUBE_AND_PARTNERS_BIDDING_STRATEGY_TYPE_MAXIMIZE_CONVERSIONS";
 NSString * const kGTLRDisplayVideo_YoutubeAndPartnersBiddingStrategy_Type_YoutubeAndPartnersBiddingStrategyTypeMaximizeConversionValue = @"YOUTUBE_AND_PARTNERS_BIDDING_STRATEGY_TYPE_MAXIMIZE_CONVERSION_VALUE";
 NSString * const kGTLRDisplayVideo_YoutubeAndPartnersBiddingStrategy_Type_YoutubeAndPartnersBiddingStrategyTypeMaximizeLift = @"YOUTUBE_AND_PARTNERS_BIDDING_STRATEGY_TYPE_MAXIMIZE_LIFT";
+NSString * const kGTLRDisplayVideo_YoutubeAndPartnersBiddingStrategy_Type_YoutubeAndPartnersBiddingStrategyTypeReserveCpm = @"YOUTUBE_AND_PARTNERS_BIDDING_STRATEGY_TYPE_RESERVE_CPM";
 NSString * const kGTLRDisplayVideo_YoutubeAndPartnersBiddingStrategy_Type_YoutubeAndPartnersBiddingStrategyTypeTargetCpa = @"YOUTUBE_AND_PARTNERS_BIDDING_STRATEGY_TYPE_TARGET_CPA";
 NSString * const kGTLRDisplayVideo_YoutubeAndPartnersBiddingStrategy_Type_YoutubeAndPartnersBiddingStrategyTypeTargetCpm = @"YOUTUBE_AND_PARTNERS_BIDDING_STRATEGY_TYPE_TARGET_CPM";
 NSString * const kGTLRDisplayVideo_YoutubeAndPartnersBiddingStrategy_Type_YoutubeAndPartnersBiddingStrategyTypeTargetCpv = @"YOUTUBE_AND_PARTNERS_BIDDING_STRATEGY_TYPE_TARGET_CPV";
@@ -4357,7 +4384,8 @@ NSString * const kGTLRDisplayVideo_YoutubeVideoDetails_UnavailableReason_VideoUn
 //
 
 @implementation GTLRDisplayVideo_EditCustomerMatchMembersRequest
-@dynamic addedContactInfoList, addedMobileDeviceIdList, advertiserId;
+@dynamic addedContactInfoList, addedMobileDeviceIdList, advertiserId,
+         removedContactInfoList, removedMobileDeviceIdList;
 @end
 
 
@@ -4850,8 +4878,8 @@ NSString * const kGTLRDisplayVideo_YoutubeVideoDetails_UnavailableReason_VideoUn
 @implementation GTLRDisplayVideo_InsertionOrder
 @dynamic advertiserId, bidStrategy, budget, campaignId, displayName,
          entityStatus, frequencyCap, insertionOrderId, insertionOrderType,
-         integrationDetails, kpi, name, pacing, partnerCosts, reservationType,
-         updateTime;
+         integrationDetails, kpi, name, optimizationObjective, pacing,
+         partnerCosts, reservationType, updateTime;
 
 + (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
   NSDictionary<NSString *, Class> *map = @{
@@ -5133,7 +5161,8 @@ NSString * const kGTLRDisplayVideo_YoutubeVideoDetails_UnavailableReason_VideoUn
 //
 
 @implementation GTLRDisplayVideo_Kpi
-@dynamic kpiAmountMicros, kpiPercentageMicros, kpiString, kpiType;
+@dynamic kpiAlgorithmId, kpiAmountMicros, kpiPercentageMicros, kpiString,
+         kpiType;
 @end
 
 

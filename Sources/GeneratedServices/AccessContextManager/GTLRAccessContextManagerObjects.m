@@ -5,7 +5,15 @@
 //   Access Context Manager API (accesscontextmanager/v1)
 // Description:
 //   An API for setting attribute based access control to requests to Google
-//   Cloud services.
+//   Cloud services. *Warning:* Do not mix *v1alpha* and *v1* API usage in the
+//   same access policy. The v1alpha API supports new Access Context Manager
+//   features, which may have different attributes or behaviors that are not
+//   supported by v1. The practice of mixed API usage within a policy may result
+//   in the inability to update that policy, including any access levels or
+//   service perimeters belonging to it. It is not recommended to use both v1
+//   and v1alpha for modifying policies with critical service perimeters.
+//   Modifications using v1alpha should be limited to policies with
+//   non-production/non-critical service perimeters.
 // Documentation:
 //   https://cloud.google.com/access-context-manager/docs/reference/rest/
 
@@ -80,6 +88,12 @@ NSString * const kGTLRAccessContextManager_OsConstraint_OsType_OsUnspecified = @
 NSString * const kGTLRAccessContextManager_ServicePerimeter_PerimeterType_PerimeterTypeBridge = @"PERIMETER_TYPE_BRIDGE";
 NSString * const kGTLRAccessContextManager_ServicePerimeter_PerimeterType_PerimeterTypeRegular = @"PERIMETER_TYPE_REGULAR";
 
+// GTLRAccessContextManager_SupportedService.serviceSupportStage
+NSString * const kGTLRAccessContextManager_SupportedService_ServiceSupportStage_Deprecated = @"DEPRECATED";
+NSString * const kGTLRAccessContextManager_SupportedService_ServiceSupportStage_Ga = @"GA";
+NSString * const kGTLRAccessContextManager_SupportedService_ServiceSupportStage_Preview = @"PREVIEW";
+NSString * const kGTLRAccessContextManager_SupportedService_ServiceSupportStage_ServiceSupportStageUnspecified = @"SERVICE_SUPPORT_STAGE_UNSPECIFIED";
+
 // GTLRAccessContextManager_SupportedService.supportStage
 NSString * const kGTLRAccessContextManager_SupportedService_SupportStage_Alpha = @"ALPHA";
 NSString * const kGTLRAccessContextManager_SupportedService_SupportStage_Beta = @"BETA";
@@ -142,6 +156,16 @@ NSString * const kGTLRAccessContextManager_SupportedService_SupportStage_Unimple
   return map;
 }
 
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRAccessContextManager_Application
+//
+
+@implementation GTLRAccessContextManager_Application
+@dynamic clientId, name;
 @end
 
 
@@ -421,12 +445,14 @@ NSString * const kGTLRAccessContextManager_SupportedService_SupportStage_Unimple
 //
 
 @implementation GTLRAccessContextManager_GcpUserAccessBinding
-@dynamic accessLevels, dryRunAccessLevels, groupKey, name;
+@dynamic accessLevels, dryRunAccessLevels, groupKey, name,
+         restrictedClientApplications;
 
 + (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
   NSDictionary<NSString *, Class> *map = @{
     @"accessLevels" : [NSString class],
-    @"dryRunAccessLevels" : [NSString class]
+    @"dryRunAccessLevels" : [NSString class],
+    @"restrictedClientApplications" : [GTLRAccessContextManager_Application class]
   };
   return map;
 }
@@ -932,8 +958,8 @@ NSString * const kGTLRAccessContextManager_SupportedService_SupportStage_Unimple
 //
 
 @implementation GTLRAccessContextManager_SupportedService
-@dynamic availableOnRestrictedVip, knownLimitations, name, supportedMethods,
-         supportStage, title;
+@dynamic availableOnRestrictedVip, knownLimitations, name, serviceSupportStage,
+         supportedMethods, supportStage, title;
 
 + (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
   NSDictionary<NSString *, Class> *map = @{

@@ -40,6 +40,11 @@ NSString * const kGTLRDirectory_BatchChangeChromeOsDeviceStatusRequest_Deprovisi
 NSString * const kGTLRDirectory_BatchChangeChromeOsDeviceStatusRequest_DeprovisionReason_DeprovisionReasonUpgrade = @"DEPROVISION_REASON_UPGRADE";
 NSString * const kGTLRDirectory_BatchChangeChromeOsDeviceStatusRequest_DeprovisionReason_DeprovisionReasonUpgradeTransfer = @"DEPROVISION_REASON_UPGRADE_TRANSFER";
 
+// GTLRDirectory_ChromeOsDevice.chromeOsType
+NSString * const kGTLRDirectory_ChromeOsDevice_ChromeOsType_ChromeOs = @"chromeOs";
+NSString * const kGTLRDirectory_ChromeOsDevice_ChromeOsType_ChromeOsFlex = @"chromeOsFlex";
+NSString * const kGTLRDirectory_ChromeOsDevice_ChromeOsType_ChromeOsTypeUnspecified = @"chromeOsTypeUnspecified";
+
 // GTLRDirectory_ChromeOsDevice.deprovisionReason
 NSString * const kGTLRDirectory_ChromeOsDevice_DeprovisionReason_DeprovisionReasonDifferentModelReplacement = @"DEPROVISION_REASON_DIFFERENT_MODEL_REPLACEMENT";
 NSString * const kGTLRDirectory_ChromeOsDevice_DeprovisionReason_DeprovisionReasonDomainMove = @"DEPROVISION_REASON_DOMAIN_MOVE";
@@ -74,6 +79,7 @@ NSString * const kGTLRDirectory_ChromeosdevicesCommand_State_StateUnspecified = 
 NSString * const kGTLRDirectory_ChromeosdevicesCommand_Type_CaptureLogs = @"CAPTURE_LOGS";
 NSString * const kGTLRDirectory_ChromeosdevicesCommand_Type_CommandTypeUnspecified = @"COMMAND_TYPE_UNSPECIFIED";
 NSString * const kGTLRDirectory_ChromeosdevicesCommand_Type_DeviceStartCrdSession = @"DEVICE_START_CRD_SESSION";
+NSString * const kGTLRDirectory_ChromeosdevicesCommand_Type_FetchSupportPacket = @"FETCH_SUPPORT_PACKET";
 NSString * const kGTLRDirectory_ChromeosdevicesCommand_Type_Reboot = @"REBOOT";
 NSString * const kGTLRDirectory_ChromeosdevicesCommand_Type_RemotePowerwash = @"REMOTE_POWERWASH";
 NSString * const kGTLRDirectory_ChromeosdevicesCommand_Type_SetVolume = @"SET_VOLUME";
@@ -90,6 +96,7 @@ NSString * const kGTLRDirectory_ChromeosdevicesCommandResult_Result_Success = @"
 NSString * const kGTLRDirectory_ChromeosdevicesIssueCommandRequest_CommandType_CaptureLogs = @"CAPTURE_LOGS";
 NSString * const kGTLRDirectory_ChromeosdevicesIssueCommandRequest_CommandType_CommandTypeUnspecified = @"COMMAND_TYPE_UNSPECIFIED";
 NSString * const kGTLRDirectory_ChromeosdevicesIssueCommandRequest_CommandType_DeviceStartCrdSession = @"DEVICE_START_CRD_SESSION";
+NSString * const kGTLRDirectory_ChromeosdevicesIssueCommandRequest_CommandType_FetchSupportPacket = @"FETCH_SUPPORT_PACKET";
 NSString * const kGTLRDirectory_ChromeosdevicesIssueCommandRequest_CommandType_Reboot = @"REBOOT";
 NSString * const kGTLRDirectory_ChromeosdevicesIssueCommandRequest_CommandType_RemotePowerwash = @"REMOTE_POWERWASH";
 NSString * const kGTLRDirectory_ChromeosdevicesIssueCommandRequest_CommandType_SetVolume = @"SET_VOLUME";
@@ -229,6 +236,16 @@ NSString * const kGTLRDirectory_RoleAssignment_AssigneeType_User = @"user";
 
 @implementation GTLRDirectory_AuxiliaryMessage
 @dynamic auxiliaryMessage, fieldMask, severity;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRDirectory_BacklightInfo
+//
+
+@implementation GTLRDirectory_BacklightInfo
+@dynamic brightness, maxBrightness, path;
 @end
 
 
@@ -585,10 +602,12 @@ NSString * const kGTLRDirectory_RoleAssignment_AssigneeType_User = @"user";
 
 @implementation GTLRDirectory_ChromeOsDevice
 @dynamic activeTimeRanges, annotatedAssetId, annotatedLocation, annotatedUser,
-         autoUpdateExpiration, bootMode, cpuInfo, cpuStatusReports,
-         deprovisionReason, deviceFiles, deviceId, deviceLicenseType,
-         diskVolumeReports, dockMacAddress, ETag, ethernetMacAddress,
-         ethernetMacAddress0, firmwareVersion, firstEnrollmentTime, kind,
+         autoUpdateExpiration, autoUpdateThrough, backlightInfo, bootMode,
+         chromeOsType, cpuInfo, cpuStatusReports, deprovisionReason,
+         deviceFiles, deviceId, deviceLicenseType, diskVolumeReports,
+         dockMacAddress, ETag, ethernetMacAddress, ethernetMacAddress0,
+         extendedSupportEligible, extendedSupportEnabled, extendedSupportStart,
+         fanInfo, firmwareVersion, firstEnrollmentTime, kind,
          lastDeprovisionTimestamp, lastEnrollmentTime, lastKnownNetwork,
          lastSync, macAddress, manufactureDate, meid, model, notes, orderNumber,
          orgUnitId, orgUnitPath, osUpdateStatus, osVersion, platformVersion,
@@ -602,10 +621,12 @@ NSString * const kGTLRDirectory_RoleAssignment_AssigneeType_User = @"user";
 + (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
   NSDictionary<NSString *, Class> *map = @{
     @"activeTimeRanges" : [GTLRDirectory_ChromeOsDevice_ActiveTimeRanges_Item class],
+    @"backlightInfo" : [GTLRDirectory_BacklightInfo class],
     @"cpuInfo" : [GTLRDirectory_ChromeOsDevice_CpuInfo_Item class],
     @"cpuStatusReports" : [GTLRDirectory_ChromeOsDevice_CpuStatusReports_Item class],
     @"deviceFiles" : [GTLRDirectory_ChromeOsDevice_DeviceFiles_Item class],
     @"diskVolumeReports" : [GTLRDirectory_ChromeOsDevice_DiskVolumeReports_Item class],
+    @"fanInfo" : [GTLRDirectory_FanInfo class],
     @"lastKnownNetwork" : [GTLRDirectory_ChromeOsDevice_LastKnownNetwork_Item class],
     @"recentUsers" : [GTLRDirectory_ChromeOsDevice_RecentUsers_Item class],
     @"screenshotFiles" : [GTLRDirectory_ChromeOsDevice_ScreenshotFiles_Item class],
@@ -1044,6 +1065,16 @@ NSString * const kGTLRDirectory_RoleAssignment_AssigneeType_User = @"user";
 
 @implementation GTLRDirectory_FailureInfo
 @dynamic errorCode, errorMessage, printer, printerId;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRDirectory_FanInfo
+//
+
+@implementation GTLRDirectory_FanInfo
+@dynamic speedRpm;
 @end
 
 

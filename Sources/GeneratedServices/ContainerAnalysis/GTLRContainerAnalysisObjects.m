@@ -387,6 +387,11 @@ NSString * const kGTLRContainerAnalysis_VexAssessment_State_NotAffected = @"NOT_
 NSString * const kGTLRContainerAnalysis_VexAssessment_State_StateUnspecified = @"STATE_UNSPECIFIED";
 NSString * const kGTLRContainerAnalysis_VexAssessment_State_UnderInvestigation = @"UNDER_INVESTIGATION";
 
+// GTLRContainerAnalysis_VulnerabilityAttestation.state
+NSString * const kGTLRContainerAnalysis_VulnerabilityAttestation_State_Failure = @"FAILURE";
+NSString * const kGTLRContainerAnalysis_VulnerabilityAttestation_State_Success = @"SUCCESS";
+NSString * const kGTLRContainerAnalysis_VulnerabilityAttestation_State_VulnerabilityAttestationStateUnspecified = @"VULNERABILITY_ATTESTATION_STATE_UNSPECIFIED";
+
 // GTLRContainerAnalysis_VulnerabilityNote.cvssVersion
 NSString * const kGTLRContainerAnalysis_VulnerabilityNote_CvssVersion_CvssVersion2 = @"CVSS_VERSION_2";
 NSString * const kGTLRContainerAnalysis_VulnerabilityNote_CvssVersion_CvssVersion3 = @"CVSS_VERSION_3";
@@ -817,6 +822,15 @@ NSString * const kGTLRContainerAnalysis_VulnerabilityOccurrence_Severity_Severit
 
 // ----------------------------------------------------------------------------
 //
+//   GTLRContainerAnalysis_CloudStorageLocation
+//
+
+@implementation GTLRContainerAnalysis_CloudStorageLocation
+@end
+
+
+// ----------------------------------------------------------------------------
+//
 //   GTLRContainerAnalysis_Command
 //
 
@@ -855,7 +869,7 @@ NSString * const kGTLRContainerAnalysis_VulnerabilityOccurrence_Severity_Severit
 //
 
 @implementation GTLRContainerAnalysis_ComplianceNote
-@dynamic cisBenchmark, descriptionProperty, rationale, remediation,
+@dynamic cisBenchmark, descriptionProperty, impact, rationale, remediation,
          scanInstructions, title, version;
 
 + (NSDictionary<NSString *, NSString *> *)propertyToJSONKeyMap {
@@ -878,7 +892,7 @@ NSString * const kGTLRContainerAnalysis_VulnerabilityOccurrence_Severity_Severit
 //
 
 @implementation GTLRContainerAnalysis_ComplianceOccurrence
-@dynamic nonComplianceReason, nonCompliantFiles;
+@dynamic nonComplianceReason, nonCompliantFiles, version;
 
 + (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
   NSDictionary<NSString *, Class> *map = @{
@@ -1006,7 +1020,8 @@ NSString * const kGTLRContainerAnalysis_VulnerabilityOccurrence_Severity_Severit
 
 @implementation GTLRContainerAnalysis_DiscoveryOccurrence
 @dynamic analysisCompleted, analysisError, analysisStatus, analysisStatusError,
-         archiveTime, continuousAnalysis, cpe, lastScanTime, sbomStatus;
+         archiveTime, continuousAnalysis, cpe, lastScanTime, sbomStatus,
+         vulnerabilityAttestation;
 
 + (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
   NSDictionary<NSString *, Class> *map = @{
@@ -1098,6 +1113,26 @@ NSString * const kGTLRContainerAnalysis_VulnerabilityOccurrence_Severity_Severit
 
 @implementation GTLRContainerAnalysis_EnvelopeSignature
 @dynamic keyid, sig;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRContainerAnalysis_ExportSBOMRequest
+//
+
+@implementation GTLRContainerAnalysis_ExportSBOMRequest
+@dynamic cloudStorageLocation;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRContainerAnalysis_ExportSBOMResponse
+//
+
+@implementation GTLRContainerAnalysis_ExportSBOMResponse
+@dynamic discoveryOccurrence;
 @end
 
 
@@ -1306,10 +1341,10 @@ NSString * const kGTLRContainerAnalysis_VulnerabilityOccurrence_Severity_Severit
 
 @implementation GTLRContainerAnalysis_GoogleDevtoolsCloudbuildV1Build
 @dynamic approval, artifacts, availableSecrets, buildTriggerId, createTime,
-         failureInfo, finishTime, identifier, images, logsBucket, logUrl, name,
-         options, projectId, queueTtl, results, secrets, serviceAccount, source,
-         sourceProvenance, startTime, status, statusDetail, steps,
-         substitutions, tags, timeout, timing, warnings;
+         failureInfo, finishTime, gitConfig, identifier, images, logsBucket,
+         logUrl, name, options, projectId, queueTtl, results, secrets,
+         serviceAccount, source, sourceProvenance, startTime, status,
+         statusDetail, steps, substitutions, tags, timeout, timing, warnings;
 
 + (NSDictionary<NSString *, NSString *> *)propertyToJSONKeyMap {
   return @{ @"identifier" : @"id" };
@@ -1472,6 +1507,16 @@ NSString * const kGTLRContainerAnalysis_VulnerabilityOccurrence_Severity_Severit
 
 // ----------------------------------------------------------------------------
 //
+//   GTLRContainerAnalysis_GoogleDevtoolsCloudbuildV1DeveloperConnectConfig
+//
+
+@implementation GTLRContainerAnalysis_GoogleDevtoolsCloudbuildV1DeveloperConnectConfig
+@dynamic dir, gitRepositoryLink, revision;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
 //   GTLRContainerAnalysis_GoogleDevtoolsCloudbuildV1FileHashes
 //
 
@@ -1485,6 +1530,36 @@ NSString * const kGTLRContainerAnalysis_VulnerabilityOccurrence_Severity_Severit
   return map;
 }
 
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRContainerAnalysis_GoogleDevtoolsCloudbuildV1GCSLocation
+//
+
+@implementation GTLRContainerAnalysis_GoogleDevtoolsCloudbuildV1GCSLocation
+@dynamic bucket, generation, object;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRContainerAnalysis_GoogleDevtoolsCloudbuildV1GitConfig
+//
+
+@implementation GTLRContainerAnalysis_GoogleDevtoolsCloudbuildV1GitConfig
+@dynamic http;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRContainerAnalysis_GoogleDevtoolsCloudbuildV1GitConfigHttpConfig
+//
+
+@implementation GTLRContainerAnalysis_GoogleDevtoolsCloudbuildV1GitConfigHttpConfig
+@dynamic proxySecretVersionName, proxySslCaInfo;
 @end
 
 
@@ -1644,8 +1719,8 @@ NSString * const kGTLRContainerAnalysis_VulnerabilityOccurrence_Severity_Severit
 //
 
 @implementation GTLRContainerAnalysis_GoogleDevtoolsCloudbuildV1Source
-@dynamic connectedRepository, gitSource, repoSource, storageSource,
-         storageSourceManifest;
+@dynamic connectedRepository, developerConnectConfig, gitSource, repoSource,
+         storageSource, storageSourceManifest;
 @end
 
 
@@ -3013,6 +3088,16 @@ NSString * const kGTLRContainerAnalysis_VulnerabilityOccurrence_Severity_Severit
 @implementation GTLRContainerAnalysis_VulnerabilityAssessmentNote
 @dynamic assessment, languageCode, longDescription, product, publisher,
          shortDescription, title;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRContainerAnalysis_VulnerabilityAttestation
+//
+
+@implementation GTLRContainerAnalysis_VulnerabilityAttestation
+@dynamic error, lastAttemptTime, state;
 @end
 
 
